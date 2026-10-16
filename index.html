@@ -24,6 +24,11 @@
   <link rel="shortcut icon" type="image/jpeg" href="./favicon.jpg" />
   <link rel="apple-touch-icon" href="./favicon.jpg" />
 
+  <!-- Protección inmediata contra FOUC (Flash of Uncompiled Content) -->
+  <style>
+    [v-cloak], [v-cloak] * { display: none !important; }
+  </style>
+
   <!-- Google Fonts: Space Grotesk, Exo 2 & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,11 +40,21 @@
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Vue 3 Global Build CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <!-- Vue 3 Global Build (Local con fallback automático a CDN) -->
+  <script src="./js/vue.global.prod.js"></script>
+  <script>
+    if (!window.Vue) {
+      document.write('<script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"><\/script>');
+    }
+  </script>
 
-  <!-- Marked.js CDN (Live GitHub README.md Parser) -->
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <!-- Marked.js (Local con fallback automático a CDN) -->
+  <script src="./js/marked.min.js"></script>
+  <script>
+    if (!window.marked) {
+      document.write('<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"><\/script>');
+    }
+  </script>
 
   <script>
     tailwind.config = {
@@ -1924,7 +1939,7 @@
     <!-- =====================================================================
          MODAL 2: INSPECTOR MCP JSON-RPC 2.0 (BILINGÜE)
          ===================================================================== -->
-    <div v-if="mcpModalOpen" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+    <div v-if="mcpModalOpen" v-cloak class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
       <div class="theme-bg-surface border-2 theme-border-accent max-w-3xl w-full p-6 sm:p-8 my-8">
         <div class="flex items-center justify-between pb-4 mb-5 border-b theme-border">
           <div>
@@ -1973,7 +1988,7 @@
     <!-- =====================================================================
          MODAL 3: VISOR DE README.MD EN VIVO (MARKED.JS)
          ===================================================================== -->
-    <div v-if="readmeModalOpen" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <div v-if="readmeModalOpen" v-cloak class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
       <div class="theme-bg-surface border-2 theme-border-accent max-w-4xl w-full p-5 sm:p-7 my-6 flex flex-col max-h-[90vh]">
         <div class="flex items-start justify-between pb-4 mb-4 border-b theme-border shrink-0">
           <div>
@@ -2003,7 +2018,7 @@
     <!-- =====================================================================
          MODAL 4: CV EJECUTIVO ATS & CONTACTO DIRECTO (BILINGÜE)
          ===================================================================== -->
-    <div v-if="contactModalOpen" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+    <div v-if="contactModalOpen" v-cloak class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
       <div class="theme-bg-surface border-2 theme-border-accent max-w-2xl w-full p-6 sm:p-8 my-8">
         <div class="flex items-center justify-between pb-4 mb-5 border-b theme-border">
           <div>
@@ -2058,6 +2073,7 @@
          ===================================================================== -->
     <div
       v-if="selectedProjectModal"
+      v-cloak
       class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto"
     >
       <div class="liquid-glass-card border border-white/20 max-w-2xl w-full p-6 sm:p-8 my-8 shadow-2xl relative">
@@ -2167,6 +2183,7 @@
          ===================================================================== -->
     <div
       v-if="selectedCertModal"
+      v-cloak
       class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto"
     >
       <div class="liquid-glass-card border border-white/20 max-w-xl w-full p-6 sm:p-8 my-8 shadow-2xl relative">
@@ -2255,6 +2272,7 @@
     <!-- NOTIFICACIÓN TOAST INDUSTRIAL -->
     <div
       v-if="toastText"
+      v-cloak
       class="fixed bottom-5 right-5 z-50 theme-bg-canvas border-2 theme-border-accent px-4 py-3 font-mono text-xs theme-text-main shadow-2xl flex items-center gap-3"
     >
       <span class="theme-text-accent font-bold">[OK]</span>
