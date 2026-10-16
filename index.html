@@ -80,10 +80,9 @@
     }
 
     /* =========================================================================
-       2. REGLAS GLOBALES DE ARQUITECTURA INDUSTRIAL JAPONESA
+       2. REGLAS GLOBALES Y ESTÉTICA CYBER LIQUID GLASS (APPLE / PERRY WANG)
        ========================================================================= */
     * {
-      border-radius: 0px !important;
       box-sizing: border-box;
     }
 
@@ -113,6 +112,95 @@
     .theme-border      { border-color: var(--border-line); }
     .theme-border-accent { border-color: var(--accent-primary); }
     .theme-border-sub  { border-color: var(--accent-secondary); }
+
+    /* Estilos Cyber Liquid Glass */
+    .liquid-glass-nav {
+      background: rgba(18, 20, 26, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45), inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
+      border-radius: 9999px;
+      padding: 3px;
+    }
+
+    .liquid-glass-tab {
+      border-radius: 9999px;
+      padding: 6px 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+      color: var(--text-muted);
+    }
+    .liquid-glass-tab:hover {
+      color: var(--text-main);
+    }
+    .liquid-glass-tab-active {
+      background: #FFFFFF;
+      color: #0A0B0D !important;
+      font-weight: 700;
+      box-shadow: 0 2px 14px rgba(255, 255, 255, 0.28);
+    }
+
+    .liquid-glass-card {
+      background: rgba(18, 20, 26, 0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .liquid-glass-card:hover {
+      border-color: rgba(255, 255, 255, 0.22);
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.65), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    }
+
+    .liquid-glass-row {
+      background: rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      transition: all 0.2s ease;
+    }
+    .liquid-glass-row:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.22);
+      transform: translateX(3px);
+    }
+
+    .liquid-glass-btn {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: var(--text-main);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      transition: all 0.2s ease;
+    }
+    .liquid-glass-btn:hover {
+      background: rgba(255, 255, 255, 0.14);
+      border-color: rgba(255, 255, 255, 0.32);
+      color: #FFFFFF;
+      transform: translateY(-1px);
+    }
+
+    .liquid-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 9999px;
+      padding: 3px 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
 
     /* Nombre de Jhonny blindado contra el color rojo */
     .jhonny-name-lockup {
@@ -362,14 +450,14 @@
     <!-- =====================================================================
          BARRA DE ESTADO TÉCNICO Y NAVEGACIÓN (STICKY HEADER)
          ===================================================================== -->
-    <header class="sticky top-0 z-40 theme-bg-glass border-b theme-border">
+    <header class="sticky top-0 z-40 theme-bg-glass border-b theme-border backdrop-blur-xl">
       <div class="max-w-[1380px] mx-auto px-4 sm:px-6">
-        <div class="flex flex-wrap items-center justify-between py-2.5 gap-3">
+        <div class="flex items-center justify-between py-2.5 gap-3">
           
           <!-- Identidad Izquierda -->
-          <div class="flex items-center gap-3">
-            <a href="#" class="flex items-center gap-2.5 focus:outline-none group">
-              <div class="w-8 h-8 theme-bg-surface border theme-border-sub flex items-center justify-center font-mono font-bold text-xs theme-text-sub">
+          <div class="flex items-center gap-3 shrink-0">
+            <a href="#" @click.prevent="mainView = 'work'" class="flex items-center gap-2.5 focus:outline-none group">
+              <div class="w-8 h-8 rounded-lg bg-white/5 border border-white/15 flex items-center justify-center font-mono font-bold text-xs theme-text-sub transition group-hover:border-white/30">
                 JC
               </div>
               <div>
@@ -377,43 +465,51 @@
                   <span class="font-display font-black text-lg tracking-wider jhonny-name-lockup">
                     JHONNY<span class="jhonny-name-highlight">CCM</span>
                   </span>
-                  <span class="hidden sm:inline-block px-2 py-0.5 text-[10px] font-mono theme-bg-elevated border theme-border theme-text-muted uppercase">
-                    FULL STACK DEVELOPER
+                  <span class="hidden md:inline-block px-2 py-0.5 text-[10px] font-mono rounded-full bg-white/5 border border-white/10 text-[#A1A1AA] uppercase">
+                    FULL STACK
                   </span>
                 </div>
               </div>
             </a>
           </div>
 
-          <!-- Indicador de Paleta Oficial (E-INK MONO) -->
-          <div class="hidden sm:flex items-center gap-2 theme-bg-surface px-3 py-1 border theme-border font-mono text-[11px]">
-            <span class="w-2 h-2 rounded-full bg-white inline-block"></span>
-            <span class="theme-text-muted">PALETA:</span>
-            <span class="theme-text-main font-bold">E-INK MONO</span>
+          <!-- Switch / Toggle Principal "Work" vs "Info" (Estilo Píldora Liquid Glass de Apple) -->
+          <div class="liquid-glass-nav flex items-center">
+            <button
+              @click="mainView = 'work'"
+              :class="mainView === 'work' ? 'liquid-glass-tab-active' : ''"
+              class="liquid-glass-tab flex items-center gap-2"
+            >
+              <i class="fa-solid fa-briefcase text-[11px]"></i>
+              <span>{{ t('nav.viewWork') }}</span>
+            </button>
+            <button
+              @click="mainView = 'info'"
+              :class="mainView === 'info' ? 'liquid-glass-tab-active' : ''"
+              class="liquid-glass-tab flex items-center gap-2"
+            >
+              <i class="fa-solid fa-user-circle text-[11px]"></i>
+              <span>{{ t('nav.viewInfo') }}</span>
+            </button>
           </div>
 
-          <!-- Controles Derechos: Navegación + Selector Idioma [ES|EN] + Modo CRT [R] + CV ATS Destacado -->
-          <div class="flex items-center gap-2">
-            <nav class="hidden xl:flex items-center gap-4 text-xs font-mono mr-2">
-              <a href="#proyectos-destacados" class="theme-text-muted hover:theme-text-sub transition">{{ t('nav.projects') }}</a>
-              <a href="#experiencia" class="theme-text-muted hover:theme-text-sub transition">{{ t('nav.experience') }}</a>
-              <a href="#stack-table" class="theme-text-muted hover:theme-text-sub transition">{{ t('nav.stack') }}</a>
-              <a href="#github-telemetry" class="theme-text-muted hover:theme-text-sub transition">{{ t('nav.pulse') }}</a>
-            </nav>
-
+          <!-- Controles Derechos: Selector Idioma + CRT + CTA Contacto / CV -->
+          <div class="flex items-center gap-2 shrink-0">
             <!-- Selector de Idioma [ ES | EN ] -->
-            <div class="flex items-center border theme-border font-mono text-[11px] theme-bg-surface">
+            <div class="flex items-center rounded-full border border-white/15 font-mono text-[11px] bg-white/5 p-0.5">
               <button
                 @click="setLang('es')"
-                :class="currentLang === 'es' ? 'btn-industrial-primary !py-1 !px-2.5 font-bold' : 'theme-text-muted hover:theme-text-main px-2.5 py-1'"
-                title="Cambiar idioma a Español"
+                :class="currentLang === 'es' ? 'bg-white text-black font-bold shadow-sm' : 'text-neutral-400 hover:text-white'"
+                class="rounded-full px-2 py-0.5 transition"
+                title="Español"
               >
                 ES
               </button>
               <button
                 @click="setLang('en')"
-                :class="currentLang === 'en' ? 'btn-industrial-primary !py-1 !px-2.5 font-bold' : 'theme-text-muted hover:theme-text-main px-2.5 py-1'"
-                title="Switch language to English"
+                :class="currentLang === 'en' ? 'bg-white text-black font-bold shadow-sm' : 'text-neutral-400 hover:text-white'"
+                class="rounded-full px-2 py-0.5 transition"
+                title="English"
               >
                 EN
               </button>
@@ -422,19 +518,20 @@
             <!-- Botón Modo Retro CRT [R] -->
             <button
               @click="toggleCrt"
-              :class="crtEnabled ? 'btn-industrial-primary !py-1.5 !px-3' : 'btn-industrial-ghost !py-1.5 !px-3'"
-              :title="currentLang === 'es' ? 'Activar/Desactivar Monitor Retro CRT (Atajo: tecla R)' : 'Toggle Retro CRT Monitor (Shortcut: key R)'"
+              :class="crtEnabled ? 'bg-white text-black font-bold' : 'bg-white/5 border border-white/15 text-neutral-300 hover:text-white hover:border-white/30'"
+              class="rounded-full px-2.5 py-1 font-mono text-[11px] transition hidden sm:inline-flex items-center gap-1.5"
+              :title="currentLang === 'es' ? 'Monitor Retro CRT [R]' : 'Retro CRT Monitor [R]'"
             >
-              <i class="fa-solid fa-tv"></i>
-              <span>{{ crtEnabled ? t('nav.crtOn') : t('nav.crtOff') }}</span>
+              <i class="fa-solid fa-tv text-[10px]"></i>
+              <span class="hidden md:inline">{{ crtEnabled ? 'CRT: ON' : 'CRT' }}</span>
             </button>
 
-            <!-- Botón CV ATS Destacado -->
+            <!-- Botón CTA Contacto / CV -->
             <button
               @click="contactModalOpen = true"
-              class="btn-industrial-primary !py-1.5 !px-3.5 font-bold shadow-md flex items-center gap-1.5"
+              class="rounded-full bg-white hover:bg-neutral-200 text-black px-3.5 sm:px-4 py-1.5 font-mono font-bold text-xs tracking-wider uppercase transition shadow-lg flex items-center gap-1.5"
             >
-              <i class="fa-solid fa-file-contract text-xs"></i>
+              <i class="fa-solid fa-file-contract text-[11px]"></i>
               <span>{{ t('nav.cvContact') }}</span>
             </button>
           </div>
@@ -445,11 +542,16 @@
 
 
     <!-- =====================================================================
-         SECCIÓN 00 // HERO ARQUITECTÓNICO CON IMAGEN REAL DEL BANNER (CERO SVG EN CÓDIGO)
+         VISTA 1 // PROYECTOS (WORK) - VISTA PRINCIPAL POR DEFECTO
          ===================================================================== -->
-    <section
-      class="relative w-full min-h-[680px] border-b theme-border overflow-hidden flex flex-col justify-between theme-bg-canvas"
-    >
+    <div v-show="mainView === 'work'">
+
+      <!-- =====================================================================
+           SECCIÓN 00 // HERO ARQUITECTÓNICO CON IMAGEN REAL DEL BANNER (CERO SVG EN CÓDIGO)
+           ===================================================================== -->
+      <section
+        class="relative w-full min-h-[680px] border-b theme-border overflow-hidden flex flex-col justify-between theme-bg-canvas"
+      >
       
       <!-- Riel Superior de Especificaciones (Limpio, Humano y Directo) -->
       <div class="relative z-20 theme-bg-glass border-b theme-border py-1.5 overflow-hidden">
@@ -557,9 +659,13 @@
                 <span>{{ t('hero.btnCvContact') }}</span>
               </button>
               <a href="#proyectos-destacados" class="btn-industrial-ghost !py-2.5 !px-4 text-xs flex items-center gap-2">
-                <i class="fa-solid fa-star theme-text-accent"></i>
+                <i class="fa-solid fa-briefcase theme-text-accent"></i>
                 <span>{{ t('hero.btnFeatured') }}</span>
               </a>
+              <button @click="mainView = 'info'" class="btn-industrial-ghost !py-2.5 !px-4 text-xs flex items-center gap-2">
+                <i class="fa-solid fa-user-circle theme-text-sub"></i>
+                <span>{{ currentLang === 'es' ? 'CREDENCIALES & INFO' : 'CREDENTIALS & INFO' }}</span>
+              </button>
               <button @click="openMcpModal('design')" class="btn-industrial-ghost !py-2.5 !px-3 text-xs flex items-center gap-1.5">
                 <i class="fa-solid fa-terminal theme-text-sub"></i>
                 <span>{{ t('hero.btnMcpSim') }}</span>
@@ -567,157 +673,81 @@
             </div>
           </div>
 
-          <!-- COLUMNA DERECHA (5 COLUMNAS): WORKSTATION & PROFILE CARD INTEGRADA -->
-          <div class="lg:col-span-5 flex flex-col justify-between theme-bg-surface">
+          <!-- COLUMNA DERECHA (5 COLUMNAS): ÚNICA TARJETA PROPÓSITO & DISPONIBILIDAD (LIQUID GLASS) -->
+          <div class="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between theme-bg-canvas/50">
             
-            <!-- Barra Superior de Pestañas de la Workstation -->
-            <div class="flex items-center justify-between border-b theme-border font-mono text-[11px] theme-bg-canvas px-1">
-              <div class="flex">
-                <button
-                  @click="heroConsoleTab = 'profile'"
-                  :class="heroConsoleTab === 'profile' ? 'theme-bg-elevated theme-text-sub font-bold border-b-2 theme-border-sub' : 'theme-text-muted'"
-                  class="px-3.5 py-2.5 border-r theme-border transition flex items-center gap-1.5"
-                >
-                  <i class="fa-solid fa-user-gear theme-text-sub text-xs"></i>
-                  <span>{{ currentLang === 'es' ? 'PERFIL & DISPONIBILIDAD' : 'PROFILE & STATUS' }}</span>
-                </button>
-                <button
-                  @click="heroConsoleTab = 'monitor'"
-                  :class="heroConsoleTab === 'monitor' ? 'theme-bg-elevated theme-text-sub font-bold border-b-2 theme-border-sub' : 'theme-text-muted'"
-                  class="px-3.5 py-2.5 border-r theme-border transition flex items-center gap-1.5"
-                >
-                  <i class="fa-solid fa-desktop theme-text-sub text-xs"></i>
-                  <span>MONITOR</span>
-                </button>
-                <button
-                  @click="heroConsoleTab = 'cli'"
-                  :class="heroConsoleTab === 'cli' ? 'theme-bg-elevated theme-text-sub font-bold border-b-2 theme-border-sub' : 'theme-text-muted'"
-                  class="px-3.5 py-2.5 transition flex items-center gap-1.5"
-                >
-                  <i class="fa-solid fa-terminal theme-text-sub text-xs"></i>
-                  <span>CLI</span>
-                </button>
-              </div>
-              <div class="hidden sm:flex items-center gap-1.5 pr-2.5">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span class="text-[10px] theme-text-muted font-bold">ONLINE</span>
-              </div>
-            </div>
+            <div class="liquid-glass-card p-6 sm:p-7 flex-1 flex flex-col justify-between space-y-4">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span class="font-mono text-xs text-emerald-400 font-bold uppercase tracking-wider">
+                      {{ currentLang === 'es' ? 'DISPONIBLE PARA TRABAJAR' : 'AVAILABLE FOR HIRE' }}
+                    </span>
+                  </div>
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-mono bg-white/5 border border-white/10 text-neutral-400">
+                    REMOTO / PRESENCIAL
+                  </span>
+                </div>
 
-            <!-- Contenido de la Workstation según pestaña activa -->
-
-            <!-- Pestaña 1: Perfil Profesional Legible y Humano (NO llaves JSON aburridas) -->
-            <div v-show="heroConsoleTab === 'profile'" class="p-5 flex-1 flex flex-col justify-between space-y-3 font-mono text-xs">
-              <div class="space-y-2.5">
-                <div class="p-3 theme-bg-canvas border theme-border">
-                  <div class="text-[10px] theme-text-muted uppercase mb-1">PROPÓSITO &amp; DISPONIBILIDAD</div>
-                  <div class="theme-text-main font-semibold leading-relaxed">
+                <div>
+                  <div class="text-[10px] font-mono text-neutral-400 uppercase tracking-wider mb-1">
+                    {{ currentLang === 'es' ? 'PROPÓSITO & ROL BUSCADO' : 'PURPOSE & DESIRED ROLE' }}
+                  </div>
+                  <p class="text-sm font-medium text-white leading-relaxed">
                     {{ currentLang === 'es' 
                        ? 'Abierto a contratación en roles Full Stack (Junior/Mid) y desarrollo de plataformas web y MVPs para startups y empresas.' 
                        : 'Open to Full Stack roles (Junior/Mid) and custom MVP web platform development for businesses and startups.' }}
+                  </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+                  <div class="p-3 rounded-xl bg-white/[0.03] border border-white/10">
+                    <div class="text-[10px] font-mono text-neutral-400 uppercase mb-0.5">UBICACIÓN</div>
+                    <div class="text-xs font-semibold text-white">Manta, Ecuador 🇪🇨</div>
+                    <div class="text-[10.5px] font-mono theme-text-sub">Zona Horaria UTC-5</div>
+                  </div>
+                  <div class="p-3 rounded-xl bg-white/[0.03] border border-white/10">
+                    <div class="text-[10px] font-mono text-neutral-400 uppercase mb-0.5">FORMACIÓN</div>
+                    <div class="text-xs font-semibold text-white">Ingeniería de Software</div>
+                    <div class="text-[10.5px] font-mono theme-text-sub">ULEAM (En curso)</div>
                   </div>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  <div class="p-2.5 theme-bg-canvas border theme-border">
-                    <div class="text-[10px] theme-text-muted uppercase mb-0.5">UBICACIÓN</div>
-                    <div class="theme-text-main font-semibold">Manta, Ecuador 🇪🇨</div>
-                    <div class="text-[10px] theme-text-sub">Remoto o Presencial</div>
+                <div class="pt-1">
+                  <div class="text-[10px] font-mono text-neutral-400 uppercase tracking-wider mb-2">
+                    STACK DE PRODUCCIÓN DIARIO
                   </div>
-                  <div class="p-2.5 theme-bg-canvas border theme-border">
-                    <div class="text-[10px] theme-text-muted uppercase mb-0.5">FORMACIÓN</div>
-                    <div class="theme-text-main font-semibold">Ingeniería de Software</div>
-                    <div class="text-[10px] theme-text-sub">ULEAM (En curso)</div>
-                  </div>
-                </div>
-
-                <div class="p-3 theme-bg-canvas border theme-border">
-                  <div class="text-[10px] theme-text-muted uppercase mb-1.5">STACK PRINCIPAL DE PRODUCCIÓN</div>
-                  <div class="flex flex-wrap gap-1">
-                    <span class="px-2 py-0.5 theme-bg-elevated border theme-border theme-text-accent text-[11px] font-bold">TypeScript</span>
-                    <span class="px-2 py-0.5 theme-bg-elevated border theme-border theme-text-accent text-[11px] font-bold">Vue 3</span>
-                    <span class="px-2 py-0.5 theme-bg-elevated border theme-border theme-text-accent text-[11px] font-bold">Tailwind CSS</span>
-                    <span class="px-2 py-0.5 theme-bg-elevated border theme-border theme-text-main text-[11px]">Node.js</span>
-                    <span class="px-2 py-0.5 theme-bg-elevated border theme-border theme-text-main text-[11px]">Python</span>
-                    <span class="px-2 py-0.5 theme-bg-elevated border theme-border theme-text-main text-[11px]">PostgreSQL 16</span>
-                    <span class="px-2 py-0.5 theme-bg-elevated border theme-border theme-text-main text-[11px]">Docker</span>
-                    <span class="px-2 py-0.5 theme-bg-elevated border theme-border theme-text-sub text-[11px]">MCP Servers</span>
+                  <div class="flex flex-wrap gap-1.5">
+                    <span class="px-2.5 py-0.5 rounded-md bg-white/10 border border-white/20 text-white font-mono text-[11px] font-bold">TypeScript</span>
+                    <span class="px-2.5 py-0.5 rounded-md bg-white/10 border border-white/20 text-white font-mono text-[11px] font-bold">Vue 3</span>
+                    <span class="px-2.5 py-0.5 rounded-md bg-white/10 border border-white/20 text-white font-mono text-[11px] font-bold">Tailwind CSS</span>
+                    <span class="px-2.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-neutral-300 font-mono text-[11px]">Node.js</span>
+                    <span class="px-2.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-neutral-300 font-mono text-[11px]">Python</span>
+                    <span class="px-2.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-neutral-300 font-mono text-[11px]">PostgreSQL 16</span>
+                    <span class="px-2.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-neutral-300 font-mono text-[11px]">Docker</span>
+                    <span class="px-2.5 py-0.5 rounded-md bg-white/5 border border-white/10 theme-text-sub font-mono text-[11px]">MCP Servers</span>
                   </div>
                 </div>
 
-                <div class="p-2.5 theme-bg-canvas border theme-border text-[11px] theme-text-muted flex items-center gap-2">
-                  <span class="theme-text-accent">🏎️🎵</span>
-                  <span>{{ currentLang === 'es' ? 'Fuera del IDE: Diseño en Figma, música en Spotify y coleccionar Hot Wheels.' : 'Off-screen: UI design in Figma, music curating on Spotify, and collecting Hot Wheels.' }}</span>
+                <div class="p-3 rounded-xl bg-white/[0.02] border border-white/10 text-xs text-neutral-400 flex items-center gap-2.5">
+                  <span class="text-base">🏎️🎵</span>
+                  <span class="text-[11.5px] leading-snug">
+                    {{ currentLang === 'es' ? 'Fuera del IDE: Diseño en Figma, música en Spotify y coleccionar Hot Wheels.' : 'Off-screen: UI design in Figma, music curating on Spotify, and collecting Hot Wheels.' }}
+                  </span>
                 </div>
               </div>
 
-              <div class="pt-2 flex items-center justify-between text-[11px] theme-text-muted">
-                <span>Pragmatic engineering • Manta, EC</span>
-                <button @click="contactModalOpen = true" class="theme-text-accent hover:underline font-bold">
-                  {{ currentLang === 'es' ? 'Contactar ahora ↗' : 'Contact now ↗' }}
+              <div class="pt-3 border-t border-white/10 flex items-center justify-between text-xs">
+                <span class="font-mono text-neutral-400 text-[11px]">Pragmatic engineering</span>
+                <button
+                  @click="contactModalOpen = true"
+                  class="px-4 py-1.5 rounded-full bg-white hover:bg-neutral-200 text-black font-mono font-bold text-xs transition shadow-md flex items-center gap-1.5"
+                >
+                  <span>{{ currentLang === 'es' ? 'Contactar ahora' : 'Contact now' }}</span>
+                  <i class="fa-solid fa-arrow-right text-[10px]"></i>
                 </button>
               </div>
-            </div>
-
-            <!-- Pestaña 2: Monitor GIF Workstation -->
-            <div v-show="heroConsoleTab === 'monitor'" class="p-4 sm:p-5 flex-1 flex flex-col justify-between">
-              <div>
-                <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono pb-2 mb-2.5 border-b theme-border">
-                  <span class="theme-text-sub font-bold">CANAL // {{ currentHeroGif.label }}</span>
-                  <div class="flex items-center gap-1">
-                    <button
-                      v-for="(g, gIdx) in heroGifChannels"
-                      :key="g.id"
-                      @click="activeGifChannel = gIdx"
-                      :class="activeGifChannel === gIdx ? 'theme-bg-elevated theme-text-sub border theme-border-sub font-bold' : 'theme-bg-canvas theme-text-muted border theme-border'"
-                      class="px-2 py-0.5 text-[10px] transition"
-                      :title="g.caption"
-                    >
-                      CH-0{{ gIdx + 1 }}
-                    </button>
-                  </div>
-                </div>
-
-                <div class="relative theme-bg-canvas border theme-border-sub p-1.5 flex items-center justify-center bg-black">
-                  <img
-                    :key="currentHeroGif.url"
-                    :src="currentHeroGif.url"
-                    :alt="currentHeroGif.label"
-                    class="w-full h-[180px] object-cover"
-                  />
-                  <div class="absolute bottom-2 left-2 px-2 py-0.5 bg-black/85 border theme-border-sub font-mono text-[10px] theme-text-sub">
-                    {{ currentHeroGif.tag }}
-                  </div>
-                  <div class="absolute bottom-2 right-2 px-2 py-0.5 bg-black/85 border theme-border-accent font-mono text-[10px] theme-text-accent">
-                    {{ currentHeroGif.caption }}
-                  </div>
-                </div>
-              </div>
-
-              <div class="pt-3 border-t theme-border font-mono text-[11px] theme-text-muted flex items-center justify-between">
-                <span>{{ currentHeroGif.caption }}</span>
-                <span class="theme-text-accent">3:00 AM CODE MODE</span>
-              </div>
-            </div>
-
-            <!-- Pestaña 3: Terminal CLI -->
-            <div v-show="heroConsoleTab === 'cli'" class="p-4 font-mono text-[11.5px] theme-bg-canvas flex-1 flex flex-col justify-between space-y-2">
-              <div class="h-44 overflow-y-auto space-y-1 border theme-border p-2.5 theme-bg-surface">
-                <div class="theme-text-sub">JhonnyCCM Terminal // Escribe o haz clic en un comando:</div>
-                <div v-for="(line, i) in cliHistory" :key="i" v-html="line"></div>
-              </div>
-              <div class="flex flex-wrap gap-1.5 pt-2">
-                <button @click="runCliCommand('stack')" class="px-2 py-0.5 border theme-border theme-bg-elevated theme-text-sub text-[10px]">stack</button>
-                <button @click="runCliCommand('mcp')" class="px-2 py-0.5 border theme-border theme-bg-elevated theme-text-sub text-[10px]">mcp</button>
-                <button @click="runCliCommand('contact')" class="px-2 py-0.5 border theme-border theme-bg-elevated theme-text-sub text-[10px]">contact</button>
-                <button @click="runCliCommand('hobbies')" class="px-2 py-0.5 border theme-border theme-bg-elevated theme-text-sub text-[10px]">hobbies</button>
-                <button @click="runCliCommand('clear')" class="px-2 py-0.5 border theme-border theme-bg-elevated theme-text-muted text-[10px]">clear</button>
-              </div>
-            </div>
-
-            <div class="px-4 py-2 border-t theme-border font-mono text-[10px] theme-text-muted flex items-center justify-between">
-              <span>Pragmatic engineering • High shipping velocity</span>
-              <span class="theme-text-sub">E-INK MONO</span>
             </div>
 
           </div>
@@ -733,7 +763,7 @@
             <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
             <span class="theme-text-muted">JHONNYCCM // MANTA, ECUADOR 🇪🇨</span>
             <span class="theme-text-muted">•</span>
-            <span class="theme-text-main font-semibold">ALL SYSTEMS OPERATIONAL</span>
+            <span class="theme-text-main font-semibold">FULL STACK DEVELOPER &amp; AI TOOLING ARCHITECT</span>
           </div>
 
           <div class="flex flex-wrap items-center gap-2">
@@ -764,127 +794,144 @@
         <!-- NIVEL 1: CABECERA DE PROYECTOS DESTACADOS -->
         <div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div class="flex items-center gap-2 font-mono text-xs theme-text-accent uppercase tracking-widest mb-2 font-bold">
+            <div class="flex items-center gap-2 font-mono text-xs text-sky-400 uppercase tracking-widest mb-2 font-bold">
               <span>{{ t('projectsSection.featuredBadge') }}</span>
             </div>
-            <h2 class="font-display font-black text-3xl sm:text-4xl theme-text-main tracking-tight uppercase">
+            <h2 class="font-display font-black text-3xl sm:text-4xl text-white tracking-tight uppercase">
               {{ t('projectsSection.featuredTitle') }}
             </h2>
             <p class="theme-text-muted text-sm mt-2 max-w-3xl leading-relaxed">
               {{ t('projectsSection.featuredDesc') }}
             </p>
           </div>
-          <a href="#archivo-repositorios" class="btn-industrial-ghost !py-2 !px-4 text-xs font-mono shrink-0 flex items-center gap-2">
-            <i class="fa-solid fa-folder-tree theme-text-accent"></i>
-            <span>{{ currentLang === 'es' ? 'EXPLORAR TODO EL ARCHIVO GITHUB ↓' : 'EXPLORE ALL GITHUB REPOS ↓' }}</span>
-          </a>
+          <button
+            @click="showArchive = !showArchive"
+            class="liquid-glass-btn rounded-full !py-2 !px-4 text-xs font-mono shrink-0 flex items-center gap-2 transition"
+          >
+            <i class="fa-solid fa-folder-tree text-sky-400"></i>
+            <span>{{ showArchive ? (currentLang === 'es' ? 'OCULTAR ARCHIVO ↑' : 'COLLAPSE ARCHIVE ↑') : (currentLang === 'es' ? 'EXPLORAR TODO EL ARCHIVO GITHUB ↓' : 'EXPLORE ALL GITHUB REPOS ↓') }}</span>
+          </button>
         </div>
 
-        <!-- MATRIZ DE LOS 4 PROYECTOS DESTACADOS (2x2) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+        <!-- MATRIZ DE LOS 4 PROYECTOS DESTACADOS (50% ALTURA / CYBER LIQUID GLASS) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
           <article
             v-for="(proj, idx) in featuredProjects"
             :key="'feat-' + proj.name"
-            class="blueprint-cell p-6 sm:p-8 flex flex-col justify-between border-2 theme-border-accent/40 hover:theme-border-accent transition shadow-xl"
+            class="liquid-glass-card p-6 sm:p-7 flex flex-col justify-between"
           >
             <div>
-              <!-- Encabezado de la tarjeta -->
-              <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-4 border-b theme-border font-mono text-xs">
+              <!-- 1. Header Visual con Badge de Categoría y Lenguaje -->
+              <div class="flex items-center justify-between gap-2 pb-3 mb-4 border-b border-white/10 font-mono text-xs">
                 <div class="flex items-center gap-2">
-                  <span class="px-2 py-0.5 bg-white text-black font-bold text-[10.5px]">PROYECTO DESTACADO 0{{ idx + 1 }}</span>
-                  <span class="px-2 py-0.5 theme-bg-elevated border theme-border theme-text-main text-[11px]">
-                    {{ proj.language || 'Code' }}
+                  <span
+                    v-if="proj.category === 'mcp' || proj.name.toLowerCase().includes('mcp')"
+                    class="liquid-badge text-sky-400 bg-sky-500/10 border-sky-400/20"
+                  >
+                    <i class="fa-solid fa-robot text-[10px]"></i>
+                    <span>MCP SERVER</span>
                   </span>
-                  <span v-if="proj.stars && proj.stars >= 2" class="px-2 py-0.5 theme-bg-elevated border theme-border text-amber-400 text-[11px] font-bold">
-                    ★ {{ proj.stars }}
+                  <span
+                    v-else-if="proj.category === 'automation'"
+                    class="liquid-badge text-emerald-400 bg-emerald-500/10 border-emerald-400/20"
+                  >
+                    <i class="fa-solid fa-bolt text-[10px]"></i>
+                    <span>AUTOMATION &amp; DATA</span>
+                  </span>
+                  <span
+                    v-else
+                    class="liquid-badge text-purple-400 bg-purple-500/10 border-purple-400/20"
+                  >
+                    <i class="fa-solid fa-layer-group text-[10px]"></i>
+                    <span>FULL STACK WEB</span>
                   </span>
                 </div>
-                <span class="hud-cyan-badge">{{ getRepoTypeLabel(proj.repoType) }}</span>
-              </div>
 
-              <!-- Badge Especial si es Servidor MCP -->
-              <div v-if="proj.category === 'mcp' || proj.name.toLowerCase().includes('mcp')" class="mb-3">
-                <span class="px-2.5 py-1 theme-bg-elevated border theme-border-accent theme-text-accent font-mono text-[10.5px] font-bold inline-flex items-center gap-1.5">
-                  <i class="fa-solid fa-robot"></i>
-                  <span>MODEL CONTEXT PROTOCOL // JSON-RPC 2.0</span>
+                <span class="px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-neutral-300 text-[11px] font-mono">
+                  {{ proj.language || 'Code' }}
                 </span>
               </div>
 
-              <!-- Título y enlace -->
-              <div class="mb-2">
-                <h3 class="font-display font-black text-2xl sm:text-3xl theme-text-main tracking-tight">
-                  <a :href="proj.url" target="_blank" rel="noopener noreferrer" class="hover:theme-text-accent transition">
+              <!-- 2. Título + 1-2 Líneas de Impacto Directo -->
+              <div class="mb-4">
+                <h3 class="font-display font-black text-xl sm:text-2xl text-white tracking-tight mb-2">
+                  <a :href="proj.url" target="_blank" rel="noopener noreferrer" class="hover:text-sky-300 transition">
                     {{ proj.title }}
                   </a>
                 </h3>
-                <span class="font-mono text-xs theme-text-muted">github.com/JhonnyCCM/{{ proj.name }}</span>
-              </div>
-
-              <!-- Qué problema resuelve (Directo y Humano) -->
-              <div class="my-4 p-3.5 theme-bg-canvas border theme-border font-mono text-xs space-y-1">
-                <div class="theme-text-accent font-bold uppercase text-[10px] tracking-wider">
-                  {{ currentLang === 'es' ? '¿QUÉ PROBLEMA RESUELVE?' : 'PROBLEM SOLVED:' }}
-                </div>
-                <p class="theme-text-main text-xs sm:text-sm leading-relaxed">
+                <p class="text-neutral-300 text-xs sm:text-sm leading-relaxed line-clamp-2">
                   {{ getProjProblemSolved(proj) }}
                 </p>
               </div>
 
-              <!-- Especificaciones técnicas -->
-              <div v-if="getProjSpecs(proj) && getProjSpecs(proj).length" class="mb-4 font-mono text-xs space-y-1">
-                <div v-for="(spec, sIdx) in getProjSpecs(proj)" :key="sIdx" class="flex items-start gap-2">
-                  <span class="theme-text-accent font-bold">&gt;</span>
-                  <span class="theme-text-muted">{{ spec }}</span>
-                </div>
-              </div>
-
-              <!-- Tags del Stack -->
-              <div class="flex flex-wrap gap-1.5 mb-6">
+              <!-- 3. Tags / Pills Clave (Máximo 4 por tarjeta) -->
+              <div class="flex flex-wrap gap-1.5 mb-5">
                 <span
-                  v-for="tag in proj.tags"
+                  v-for="tag in (proj.tags || []).slice(0, 4)"
                   :key="tag"
-                  class="px-2.5 py-0.5 theme-bg-elevated border theme-border font-mono text-[11px] theme-text-accent"
+                  class="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/10 font-mono text-[11px] text-neutral-300"
                 >
                   {{ tag }}
                 </span>
               </div>
             </div>
 
-            <!-- Acciones de la Tarjeta Destacada -->
-            <div class="pt-4 border-t theme-border flex flex-wrap items-center justify-between gap-2.5">
-              <button
-                @click="openReadmeViewer(proj)"
-                class="btn-industrial-ghost !py-2 !px-3 text-xs flex-1 flex items-center justify-center gap-1.5"
-              >
-                <i class="fa-regular fa-file-code theme-text-accent"></i>
-                <span>{{ t('projectsSection.inspectReadme') }}</span>
-              </button>
-              
-              <button
-                v-if="proj.category === 'mcp' || proj.name.toLowerCase().includes('mcp')"
-                @click="openMcpModal(proj.name.toLowerCase().includes('spotify') ? 'spotify' : 'design')"
-                class="btn-industrial-primary !py-2 !px-3 text-xs flex items-center gap-1.5"
-              >
-                <i class="fa-solid fa-terminal text-[10px]"></i>
-                <span>{{ t('projectsSection.simulateMcp') }}</span>
-              </button>
+            <!-- 4. Botones de Acción Limpios -->
+            <div class="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-2">
+              <div class="flex items-center gap-2 flex-1">
+                <button
+                  @click="openProjectDetailModal(proj)"
+                  class="liquid-glass-btn rounded-lg px-3 py-1.5 font-mono text-xs flex items-center justify-center gap-1.5 flex-1"
+                  :title="currentLang === 'es' ? 'Ver especificaciones técnicas y arquitectura' : 'View technical specs and architecture'"
+                >
+                  <i class="fa-solid fa-sliders text-[10px] text-sky-400"></i>
+                  <span>{{ currentLang === 'es' ? 'Detalles & Specs' : 'Details & Specs' }}</span>
+                </button>
+
+                <button
+                  v-if="proj.category === 'mcp' || proj.name.toLowerCase().includes('mcp')"
+                  @click="openMcpModal(proj.name.toLowerCase().includes('spotify') ? 'spotify' : 'design')"
+                  class="liquid-glass-btn rounded-lg px-3 py-1.5 font-mono text-xs text-sky-300 hover:text-white flex items-center gap-1.5"
+                >
+                  <i class="fa-solid fa-terminal text-[10px]"></i>
+                  <span>{{ currentLang === 'es' ? 'Simular MCP' : 'Simulate MCP' }}</span>
+                </button>
+              </div>
 
               <a
                 :href="proj.url"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="btn-industrial-primary !py-2 !px-4 text-xs flex items-center gap-1.5"
+                class="rounded-lg bg-white hover:bg-neutral-200 text-black px-3.5 py-1.5 font-mono font-bold text-xs transition shadow-md flex items-center gap-1.5"
               >
-                <span>{{ t('projectsSection.githubRepo') }}</span>
+                <span>GitHub</span>
                 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
               </a>
             </div>
           </article>
         </div>
 
+        <!-- BOTÓN COLLAPSE / EXPAND CENTRAL TIPO VIDRIO -->
+        <div class="pt-4 pb-2 flex flex-col items-center justify-center text-center">
+          <button
+            @click="showArchive = !showArchive"
+            class="liquid-glass-btn rounded-full px-6 py-3 font-mono text-xs sm:text-sm font-semibold inline-flex items-center gap-3 transition-all duration-300 hover:scale-[1.02] shadow-xl"
+          >
+            <i class="fa-solid fa-folder-tree text-sky-400"></i>
+            <span>
+              {{ showArchive 
+                  ? (currentLang === 'es' ? 'Ocultar catálogo completo de GitHub ↑' : 'Collapse full GitHub catalog ↑')
+                  : (currentLang === 'es' ? 'Explorar archivo completo de GitHub (+30 repositorios, prácticas y ULEAM) ↓' : 'Explore full GitHub archive (+30 repositories, practices & ULEAM) ↓') }}
+            </span>
+            <i
+              class="fa-solid fa-chevron-down text-xs transition-transform duration-300"
+              :class="{'rotate-180': showArchive}"
+            ></i>
+          </button>
+        </div>
 
-        <!-- NIVEL 2: SEPARADOR Y ARCHIVO COMPLETO DE REPOSITORIOS GITHUB -->
-        <div id="archivo-repositorios" class="pt-10 border-t-2 theme-border">
+        <!-- NIVEL 2: ARCHIVO COMPLETO DE REPOSITORIOS GITHUB (COLAPSADO POR DEFECTO) -->
+        <div v-show="showArchive" id="archivo-repositorios" class="pt-10 border-t-2 theme-border transition-all duration-300">
           
           <div class="grid grid-cols-1 lg:grid-cols-12 border theme-border theme-bg-surface mb-8">
             <div class="lg:col-span-8 p-6 sm:p-8 border-b lg:border-b-0 lg:border-r theme-border">
@@ -1173,6 +1220,109 @@
 
       </div>
     </section>
+    </div><!-- FIN VISTA 1 // PROYECTOS (WORK) -->
+
+
+    <!-- =====================================================================
+         VISTA 2 // SOBRE MÍ & CREDENCIALES (INFO)
+         ===================================================================== -->
+    <div v-show="mainView === 'info'">
+
+      <!-- CABECERA DE PERFIL, HISTORIA & FORMACIÓN ULEAM -->
+      <section class="w-full py-16 md:py-24 border-b theme-border bg-gradient-to-b from-white/[0.03] to-transparent">
+        <div class="max-w-[1380px] mx-auto px-4 sm:px-6">
+          
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div class="lg:col-span-8">
+              <div class="flex items-center gap-2 font-mono text-xs text-sky-400 uppercase tracking-widest mb-3 font-bold">
+                <span>00 // BIOGRAFÍA, FORMACIÓN &amp; FILOSOFÍA DE INGENIERÍA</span>
+                <span class="kanji-stamp">自己紹介 JIKOSHŌKAI</span>
+              </div>
+              <h1 class="font-display font-black text-3xl sm:text-5xl text-white tracking-tight uppercase mb-4">
+                JHONNY CASTILLO MERO
+              </h1>
+              <p class="font-mono text-sm sm:text-base text-neutral-300 leading-relaxed mb-4">
+                {{ currentLang === 'es'
+                   ? 'Desarrollador Full Stack y estudiante de Ingeniería de Software en la Universidad Laica Eloy Alfaro de Manabí (ULEAM), radicado en Manta, Ecuador 🇪🇨. Me apasiona transformar problemas reales en arquitecturas de software limpias y escalables.'
+                   : 'Full Stack Developer and Software Engineering student at Universidad Laica Eloy Alfaro de Manabí (ULEAM), based in Manta, Ecuador 🇪🇨. Passionate about transforming real-world problems into clean, scalable software architectures.' }}
+              </p>
+              <p class="text-sm text-neutral-400 leading-relaxed max-w-3xl mb-6">
+                {{ currentLang === 'es'
+                   ? 'Mi enfoque combina una fuerte sensibilidad visual (UI/UX moderna, diseño responsivo y sistemas de diseño con Tailwind CSS) con bases sólidas de ingeniería (estructuras de datos, modelado relacional ACID en PostgreSQL 16, contenedores Docker y protocolos de comunicación emergentes como Model Context Protocol para agentes de IA).'
+                   : 'My focus blends high visual fidelity (modern UI/UX, responsive layouts, and Tailwind CSS design systems) with robust engineering fundamentals (data structures, relational PostgreSQL 16 persistence, Docker containers, and modern AI protocols like Model Context Protocol).' }}
+              </p>
+
+              <!-- Botones de Acción de Info -->
+              <div class="flex flex-wrap items-center gap-3 font-mono text-xs">
+                <button
+                  @click="contactModalOpen = true"
+                  class="rounded-full bg-white hover:bg-neutral-200 text-black px-5 py-2.5 font-bold transition shadow-lg flex items-center gap-2"
+                >
+                  <i class="fa-solid fa-file-contract text-[11px]"></i>
+                  <span>{{ currentLang === 'es' ? 'Descargar CV / Contactar' : 'Download CV / Contact' }}</span>
+                </button>
+                <button
+                  @click="mainView = 'work'"
+                  class="liquid-glass-btn rounded-full px-5 py-2.5 font-semibold text-neutral-200 hover:text-white flex items-center gap-2"
+                >
+                  <i class="fa-solid fa-arrow-left text-[10px]"></i>
+                  <span>{{ currentLang === 'es' ? 'Volver a Proyectos Destacados' : 'Back to Featured Projects' }}</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Tarjeta Lateral de Credencial Académica ULEAM -->
+            <div class="lg:col-span-4">
+              <div class="liquid-glass-card p-6 sm:p-7 border border-white/15">
+                <div class="flex items-center gap-3 pb-4 mb-4 border-b border-white/10">
+                  <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-400/20 text-emerald-400 flex items-center justify-center text-xl">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                  </div>
+                  <div>
+                    <span class="liquid-badge text-emerald-400 bg-emerald-500/10 border-emerald-400/20 text-[10.5px]">
+                      ALUMNO REGULAR
+                    </span>
+                    <h3 class="font-display font-bold text-white text-base mt-0.5">
+                      Ingeniería de Software
+                    </h3>
+                  </div>
+                </div>
+
+                <div class="space-y-3 font-mono text-xs">
+                  <div class="flex items-start justify-between gap-2">
+                    <span class="text-neutral-400">UNIVERSIDAD:</span>
+                    <span class="text-white font-semibold text-right">ULEAM (Manta)</span>
+                  </div>
+                  <div class="flex items-start justify-between gap-2">
+                    <span class="text-neutral-400">FACULTAD:</span>
+                    <span class="text-white text-right">Ciencias Informáticas (FACCI)</span>
+                  </div>
+                  <div class="flex items-start justify-between gap-2">
+                    <span class="text-neutral-400">PERÍODO:</span>
+                    <span class="text-sky-300 font-bold">2023 - Presente</span>
+                  </div>
+                  <div class="flex items-start justify-between gap-2">
+                    <span class="text-neutral-400">CAMPUS:</span>
+                    <span class="text-white">Manta, Manabí, EC</span>
+                  </div>
+                </div>
+
+                <div class="mt-5 pt-4 border-t border-white/10">
+                  <a
+                    href="https://aulavirtualmoodle.uleam.edu.ec"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="liquid-glass-btn w-full rounded-lg py-2 font-mono text-xs flex items-center justify-center gap-2 text-neutral-300 hover:text-white"
+                  >
+                    <span>Aula Virtual ULEAM ↗</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
 
 
     <!-- =====================================================================
@@ -1377,92 +1527,253 @@
 
 
     <!-- =====================================================================
-         SECCIÓN 04 // PULSO DE GITHUB & LABORATORIO EN VIVO (BILINGÜE)
+         SECCIÓN 04 // CERTIFICACIONES TÉCNICAS & CREDENCIALES (GLASS ROWS)
          ===================================================================== -->
-    <section id="github-telemetry" class="w-full py-16 md:py-24 border-b theme-border">
+    <section id="certificaciones" class="w-full py-16 md:py-24 border-b theme-border">
       <div class="max-w-[1380px] mx-auto px-4 sm:px-6">
         
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+        <div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div class="flex items-center gap-2 font-mono text-xs theme-text-accent uppercase tracking-widest mb-2">
-              <span>{{ t('pulseSection.badge') }}</span>
-              <span class="kanji-stamp">創造 SŌZŌ</span>
+            <div class="flex items-center gap-2 font-mono text-xs text-sky-400 uppercase tracking-widest mb-2 font-bold">
+              <span>{{ t('certificatesSection.badge') }}</span>
+              <span class="kanji-stamp">証明 SHŌMEI</span>
             </div>
-            <h2 class="font-display font-black text-3xl sm:text-4xl theme-text-main uppercase">
-              {{ t('pulseSection.title') }}
+            <h2 class="font-display font-black text-3xl sm:text-4xl text-white uppercase tracking-tight">
+              {{ t('certificatesSection.title') }}
             </h2>
-            <p class="theme-text-muted text-sm mt-1">
-              {{ t('pulseSection.desc') }}
+            <p class="theme-text-muted text-sm mt-2 max-w-3xl leading-relaxed">
+              {{ t('certificatesSection.desc') }}
             </p>
           </div>
-          <a href="https://github.com/JhonnyCCM" target="_blank" rel="noopener noreferrer" class="btn-industrial-ghost">
-            <i class="fa-brands fa-github theme-text-sub"></i>
-            <span>{{ currentLang === 'es' ? 'ABRIR GITHUB OFICIAL ↗' : 'OPEN OFFICIAL GITHUB ↗' }}</span>
-          </a>
+          <div class="font-mono text-xs text-sky-300 flex items-center gap-2 shrink-0">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <span>5 CREDENCIALES VALIDABLES</span>
+          </div>
         </div>
 
-        <!-- Fila Principal: Monitor GIF GitHub + Resumen Limpio de Estadísticas -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6">
-          
-          <!-- Monitor con el GIF Oficial del README de GitHub (@JhonnyCCM) -->
-          <div class="lg:col-span-5 blueprint-cell p-5 flex flex-col justify-between">
-            <div class="flex items-center justify-between font-mono text-xs border-b theme-border pb-2 mb-3">
-              <span class="theme-text-sub font-bold">{{ t('pulseSection.readmeBadge') }}</span>
-              <span class="kanji-stamp">コード KŌDO</span>
+        <!-- Lista Compacta en Formato Glass Rows -->
+        <div class="space-y-3">
+          <div
+            v-for="cert in certificates"
+            :key="cert.id"
+            class="liquid-glass-row p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4"
+          >
+            <!-- Entidad + Título + Emisor -->
+            <div class="flex items-center gap-4 min-w-0">
+              <div
+                class="w-11 h-11 rounded-xl flex items-center justify-center text-lg shrink-0 border border-white/10"
+                :style="{ backgroundColor: cert.color + '22', color: cert.color }"
+              >
+                <i :class="cert.icon"></i>
+              </div>
+              <div class="min-w-0">
+                <div class="flex flex-wrap items-center gap-2 mb-1">
+                  <span class="liquid-badge text-emerald-400 bg-emerald-500/10 border-emerald-400/20 text-[10.5px]">
+                    {{ cert.issuerTag }}
+                  </span>
+                  <span class="font-mono text-xs text-neutral-400">{{ cert.year }}</span>
+                </div>
+                <h3 class="font-display font-bold text-base sm:text-lg text-white truncate">
+                  {{ getCertTitle(cert) }}
+                </h3>
+                <p class="font-mono text-xs text-neutral-400 truncate">
+                  {{ cert.issuer }}
+                </p>
+              </div>
             </div>
-            <div class="border theme-border-sub bg-black p-1 mb-3">
-              <img
-                src="https://media.giphy.com/media/HBY1eWGzDALwnyeHPw/giphy.gif"
-                alt="GitHub Official Readme GIF 3:00 AM Code Mode"
-                class="w-full h-44 object-cover"
-                loading="lazy"
-              />
+
+            <!-- Tags / Skills + Botón de Verificación -->
+            <div class="flex flex-wrap items-center justify-between md:justify-end gap-3 shrink-0">
+              <div class="hidden lg:flex flex-wrap gap-1.5 max-w-md justify-end">
+                <span
+                  v-for="s in (cert.skills || []).slice(0, 3)"
+                  :key="s"
+                  class="px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/10 font-mono text-[11px] text-neutral-300"
+                >
+                  {{ s }}
+                </span>
+              </div>
+
+              <button
+                @click="openCertModal(cert)"
+                class="liquid-glass-btn rounded-lg px-3.5 py-1.5 font-mono text-xs font-semibold flex items-center gap-1.5 text-sky-300 hover:text-white"
+              >
+                <span>{{ t('certificatesSection.btnVerify') }}</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </button>
             </div>
-            <p class="font-mono text-xs theme-text-muted leading-relaxed">
-              {{ t('pulseSection.readmeCaption') }}
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================================================
+         SECCIÓN 05 // LABORATORIO INTERACTIVO & TELEMETRÍA (CLI + WORKSTATION)
+         ===================================================================== -->
+    <section id="laboratorio-interactivo" class="w-full py-16 md:py-24 border-b theme-border theme-bg-surface">
+      <div class="max-w-[1380px] mx-auto px-4 sm:px-6">
+        
+        <div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 font-mono text-xs text-sky-400 uppercase tracking-widest mb-2 font-bold">
+              <span>{{ t('labSection.badge') }}</span>
+              <span class="kanji-stamp">実験 JIKKEN</span>
+            </div>
+            <h2 class="font-display font-black text-3xl sm:text-4xl text-white uppercase tracking-tight">
+              {{ t('labSection.title') }}
+            </h2>
+            <p class="theme-text-muted text-sm mt-2 max-w-3xl leading-relaxed">
+              {{ t('labSection.desc') }}
             </p>
           </div>
+          <div class="font-mono text-xs text-neutral-400 flex items-center gap-2 shrink-0">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>INTERACTIVE SHELL &amp; STREAM</span>
+          </div>
+        </div>
 
-          <!-- Tarjetas Esenciales de GitHub (Solo Stats y Top Languages) -->
-          <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div class="blueprint-cell p-5 flex flex-col justify-between">
-              <div class="font-mono text-xs theme-text-muted border-b theme-border pb-2 mb-3">
+        <!-- Grid 2 Columnas: Terminal CLI + Monitor GIF Workstation -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-12">
+          
+          <!-- Columna 1: Consola Terminal Interactiva -->
+          <div class="lg:col-span-7 liquid-glass-card p-6 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between pb-3 mb-4 border-b border-white/10 font-mono text-xs">
+                <div class="flex items-center gap-2">
+                  <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+                  <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
+                  <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+                  <span class="text-neutral-400 ml-2 font-bold">jhonny@manta-terminal: ~ (bash)</span>
+                </div>
+                <span class="liquid-badge text-sky-400 bg-sky-500/10 border-sky-400/20 text-[10px]">
+                  INTERACTIVE CLI
+                </span>
+              </div>
+
+              <!-- Historial de la Terminal -->
+              <div class="font-mono text-xs space-y-2 min-h-[160px] max-h-[220px] overflow-y-auto p-3 rounded-lg bg-black/50 border border-white/5 mb-4 text-neutral-300">
+                <div class="text-neutral-400">Antigravity Interactive Terminal v2.4.0 — Manta, Ecuador</div>
+                <div class="text-neutral-400">Escribe o haz clic en los comandos sugeridos para consultar información:</div>
+                <div v-for="(item, idx) in cliHistory" :key="idx" v-html="item"></div>
+              </div>
+            </div>
+
+            <!-- Botones de comandos rápidos -->
+            <div>
+              <div class="flex flex-wrap items-center gap-2 pt-3 border-t border-white/10 font-mono text-xs">
+                <span class="text-neutral-400 text-[11px]">COMANDOS:</span>
+                <button @click="runCliCommand('stack')" class="liquid-glass-btn rounded-md px-2.5 py-1 text-[11px] text-sky-300 hover:text-white">
+                  stack
+                </button>
+                <button @click="runCliCommand('mcp')" class="liquid-glass-btn rounded-md px-2.5 py-1 text-[11px] text-sky-300 hover:text-white">
+                  mcp
+                </button>
+                <button @click="runCliCommand('certs')" class="liquid-glass-btn rounded-md px-2.5 py-1 text-[11px] text-sky-300 hover:text-white">
+                  certs
+                </button>
+                <button @click="runCliCommand('contact')" class="liquid-glass-btn rounded-md px-2.5 py-1 text-[11px] text-emerald-300 hover:text-white">
+                  contact
+                </button>
+                <button @click="runCliCommand('hobbies')" class="liquid-glass-btn rounded-md px-2.5 py-1 text-[11px] text-neutral-300 hover:text-white">
+                  hobbies
+                </button>
+                <button @click="runCliCommand('clear')" class="liquid-glass-btn rounded-md px-2.5 py-1 text-[11px] text-red-300 hover:text-white ml-auto">
+                  clear
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Columna 2: Monitor GIF 3:00 AM Workstation con 3 Canales -->
+          <div class="lg:col-span-5 liquid-glass-card p-6 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between pb-3 mb-4 border-b border-white/10 font-mono text-xs">
+                <span class="text-neutral-300 font-bold flex items-center gap-2">
+                  <i class="fa-solid fa-desktop text-sky-400"></i>
+                  <span>{{ currentHeroGif.label }}</span>
+                </span>
+                <span class="liquid-badge text-emerald-400 bg-emerald-500/10 border-emerald-400/20 text-[10px]">
+                  {{ currentHeroGif.tag }}
+                </span>
+              </div>
+
+              <!-- Pantalla de Monitor GIF -->
+              <div class="relative rounded-lg overflow-hidden border border-white/10 bg-black mb-3 group">
+                <img
+                  :src="currentHeroGif.url"
+                  :alt="currentHeroGif.caption"
+                  class="w-full h-44 object-cover transition duration-300"
+                  loading="lazy"
+                />
+                <div class="absolute bottom-2 left-2 right-2 bg-black/75 backdrop-blur-md px-3 py-1.5 rounded font-mono text-[11px] text-neutral-300 border border-white/10 flex items-center justify-between">
+                  <span>{{ currentHeroGif.caption }}</span>
+                  <span class="text-sky-400 text-[10px]">LIVE</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Selector de 3 Canales -->
+            <div class="pt-3 border-t border-white/10 flex items-center justify-between gap-2 font-mono text-xs">
+              <span class="text-neutral-400 text-[11px]">CANALES:</span>
+              <div class="flex items-center gap-1.5">
+                <button
+                  v-for="(ch, cIdx) in heroGifChannels"
+                  :key="ch.id"
+                  @click="activeGifChannel = cIdx"
+                  :class="activeGifChannel === cIdx ? 'bg-white text-black font-bold' : 'liquid-glass-btn text-neutral-400 hover:text-white'"
+                  class="px-2.5 py-1 rounded text-[11px] transition"
+                >
+                  0{{ cIdx + 1 }}
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Tarjetas de Resumen & Gráfico de Actividad GitHub -->
+        <div class="space-y-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="liquid-glass-card p-5 flex flex-col justify-between">
+              <div class="font-mono text-xs text-neutral-400 border-b border-white/10 pb-2 mb-3">
                 {{ t('pulseSection.statsTitle') }}
               </div>
               <div class="flex items-center justify-center my-auto py-2">
                 <img class="max-h-[165px] w-auto" src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=JhonnyCCM&theme=tokyonight" alt="GitHub Stats" loading="lazy" />
               </div>
-              <div class="font-mono text-[11px] theme-text-sub pt-2 border-t theme-border">
+              <div class="font-mono text-[11px] text-neutral-400 pt-2 border-t border-white/10">
                 {{ counts.main }} {{ currentLang === 'es' ? 'Proyectos Principales' : 'Core Projects' }} • {{ counts.practice }} {{ currentLang === 'es' ? 'Codelabs' : 'Codelabs' }}
               </div>
             </div>
 
-            <div class="blueprint-cell p-5 flex flex-col justify-between">
-              <div class="font-mono text-xs theme-text-muted border-b theme-border pb-2 mb-3">
+            <div class="liquid-glass-card p-5 flex flex-col justify-between">
+              <div class="font-mono text-xs text-neutral-400 border-b border-white/10 pb-2 mb-3">
                 {{ t('pulseSection.langsTitle') }}
               </div>
               <div class="flex items-center justify-center my-auto py-2">
                 <img class="max-h-[165px] w-auto" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=JhonnyCCM&theme=tokyonight" alt="Top Languages by Repo" loading="lazy" />
               </div>
-              <div class="font-mono text-[11px] theme-text-sub pt-2 border-t theme-border">
+              <div class="font-mono text-[11px] text-neutral-400 pt-2 border-t border-white/10">
                 TypeScript • Python • Vue • Kotlin
               </div>
             </div>
           </div>
 
-        </div>
-
-        <!-- Gráfico de Actividad Continua -->
-        <div class="blueprint-cell p-4">
-          <div class="flex items-center justify-between font-mono text-xs theme-text-muted pb-2 mb-2 border-b theme-border">
-            <span>{{ t('pulseSection.activityGraphTitle') }}</span>
-            <span class="theme-text-sub">MANTA, ECUADOR 🇪🇨</span>
+          <!-- Gráfico de Actividad -->
+          <div class="liquid-glass-card p-5">
+            <div class="flex items-center justify-between font-mono text-xs text-neutral-400 pb-2 mb-3 border-b border-white/10">
+              <span>{{ t('pulseSection.activityGraphTitle') }}</span>
+              <span class="text-sky-300">MANTA, ECUADOR 🇪🇨</span>
+            </div>
+            <img class="w-full h-auto rounded" src="https://github-readme-activity-graph.vercel.app/graph?username=JhonnyCCM&theme=tokyo-night&hide_border=true&area=true" alt="Activity Graph" loading="lazy" />
           </div>
-          <img class="w-full h-auto" src="https://github-readme-activity-graph.vercel.app/graph?username=JhonnyCCM&theme=tokyo-night&hide_border=true&area=true" alt="Activity Graph" loading="lazy" />
         </div>
 
       </div>
     </section>
+    </div><!-- FIN VISTA 2 // SOBRE MÍ & CREDENCIALES (INFO) -->
 
 
     <!-- =====================================================================
@@ -1638,6 +1949,205 @@
     </div>
 
 
+    <!-- =====================================================================
+         MODAL 5: DETALLES & SPECS TÉCNICAS DEL PROYECTO (LIQUID GLASS)
+         ===================================================================== -->
+    <div
+      v-if="selectedProjectModal"
+      class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto"
+    >
+      <div class="liquid-glass-card border border-white/20 max-w-2xl w-full p-6 sm:p-8 my-8 shadow-2xl relative">
+        <div class="flex items-start justify-between pb-4 mb-5 border-b border-white/10">
+          <div>
+            <div class="flex items-center gap-2 mb-2 font-mono text-xs">
+              <span class="liquid-badge text-sky-400 bg-sky-500/10 border-sky-400/20">
+                {{ getRepoTypeLabel(selectedProjectModal.repoType) }}
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-neutral-300 text-[11px] font-mono">
+                {{ selectedProjectModal.language || 'Code' }}
+              </span>
+            </div>
+            <h3 class="font-display font-black text-2xl sm:text-3xl text-white tracking-tight">
+              {{ selectedProjectModal.title }}
+            </h3>
+          </div>
+          <button
+            @click="closeProjectDetailModal"
+            class="liquid-glass-btn rounded-full w-8 h-8 flex items-center justify-center text-neutral-400 hover:text-white"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div class="mb-5 p-4 rounded-xl bg-white/[0.03] border border-white/10">
+          <div class="text-sky-400 font-mono font-bold text-[11px] tracking-wider uppercase mb-1 flex items-center gap-2">
+            <i class="fa-solid fa-bullseye text-[10px]"></i>
+            <span>{{ t('projectModal.problem') }}</span>
+          </div>
+          <p class="text-neutral-200 text-sm leading-relaxed">
+            {{ getProjProblemSolved(selectedProjectModal) }}
+          </p>
+        </div>
+
+        <div v-if="getProjSpecs(selectedProjectModal) && getProjSpecs(selectedProjectModal).length" class="mb-5">
+          <div class="font-mono text-xs text-neutral-400 uppercase tracking-wider mb-2 font-semibold">
+            {{ t('projectModal.specs') }}
+          </div>
+          <div class="space-y-2 font-mono text-xs">
+            <div
+              v-for="(spec, sIdx) in getProjSpecs(selectedProjectModal)"
+              :key="sIdx"
+              class="flex items-start gap-2.5 p-2.5 rounded-lg bg-black/30 border border-white/5 text-neutral-300"
+            >
+              <span class="text-sky-400 font-bold">&gt;</span>
+              <span class="leading-relaxed">{{ spec }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <div class="font-mono text-xs text-neutral-400 uppercase tracking-wider mb-2 font-semibold">
+            STACK &amp; HERRAMIENTAS
+          </div>
+          <div class="flex flex-wrap gap-1.5">
+            <span
+              v-for="tag in selectedProjectModal.tags"
+              :key="tag"
+              class="px-2.5 py-1 rounded-md bg-white/[0.05] border border-white/10 font-mono text-xs text-neutral-200"
+            >
+              {{ tag }}
+            </span>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex flex-wrap items-center gap-2">
+            <button
+              @click="closeProjectDetailModal(); openReadmeViewer(selectedProjectModal)"
+              class="liquid-glass-btn rounded-lg px-3.5 py-2 font-mono text-xs flex items-center gap-2"
+            >
+              <i class="fa-regular fa-file-code text-sky-400"></i>
+              <span>README</span>
+            </button>
+            <button
+              v-if="selectedProjectModal.category === 'mcp' || selectedProjectModal.name.toLowerCase().includes('mcp')"
+              @click="closeProjectDetailModal(); openMcpModal(selectedProjectModal.name.toLowerCase().includes('spotify') ? 'spotify' : 'design')"
+              class="liquid-glass-btn rounded-lg px-3.5 py-2 font-mono text-xs text-sky-300 flex items-center gap-2"
+            >
+              <i class="fa-solid fa-terminal text-[10px]"></i>
+              <span>Simular MCP</span>
+            </button>
+            <a
+              :href="selectedProjectModal.url"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="liquid-glass-btn rounded-lg px-3.5 py-2 font-mono text-xs text-white flex items-center gap-1.5"
+            >
+              <span>{{ t('projectModal.github') }}</span>
+            </a>
+          </div>
+
+          <button
+            @click="closeProjectDetailModal"
+            class="rounded-lg bg-white hover:bg-neutral-200 text-black px-4 py-2 font-mono font-bold text-xs transition shadow-md"
+          >
+            {{ t('projectModal.close') }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- =====================================================================
+         MODAL 6: VERIFICACIÓN & DETALLE DE CERTIFICACIÓN (LIQUID GLASS)
+         ===================================================================== -->
+    <div
+      v-if="selectedCertModal"
+      class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto"
+    >
+      <div class="liquid-glass-card border border-white/20 max-w-xl w-full p-6 sm:p-8 my-8 shadow-2xl relative">
+        <div class="flex items-start justify-between pb-4 mb-5 border-b border-white/10">
+          <div class="flex items-center gap-3">
+            <div
+              class="w-12 h-12 rounded-xl flex items-center justify-center text-xl shadow-lg border border-white/15"
+              :style="{ backgroundColor: selectedCertModal.color + '22', color: selectedCertModal.color }"
+            >
+              <i :class="selectedCertModal.icon"></i>
+            </div>
+            <div>
+              <span class="liquid-badge text-emerald-400 bg-emerald-500/10 border-emerald-400/20 text-[10.5px]">
+                {{ selectedCertModal.issuerTag }}
+              </span>
+              <h3 class="font-display font-black text-xl text-white mt-1">
+                {{ getCertTitle(selectedCertModal) }}
+              </h3>
+            </div>
+          </div>
+          <button
+            @click="closeCertModal"
+            class="liquid-glass-btn rounded-full w-8 h-8 flex items-center justify-center text-neutral-400 hover:text-white"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div class="space-y-4 mb-6">
+          <div class="p-3.5 rounded-xl bg-white/[0.03] border border-white/10 font-mono text-xs space-y-1.5">
+            <div class="flex items-center justify-between text-neutral-400">
+              <span>{{ currentLang === 'es' ? 'EMISOR / INSTITUCIÓN:' : 'ISSUING ORGANIZATION:' }}</span>
+              <span class="text-white font-bold">{{ selectedCertModal.issuer }}</span>
+            </div>
+            <div class="flex items-center justify-between text-neutral-400">
+              <span>{{ currentLang === 'es' ? 'AÑO DE EMISIÓN:' : 'ISSUE YEAR:' }}</span>
+              <span class="text-white font-bold">{{ selectedCertModal.year }}</span>
+            </div>
+            <div class="flex items-center justify-between text-neutral-400">
+              <span>ID CREDENCIAL:</span>
+              <span class="text-sky-400 font-bold font-mono">{{ selectedCertModal.credentialId }}</span>
+            </div>
+          </div>
+
+          <p class="text-neutral-300 text-xs sm:text-sm leading-relaxed">
+            {{ getCertDesc(selectedCertModal) }}
+          </p>
+
+          <div>
+            <div class="font-mono text-xs text-neutral-400 uppercase tracking-wider mb-2 font-semibold">
+              {{ currentLang === 'es' ? 'COMPETENCIAS VALIDADAS' : 'VALIDATED SKILLS' }}
+            </div>
+            <div class="flex flex-wrap gap-1.5">
+              <span
+                v-for="s in selectedCertModal.skills"
+                :key="s"
+                class="px-2.5 py-1 rounded-md bg-white/[0.05] border border-white/10 font-mono text-xs text-neutral-200"
+              >
+                {{ s }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
+          <a
+            :href="selectedCertModal.verifyUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="liquid-glass-btn rounded-lg px-4 py-2 font-mono text-xs text-sky-300 hover:text-white flex items-center gap-2"
+          >
+            <span>{{ currentLang === 'es' ? 'Abrir Enlace / Repositorio ↗' : 'Open Link / Repository ↗' }}</span>
+          </a>
+
+          <button
+            @click="closeCertModal"
+            class="rounded-lg bg-white hover:bg-neutral-200 text-black px-4 py-2 font-mono font-bold text-xs transition shadow-md"
+          >
+            {{ currentLang === 'es' ? 'Cerrar' : 'Close' }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+
     <!-- NOTIFICACIÓN TOAST INDUSTRIAL -->
     <div
       v-if="toastText"
@@ -1686,6 +2196,8 @@
     const I18N = {
       es: {
         nav: {
+          viewWork: 'Proyectos (Work)',
+          viewInfo: 'Sobre Mí & Credenciales (Info)',
           projects: '01 // PROYECTOS',
           experience: '02 // EXPERIENCIA',
           stack: '03 // STACK',
@@ -1712,9 +2224,9 @@
           badge: '01 // INGENIERÍA DE SOFTWARE & ECOSISTEMA MCP',
           title: 'CATÁLOGO DE PROYECTOS & HERRAMIENTAS REALES',
           desc: 'Sincronizado en vivo con <code class="theme-text-accent font-mono">github.com/JhonnyCCM</code>. He agrupado mis proyectos en <strong>Servidores MCP & IA</strong>, <strong>Desarrollo Web & UI/UX</strong>, <strong>Automatización & Data</strong> y <strong>Desarrollo Mobile / Académico</strong> para que puedas explorar directamente lo que construyo.',
-          featuredBadge: '01 // PROYECTOS DESTACADOS',
-          featuredTitle: 'SOLUCIONES & HERRAMIENTAS EN PRODUCCIÓN',
-          featuredDesc: 'Una selección de mis mejores desarrollos técnicos: servidores MCP para IA, herramientas CLI y pipelines de automatización con arquitecturas reales.',
+          featuredBadge: '01 // TRABAJO & PROYECTOS DESTACADOS',
+          featuredTitle: 'PROYECTOS DESTACADOS',
+          featuredDesc: 'Una selección de mis 4 mejores desarrollos técnicos: servidores MCP para IA, herramientas CLI y pipelines de automatización con arquitecturas reales.',
           archiveBadge: '02 // ARCHIVO DE REPOSITORIOS GITHUB',
           archiveTitle: 'CATÁLOGO COMPLETO & PRÁCTICAS',
           archiveDesc: 'Explora el histórico completo sincronizado en tiempo real con <code class="theme-text-accent font-mono">github.com/JhonnyCCM</code>, clasificado entre proyectos principales, secundarios, labs y prácticas académicas.',
@@ -1766,8 +2278,27 @@
           desc: 'Desglose exhaustivo de competencias en desarrollo frontend, arquitecturas backend, integración de protocolos MCP, persistencia relacional y flujos CI/CD.',
           filterPlaceholder: 'Filtrar tecnologías (ej: Vue, NestJS, Docker)...'
         },
+        certificatesSection: {
+          badge: '04 // CREDENCIALES, CERTIFICACIONES & FORMACIÓN',
+          title: 'CERTIFICACIONES TÉCNICAS & CREDENCIALES',
+          desc: 'Validaciones de competencias en desarrollo móvil Android, arquitectura web, computación en la nube y herramientas para agentes de IA.',
+          btnVerify: 'Ver Credencial ↗',
+          modalTitle: 'DETALLE DE CREDENCIAL TÉCNICA'
+        },
+        labSection: {
+          badge: '05 // LABORATORIO INTERACTIVO & TELEMETRÍA GITHUB',
+          title: 'TERMINAL CLI & WORKSTATION 3:00 AM',
+          desc: 'Prueba comandos interactivos o inspecciona el monitor y telemetría de contribuciones en vivo desde Manta, Ecuador.'
+        },
+        projectModal: {
+          title: 'ESPECIFICACIÓN ARQUITECTÓNICA',
+          specs: 'ESPECIFICACIONES TÉCNICAS',
+          problem: 'PROBLEMA QUE RESUELVE',
+          close: 'CERRAR',
+          github: 'VER EN GITHUB ↗'
+        },
         pulseSection: {
-          badge: '04 // PULSO DE ACTIVIDAD & CULTURA MAKER',
+          badge: '05 // PULSO DE ACTIVIDAD & CULTURA MAKER',
           title: 'ACTIVIDAD EN GITHUB (@JHONNYCCM)',
           desc: 'Construyendo servidores MCP, practicando arquitecturas limpias y subiendo código desde Manta, Ecuador.',
           readmeBadge: 'README.MD OFICIAL // 3:00 AM MODE',
@@ -1787,8 +2318,8 @@
           contactTitle: 'EXECUTIVE ATS SUMMARY & DIRECT CONTACT'
         },
         footer: {
-          transmission: '05 // TRANSMISIÓN DIRECTA',
-          tagline: 'Ingeniería de Software @ ULEAM • Manta, Manabí, Ecuador 🇪🇨 • Full Stack & AI MCP Developer',
+          transmission: 'DIRECT TRANSMISSION // JHONNY CASTILLO',
+          tagline: 'Ingeniería de Software @ ULEAM • Manta, Manabí, Ecuador 🇪🇨 • Full Stack Developer & AI Tooling Architect',
           btnAts: 'VER CV EJECUTIVO ATS / CONTACTO',
           btnAdmin: 'ADMIN PORTAL',
           rights: '© 2026 JHONNY CASTILLO MERO • ALL SYSTEMS OPERATIONAL',
@@ -1797,6 +2328,8 @@
       },
       en: {
         nav: {
+          viewWork: 'Projects (Work)',
+          viewInfo: 'About Me & Credentials (Info)',
           projects: '01 // PROJECTS',
           experience: '02 // EXPERIENCE',
           stack: '03 // STACK',
@@ -1823,9 +2356,9 @@
           badge: '01 // SOFTWARE ENGINEERING & MCP ECOSYSTEM',
           title: 'PROJECT CATALOG & REAL-WORLD TOOLING',
           desc: 'Synced live with <code class="theme-text-accent font-mono">github.com/JhonnyCCM</code>. Categorized into <strong>MCP Servers & AI</strong>, <strong>Web Dev & UI/UX</strong>, <strong>Automation & Data</strong>, and <strong>Mobile / Academic</strong> so you can directly explore what I build.',
-          featuredBadge: '01 // FEATURED PROJECTS',
-          featuredTitle: 'PRODUCTION-READY SOLUTIONS & TOOLS',
-          featuredDesc: 'A curated selection of my highest-impact technical projects: MCP servers for AI agents, CLI tools, and automation pipelines.',
+          featuredBadge: '01 // WORK & FEATURED PROJECTS',
+          featuredTitle: 'FEATURED PROJECTS',
+          featuredDesc: 'A curated selection of my 4 highest-impact technical projects: MCP servers for AI agents, CLI tools, and automation pipelines.',
           archiveBadge: '02 // GITHUB REPOSITORY ARCHIVE',
           archiveTitle: 'FULL CATALOG & PRACTICES',
           archiveDesc: 'Explore my complete repository archive synced in real-time with <code class="theme-text-accent font-mono">github.com/JhonnyCCM</code>, classified into core, secondary, labs, and academic practice codelabs.',
@@ -1877,8 +2410,27 @@
           desc: 'In-depth breakdown of capabilities across frontend engineering, backend architectures, MCP protocol integration, relational databases, and CI/CD pipelines.',
           filterPlaceholder: 'Filter technologies (e.g. Vue, NestJS, Docker)...'
         },
+        certificatesSection: {
+          badge: '04 // CREDENTIALS, CERTIFICATIONS & EDUCATION',
+          title: 'TECHNICAL CERTIFICATIONS & CREDENTIALS',
+          desc: 'Competency verifications in Android mobile development, web architecture, cloud computing, and AI agent tooling.',
+          btnVerify: 'View Credential ↗',
+          modalTitle: 'CREDENTIAL DETAILS & VERIFICATION'
+        },
+        labSection: {
+          badge: '05 // INTERACTIVE LAB & GITHUB TELEMETRY',
+          title: 'CLI TERMINAL & 3:00 AM WORKSTATION',
+          desc: 'Test interactive terminal commands or inspect the monitor and contribution telemetry live from Manta, Ecuador.'
+        },
+        projectModal: {
+          title: 'ARCHITECTURAL SPECIFICATION',
+          specs: 'TECHNICAL SPECIFICATIONS',
+          problem: 'PROBLEM SOLVED',
+          close: 'CLOSE',
+          github: 'VIEW ON GITHUB ↗'
+        },
         pulseSection: {
-          badge: '04 // LIVE TELEMETRY & GITHUB ACTIVITY',
+          badge: '05 // LIVE TELEMETRY & GITHUB ACTIVITY',
           title: 'GITHUB ACTIVITY (@JHONNYCCM)',
           desc: 'Building MCP servers, practicing clean architectures, and shipping code from Manta, Ecuador.',
           readmeBadge: 'OFFICIAL README.MD // 3:00 AM MODE',
@@ -1898,8 +2450,8 @@
           contactTitle: 'EXECUTIVE ATS SUMMARY & DIRECT CONTACT'
         },
         footer: {
-          transmission: '05 // DIRECT TRANSMISSION',
-          tagline: 'Software Engineering @ ULEAM • Manta, Manabí, Ecuador 🇪🇨 • Full Stack & AI MCP Developer',
+          transmission: 'DIRECT TRANSMISSION // JHONNY CASTILLO',
+          tagline: 'Software Engineering @ ULEAM • Manta, Manabí, Ecuador 🇪🇨 • Full Stack Developer & AI Tooling Architect',
           btnAts: 'VIEW EXECUTIVE ATS RESUME / CONTACT',
           btnAdmin: 'ADMIN PORTAL',
           rights: '© 2026 JHONNY CASTILLO MERO • ALL SYSTEMS OPERATIONAL',
@@ -2177,8 +2729,120 @@
       }
     ];
 
+    // =========================================================================
+    // LISTA MAESTRA DE CREDENCIALES & CERTIFICACIONES TÉCNICAS
+    // =========================================================================
+    const CERTIFICATES = [
+      {
+        id: 'google-android',
+        title_es: 'Desarrollo Móvil Android con Jetpack Compose',
+        title_en: 'Android Basics with Jetpack Compose',
+        issuer: 'Google Developers',
+        issuerTag: 'GOOGLE',
+        year: '2024',
+        icon: 'fa-brands fa-google',
+        color: '#4285F4',
+        skills: ['Kotlin', 'Jetpack Compose', 'Material Design 3', 'State Hoisting', 'Coroutines'],
+        description_es: 'Desarrollo de aplicaciones móviles modernas en Android con Kotlin y UI declarativa en Jetpack Compose, arquitectura de componentes y navegación reactiva.',
+        description_en: 'Modern Android mobile development with Kotlin and Jetpack Compose declarative UI, component architecture, and reactive navigation.',
+        credentialId: 'GOOGLE-DEV-COMP-2024',
+        verifyUrl: 'https://github.com/JhonnyCCM/Jetpack-Compose-Courses-App-'
+      },
+      {
+        id: 'uleam-software',
+        title_es: 'Ingeniería de Software & Arquitectura Web',
+        title_en: 'Software Engineering & Web Architecture',
+        issuer: 'Universidad Laica Eloy Alfaro de Manabí (ULEAM)',
+        issuerTag: 'ULEAM',
+        year: '2023 - Presente',
+        icon: 'fa-solid fa-graduation-cap',
+        color: '#10B981',
+        skills: ['Algoritmos', 'Estructuras de Datos', 'Bases de Datos Relacionales', 'Patrones de Diseño', 'Ingeniería de Requisitos'],
+        description_es: 'Formación académica superior orientada a fundamentos de ciencias de la computación, ingeniería de software, desarrollo full stack y bases de datos relacionales.',
+        description_en: 'Higher academic training in computer science fundamentals, software engineering, full stack development, and relational databases.',
+        credentialId: 'ULEAM-FACCI-SW-2023',
+        verifyUrl: 'https://aulavirtualmoodle.uleam.edu.ec'
+      },
+      {
+        id: 'cloud-cicd',
+        title_es: 'Cloud Computing, Docker & Despliegues CI/CD',
+        title_en: 'Cloud Computing, Docker & CI/CD Pipelines',
+        issuer: 'Microsoft Azure & GitHub Actions',
+        issuerTag: 'AZURE / GITHUB',
+        year: '2024',
+        icon: 'fa-brands fa-microsoft',
+        color: '#0078D4',
+        skills: ['Docker', 'GitHub Actions', 'Microsoft Azure', 'Contenedores', 'Automatización CI/CD'],
+        description_es: 'Contenerización de aplicaciones multicapa con Docker Compose, despliegues automáticos mediante GitHub Actions y gestión de entornos cloud en Azure.',
+        description_en: 'Multi-container application packaging with Docker Compose, automated deployments via GitHub Actions, and cloud environment management on Azure.',
+        credentialId: 'AZ-GH-CICD-2024',
+        verifyUrl: 'https://github.com/JhonnyCCM'
+      },
+      {
+        id: 'mcp-ai',
+        title_es: 'Model Context Protocol (MCP) & Arquitectura de Herramientas IA',
+        title_en: 'Model Context Protocol (MCP) & AI Tooling Architecture',
+        issuer: 'Anthropic MCP Spec / Open Source Community',
+        issuerTag: 'AI TOOLING',
+        year: '2025',
+        icon: 'fa-solid fa-robot',
+        color: '#A855F7',
+        skills: ['JSON-RPC 2.0', 'Python Headless DOM', 'Playwright', 'OAuth 2.0 PKCE', 'Claude Desktop / Cursor'],
+        description_es: 'Diseño e implementación de servidores Model Context Protocol (MCP) para conectar agentes de IA con APIs externas, extracción headless de tokens CSS y control de streaming.',
+        description_en: 'Design and implementation of Model Context Protocol (MCP) servers connecting AI agents with external APIs, headless CSS token extraction, and streaming telemetry.',
+        credentialId: 'MCP-SPEC-AI-2025',
+        verifyUrl: 'https://github.com/JhonnyCCM/Design-Extractor-MCP'
+      },
+      {
+        id: 'db-postgresql',
+        title_es: 'Modelado Relacional y Persistencia con PostgreSQL 16',
+        title_en: 'Relational Database Modeling & PostgreSQL 16',
+        issuer: 'PostgreSQL & Supabase Ecosystem',
+        issuerTag: 'POSTGRES',
+        year: '2024',
+        icon: 'fa-solid fa-database',
+        color: '#336791',
+        skills: ['PostgreSQL 16', 'Supabase', 'Normalización', 'Índices & Constraints', 'SQL Transaccional'],
+        description_es: 'Diseño de esquemas relacionales normalizados, transacciones ACID, optimización de consultas SQL y persistencia contenerizada para sistemas de producción.',
+        description_en: 'Normalized relational schema design, ACID transactions, SQL query optimization, and containerized persistence for production systems.',
+        credentialId: 'PG16-REL-2024',
+        verifyUrl: 'https://github.com/JhonnyCCM/n8n-omni-expense-tracker'
+      }
+    ];
+
     createApp({
       setup() {
+        // Control de Vistas Principales: Work vs Info (Apple Liquid Glass Nav)
+        const mainView = ref('work');
+        const showArchive = ref(false);
+        const selectedProjectModal = ref(null);
+        const selectedCertModal = ref(null);
+        const certificates = ref(CERTIFICATES);
+
+        function openProjectDetailModal(proj) {
+          selectedProjectModal.value = proj;
+        }
+        function closeProjectDetailModal() {
+          selectedProjectModal.value = null;
+        }
+
+        function openCertModal(cert) {
+          selectedCertModal.value = cert;
+        }
+        function closeCertModal() {
+          selectedCertModal.value = null;
+        }
+
+        function getCertTitle(cert) {
+          if (!cert) return '';
+          return currentLang.value === 'en' ? cert.title_en : cert.title_es;
+        }
+
+        function getCertDesc(cert) {
+          if (!cert) return '';
+          return currentLang.value === 'en' ? cert.description_en : cert.description_es;
+        }
+
         // 1. GESTIÓN EXCLUSIVA DE LA PALETA OFICIAL E-INK MONO
         // Usa únicamente la imagen real del usuario: banner-eink-mono.jpg
         const themes = [
@@ -2817,7 +3481,9 @@
           const map = {
             stack: '&gt; STACK: TypeScript, Python, Vue 3, Next.js, NestJS, PostgreSQL 16, Docker.',
             mcp: '&gt; MCP SERVERS: Design-Extractor-MCP &amp; Spotify-Stats-MCP activos.',
-            hobbies: '&gt; OFF-SCREEN: Diseño de interfaces, música continua en Spotify, coleccionar Hot Wheels a escala y sesiones de Clean Code a las 3 AM.'
+            certs: '&gt; CERTIFICACIONES: Android Basics with Compose (Google), Ing. de Software (ULEAM), Cloud &amp; CI/CD (Azure/GitHub), Model Context Protocol (Anthropic), PostgreSQL 16.',
+            hobbies: '&gt; OFF-SCREEN: Diseño de interfaces, música continua en Spotify, coleccionar Hot Wheels a escala y sesiones de Clean Code a las 3 AM.',
+            help: '&gt; COMANDOS DISPONIBLES: stack, mcp, certs, contact, hobbies, clear'
           };
           cliHistory.value.push(`<div class="theme-text-main"><span class="theme-text-accent">jhonny@manta:~$</span> ${cmd}<br/><span class="theme-text-muted">${map[cmd] || 'OK'}</span></div>`);
         }
@@ -2965,6 +3631,17 @@
           currentLang,
           setLang,
           t,
+          mainView,
+          showArchive,
+          selectedProjectModal,
+          selectedCertModal,
+          certificates,
+          openProjectDetailModal,
+          closeProjectDetailModal,
+          openCertModal,
+          closeCertModal,
+          getCertTitle,
+          getCertDesc,
           setCategory,
           getProjTagline,
           getProjSpecs,
