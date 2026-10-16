@@ -8,16 +8,16 @@
 
   <!-- Open Graph / Redes Sociales (WhatsApp, LinkedIn, Discord, Twitter) -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://jhonnyccm.vercel.app/" />
+  <meta property="og:url" content="https://portafolio-jhonny-castillo.vercel.app/" />
   <meta property="og:title" content="Jhonny Castillo (@JhonnyCCM) // Full Stack Developer &amp; AI MCP Builder" />
   <meta property="og:description" content="Desarrollador Full Stack enfocado en aplicaciones web modernas, backends escalables y servidores Model Context Protocol (MCP) para agentes de IA. Manta, Ecuador." />
-  <meta property="og:image" content="./banner-eink-mono.jpg" />
+  <meta property="og:image" content="https://portafolio-jhonny-castillo.vercel.app/banner-eink-mono.jpg" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Jhonny Castillo (@JhonnyCCM) // Full Stack Developer" />
   <meta name="twitter:description" content="Desarrollador Full Stack enfocado en aplicaciones web modernas, backends escalables y servidores MCP para IA. Manta, Ecuador." />
-  <meta name="twitter:image" content="./banner-eink-mono.jpg" />
+  <meta name="twitter:image" content="https://portafolio-jhonny-castillo.vercel.app/banner-eink-mono.jpg" />
 
   <!-- Favicon y Logo de Marca JhonnyCCM -->
   <link rel="icon" type="image/jpeg" href="./favicon.jpg" />
@@ -442,6 +442,41 @@
     [v-cloak] {
       display: none !important;
     }
+
+    /* =========================================================================
+       4. ESTILOS DE IMPRESIÓN (@MEDIA PRINT) PARA CV EJECUTIVO ATS LIMPIO
+       ========================================================================= */
+    @media print {
+      body {
+        background: #FFFFFF !important;
+        color: #000000 !important;
+      }
+      header,
+      footer,
+      #crtOverlay,
+      section,
+      .no-print {
+        display: none !important;
+      }
+      #ats-modal-overlay {
+        position: static !important;
+        background: #FFFFFF !important;
+        padding: 0 !important;
+        display: block !important;
+      }
+      #ats-modal-card {
+        border: none !important;
+        box-shadow: none !important;
+        background: #FFFFFF !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      #ats-printable-sheet {
+        border: 1px solid #D1D5DB !important;
+        padding: 24px !important;
+      }
+    }
   </style>
 </head>
 <body class="theme-mono antialiased">
@@ -465,7 +500,7 @@
           
           <!-- Identidad Izquierda -->
           <div class="flex items-center gap-3 shrink-0">
-            <a href="#" @click.prevent="mainView = 'work'" class="flex items-center gap-2.5 focus:outline-none group">
+            <a href="#" @click.prevent="switchMainView('work')" class="flex items-center gap-2.5 focus:outline-none group">
               <div class="w-8 h-8 rounded-lg bg-white/5 border border-white/15 flex items-center justify-center font-mono font-bold text-xs theme-text-sub transition group-hover:border-white/30">
                 JC
               </div>
@@ -485,7 +520,7 @@
           <!-- Switch / Toggle Principal "Work" vs "Info" (Estilo Píldora Liquid Glass de Apple) -->
           <div class="liquid-glass-nav flex items-center">
             <button
-              @click="mainView = 'work'"
+              @click="switchMainView('work')"
               :class="mainView === 'work' ? 'liquid-glass-tab-active' : ''"
               class="liquid-glass-tab flex items-center gap-2"
             >
@@ -493,7 +528,7 @@
               <span>{{ t('nav.viewWork') }}</span>
             </button>
             <button
-              @click="mainView = 'info'"
+              @click="switchMainView('info')"
               :class="mainView === 'info' ? 'liquid-glass-tab-active' : ''"
               class="liquid-glass-tab flex items-center gap-2"
             >
@@ -562,18 +597,18 @@
         class="relative w-full min-h-[720px] lg:min-h-[780px] border-b theme-border overflow-hidden flex flex-col justify-between theme-bg-canvas"
       >
       
-      <!-- Riel Superior de Especificaciones (Limpio, Humano y Directo) -->
+      <!-- Riel Superior de Especificaciones (Bilingüe y Actualizado) -->
       <div class="relative z-20 theme-bg-glass border-b theme-border py-1.5 overflow-hidden">
         <div class="industrial-ticker font-mono text-[11px] tracking-widest uppercase theme-text-muted">
-          <span class="mx-6"><strong class="theme-text-sub">[JHONNYCCM]</strong> DESARROLLADOR FULL STACK • INGENIERÍA DE SOFTWARE @ ULEAM</span>
-          <span class="mx-6"><strong class="theme-text-accent">[ENFOQUE TÉCNICO]</strong> APLICACIONES WEB MODERNAS, BACKENDS ESCALABLES &amp; HERRAMIENTAS DE IA</span>
-          <span class="mx-6"><strong class="theme-text-sub">[STACK CORE]</strong> TYPESCRIPT • VUE 3 • TAILWIND CSS • NODE.JS • PYTHON • POSTGRESQL • DOCKER</span>
-          <span class="mx-6"><strong class="theme-text-accent">[DISPONIBILIDAD]</strong> ABIERTO A CONTRATACIÓN (JUNIOR / MID) • DESARROLLO DE MVPs &amp; FREELANCE</span>
+          <span class="mx-6"><strong class="theme-text-sub">[JHONNYCCM]</strong> {{ currentLang === 'es' ? 'DESARROLLADOR FULL STACK • INGENIERÍA DE SOFTWARE @ ULEAM' : 'FULL STACK DEVELOPER • SOFTWARE ENGINEERING @ ULEAM' }}</span>
+          <span class="mx-6"><strong class="theme-text-accent">[{{ currentLang === 'es' ? 'ENFOQUE TÉCNICO' : 'TECHNICAL FOCUS' }}]</strong> {{ currentLang === 'es' ? 'APLICACIONES WEB MODERNAS, BACKENDS ESCALABLES & HERRAMIENTAS DE IA' : 'MODERN WEB APPS, SCALABLE BACKENDS & AI MCP TOOLING' }}</span>
+          <span class="mx-6"><strong class="theme-text-sub">[STACK CORE]</strong> VUE 3 • ANGULAR • TYPESCRIPT • TAILWIND CSS • PYTHON • KOTLIN • SUPABASE • MONGODB • N8N &amp; MCP</span>
+          <span class="mx-6"><strong class="theme-text-accent">[{{ currentLang === 'es' ? 'DISPONIBILIDAD' : 'AVAILABILITY' }}]</strong> {{ currentLang === 'es' ? 'ABIERTO A CONTRATACIÓN (JUNIOR / MID) • DESARROLLO DE MVPs & FREELANCE' : 'OPEN TO WORK (JUNIOR / MID) • CUSTOM MVP DEVELOPMENT & FREELANCE' }}</span>
           <!-- Duplicado para scroll infinito continuo -->
-          <span class="mx-6"><strong class="theme-text-sub">[JHONNYCCM]</strong> DESARROLLADOR FULL STACK • INGENIERÍA DE SOFTWARE @ ULEAM</span>
-          <span class="mx-6"><strong class="theme-text-accent">[ENFOQUE TÉCNICO]</strong> APLICACIONES WEB MODERNAS, BACKENDS ESCALABLES &amp; HERRAMIENTAS DE IA</span>
-          <span class="mx-6"><strong class="theme-text-sub">[STACK CORE]</strong> TYPESCRIPT • VUE 3 • TAILWIND CSS • NODE.JS • PYTHON • POSTGRESQL • DOCKER</span>
-          <span class="mx-6"><strong class="theme-text-accent">[DISPONIBILIDAD]</strong> ABIERTO A CONTRATACIÓN (JUNIOR / MID) • DESARROLLO DE MVPs &amp; FREELANCE</span>
+          <span class="mx-6"><strong class="theme-text-sub">[JHONNYCCM]</strong> {{ currentLang === 'es' ? 'DESARROLLADOR FULL STACK • INGENIERÍA DE SOFTWARE @ ULEAM' : 'FULL STACK DEVELOPER • SOFTWARE ENGINEERING @ ULEAM' }}</span>
+          <span class="mx-6"><strong class="theme-text-accent">[{{ currentLang === 'es' ? 'ENFOQUE TÉCNICO' : 'TECHNICAL FOCUS' }}]</strong> {{ currentLang === 'es' ? 'APLICACIONES WEB MODERNAS, BACKENDS ESCALABLES & HERRAMIENTAS DE IA' : 'MODERN WEB APPS, SCALABLE BACKENDS & AI MCP TOOLING' }}</span>
+          <span class="mx-6"><strong class="theme-text-sub">[STACK CORE]</strong> VUE 3 • ANGULAR • TYPESCRIPT • TAILWIND CSS • PYTHON • KOTLIN • SUPABASE • MONGODB • N8N &amp; MCP</span>
+          <span class="mx-6"><strong class="theme-text-accent">[{{ currentLang === 'es' ? 'DISPONIBILIDAD' : 'AVAILABILITY' }}]</strong> {{ currentLang === 'es' ? 'ABIERTO A CONTRATACIÓN (JUNIOR / MID) • DESARROLLO DE MVPs & FREELANCE' : 'OPEN TO WORK (JUNIOR / MID) • CUSTOM MVP DEVELOPMENT & FREELANCE' }}</span>
         </div>
       </div>
 
@@ -658,7 +693,7 @@
                 <i class="fa-solid fa-briefcase text-sky-400"></i>
                 <span>{{ t('hero.btnFeatured') }}</span>
               </a>
-              <button @click="mainView = 'info'" class="liquid-glass-btn rounded-full !py-2.5 !px-4 flex items-center gap-2">
+              <button @click="switchMainView('info')" class="liquid-glass-btn rounded-full !py-2.5 !px-4 flex items-center gap-2">
                 <i class="fa-solid fa-user-circle text-neutral-400"></i>
                 <span>{{ currentLang === 'es' ? 'CREDENCIALES & INFO' : 'CREDENTIALS & INFO' }}</span>
               </button>
@@ -902,10 +937,10 @@
             </div>
           </article>
 
-          <!-- PROYECTOS #2 Y #3: COLUMNAS PARALELAS EDITORIALES LIMPIAS Y COMPACTAS -->
+          <!-- PROYECTOS DESTACADOS ADICIONALES: GRILLA DINÁMICA Y EDITABLE DESDE ADMIN.HTML -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <article
-              v-for="(proj, idx) in (featuredProjects || []).slice(1, 3)"
+              v-for="(proj, idx) in (featuredProjects || []).slice(1)"
               :key="proj.name || idx"
               class="liquid-glass-card p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden group"
             >
@@ -916,7 +951,7 @@
                     class="liquid-badge text-emerald-400 bg-emerald-500/10 border-emerald-400/20 text-[10px] font-bold"
                   >
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse inline-block mr-1"></span>
-                    <span>COLABORADOR • EN DESARROLLO</span>
+                    <span>{{ currentLang === 'es' ? 'COLABORADOR • EN DESARROLLO' : 'COLLABORATOR • IN DEVELOPMENT' }}</span>
                   </span>
                   <span
                     v-else-if="proj.category === 'mcp' || (proj.name && proj.name.toLowerCase().includes('mcp'))"
@@ -1202,7 +1237,7 @@
                     </span>
                     <span v-if="proj.isCollab" class="liquid-badge text-emerald-400 bg-emerald-500/10 border-emerald-400/20 text-[10px] font-bold">
                       <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse inline-block mr-1"></span>
-                      COLABORADOR • EN DESARROLLO
+                      {{ currentLang === 'es' ? 'COLABORADOR • EN DESARROLLO' : 'COLLABORATOR • IN DEVELOPMENT' }}
                     </span>
                     <span v-else-if="proj.repoType === 'wip'" class="liquid-badge text-amber-400 bg-amber-500/10 border-amber-400/20 text-[10px]">
                       <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
@@ -1335,7 +1370,7 @@
                   <span>{{ currentLang === 'es' ? 'Descargar CV / Contactar' : 'Download CV / Contact' }}</span>
                 </button>
                 <button
-                  @click="mainView = 'work'"
+                  @click="switchMainView('work')"
                   class="liquid-glass-btn rounded-full px-5 py-2.5 font-semibold text-neutral-200 hover:text-white flex items-center gap-2"
                 >
                   <i class="fa-solid fa-arrow-left text-[10px]"></i>
@@ -1353,26 +1388,26 @@
                   </div>
                   <div>
                     <span class="liquid-badge text-emerald-400 bg-emerald-500/10 border-emerald-400/20 text-[10.5px]">
-                      ALUMNO REGULAR
+                      {{ currentLang === 'es' ? 'ALUMNO REGULAR' : 'ACTIVE STUDENT' }}
                     </span>
                     <h3 class="font-display font-bold text-white text-base mt-0.5">
-                      Ingeniería de Software
+                      {{ currentLang === 'es' ? 'Ingeniería de Software' : 'Software Engineering' }}
                     </h3>
                   </div>
                 </div>
 
                 <div class="space-y-3 font-mono text-xs">
                   <div class="flex items-start justify-between gap-2">
-                    <span class="text-neutral-400">UNIVERSIDAD:</span>
+                    <span class="text-neutral-400">{{ currentLang === 'es' ? 'UNIVERSIDAD:' : 'UNIVERSITY:' }}</span>
                     <span class="text-white font-semibold text-right">ULEAM (Manta)</span>
                   </div>
                   <div class="flex items-start justify-between gap-2">
-                    <span class="text-neutral-400">FACULTAD:</span>
-                    <span class="text-white text-right">Ciencias Informáticas (FACCI)</span>
+                    <span class="text-neutral-400">{{ currentLang === 'es' ? 'FACULTAD:' : 'FACULTY:' }}</span>
+                    <span class="text-white text-right">{{ currentLang === 'es' ? 'Ciencias Informáticas (FACCI)' : 'Computer Science (FACCI)' }}</span>
                   </div>
                   <div class="flex items-start justify-between gap-2">
-                    <span class="text-neutral-400">PERÍODO:</span>
-                    <span class="text-sky-300 font-bold">2023 - Presente</span>
+                    <span class="text-neutral-400">{{ currentLang === 'es' ? 'PERÍODO:' : 'PERIOD:' }}</span>
+                    <span class="text-sky-300 font-bold">{{ currentLang === 'es' ? '2023 - Presente' : '2023 - Present' }}</span>
                   </div>
                   <div class="flex items-start justify-between gap-2">
                     <span class="text-neutral-400">CAMPUS:</span>
@@ -1387,7 +1422,7 @@
                     rel="noopener noreferrer"
                     class="liquid-glass-btn w-full rounded-lg py-2 font-mono text-xs flex items-center justify-center gap-2 text-neutral-300 hover:text-white"
                   >
-                    <span>Aula Virtual ULEAM ↗</span>
+                    <span>{{ currentLang === 'es' ? 'Aula Virtual ULEAM ↗' : 'ULEAM Virtual Campus ↗' }}</span>
                   </a>
                 </div>
               </div>
@@ -1454,7 +1489,13 @@
               >
                 {{ tech }}
               </span>
-              <a v-if="exp.actionLink" :href="exp.actionLink.url" :target="exp.actionLink.external ? '_blank' : '_self'" class="ml-2 font-mono text-xs text-sky-300 hover:text-white inline-flex items-center gap-1 transition-colors">
+              <a
+                v-if="exp.actionLink"
+                :href="exp.actionLink.url"
+                :target="exp.actionLink.external ? '_blank' : '_self'"
+                @click="handleExpAction(exp, $event)"
+                class="ml-2 font-mono text-xs text-sky-300 hover:text-white inline-flex items-center gap-1 transition-colors cursor-pointer"
+              >
                 <span>{{ getExpLinkText(exp) }}</span>
                 <i class="fa-solid fa-arrow-right text-[10px]"></i>
               </a>
@@ -1495,7 +1536,7 @@
                 </div>
                 <div>
                   <h3 class="font-display font-black text-xl text-white">Frontend &amp; UI Design</h3>
-                  <div class="font-mono text-xs text-neutral-400">SPA, SSR, Design Systems &amp; Component Architecture</div>
+                  <div class="font-mono text-xs text-neutral-400">{{ currentLang === 'es' ? 'SPA, SSR, Design Systems & Arquitectura de Componentes' : 'SPA, SSR, Design Systems & Component Architecture' }}</div>
                 </div>
               </div>
 
@@ -1510,35 +1551,35 @@
                     <i class="fa-brands fa-vuejs text-emerald-400 text-[26px] w-7 text-center shrink-0"></i>
                     <div>
                       <div class="font-display font-bold text-sm text-white">Vue 3</div>
-                      <div class="font-mono text-[11px] text-neutral-400">Vite / Pinia / Reactividad</div>
+                      <div class="font-mono text-[11px] text-neutral-400">{{ currentLang === 'es' ? 'Vite / Pinia / Reactividad' : 'Vite / Pinia / Reactivity' }}</div>
                     </div>
                   </div>
                   <div class="p-3 rounded-xl bg-white/[0.03] border border-white/5 flex items-center gap-3.5 hover:border-white/15 transition">
                     <i class="fa-brands fa-angular text-red-500 text-[26px] w-7 text-center shrink-0"></i>
                     <div>
                       <div class="font-display font-bold text-sm text-white">Angular</div>
-                      <div class="font-mono text-[11px] text-neutral-400">Estructura Modular &amp; TS</div>
+                      <div class="font-mono text-[11px] text-neutral-400">{{ currentLang === 'es' ? 'Estructura Modular & TS' : 'Modular Structure & TS' }}</div>
                     </div>
                   </div>
                   <div class="p-3 rounded-xl bg-white/[0.03] border border-white/5 flex items-center gap-3.5 hover:border-white/15 transition">
                     <i class="fa-brands fa-js text-sky-400 text-[26px] w-7 text-center shrink-0"></i>
                     <div>
                       <div class="font-display font-bold text-sm text-white">TypeScript</div>
-                      <div class="font-mono text-[11px] text-neutral-400">Tipado Estricto &amp; Interfaces</div>
+                      <div class="font-mono text-[11px] text-neutral-400">{{ currentLang === 'es' ? 'Tipado Estricto & Interfaces' : 'Strict Typing & Interfaces' }}</div>
                     </div>
                   </div>
                   <div class="p-3 rounded-xl bg-white/[0.03] border border-white/5 flex items-center gap-3.5 hover:border-white/15 transition">
                     <i class="fa-solid fa-wind text-sky-300 text-[24px] w-7 text-center shrink-0"></i>
                     <div>
                       <div class="font-display font-bold text-sm text-white">Tailwind CSS</div>
-                      <div class="font-mono text-[11px] text-neutral-400">Diseño Responsivo &amp; Tokens</div>
+                      <div class="font-mono text-[11px] text-neutral-400">{{ currentLang === 'es' ? 'Diseño Responsivo & Tokens' : 'Responsive UI & Tokens' }}</div>
                     </div>
                   </div>
                   <div class="p-3 rounded-xl bg-white/[0.03] border border-white/5 flex items-center gap-3.5 hover:border-white/15 transition sm:col-span-2">
                     <i class="fa-brands fa-figma text-purple-400 text-[26px] w-7 text-center shrink-0"></i>
                     <div>
                       <div class="font-display font-bold text-sm text-white">Figma</div>
-                      <div class="font-mono text-[11px] text-neutral-400">Prototipado UI/UX &amp; Design Systems</div>
+                      <div class="font-mono text-[11px] text-neutral-400">{{ currentLang === 'es' ? 'Prototipado UI/UX & Design Systems' : 'UI/UX Prototyping & Design Systems' }}</div>
                     </div>
                   </div>
                 </div>
@@ -1579,8 +1620,8 @@
                   <i class="fa-solid fa-server"></i>
                 </div>
                 <div>
-                  <h3 class="font-display font-black text-xl text-white">Backend, Datos &amp; IA</h3>
-                  <div class="font-mono text-xs text-neutral-400">APIs, Persistencia ACID &amp; Protocolos de Agentes</div>
+                  <h3 class="font-display font-black text-xl text-white">{{ currentLang === 'es' ? 'Backend, Datos & IA' : 'Backend, Data & AI' }}</h3>
+                  <div class="font-mono text-xs text-neutral-400">{{ currentLang === 'es' ? 'APIs, Persistencia ACID & Protocolos de Agentes' : 'APIs, ACID Persistence & Agent Protocols' }}</div>
                 </div>
               </div>
 
@@ -1671,8 +1712,8 @@
                   <i class="fa-solid fa-cloud"></i>
                 </div>
                 <div>
-                  <h3 class="font-display font-black text-xl text-white">Cloud, DevOps &amp; Entorno</h3>
-                  <div class="font-mono text-xs text-neutral-400">Contenedores, Integración Continua &amp; Despliegues</div>
+                  <h3 class="font-display font-black text-xl text-white">{{ currentLang === 'es' ? 'Cloud, DevOps & Entorno' : 'Cloud, DevOps & Environment' }}</h3>
+                  <div class="font-mono text-xs text-neutral-400">{{ currentLang === 'es' ? 'Contenedores, Integración Continua & Despliegues' : 'Containers, Continuous Integration & Deployments' }}</div>
                 </div>
               </div>
 
@@ -2067,12 +2108,12 @@
               {{ t('footer.tagline') }}
             </p>
           </div>
-          <div class="md:col-span-5 flex flex-wrap md:justify-end gap-3">
-            <button @click="contactModalOpen = true" class="btn-industrial-primary">
+          <div class="md:col-span-5 flex flex-wrap md:justify-end gap-3 font-mono text-xs">
+            <button @click="contactModalOpen = true" class="rounded-full bg-white hover:bg-neutral-200 text-black px-5 py-2.5 font-bold transition shadow-lg">
               <span>{{ t('footer.btnAts') }}</span>
             </button>
-            <a href="admin.html" class="btn-industrial-ghost" title="Panel Privado de Administración de Repositorios">
-              <i class="fa-solid fa-lock text-xs theme-text-sub"></i>
+            <a href="admin.html" class="liquid-glass-btn rounded-full px-5 py-2.5 font-semibold text-neutral-200 hover:text-white inline-flex items-center gap-2" title="Panel Privado de Administración de Repositorios">
+              <i class="fa-solid fa-lock text-xs text-sky-400"></i>
               <span>{{ t('footer.btnAdmin') }}</span>
             </a>
           </div>
@@ -2093,100 +2134,102 @@
 
 
     <!-- =====================================================================
-         MODAL 2: INSPECTOR MCP JSON-RPC 2.0 (BILINGÜE)
+         MODAL 2: INSPECTOR MCP JSON-RPC 2.0 (BILINGÜE • LIQUID GLASS)
          ===================================================================== -->
-    <div v-if="mcpModalOpen" v-cloak class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-      <div class="theme-bg-surface border-2 theme-border-accent max-w-3xl w-full p-6 sm:p-8 my-8">
-        <div class="flex items-center justify-between pb-4 mb-5 border-b theme-border">
+    <div v-if="mcpModalOpen" v-cloak class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+      <div class="liquid-glass-card border border-white/20 max-w-3xl w-full p-6 sm:p-8 my-8 shadow-2xl relative">
+        <div class="flex items-start justify-between pb-4 mb-5 border-b border-white/10">
           <div>
-            <div class="font-mono text-xs theme-text-accent">{{ t('modals.mcpTitle') }}</div>
-            <h3 class="font-display font-black text-xl theme-text-main mt-1">{{ t('modals.mcpSubtitle') }}</h3>
+            <div class="font-mono text-xs text-sky-400">{{ t('modals.mcpTitle') }}</div>
+            <h3 class="font-display font-black text-xl sm:text-2xl text-white mt-1">{{ t('modals.mcpSubtitle') }}</h3>
           </div>
-          <button @click="mcpModalOpen = false" class="btn-industrial-ghost !py-1 !px-3">✕</button>
+          <button @click="mcpModalOpen = false" class="liquid-glass-btn rounded-full w-8 h-8 flex items-center justify-center text-neutral-400 hover:text-white">✕</button>
         </div>
 
-        <div class="flex flex-wrap gap-2 mb-5">
+        <div class="flex flex-wrap gap-2 mb-5 font-mono text-xs">
           <button
             @click="activeMcpModalTab = 'design'"
-            :class="activeMcpModalTab === 'design' ? 'btn-industrial-primary' : 'btn-industrial-ghost'"
+            :class="activeMcpModalTab === 'design' ? 'bg-white text-black font-bold shadow' : 'liquid-glass-btn text-neutral-300 hover:text-white'"
+            class="rounded-full px-4 py-1.5 transition"
           >
             DESIGN-EXTRACTOR-MCP
           </button>
           <button
             @click="activeMcpModalTab = 'spotify'"
-            :class="activeMcpModalTab === 'spotify' ? 'btn-industrial-primary' : 'btn-industrial-ghost'"
+            :class="activeMcpModalTab === 'spotify' ? 'bg-white text-black font-bold shadow' : 'liquid-glass-btn text-neutral-300 hover:text-white'"
+            class="rounded-full px-4 py-1.5 transition"
           >
             SPOTIFY-STATS-MCP
           </button>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-xs">
-          <div class="theme-bg-canvas border theme-border p-4">
-            <div class="theme-text-accent font-bold border-b theme-border pb-2 mb-2">REQUEST (tools/call)</div>
-            <pre class="theme-text-main overflow-x-auto text-[11px]">{{ JSON.stringify(mcpExamples[activeMcpModalTab].request, null, 2) }}</pre>
+          <div class="rounded-xl bg-black/50 border border-white/10 p-4">
+            <div class="text-sky-400 font-bold border-b border-white/10 pb-2 mb-2">REQUEST (tools/call)</div>
+            <pre class="text-neutral-200 overflow-x-auto text-[11px]">{{ JSON.stringify(mcpExamples[activeMcpModalTab].request, null, 2) }}</pre>
           </div>
-          <div class="theme-bg-canvas border theme-border p-4">
-            <div class="theme-text-sub font-bold border-b theme-border pb-2 mb-2">RESPONSE (200 OK)</div>
-            <pre class="theme-text-accent overflow-x-auto text-[11px]">{{ JSON.stringify(mcpExamples[activeMcpModalTab].response, null, 2) }}</pre>
+          <div class="rounded-xl bg-black/50 border border-white/10 p-4">
+            <div class="text-emerald-400 font-bold border-b border-white/10 pb-2 mb-2">RESPONSE (200 OK)</div>
+            <pre class="text-sky-300 overflow-x-auto text-[11px]">{{ JSON.stringify(mcpExamples[activeMcpModalTab].response, null, 2) }}</pre>
           </div>
         </div>
 
-        <div class="mt-6 flex flex-wrap justify-between gap-3">
-          <a :href="mcpExamples[activeMcpModalTab].url" target="_blank" class="btn-industrial-ghost">
+        <div class="mt-6 pt-4 border-t border-white/10 flex flex-wrap justify-between items-center gap-3 font-mono text-xs">
+          <a :href="mcpExamples[activeMcpModalTab].url" target="_blank" rel="noopener noreferrer" class="liquid-glass-btn rounded-full px-4 py-2 text-sky-300 hover:text-white">
             <span>{{ t('modals.mcpViewGithub') }}</span>
           </a>
-          <button @click="mcpModalOpen = false" class="btn-industrial-primary">{{ t('modals.mcpClose') }}</button>
+          <button @click="mcpModalOpen = false" class="rounded-full bg-white hover:bg-neutral-200 text-black px-5 py-2 font-bold transition shadow-md">{{ t('modals.mcpClose') }}</button>
         </div>
       </div>
     </div>
 
 
     <!-- =====================================================================
-         MODAL 3: VISOR DE README.MD EN VIVO (MARKED.JS)
+         MODAL 3: VISOR DE README.MD EN VIVO (MARKED.JS • LIQUID GLASS)
          ===================================================================== -->
-    <div v-if="readmeModalOpen" v-cloak class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
-      <div class="theme-bg-surface border-2 theme-border-accent max-w-4xl w-full p-5 sm:p-7 my-6 flex flex-col max-h-[90vh]">
-        <div class="flex items-start justify-between pb-4 mb-4 border-b theme-border shrink-0">
+    <div v-if="readmeModalOpen" v-cloak class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+      <div class="liquid-glass-card border border-white/20 max-w-4xl w-full p-5 sm:p-7 my-6 flex flex-col max-h-[90vh] shadow-2xl relative">
+        <div class="flex items-start justify-between pb-4 mb-4 border-b border-white/10 shrink-0">
           <div>
-            <div class="font-mono text-xs theme-text-accent">{{ t('modals.readmeTitle') }} // {{ activeReadmeProj.name }}</div>
-            <h3 class="font-display font-black text-xl sm:text-2xl theme-text-main mt-1">{{ activeReadmeProj.title }}</h3>
+            <div class="font-mono text-xs text-sky-400">{{ t('modals.readmeTitle') }} // {{ activeReadmeProj.name }}</div>
+            <h3 class="font-display font-black text-xl sm:text-2xl text-white mt-1">{{ activeReadmeProj.title }}</h3>
           </div>
-          <button @click="readmeModalOpen = false" class="btn-industrial-ghost !py-1 !px-3">✕</button>
+          <button @click="readmeModalOpen = false" class="liquid-glass-btn rounded-full w-8 h-8 flex items-center justify-center text-neutral-400 hover:text-white">✕</button>
         </div>
 
-        <div class="flex-1 overflow-y-auto theme-bg-canvas border theme-border p-4 sm:p-6 mb-4">
-          <div v-if="readmeLoading" class="py-12 text-center font-mono text-xs theme-text-accent">
+        <div class="flex-1 overflow-y-auto rounded-2xl bg-black/50 border border-white/10 p-4 sm:p-6 mb-4">
+          <div v-if="readmeLoading" class="py-12 text-center font-mono text-xs text-sky-400">
             {{ t('modals.readmeLoading') }}
           </div>
           <div v-else class="markdown-body" v-html="readmeRenderedHtml"></div>
         </div>
 
-        <div class="flex flex-wrap justify-between items-center gap-3 shrink-0">
-          <a :href="activeReadmeProj.url" target="_blank" class="btn-industrial-ghost">
+        <div class="pt-3 border-t border-white/10 flex flex-wrap justify-between items-center gap-3 shrink-0 font-mono text-xs">
+          <a :href="activeReadmeProj.url" target="_blank" rel="noopener noreferrer" class="liquid-glass-btn rounded-full px-4 py-2 text-sky-300 hover:text-white">
             <span>{{ currentLang === 'es' ? 'ABRIR EN GITHUB ↗' : 'OPEN IN GITHUB ↗' }}</span>
           </a>
-          <button @click="readmeModalOpen = false" class="btn-industrial-primary">{{ t('modals.readmeClose') }}</button>
+          <button @click="readmeModalOpen = false" class="rounded-full bg-white hover:bg-neutral-200 text-black px-5 py-2 font-bold transition shadow-md">{{ t('modals.readmeClose') }}</button>
         </div>
       </div>
     </div>
 
 
     <!-- =====================================================================
-         MODAL 4: CV EJECUTIVO ATS & CONTACTO DIRECTO (BILINGÜE)
+         MODAL 4: CV EJECUTIVO ATS & CONTACTO DIRECTO (BILINGÜE • LIQUID GLASS)
          ===================================================================== -->
-    <div v-if="contactModalOpen" v-cloak class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-      <div class="theme-bg-surface border-2 theme-border-accent max-w-2xl w-full p-6 sm:p-8 my-8">
-        <div class="flex items-center justify-between pb-4 mb-5 border-b theme-border">
+    <div id="ats-modal-overlay" v-if="contactModalOpen" v-cloak class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+      <div id="ats-modal-card" class="liquid-glass-card border border-white/20 max-w-2xl w-full p-6 sm:p-8 my-8 shadow-2xl relative">
+        <div class="flex items-center justify-between pb-4 mb-5 border-b border-white/10">
           <div>
-            <div class="font-mono text-xs theme-text-accent">{{ t('modals.contactTitle') }}</div>
+            <div class="font-mono text-xs text-sky-400">{{ t('modals.contactTitle') }}</div>
             <h3 class="font-display font-black text-xl jhonny-name-lockup mt-1">
               JHONNY CASTILLO MERO <span class="jhonny-name-highlight">(@JHONNYCCM)</span>
             </h3>
           </div>
-          <button @click="contactModalOpen = false" class="btn-industrial-ghost !py-1 !px-3">✕</button>
+          <button @click="contactModalOpen = false" class="liquid-glass-btn rounded-full w-8 h-8 flex items-center justify-center text-neutral-400 hover:text-white">✕</button>
         </div>
 
-        <div class="bg-white text-black p-5 border-2 theme-border-accent space-y-3 text-xs sm:text-sm">
+        <div id="ats-printable-sheet" class="bg-white text-black p-5 sm:p-6 rounded-2xl border border-white/20 space-y-3 text-xs sm:text-sm shadow-lg">
           <div class="flex flex-wrap justify-between items-center border-b border-gray-300 pb-2">
             <div>
               <div class="font-black text-base">JHONNY CASTILLO MERO</div>
@@ -2194,17 +2237,17 @@
                 {{ currentLang === 'es' ? 'Full Stack Developer • Diseñador Web • AI MCP Builder • Estudiante de Ingeniería de Software @ ULEAM' : 'Full Stack Developer • Web Designer • AI MCP Builder • Software Engineering Student @ ULEAM' }}
               </div>
             </div>
-            <span class="font-mono text-xs font-bold bg-black text-white px-2.5 py-1">Manta, Ecuador 🇪🇨</span>
+            <span class="font-mono text-xs font-bold bg-black text-white px-2.5 py-1 rounded">Manta, Ecuador 🇪🇨</span>
           </div>
           <p class="text-xs leading-relaxed text-gray-800">
             <span v-if="currentLang === 'es'">
-              Desarrollador Full Stack especializado en diseño de interfaces web modernas y construcción de herramientas como servidores <strong>MCP (Model Context Protocol)</strong> para agentes de Inteligencia Artificial. Dominio de TypeScript, Python, Vue 3, Tailwind CSS, Django, PostgreSQL 16 y Docker.
+              Desarrollador Full Stack especializado en diseño de interfaces web modernas y construcción de herramientas como servidores <strong>MCP (Model Context Protocol)</strong> para agentes de Inteligencia Artificial. Dominio de Vue 3, Angular, TypeScript, Tailwind CSS, Python, Kotlin, Supabase (PostgreSQL 16), MongoDB, n8n y Docker.
             </span>
             <span v-else>
-              Full Stack Developer specialized in modern web interface design and building tooling such as <strong>MCP (Model Context Protocol)</strong> servers for Artificial Intelligence agents. Proficient in TypeScript, Python, Vue 3, Tailwind CSS, Django, PostgreSQL 16, and Docker.
+              Full Stack Developer specialized in modern web interface design and building tooling such as <strong>MCP (Model Context Protocol)</strong> servers for Artificial Intelligence agents. Proficient in Vue 3, Angular, TypeScript, Tailwind CSS, Python, Kotlin, Supabase (PostgreSQL 16), MongoDB, n8n, and Docker.
             </span>
           </p>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 font-mono text-xs bg-gray-100 p-3 border border-gray-300">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 font-mono text-xs bg-gray-100 p-3 rounded-xl border border-gray-300">
             <div><strong>EMAIL:</strong> jhonnyccm11@gmail.com</div>
             <div><strong>GITHUB:</strong> github.com/JhonnyCCM</div>
             <div><strong>{{ currentLang === 'es' ? 'UBICACIÓN:' : 'LOCATION:' }}</strong> Manta, Ecuador 🇪🇨</div>
@@ -2212,13 +2255,13 @@
           </div>
         </div>
 
-        <div class="mt-6 flex flex-wrap justify-between gap-2">
+        <div class="mt-6 pt-4 border-t border-white/10 flex flex-wrap justify-between items-center gap-2 font-mono text-xs">
           <div class="flex flex-wrap gap-2">
-            <button @click="copyEmail" class="btn-industrial-ghost">{{ currentLang === 'es' ? 'COPIAR EMAIL' : 'COPY EMAIL' }}</button>
-            <a href="https://github.com/JhonnyCCM" target="_blank" rel="noopener noreferrer" class="btn-industrial-ghost">GITHUB ↗</a>
-            <button onclick="window.print()" class="btn-industrial-ghost">{{ currentLang === 'es' ? 'IMPRIMIR CV ATS' : 'PRINT ATS RESUME' }}</button>
+            <button @click="copyEmail" class="liquid-glass-btn rounded-full px-4 py-2 text-neutral-200 hover:text-white">{{ currentLang === 'es' ? 'COPIAR EMAIL' : 'COPY EMAIL' }}</button>
+            <a href="https://github.com/JhonnyCCM" target="_blank" rel="noopener noreferrer" class="liquid-glass-btn rounded-full px-4 py-2 text-sky-300 hover:text-white">GITHUB ↗</a>
+            <button onclick="window.print()" class="liquid-glass-btn rounded-full px-4 py-2 text-neutral-200 hover:text-white">{{ currentLang === 'es' ? 'IMPRIMIR CV ATS' : 'PRINT ATS RESUME' }}</button>
           </div>
-          <button @click="contactModalOpen = false" class="btn-industrial-primary">{{ currentLang === 'es' ? 'CERRAR' : 'CLOSE' }}</button>
+          <button @click="contactModalOpen = false" class="rounded-full bg-white hover:bg-neutral-200 text-black px-5 py-2 font-bold transition shadow-md">{{ currentLang === 'es' ? 'CERRAR' : 'CLOSE' }}</button>
         </div>
       </div>
     </div>
@@ -2425,13 +2468,14 @@
     </div>
 
 
-    <!-- NOTIFICACIÓN TOAST INDUSTRIAL -->
+    <!-- NOTIFICACIÓN TOAST LIQUID GLASS -->
     <div
       v-if="toastText"
       v-cloak
-      class="fixed bottom-5 right-5 z-50 theme-bg-canvas border-2 theme-border-accent px-4 py-3 font-mono text-xs theme-text-main shadow-2xl flex items-center gap-3"
+      class="fixed bottom-5 right-5 z-50 liquid-glass-card rounded-full border border-white/20 px-5 py-3 font-mono text-xs text-white shadow-2xl flex items-center gap-3"
     >
-      <span class="theme-text-accent font-bold">[OK]</span>
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span class="text-sky-300 font-bold">OK</span>
       <span>{{ toastText }}</span>
     </div>
 
@@ -2504,7 +2548,7 @@
           desc: 'Sincronizado en vivo con <code class="theme-text-accent font-mono">github.com/JhonnyCCM</code>. He agrupado mis proyectos en <strong>Servidores MCP & IA</strong>, <strong>Desarrollo Web & UI/UX</strong>, <strong>Automatización & Data</strong> y <strong>Desarrollo Mobile / Académico</strong> para que puedas explorar directamente lo que construyo.',
           featuredBadge: '01 // TRABAJO & PROYECTOS DESTACADOS',
           featuredTitle: 'PROYECTOS DESTACADOS',
-          featuredDesc: 'Una selección de mis 4 mejores desarrollos técnicos: servidores MCP para IA, herramientas CLI y pipelines de automatización con arquitecturas reales.',
+          featuredDesc: 'Una selección curada de mis principales desarrollos técnicos y colaborativos: servidores MCP para IA, gamificación full stack y herramientas de automatización.',
           archiveBadge: '02 // ARCHIVO DE REPOSITORIOS GITHUB',
           archiveTitle: 'CATÁLOGO COMPLETO & PRÁCTICAS',
           archiveDesc: 'Explora el histórico completo sincronizado en tiempo real con <code class="theme-text-accent font-mono">github.com/JhonnyCCM</code>, clasificado entre proyectos principales, secundarios, labs y prácticas académicas.',
@@ -2636,7 +2680,7 @@
           desc: 'Synced live with <code class="theme-text-accent font-mono">github.com/JhonnyCCM</code>. Categorized into <strong>MCP Servers & AI</strong>, <strong>Web Dev & UI/UX</strong>, <strong>Automation & Data</strong>, and <strong>Mobile / Academic</strong> so you can directly explore what I build.',
           featuredBadge: '01 // WORK & FEATURED PROJECTS',
           featuredTitle: 'FEATURED PROJECTS',
-          featuredDesc: 'A curated selection of my 4 highest-impact technical projects: MCP servers for AI agents, CLI tools, and automation pipelines.',
+          featuredDesc: 'A curated selection of my core technical and collaborative builds: MCP servers for AI agents, full stack gamification, and automation tooling.',
           archiveBadge: '02 // GITHUB REPOSITORY ARCHIVE',
           archiveTitle: 'FULL CATALOG & PRACTICES',
           archiveDesc: 'Explore my complete repository archive synced in real-time with <code class="theme-text-accent font-mono">github.com/JhonnyCCM</code>, classified into core, secondary, labs, and academic practice codelabs.',
@@ -2777,6 +2821,42 @@
         featured: true
       },
       {
+        name: 'campus-quest-app',
+        title: 'Campus Quest App',
+        repoType: 'main',
+        category: 'fullstack',
+        language: 'TypeScript',
+        stars: 0,
+        forks: 0,
+        branch: 'main',
+        url: 'https://github.com/Erickelrojo-22/campus-quest-app',
+        isCollab: true,
+        collabRole_es: 'Colaborador Frontend & Lógica de Misiones',
+        collabRole_en: 'Frontend Collaborator & Quest Logic',
+        problem_solved_es: 'Plataforma de gamificación académica para la ULEAM con estética retro pixel-art, misiones interactivas, rutas dinámicas y seguimiento de progreso estudiantil desarrollada en equipo con persistencia en Supabase.',
+        problem_solved_en: 'Academic gamification platform for ULEAM featuring retro pixel-art aesthetics, interactive quests, dynamic routes, and student progress tracking built collaboratively with Supabase persistence.',
+        tagline: 'Plataforma de gamificación académica para la ULEAM con estética retro pixel-art, misiones interactivas y seguimiento de progreso estudiantil desarrollada en equipo.',
+        tagline_es: 'Plataforma de gamificación académica para la ULEAM con estética retro pixel-art, misiones interactivas y seguimiento de progreso estudiantil desarrollada en equipo.',
+        tagline_en: 'Academic gamification platform for ULEAM featuring retro pixel-art aesthetics, interactive quests, and student progress tracking built in team.',
+        specs: [
+          'Frontend modular y reactivo desarrollado con Vue 3, TypeScript y Tailwind CSS',
+          'Persistencia transaccional, autenticación y base de datos relacional con Supabase',
+          'Lógica de misiones, cálculo de progreso y renderizado interactivo de mapas del campus'
+        ],
+        specs_es: [
+          'Frontend modular y reactivo desarrollado con Vue 3, TypeScript y Tailwind CSS',
+          'Persistencia transaccional, autenticación y base de datos relacional con Supabase',
+          'Lógica de misiones, cálculo de progreso y renderizado interactivo de mapas del campus'
+        ],
+        specs_en: [
+          'Modular reactive frontend built with Vue 3, TypeScript, and Tailwind CSS',
+          'Transactional persistence, authentication, and relational database with Supabase',
+          'Quest game logic, progress tracking, and interactive campus map rendering'
+        ],
+        tags: ['Vue 3', 'TypeScript', 'Supabase', 'Tailwind CSS', 'Gamification'],
+        featured: true
+      },
+      {
         name: 'Spotify-Stats-MCP',
         title: 'Spotify-Stats-MCP',
         repoType: 'main',
@@ -2840,43 +2920,7 @@
           'Transactional PostgreSQL 16 persistence containerized in Docker'
         ],
         tags: ['n8n', 'PostgreSQL 16', 'LLM Extraction', 'Webhooks', 'Docker'],
-        featured: true
-      },
-      {
-        name: 'campus-quest-app',
-        title: 'Campus Quest App',
-        repoType: 'main',
-        category: 'fullstack',
-        language: 'TypeScript',
-        stars: 0,
-        forks: 0,
-        branch: 'main',
-        url: 'https://github.com/Erickelrojo-22/campus-quest-app',
-        isCollab: true,
-        collabRole_es: 'Colaborador Frontend & Lógica de Misiones',
-        collabRole_en: 'Frontend Collaborator & Quest Logic',
-        problem_solved_es: 'Gamifica el recorrido e integración dentro del campus universitario de la ULEAM mediante misiones interactivas, rutas geolocalizadas y mapas dinámicos en tiempo real con persistencia en Supabase.',
-        problem_solved_en: 'Gamifies orientation and exploration across ULEAM university campus through interactive quests, geolocated routes, and real-time dynamic maps powered by Supabase.',
-        tagline: 'Plataforma colaborativa de gamificación de campus universitario con misiones interactivas, rutas dinámicas y mapas en tiempo real.',
-        tagline_es: 'Plataforma colaborativa de gamificación de campus universitario con misiones interactivas, rutas dinámicas y mapas en tiempo real.',
-        tagline_en: 'Collaborative university campus gamification platform featuring interactive quests, dynamic routes, and real-time maps.',
-        specs: [
-          'Frontend modular y reactivo desarrollado con Vue 3, TypeScript y Tailwind CSS',
-          'Persistencia transaccional, autenticación y base de datos relacional con Supabase',
-          'Lógica de misiones, cálculo de progreso y renderizado interactivo de mapas del campus'
-        ],
-        specs_es: [
-          'Frontend modular y reactivo desarrollado con Vue 3, TypeScript y Tailwind CSS',
-          'Persistencia transaccional, autenticación y base de datos relacional con Supabase',
-          'Lógica de misiones, cálculo de progreso y renderizado interactivo de mapas del campus'
-        ],
-        specs_en: [
-          'Modular reactive frontend built with Vue 3, TypeScript, and Tailwind CSS',
-          'Transactional persistence, authentication, and relational database with Supabase',
-          'Quest game logic, progress tracking, and interactive campus map rendering'
-        ],
-        tags: ['Vue 3', 'TypeScript', 'Supabase', 'Tailwind CSS', 'Gamification'],
-        featured: true
+        featured: false
       },
       {
         name: 'uleamMatricula',
@@ -2906,7 +2950,7 @@
           'Sub-second execution without headless browser overhead'
         ],
         tags: ['Python 3', 'Requests', 'BeautifulSoup4', 'HTTP Sessions', 'CLI'],
-        featured: true
+        featured: false
       },
       {
         name: 'reproductorspotify',
@@ -2936,7 +2980,7 @@
           'Playback synchronization and device control via official SDK'
         ],
         tags: ['Vue 3', 'Spotify SDK', 'Tailwind CSS', 'Vite', 'SPA'],
-        featured: true
+        featured: false
       },
       {
         name: 'Repo-grupal-servidores-web',
@@ -3148,6 +3192,27 @@
         const selectedCertModal = ref(null);
         const certificates = ref(CERTIFICATES);
 
+        function switchMainView(view) {
+          mainView.value = view === 'info' ? 'info' : 'work';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function handleExpAction(exp, ev) {
+          if (!exp || !exp.actionLink) return;
+          if (!exp.actionLink.external && exp.actionLink.url && exp.actionLink.url.startsWith('#')) {
+            if (ev) ev.preventDefault();
+            mainView.value = 'work';
+            setTimeout(() => {
+              const target = document.querySelector(exp.actionLink.url);
+              if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            }, 80);
+          }
+        }
+
         function openProjectDetailModal(proj) {
           selectedProjectModal.value = proj;
         }
@@ -3348,49 +3413,55 @@
         const savedProjects = localStorage.getItem('jhonnyccm_v4_projects');
         let initialList = savedProjects ? JSON.parse(savedProjects) : JSON.parse(JSON.stringify(INITIAL_PROJECTS));
         // Asegurar que nuevos proyectos curados (ej. campus-quest-app) se agreguen incluso si el usuario tiene caché previa
-        INITIAL_PROJECTS.forEach(ip => {
+        INITIAL_PROJECTS.forEach((ip, idx) => {
           const exists = initialList.some(p => p.name.toLowerCase() === ip.name.toLowerCase());
           if (!exists) {
-            initialList.push(JSON.parse(JSON.stringify(ip)));
+            initialList.splice(Math.min(idx, initialList.length), 0, JSON.parse(JSON.stringify(ip)));
           }
         });
-        // Sincronizar problem_solved, featured, isCollab y url si el usuario tenía caché previa
+        // Migración única para fijar los 3 proyectos destacados iniciales (Design-Extractor-MCP, Campus Quest App, Spotify-Stats-MCP)
+        // A partir de entonces, cualquier cambio en "Destacado" desde admin.html se respeta al 100%
+        const featuredMigrated = localStorage.getItem('jhonnyccm_featured_v2');
+        const defaultFeaturedSet = ['design-extractor-mcp', 'campus-quest-app', 'spotify-stats-mcp'];
         initialList.forEach(p => {
           const match = INITIAL_PROJECTS.find(ip => ip.name.toLowerCase() === p.name.toLowerCase());
           if (match) {
             if (!p.problem_solved_es && match.problem_solved_es) p.problem_solved_es = match.problem_solved_es;
             if (!p.problem_solved_en && match.problem_solved_en) p.problem_solved_en = match.problem_solved_en;
-            if (match.featured) p.featured = true;
-            if (match.isCollab) p.isCollab = true;
-            if (match.url) p.url = match.url;
-            if (match.language) p.language = match.language;
-            if (match.tagline_es) p.tagline_es = match.tagline_es;
-            if (match.tagline_en) p.tagline_en = match.tagline_en;
+            if (match.isCollab && p.isCollab === undefined) p.isCollab = true;
+            if (match.url && (!p.url || p.url.includes('JhonnyCCM/campus-quest-app'))) p.url = match.url;
+            if (!p.language && match.language) p.language = match.language;
+            if (!p.tagline_es && match.tagline_es) p.tagline_es = match.tagline_es;
+            if (!p.tagline_en && match.tagline_en) p.tagline_en = match.tagline_en;
+          }
+          if (!featuredMigrated) {
+            p.featured = defaultFeaturedSet.includes(p.name.toLowerCase());
           }
         });
+        if (!featuredMigrated) {
+          localStorage.setItem('jhonnyccm_featured_v2', '1');
+          localStorage.setItem('jhonnyccm_v4_projects', JSON.stringify(initialList));
+        }
         const projects = ref(initialList);
 
-        // Los Proyectos Estrella mostrados en el Nivel 1 (Incluyendo Campus Quest Colaborativo)
+        // Los Proyectos Destacados mostrados en el Nivel 1 (100% dinámicos y editables desde admin.html)
+        // Actualmente son 3 por defecto, pero si marcas 4, 5 o más como "Destacado" en admin.html se renderizan todos automáticamente
         const featuredProjects = computed(() => {
-          const priorityNames = [
-            'design-extractor-mcp',
-            'campus-quest-app',
-            'spotify-stats-mcp',
-            'n8n-omni-expense-tracker'
-          ];
-          const list = [];
-          priorityNames.forEach(name => {
-            const found = projects.value.find(p => p.name.toLowerCase() === name);
-            if (found) list.push(found);
-          });
-          if (list.length < 4) {
-            projects.value.forEach(p => {
-              if (!list.some(item => item.name === p.name) && (p.featured || p.repoType === 'main')) {
-                if (list.length < 4) list.push(p);
-              }
+          const featuredList = projects.value.filter(p => p.featured && p.repoType !== 'hidden');
+          if (featuredList.length > 0) {
+            const orderMap = {
+              'design-extractor-mcp': 1,
+              'campus-quest-app': 2,
+              'spotify-stats-mcp': 3
+            };
+            return [...featuredList].sort((a, b) => {
+              const oa = orderMap[(a.name || '').toLowerCase()] || 99;
+              const ob = orderMap[(b.name || '').toLowerCase()] || 99;
+              return oa - ob;
             });
           }
-          return list;
+          // Respaldo automático si por accidente se desmarcan todos en admin.html
+          return projects.value.filter(p => p.repoType === 'main').slice(0, 3);
         });
 
         function getProjProblemSolved(proj) {
@@ -3848,16 +3919,24 @@
           }
           if (cmd === 'contact') {
             contactModalOpen.value = true;
-            cliHistory.value.push(`<div class="theme-text-main"><span class="theme-text-accent">jhonny@manta:~$</span> contact<br/><span class="theme-text-sub">&gt; Abriendo panel de contacto y resumen ejecutivo ATS...</span></div>`);
+            cliHistory.value.push(`<div class="theme-text-main"><span class="theme-text-accent">jhonny@manta:~$</span> contact<br/><span class="theme-text-sub">&gt; ${currentLang.value === 'es' ? 'Abriendo panel de contacto y resumen ejecutivo ATS...' : 'Opening contact panel and ATS executive summary...'}</span></div>`);
             return;
           }
-          const map = {
-            stack: '&gt; STACK: TypeScript, Python, Vue 3, Next.js, NestJS, PostgreSQL 16, Docker.',
-            mcp: '&gt; MCP SERVERS: Design-Extractor-MCP &amp; Spotify-Stats-MCP activos.',
-            certs: '&gt; CERTIFICACIONES: Android Basics with Compose (Google), Ing. de Software (ULEAM), Cloud &amp; CI/CD (Azure/GitHub), Model Context Protocol (Anthropic), PostgreSQL 16.',
-            hobbies: '&gt; OFF-SCREEN: Diseño de interfaces, música continua en Spotify, coleccionar Hot Wheels a escala y sesiones de Clean Code a las 3 AM.',
+          const mapEs = {
+            stack: '&gt; STACK PRINCIPAL: Vue 3, Angular, TypeScript, Tailwind CSS, Python, Kotlin, Supabase (PostgreSQL 16), MongoDB, n8n &amp; MCP.',
+            mcp: '&gt; MCP SERVERS: Design-Extractor-MCP &amp; Spotify-Stats-MCP (JSON-RPC 2.0) activos.',
+            certs: '&gt; CREDENCIALES: DevFest Quito 2026 (GDG), Android Basics with Compose (Google), Ing. de Software (ULEAM), Cloud &amp; CI/CD (Azure/GitHub), Model Context Protocol (Anthropic), PostgreSQL 16.',
+            hobbies: '&gt; FUERA DEL IDE: Game Dev en Unity (TactiBoss 25), Roblox Studio, servidores Minecraft Cobblemon, curaduría en Spotify y colección de Hot Wheels a escala.',
             help: '&gt; COMANDOS DISPONIBLES: stack, mcp, certs, contact, hobbies, clear'
           };
+          const mapEn = {
+            stack: '&gt; CORE STACK: Vue 3, Angular, TypeScript, Tailwind CSS, Python, Kotlin, Supabase (PostgreSQL 16), MongoDB, n8n &amp; MCP.',
+            mcp: '&gt; MCP SERVERS: Design-Extractor-MCP &amp; Spotify-Stats-MCP (JSON-RPC 2.0) active.',
+            certs: '&gt; CREDENTIALS: DevFest Quito 2026 (GDG), Android Basics with Compose (Google), Software Engineering (ULEAM), Cloud &amp; CI/CD (Azure/GitHub), Model Context Protocol (Anthropic), PostgreSQL 16.',
+            hobbies: '&gt; OFF-SCREEN: Game Dev in Unity (TactiBoss 25), Roblox Studio, Minecraft Cobblemon servers, Spotify music curation, and scale Hot Wheels collection.',
+            help: '&gt; AVAILABLE COMMANDS: stack, mcp, certs, contact, hobbies, clear'
+          };
+          const map = currentLang.value === 'en' ? mapEn : mapEs;
           cliHistory.value.push(`<div class="theme-text-main"><span class="theme-text-accent">jhonny@manta:~$</span> ${cmd}<br/><span class="theme-text-muted">${map[cmd] || 'OK'}</span></div>`);
         }
 
@@ -3926,16 +4005,24 @@
           readmeRenderedHtml.value = '';
           try {
             let markdown = '';
+            // Extraer dinámicamente owner/repo desde proj.url (soporta repositorios colaborativos como Erickelrojo-22/campus-quest-app)
+            let repoPath = `JhonnyCCM/${proj.name}`;
+            if (proj.url) {
+              const m = proj.url.match(/github\.com\/([^/]+\/[^/#?]+)/i);
+              if (m && m[1]) {
+                repoPath = m[1].replace(/\.git$/i, '');
+              }
+            }
             const branches = [proj.branch || 'main', 'main', 'master'];
             for (const b of branches) {
-              const res = await fetch(`https://raw.githubusercontent.com/JhonnyCCM/${proj.name}/${b}/README.md`);
+              const res = await fetch(`https://raw.githubusercontent.com/${repoPath}/${b}/README.md`);
               if (res.ok) {
                 markdown = await res.text();
                 break;
               }
             }
             if (!markdown) {
-              markdown = `# ${proj.title}\n\n${proj.tagline}\n\n## Stack\n` + (proj.tags || []).map(t => `- ${t}`).join('\n');
+              markdown = `# ${proj.title}\n\n${getProjProblemSolved(proj)}\n\n## Stack\n` + (proj.tags || []).map(t => `- ${t}`).join('\n');
             }
             readmeRenderedHtml.value = typeof marked !== 'undefined' ? marked.parse(markdown) : `<pre>${markdown}</pre>`;
           } catch (e) {
@@ -3995,6 +4082,8 @@
           setLang,
           t,
           mainView,
+          switchMainView,
+          handleExpAction,
           showArchive,
           selectedProjectModal,
           selectedCertModal,

@@ -520,8 +520,11 @@
 
               <!-- Identidad y Repo -->
               <td class="py-3 px-4">
-                <div class="flex items-center gap-2">
+                <div class="flex flex-wrap items-center gap-2">
                   <span class="font-bold theme-text-main text-sm">{{ p.title }}</span>
+                  <span v-if="p.isCollab" class="px-1.5 py-0.5 bg-emerald-500/15 border border-emerald-400/30 text-emerald-400 text-[9px] font-bold">
+                    COLABORADOR • EN DESARROLLO
+                  </span>
                   <a :href="p.url" target="_blank" class="theme-text-sub hover:underline" title="Ver en GitHub">
                     <i class="fa-brands fa-github text-xs"></i>
                   </a>
@@ -752,10 +755,14 @@
           />
         </div>
 
-        <div class="flex items-center gap-2 pt-2">
+        <div class="flex flex-wrap items-center gap-6 pt-2">
           <label class="flex items-center gap-2 cursor-pointer theme-text-main">
             <input type="checkbox" v-model="modalForm.featured" />
-            <span>Destacar como Proyecto TOP ⭐</span>
+            <span>Destacar en Proyectos Destacados (TOP ⭐)</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer text-emerald-400">
+            <input type="checkbox" v-model="modalForm.isCollab" />
+            <span>Proyecto Colaborativo • En Desarrollo 🤝</span>
           </label>
         </div>
 
@@ -853,7 +860,7 @@
     const INITIAL_PROJECTS = [
       {
         name: 'Design-Extractor-MCP',
-        title: 'Design Extractor MCP Server',
+        title: 'Design-Extractor-MCP',
         repoType: 'main',
         category: 'mcp',
         language: 'Python',
@@ -863,12 +870,28 @@
         url: 'https://github.com/JhonnyCCM/Design-Extractor-MCP',
         tagline: 'Servidor Model Context Protocol que inspecciona URLs, analiza sistemas de diseño y genera automáticamente tokens y temas de Tailwind CSS.',
         specs: ['FastMCP + Playwright Headless', 'Extracción determinista de CSS Variables'],
-        tags: ['Python', 'MCP', 'JSON-RPC 2.0', 'Tailwind CSS', 'Playwright'],
+        tags: ['Python', 'MCP Protocol', 'Playwright', 'Tailwind CSS', 'AST Tokens'],
+        featured: true
+      },
+      {
+        name: 'campus-quest-app',
+        title: 'Campus Quest App',
+        repoType: 'main',
+        category: 'fullstack',
+        language: 'TypeScript',
+        stars: 0,
+        forks: 0,
+        branch: 'main',
+        url: 'https://github.com/Erickelrojo-22/campus-quest-app',
+        isCollab: true,
+        tagline: 'Plataforma de gamificación académica para la ULEAM con estética retro pixel-art, misiones interactivas y seguimiento de progreso estudiantil desarrollada en equipo.',
+        specs: ['Frontend modular con Vue 3, TypeScript y Tailwind CSS', 'Persistencia y autenticación en Supabase'],
+        tags: ['Vue 3', 'TypeScript', 'Supabase', 'Tailwind CSS', 'Gamification'],
         featured: true
       },
       {
         name: 'Spotify-Stats-MCP',
-        title: 'Spotify Stats & Control MCP',
+        title: 'Spotify-Stats-MCP',
         repoType: 'main',
         category: 'mcp',
         language: 'Python',
@@ -878,12 +901,12 @@
         url: 'https://github.com/JhonnyCCM/Spotify-Stats-MCP',
         tagline: 'Servidor Model Context Protocol con OAuth 2.0 PKCE para consultar telemetría de Spotify y controlar la reproducción con IA.',
         specs: ['Flujo PKCE sin backend intermedio', 'Dashboard web en tiempo real'],
-        tags: ['Python', 'Spotify API', 'FastMCP', 'OAuth 2.0 PKCE', 'AI Agents'],
+        tags: ['Python', 'MCP Server', 'Spotify Web API', 'OAuth 2.0', 'Dashboard'],
         featured: true
       },
       {
         name: 'n8n-omni-expense-tracker',
-        title: 'Omni Expense Tracker con n8n & IA',
+        title: 'n8n-omni-expense-tracker',
         repoType: 'main',
         category: 'automation',
         language: 'JavaScript',
@@ -893,12 +916,12 @@
         url: 'https://github.com/JhonnyCCM/n8n-omni-expense-tracker',
         tagline: 'Sistema automatizado de finanzas personales con n8n, webhooks seguros, procesamiento LLM y persistencia en PostgreSQL 16.',
         specs: ['Procesamiento determinista de recibos', 'Consultas en lenguaje natural con IA'],
-        tags: ['n8n', 'PostgreSQL 16', 'Docker', 'Webhooks', 'LLM Integration'],
-        featured: true
+        tags: ['n8n', 'PostgreSQL 16', 'LLM Extraction', 'Webhooks', 'Docker'],
+        featured: false
       },
       {
         name: 'uleamMatricula',
-        title: 'ULEAM Matrícula CLI Automation',
+        title: 'uleamMatricula CLI',
         repoType: 'main',
         category: 'cli',
         language: 'Python',
@@ -908,27 +931,27 @@
         url: 'https://github.com/JhonnyCCM/uleamMatricula',
         tagline: 'Script CLI automatizado para consultar cupos y verificar disponibilidad académica en la plataforma universitaria de la ULEAM.',
         specs: ['Sesiones HTTP concurrentes resilientes', 'CLI tipada para estudiantes'],
-        tags: ['Python', 'Requests', 'BeautifulSoup4', 'Automation', 'CLI Tool'],
+        tags: ['Python 3', 'Requests', 'BeautifulSoup4', 'HTTP Sessions', 'CLI'],
         featured: false
       },
       {
         name: 'reproductorspotify',
-        title: 'Spotify Web SDK Player (Dark Cyberpunk)',
+        title: 'Spotify Web Player SPA',
         repoType: 'main',
         category: 'fullstack',
-        language: 'JavaScript',
+        language: 'Vue',
         stars: 0,
         forks: 0,
         branch: 'main',
         url: 'https://github.com/JhonnyCCM/reproductorspotify',
         tagline: 'Reproductor web interactivo conectado a la Web Playback SDK de Spotify con control de volumen, colas y ecualizador visual.',
         specs: ['Sincronización de token OAuth2', 'Audio streaming de baja latencia'],
-        tags: ['Vue 3', 'Spotify SDK', 'Tailwind CSS', 'Web Audio API'],
+        tags: ['Vue 3', 'Spotify SDK', 'Tailwind CSS', 'Vite', 'SPA'],
         featured: false
       },
       {
         name: 'Repo-grupal-servidores-web',
-        title: 'Arquitectura Limpia en Node.js & Docker',
+        title: 'Arquitectura de Servidores Web',
         repoType: 'academic',
         category: 'backend',
         language: 'TypeScript',
@@ -1112,9 +1135,32 @@
           triggerToast('CONTRASEÑA ACTUALIZADA CON ÉXITO');
         }
 
-        // Proyectos
+        // Proyectos (Sincronizados con INITIAL_PROJECTS y localStorage)
         const savedProjects = localStorage.getItem('jhonnyccm_v4_projects');
-        const projects = ref(savedProjects ? JSON.parse(savedProjects) : JSON.parse(JSON.stringify(INITIAL_PROJECTS)));
+        let initialList = savedProjects ? JSON.parse(savedProjects) : JSON.parse(JSON.stringify(INITIAL_PROJECTS));
+        INITIAL_PROJECTS.forEach((ip, idx) => {
+          const exists = initialList.some(p => p.name.toLowerCase() === ip.name.toLowerCase());
+          if (!exists) {
+            initialList.splice(Math.min(idx, initialList.length), 0, JSON.parse(JSON.stringify(ip)));
+          }
+        });
+        const featuredMigrated = localStorage.getItem('jhonnyccm_featured_v2');
+        const defaultFeaturedSet = ['design-extractor-mcp', 'campus-quest-app', 'spotify-stats-mcp'];
+        initialList.forEach(p => {
+          const match = INITIAL_PROJECTS.find(ip => ip.name.toLowerCase() === p.name.toLowerCase());
+          if (match) {
+            if (match.isCollab && p.isCollab === undefined) p.isCollab = true;
+            if (match.url && (!p.url || p.url.includes('JhonnyCCM/campus-quest-app'))) p.url = match.url;
+          }
+          if (!featuredMigrated) {
+            p.featured = defaultFeaturedSet.includes(p.name.toLowerCase());
+          }
+        });
+        if (!featuredMigrated) {
+          localStorage.setItem('jhonnyccm_featured_v2', '1');
+          localStorage.setItem('jhonnyccm_v4_projects', JSON.stringify(initialList));
+        }
+        const projects = ref(initialList);
 
         const filterType = ref('all');
         const filterCategory = ref('all');
@@ -1156,7 +1202,7 @@
 
         function toggleFeatured(p) {
           p.featured = !p.featured;
-          save(p.featured ? `⭐ ${p.name} marcado como TOP` : `${p.name} desmarcado de TOP`);
+          save(p.featured ? `⭐ ${p.name} agregado a Proyectos Destacados` : `${p.name} quitado de Proyectos Destacados`);
         }
 
         function deleteProject(p) {
@@ -1168,7 +1214,7 @@
 
         function autoSeparateGooglePractices() {
           let count = 0;
-          const coreMain = ['design-extractor-mcp', 'spotify-stats-mcp', 'n8n-omni-expense-tracker', 'uleammatricula', 'reproductorspotify'];
+          const coreMain = ['design-extractor-mcp', 'spotify-stats-mcp', 'n8n-omni-expense-tracker', 'uleammatricula', 'reproductorspotify', 'campus-quest-app'];
           projects.value.forEach(p => {
             const lower = p.name.toLowerCase();
             const desc = (p.tagline || '').toLowerCase();
@@ -1276,6 +1322,7 @@
         function resetDefaultCatalog() {
           if (confirm('¿Restaurar el catálogo original de repositorios? Se perderán las modificaciones no respaldadas.')) {
             localStorage.removeItem('jhonnyccm_v4_projects');
+            localStorage.setItem('jhonnyccm_featured_v2', '1');
             projects.value = JSON.parse(JSON.stringify(INITIAL_PROJECTS));
             save('CATÁLOGO RESTAURADO POR DEFECTO');
           }
@@ -1293,7 +1340,8 @@
           url: '',
           tagline: '',
           tagsString: '',
-          featured: false
+          featured: false,
+          isCollab: false
         });
 
         function openNewProjectModal() {
@@ -1307,7 +1355,8 @@
             url: '',
             tagline: '',
             tagsString: '',
-            featured: false
+            featured: false,
+            isCollab: false
           };
           projectModalOpen.value = true;
         }
@@ -1323,7 +1372,8 @@
             url: p.url,
             tagline: p.tagline,
             tagsString: (p.tags || []).join(', '),
-            featured: !!p.featured
+            featured: !!p.featured,
+            isCollab: !!p.isCollab
           };
           projectModalOpen.value = true;
         }
@@ -1348,6 +1398,7 @@
               projects.value[idx].tagline = modalForm.value.tagline;
               projects.value[idx].tags = tags;
               projects.value[idx].featured = modalForm.value.featured;
+              projects.value[idx].isCollab = modalForm.value.isCollab;
             }
             save(`"${modalForm.value.title}" actualizado`);
           } else {
@@ -1369,7 +1420,8 @@
               tagline: modalForm.value.tagline || 'Nuevo proyecto agregado.',
               specs: ['Registrado desde el Panel Admin'],
               tags: tags,
-              featured: modalForm.value.featured
+              featured: modalForm.value.featured,
+              isCollab: modalForm.value.isCollab
             });
             save(`Proyecto "${modalForm.value.title}" agregado`);
           }
