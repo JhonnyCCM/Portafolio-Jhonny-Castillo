@@ -40,22 +40,9 @@
 
   <style>
     :root,
+    body,
+    body.theme-mono,
     body.theme-crimson {
-      --bg-canvas: #0E1015;
-      --bg-surface: #151821;
-      --bg-elevated: #1C212E;
-      --bg-glass: rgba(14, 16, 21, 0.88);
-      --text-main: #F3F6FA;
-      --text-muted: #94A3B8;
-      --border-line: #262D3D;
-      --accent-primary: #FF1E42;
-      --accent-secondary: #2CE6FF;
-      --accent-contrast: #FFFFFF;
-      --name-primary: #FFFFFF;
-      --name-accent: #2CE6FF;
-    }
-
-    body.theme-mono {
       --bg-canvas: #0A0B0D;
       --bg-surface: #121317;
       --bg-elevated: #1A1C22;
@@ -184,7 +171,7 @@
     }
   </style>
 </head>
-<body class="theme-crimson">
+<body class="theme-mono">
   <div id="app" class="min-h-screen flex flex-col justify-between">
 
     <!-- BARRA SUPERIOR DE ADMINISTRACIÓN -->
@@ -233,15 +220,11 @@
               <span class="hidden sm:inline">SALIR</span>
             </button>
 
-            <!-- Selector de Paleta -->
-            <button
-              @click="toggleTheme"
-              class="btn-industrial-ghost !py-1.5 !px-2.5 !text-[10px]"
-              title="Alternar entre paleta Tokyo-Crimson y E-Ink Mono"
-            >
-              <i class="fa-solid fa-palette theme-text-accent"></i>
-              <span class="hidden sm:inline">{{ activeTheme === 'crimson' ? '01 / TOKYO-CRIMSON' : '02 / E-INK MONO' }}</span>
-            </button>
+            <!-- Indicador de Paleta Oficial (E-INK MONO) -->
+            <div class="hidden sm:flex items-center gap-1.5 font-mono text-[10px] px-2.5 py-1 border theme-border theme-bg-canvas theme-text-muted">
+              <span class="w-1.5 h-1.5 rounded-full bg-white inline-block"></span>
+              <span>PALETA: <strong class="theme-text-main font-bold">E-INK MONO</strong></span>
+            </div>
 
             <!-- Volver al Portafolio -->
             <a href="index.html" class="btn-industrial-primary !py-1.5 !px-3">
@@ -653,7 +636,7 @@
         <div class="flex items-center gap-3">
           <a href="index.html" class="theme-text-sub hover:underline">Ir a index.html ↗</a>
           <span class="theme-text-muted">•</span>
-          <span class="theme-text-accent">PALETA: {{ activeTheme.toUpperCase() }}</span>
+          <span class="theme-text-accent font-bold">PALETA: E-INK MONO</span>
         </div>
       </div>
     </footer>
@@ -1009,14 +992,13 @@
 
     createApp({
       setup() {
-        const savedTheme = localStorage.getItem('jhonnyccm_theme_v5') || 'crimson';
-        const activeTheme = ref(savedTheme === 'mono' ? 'mono' : 'crimson');
+        const activeTheme = ref('mono');
+        localStorage.setItem('jhonnyccm_theme_v5', 'mono');
 
         function toggleTheme() {
-          activeTheme.value = activeTheme.value === 'crimson' ? 'mono' : 'crimson';
-          localStorage.setItem('jhonnyccm_theme_v5', activeTheme.value);
-          document.body.className = 'theme-' + activeTheme.value;
-          triggerToast('PALETA ACTIVA: ' + activeTheme.value.toUpperCase());
+          activeTheme.value = 'mono';
+          localStorage.setItem('jhonnyccm_theme_v5', 'mono');
+          document.body.className = 'theme-mono';
         }
 
         // =====================================================================

@@ -43,29 +43,14 @@
 
   <style>
     /* =========================================================================
-       1. ENGINE DE 2 PALETAS DE COLORES REACTIVAS CALIBRADAS CON LOS BANNERS
-       - 01 / TOKYO-CRIMSON: Calibrado con el banner rojo/cian (Noche #0E1015,
-         Superficie acantilado #151821, Cian Océano/HUD #2CE6FF y Rojo Torii #FF1E42).
-       - 02 / E-INK MONO: Calibrado con el banner monocromo (#0A0B0D, Blanco #FFFFFF
+       1. ENGINE DE COLOR: PALETA EXCLUSIVA E-INK MONO CALIBRADA CON EL BANNER
+       - E-INK MONO: Calibrado con el banner monocromo (#0A0B0D, Blanco #FFFFFF
          y toque 5% azul radar HUD #7DD3FC).
        ========================================================================= */
     :root,
+    body,
+    body.theme-mono,
     body.theme-crimson {
-      --bg-canvas: #0E1015;          /* Pizarra nocturna exacta del cielo del banner Crimson */
-      --bg-surface: #151821;         /* Gris azulado oscuro de los acantilados del banner */
-      --bg-elevated: #1C212E;        /* Superficie elevada con matiz frío */
-      --bg-glass: rgba(14, 16, 21, 0.84);
-      --text-main: #F3F6FA;          /* Blanco espuma de mar */
-      --text-muted: #94A3B8;         /* Gris acero frío */
-      --border-line: #262D3D;        /* Borde estructural frío que conecta con la rejilla */
-      --accent-primary: #FF1E42;     /* Rojo neón exacto del Torii, Sol y letrero MANTA */
-      --accent-secondary: #2CE6FF;   /* Cian eléctrico exacto del mar reticulado y radar HUD */
-      --accent-contrast: #FFFFFF;
-      --name-primary: #FFFFFF;       /* REGLA ESTRICTA: Nombre NUNCA en rojo */
-      --name-accent: #2CE6FF;        /* Cian hielo del océano del banner para CASTILLO / CCM */
-    }
-
-    body.theme-mono {
       --bg-canvas: #0A0B0D;          /* Negro carbón del banner E-Ink Mono */
       --bg-surface: #121317;         /* Superficie grafito */
       --bg-elevated: #1A1C22;        /* Gris acero elevado */
@@ -341,7 +326,7 @@
     }
   </style>
 </head>
-<body class="theme-crimson antialiased">
+<body class="theme-mono antialiased">
 
   <!-- CAPA CRT [R] -->
   <div id="crtOverlay" aria-hidden="true">
@@ -377,18 +362,11 @@
             </a>
           </div>
 
-          <!-- Selector en Vivo de las 2 Paletas Oficiales (TOKYO-CRIMSON & E-INK MONO) -->
-          <div class="flex items-center gap-1 theme-bg-surface p-1 border theme-border">
-            <span class="text-[10px] font-mono theme-text-muted px-2 hidden md:inline">PALETA &amp; BANNER:</span>
-            <button
-              v-for="t in themes"
-              :key="t.id"
-              @click="applyTheme(t.id)"
-              :class="activeTheme === t.id ? 'btn-industrial-primary !py-1 !px-3' : 'text-[11px] font-mono theme-text-muted hover:theme-text-main px-3 py-1'"
-              :title="t.description"
-            >
-              {{ t.label }}
-            </button>
+          <!-- Indicador de Paleta Oficial (E-INK MONO) -->
+          <div class="hidden sm:flex items-center gap-2 theme-bg-surface px-3 py-1 border theme-border font-mono text-[11px]">
+            <span class="w-2 h-2 rounded-full bg-white inline-block"></span>
+            <span class="theme-text-muted">PALETA:</span>
+            <span class="theme-text-main font-bold">E-INK MONO</span>
           </div>
 
           <!-- Controles Derechos: Navegación + Selector Idioma [ES|EN] + Modo CRT [R] + CV ATS -->
@@ -1304,13 +1282,13 @@
 
         <div class="pt-4 flex flex-col sm:flex-row items-center justify-between text-xs font-mono theme-text-muted gap-2">
           <span>{{ t('footer.rights') }}</span>
-          <span>{{ t('footer.activePalette') }} <strong class="theme-text-accent">{{ activeTheme.toUpperCase() }}</strong></span>
+          <span>{{ t('footer.activePalette') }} <strong class="theme-text-accent">E-INK MONO</strong></span>
         </div>
       </div>
 
       <img
-        class="w-full h-24 object-cover block"
-        src="https://capsule-render.vercel.app/api?type=waving&color=0:1a1b27,50:3178C6,100:00F7FF&height=110&section=footer"
+        class="w-full h-24 object-cover block opacity-75"
+        src="https://capsule-render.vercel.app/api?type=waving&color=0:0A0B0D,50:1A1C22,100:7DD3FC&height=110&section=footer"
         alt="Footer Wave"
       />
     </footer>
@@ -1963,23 +1941,13 @@
 
     createApp({
       setup() {
-        // 1. GESTIÓN EXCLUSIVA DE LAS 2 PALETAS ELEGIDAS (TOKYO-CRIMSON & E-INK MONO)
-        // Usa únicamente las imágenes reales del usuario (sin ningún SVG de paisaje en código)
+        // 1. GESTIÓN EXCLUSIVA DE LA PALETA OFICIAL E-INK MONO
+        // Usa únicamente la imagen real del usuario: banner-eink-mono.jpg
         const themes = [
           {
-            id: 'crimson',
-            label: '01 / TOKYO-CRIMSON',
-            description: 'Paleta #3 Calibrada con el Banner Rojo/Cian (Pizarra #0E1015 + Rojo Torii #FF1E42 + Cian Océano #2CE6FF)',
-            candidates: [
-              './banner-tokyo-crimson.jpg',
-              'banner-tokyo-crimson.jpg',
-              './images/banner-tokyo-crimson.jpg'
-            ]
-          },
-          {
             id: 'mono',
-            label: '02 / E-INK MONO',
-            description: 'Paleta #4 Calibrada con el Banner Monocromo (#0A0B0D + Blanco #FFFFFF + Radar #7DD3FC)',
+            label: '01 / E-INK MONO',
+            description: 'Paleta Oficial Monocromo (#0A0B0D + Blanco #FFFFFF + Radar #7DD3FC)',
             candidates: [
               './banner-eink-mono.jpg',
               'banner-eink-mono.jpg',
@@ -1988,11 +1956,10 @@
           }
         ];
 
-        const savedTheme = localStorage.getItem('jhonnyccm_theme_v5');
-        const activeTheme = ref(savedTheme === 'mono' ? 'mono' : 'crimson');
+        const activeTheme = ref('mono');
+        localStorage.setItem('jhonnyccm_theme_v5', 'mono');
         const candidateIdx = ref(0);
         const customBannersByTheme = ref({
-          crimson: '',
           mono: ''
         });
         const bannerLoaded = ref(false);
@@ -2050,7 +2017,7 @@
         async function loadBannersFromDb() {
           try {
             const db = await openBannerDb();
-            ['crimson', 'mono'].forEach((k) => {
+            ['mono'].forEach((k) => {
               const tx = db.transaction('banners', 'readonly');
               const req = tx.objectStore('banners').get(k);
               req.onsuccess = () => {
@@ -2072,9 +2039,7 @@
 
         const currentBannerFilename = computed(() => {
           if (customBannersByTheme.value[activeTheme.value]) {
-            return activeTheme.value === 'crimson'
-              ? 'banner-tokyo-crimson.jpg'
-              : 'banner-eink-mono.jpg';
+            return 'banner-eink-mono.jpg';
           }
           const found = themes.find(t => t.id === activeTheme.value) || themes[0];
           const idx = Math.min(candidateIdx.value, found.candidates.length - 1);
@@ -2092,14 +2057,15 @@
           }
         }
 
-        function applyTheme(themeId) {
-          const validId = themeId === 'mono' ? 'mono' : 'crimson';
-          activeTheme.value = validId;
+        function applyTheme(themeId, notify = false) {
+          activeTheme.value = 'mono';
           candidateIdx.value = 0;
-          localStorage.setItem('jhonnyccm_theme_v5', validId);
-          document.body.classList.remove('theme-crimson', 'theme-mono', 'theme-fusion', 'theme-cyan');
-          document.body.classList.add('theme-' + validId);
-          triggerToast('PALETA Y BANNER ACTIVOS: ' + validId.toUpperCase());
+          localStorage.setItem('jhonnyccm_theme_v5', 'mono');
+          document.body.classList.remove('theme-crimson', 'theme-fusion', 'theme-cyan');
+          document.body.classList.add('theme-mono');
+          if (notify) {
+            triggerToast('PALETA ACTIVA: E-INK MONO');
+          }
         }
 
         // Sonido Sintetizado Web Audio API para el interruptor CRT
