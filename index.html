@@ -113,20 +113,20 @@
     .theme-border-accent { border-color: var(--accent-primary); }
     .theme-border-sub  { border-color: var(--accent-secondary); }
 
-    /* Estilos Cyber Liquid Glass */
+    /* Estilos Cyber Liquid Glass (Apple / Perry Wang) */
     .liquid-glass-nav {
       background: rgba(18, 20, 26, 0.75);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       border: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45), inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
+      box-shadow: 0 12px 36px 0 rgba(0, 0, 0, 0.45), inset 0 1px 1px 0 rgba(255, 255, 255, 0.18);
       border-radius: 9999px;
       padding: 3px;
     }
 
     .liquid-glass-tab {
       border-radius: 9999px;
-      padding: 6px 16px;
+      padding: 7px 18px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 11.5px;
       font-weight: 600;
@@ -141,31 +141,31 @@
       background: #FFFFFF;
       color: #0A0B0D !important;
       font-weight: 700;
-      box-shadow: 0 2px 14px rgba(255, 255, 255, 0.28);
+      box-shadow: 0 2px 16px rgba(255, 255, 255, 0.32);
     }
 
     .liquid-glass-card {
-      background: rgba(18, 20, 26, 0.65);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(18, 20, 26, 0.70) 100%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 16px;
-      box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      border-radius: 28px;
+      box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.6), inset 0 1px 1px 0 rgba(255, 255, 255, 0.14);
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .liquid-glass-card:hover {
       border-color: rgba(255, 255, 255, 0.22);
       transform: translateY(-2px);
-      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.65), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+      box-shadow: 0 28px 60px -12px rgba(0, 0, 0, 0.75), inset 0 1px 2px rgba(255, 255, 255, 0.22);
     }
 
     .liquid-glass-row {
       background: rgba(255, 255, 255, 0.02);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: 12px;
-      transition: all 0.2s ease;
+      border-radius: 20px;
+      transition: all 0.22s ease;
     }
     .liquid-glass-row:hover {
       background: rgba(255, 255, 255, 0.05);
@@ -175,15 +175,16 @@
 
     .liquid-glass-btn {
       background: rgba(255, 255, 255, 0.06);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 9999px;
       color: var(--text-main);
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);
       transition: all 0.2s ease;
     }
     .liquid-glass-btn:hover {
-      background: rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.15);
       border-color: rgba(255, 255, 255, 0.32);
       color: #FFFFFF;
       transform: translateY(-1px);
@@ -196,7 +197,7 @@
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 9999px;
-      padding: 3px 10px;
+      padding: 3px 11px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
       color: var(--text-muted);
@@ -430,14 +431,7 @@
 </head>
 <body class="theme-mono antialiased">
 
-  <!-- Pantalla de Carga Inicial para evitar destello de llaves sin procesar (FOUC) -->
-  <div id="preloader" class="fixed inset-0 z-[9999] bg-[#0A0B0D] flex flex-col items-center justify-center font-mono text-xs text-[#FAFAFA] transition-opacity duration-300">
-    <div class="flex items-center gap-2.5 mb-2">
-      <div class="w-2.5 h-2.5 bg-white animate-pulse"></div>
-      <span class="font-bold tracking-wider">JHONNYCCM // FULL STACK SYSTEM</span>
-    </div>
-    <div class="text-[#A1A1AA] text-[11px]">Inicializando entorno interactivo...</div>
-  </div>
+
 
   <!-- CAPA CRT [R] -->
   <div id="crtOverlay" aria-hidden="true">
@@ -590,39 +584,32 @@
         :class="landscapeMode ? 'opacity-0 pointer-events-none scale-95' : 'opacity-100 scale-100'"
         class="relative z-20 max-w-[1380px] w-full mx-auto px-4 sm:px-6 py-8 md:py-12 my-auto transition-all duration-300"
       >
-        <div class="grid grid-cols-1 lg:grid-cols-12 border theme-border theme-bg-glass shadow-2xl">
+        <div class="grid grid-cols-1 lg:grid-cols-12 rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur-2xl shadow-2xl overflow-hidden">
           
           <!-- COLUMNA IZQUIERDA (7 COLUMNAS): IDENTIDAD TÉCNICA, BIOGRAFÍA Y ACCIONES -->
-          <div class="lg:col-span-7 p-6 sm:p-8 lg:p-10 border-b lg:border-b-0 lg:border-r theme-border flex flex-col justify-between">
+          <div class="lg:col-span-7 p-6 sm:p-8 lg:p-10 border-b lg:border-b-0 lg:border-r border-white/10 flex flex-col justify-between">
             <div>
               <!-- Metadatos Superiores: Posicionamiento profesional auténtico -->
-              <div class="flex flex-wrap items-center justify-between gap-2 pb-4 mb-5 border-b theme-border font-mono text-xs">
-                <div class="flex items-center gap-2">
-                  <span class="hud-cyan-badge">{{ t('hero.badgeUleam') }}</span>
-                  <span class="theme-text-main font-semibold">{{ t('hero.location') }}</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <span class="px-2 py-0.5 theme-bg-canvas border border-emerald-500/40 text-emerald-400 font-mono text-[11px] font-bold inline-flex items-center gap-1.5">
-                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    {{ currentLang === 'es' ? 'DISPONIBLE PARA TRABAJAR' : 'AVAILABLE FOR HIRE' }}
-                  </span>
-                </div>
+              <div class="flex flex-wrap items-center gap-2 pb-4 mb-5 border-b border-white/10 font-mono text-xs">
+                <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sky-300 font-semibold text-[11px]">{{ t('hero.badgeUleam') }}</span>
+                <span class="text-neutral-500">•</span>
+                <span class="text-neutral-300 font-medium">{{ t('hero.location') }}</span>
               </div>
 
               <!-- Subtítulo de Rol Claro y Nombre -->
-              <div class="font-mono text-xs uppercase tracking-widest theme-text-sub mb-1.5 font-bold">
+              <div class="font-mono text-xs uppercase tracking-widest text-sky-400 mb-1.5 font-bold">
                 {{ t('hero.role') }}
               </div>
-              <h1 class="font-display font-black text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-none mb-3">
+              <h1 class="font-display font-black text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-none mb-4">
                 <span class="jhonny-name-lockup">JHONNY </span>
                 <span class="jhonny-name-highlight">CASTILLO</span>
               </h1>
 
-              <!-- Tagline Nativo de Alto Impacto (Cero dependencias externas / Tipografía nítida) -->
-              <div class="my-3.5 p-3 theme-bg-canvas border theme-border-sub font-mono text-xs sm:text-sm flex items-center justify-between gap-2">
+              <!-- Tagline Nativo de Alto Impacto -->
+              <div class="my-4 p-3.5 rounded-2xl bg-white/[0.03] border border-white/10 font-mono text-xs sm:text-sm flex items-center justify-between gap-2">
                 <div class="flex items-center gap-2 overflow-hidden">
-                  <span class="theme-text-accent font-bold">&gt;</span>
-                  <span class="theme-text-main font-semibold tracking-wide">
+                  <span class="text-sky-400 font-bold">&gt;</span>
+                  <span class="text-neutral-200 font-semibold tracking-wide">
                     {{ currentLang === 'es' 
                        ? 'Desarrollo Web Moderno • APIs Escalables • Herramientas MCP para IA' 
                        : 'Modern Web Engineering • Scalable APIs • MCP Tooling for AI' }}
@@ -632,117 +619,89 @@
               </div>
 
               <!-- Biografía Pragmática, Directa y Comercial Bilingüe -->
-              <p class="theme-text-main text-sm sm:text-base leading-relaxed mb-5" v-html="t('hero.bio')">
+              <p class="text-neutral-300 text-sm sm:text-base leading-relaxed mb-6" v-html="t('hero.bio')">
               </p>
 
-              <!-- Enlaces Profesionales Nativos (Sin escuditos externos ni contadores de visitas) -->
+              <!-- Enlaces Profesionales Nativos -->
               <div class="flex flex-wrap items-center gap-2.5 mb-6 font-mono text-xs">
-                <a href="https://github.com/JhonnyCCM" target="_blank" rel="noopener noreferrer" class="btn-industrial-ghost !py-1.5 !px-3 inline-flex items-center gap-2">
-                  <i class="fa-brands fa-github text-sm theme-text-accent"></i>
+                <a href="https://github.com/JhonnyCCM" target="_blank" rel="noopener noreferrer" class="liquid-glass-btn rounded-full !py-1.5 !px-3.5 inline-flex items-center gap-2">
+                  <i class="fa-brands fa-github text-sm text-sky-400"></i>
                   <span>github.com/JhonnyCCM</span>
                 </a>
-                <button @click="copyEmail" class="btn-industrial-ghost !py-1.5 !px-3 inline-flex items-center gap-2" title="Copiar correo jhonnyccm11@gmail.com">
-                  <i class="fa-regular fa-envelope text-sm theme-text-accent"></i>
+                <button @click="copyEmail" class="liquid-glass-btn rounded-full !py-1.5 !px-3.5 inline-flex items-center gap-2" title="Copiar correo jhonnyccm11@gmail.com">
+                  <i class="fa-regular fa-envelope text-sm text-sky-400"></i>
                   <span>jhonnyccm11@gmail.com</span>
                 </button>
-                <div class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 theme-bg-canvas border theme-border theme-text-muted text-[11px]">
-                  <i class="fa-solid fa-bolt theme-text-sub"></i>
-                  <span>High Shipping Velocity</span>
-                </div>
               </div>
             </div>
 
-            <!-- Botones Principales de Llamado a la Acción (CTA Imposible de Ignorar) -->
-            <div class="pt-5 border-t theme-border flex flex-wrap items-center gap-3">
-              <button @click="contactModalOpen = true" class="btn-industrial-primary !py-2.5 !px-5 text-xs font-bold shadow-lg flex items-center gap-2">
+            <!-- Botones Principales de Llamado a la Acción -->
+            <div class="pt-5 border-t border-white/10 flex flex-wrap items-center gap-3 font-mono text-xs">
+              <button @click="contactModalOpen = true" class="rounded-full bg-white hover:bg-neutral-200 text-black px-5 py-2.5 font-bold shadow-lg flex items-center gap-2 transition">
                 <i class="fa-solid fa-file-contract"></i>
                 <span>{{ t('hero.btnCvContact') }}</span>
               </button>
-              <a href="#proyectos-destacados" class="btn-industrial-ghost !py-2.5 !px-4 text-xs flex items-center gap-2">
-                <i class="fa-solid fa-briefcase theme-text-accent"></i>
+              <a href="#proyectos-destacados" class="liquid-glass-btn rounded-full !py-2.5 !px-4 flex items-center gap-2">
+                <i class="fa-solid fa-briefcase text-sky-400"></i>
                 <span>{{ t('hero.btnFeatured') }}</span>
               </a>
-              <button @click="mainView = 'info'" class="btn-industrial-ghost !py-2.5 !px-4 text-xs flex items-center gap-2">
-                <i class="fa-solid fa-user-circle theme-text-sub"></i>
+              <button @click="mainView = 'info'" class="liquid-glass-btn rounded-full !py-2.5 !px-4 flex items-center gap-2">
+                <i class="fa-solid fa-user-circle text-neutral-400"></i>
                 <span>{{ currentLang === 'es' ? 'CREDENCIALES & INFO' : 'CREDENTIALS & INFO' }}</span>
               </button>
-              <button @click="openMcpModal('design')" class="btn-industrial-ghost !py-2.5 !px-3 text-xs flex items-center gap-1.5">
-                <i class="fa-solid fa-terminal theme-text-sub"></i>
+              <button @click="openMcpModal('design')" class="liquid-glass-btn rounded-full !py-2.5 !px-3.5 flex items-center gap-1.5 text-sky-300">
+                <i class="fa-solid fa-terminal text-[11px]"></i>
                 <span>{{ t('hero.btnMcpSim') }}</span>
               </button>
             </div>
           </div>
 
-          <!-- COLUMNA DERECHA (5 COLUMNAS): ÚNICA TARJETA PROPÓSITO & DISPONIBILIDAD (LIQUID GLASS) -->
-          <div class="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between theme-bg-canvas/50">
+          <!-- COLUMNA DERECHA (5 COLUMNAS): PRESENTACIÓN HUMANA & DISPONIBILIDAD (LIQUID GLASS) -->
+          <div class="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between bg-white/[0.01]">
             
-            <div class="liquid-glass-card p-6 sm:p-7 flex-1 flex flex-col justify-between space-y-4">
-              <div class="space-y-3">
-                <div class="flex items-center justify-between border-b border-white/10 pb-3">
+            <div class="liquid-glass-card rounded-3xl p-6 sm:p-8 flex-1 flex flex-col justify-between space-y-5 border border-white/10">
+              <div>
+                <!-- Estado único en pantalla -->
+                <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
                   <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
                     <span class="font-mono text-xs text-emerald-400 font-bold uppercase tracking-wider">
                       {{ currentLang === 'es' ? 'DISPONIBLE PARA TRABAJAR' : 'AVAILABLE FOR HIRE' }}
                     </span>
                   </div>
-                  <span class="px-2 py-0.5 rounded-full text-[10px] font-mono bg-white/5 border border-white/10 text-neutral-400">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10.5px] font-mono bg-white/5 border border-white/10 text-neutral-400">
                     REMOTO / PRESENCIAL
                   </span>
                 </div>
 
-                <div>
-                  <div class="text-[10px] font-mono text-neutral-400 uppercase tracking-wider mb-1">
-                    {{ currentLang === 'es' ? 'PROPÓSITO & ROL BUSCADO' : 'PURPOSE & DESIRED ROLE' }}
-                  </div>
-                  <p class="text-sm font-medium text-white leading-relaxed">
-                    {{ currentLang === 'es' 
-                       ? 'Abierto a contratación en roles Full Stack (Junior/Mid) y desarrollo de plataformas web y MVPs para startups y empresas.' 
-                       : 'Open to Full Stack roles (Junior/Mid) and custom MVP web platform development for businesses and startups.' }}
-                  </p>
-                </div>
+                <!-- Redacción natural y humana en primera persona -->
+                <p class="text-sm sm:text-base text-neutral-200 leading-relaxed font-normal mb-5">
+                  {{ currentLang === 'es' 
+                     ? 'Construyo aplicaciones web completas, arquitecturas backend escalables y servidores MCP para IA desde Manta, Ecuador (UTC-5). Actualmente curso Ingeniería de Software en la ULEAM y estoy disponible para sumarme a equipos como Full Stack (Junior/Mid) o desarrollar MVPs a medida.' 
+                     : 'I build end-to-end web applications, scalable backend architectures, and MCP servers for AI from Manta, Ecuador (UTC-5). Currently studying Software Engineering at ULEAM and available to join teams as a Full Stack (Junior/Mid) or develop custom MVPs.' }}
+                </p>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
-                  <div class="p-3 rounded-xl bg-white/[0.03] border border-white/10">
-                    <div class="text-[10px] font-mono text-neutral-400 uppercase mb-0.5">UBICACIÓN</div>
-                    <div class="text-xs font-semibold text-white">Manta, Ecuador 🇪🇨</div>
-                    <div class="text-[10.5px] font-mono theme-text-sub">Zona Horaria UTC-5</div>
+                <!-- Separación orgánica con espacio sutil (sin cajas dentro de cajas) -->
+                <div class="py-4 border-y border-white/10 space-y-2.5 font-mono text-xs">
+                  <div class="flex items-center gap-2 text-neutral-300">
+                    <i class="fa-solid fa-location-dot text-sky-400 text-xs w-4"></i>
+                    <span>Manta, Ecuador 🇪🇨 (UTC-5)</span>
+                    <span class="text-neutral-500">•</span>
+                    <span class="text-neutral-400">Ing. Software @ ULEAM</span>
                   </div>
-                  <div class="p-3 rounded-xl bg-white/[0.03] border border-white/10">
-                    <div class="text-[10px] font-mono text-neutral-400 uppercase mb-0.5">FORMACIÓN</div>
-                    <div class="text-xs font-semibold text-white">Ingeniería de Software</div>
-                    <div class="text-[10.5px] font-mono theme-text-sub">ULEAM (En curso)</div>
+                  <div class="flex items-center gap-2 text-neutral-400 text-[11.5px]">
+                    <i class="fa-solid fa-compass text-neutral-500 text-xs w-4"></i>
+                    <span>{{ currentLang === 'es' ? 'Fuera del IDE: Diseño en Figma, música en Spotify y coleccionar Hot Wheels.' : 'Off-screen: UI design in Figma, music curating on Spotify, and collecting Hot Wheels.' }}</span>
                   </div>
-                </div>
-
-                <div class="pt-1">
-                  <div class="text-[10px] font-mono text-neutral-400 uppercase tracking-wider mb-2">
-                    STACK DE PRODUCCIÓN DIARIO
-                  </div>
-                  <div class="flex flex-wrap gap-1.5">
-                    <span class="px-2.5 py-0.5 rounded-md bg-white/10 border border-white/20 text-white font-mono text-[11px] font-bold">TypeScript</span>
-                    <span class="px-2.5 py-0.5 rounded-md bg-white/10 border border-white/20 text-white font-mono text-[11px] font-bold">Vue 3</span>
-                    <span class="px-2.5 py-0.5 rounded-md bg-white/10 border border-white/20 text-white font-mono text-[11px] font-bold">Tailwind CSS</span>
-                    <span class="px-2.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-neutral-300 font-mono text-[11px]">Node.js</span>
-                    <span class="px-2.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-neutral-300 font-mono text-[11px]">Python</span>
-                    <span class="px-2.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-neutral-300 font-mono text-[11px]">PostgreSQL 16</span>
-                    <span class="px-2.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-neutral-300 font-mono text-[11px]">Docker</span>
-                    <span class="px-2.5 py-0.5 rounded-md bg-white/5 border border-white/10 theme-text-sub font-mono text-[11px]">MCP Servers</span>
-                  </div>
-                </div>
-
-                <div class="p-3 rounded-xl bg-white/[0.02] border border-white/10 text-xs text-neutral-400 flex items-center gap-2.5">
-                  <span class="text-base">🏎️🎵</span>
-                  <span class="text-[11.5px] leading-snug">
-                    {{ currentLang === 'es' ? 'Fuera del IDE: Diseño en Figma, música en Spotify y coleccionar Hot Wheels.' : 'Off-screen: UI design in Figma, music curating on Spotify, and collecting Hot Wheels.' }}
-                  </span>
                 </div>
               </div>
 
-              <div class="pt-3 border-t border-white/10 flex items-center justify-between text-xs">
-                <span class="font-mono text-neutral-400 text-[11px]">Pragmatic engineering</span>
+              <!-- CTA Directo con botón redondeado -->
+              <div class="pt-4 flex items-center justify-between">
+                <span class="font-mono text-neutral-400 text-xs">Manta, Ecuador</span>
                 <button
                   @click="contactModalOpen = true"
-                  class="px-4 py-1.5 rounded-full bg-white hover:bg-neutral-200 text-black font-mono font-bold text-xs transition shadow-md flex items-center gap-1.5"
+                  class="px-5 py-2 rounded-full bg-white hover:bg-neutral-200 text-black font-mono font-bold text-xs transition shadow-md flex items-center gap-2"
                 >
                   <span>{{ currentLang === 'es' ? 'Contactar ahora' : 'Contact now' }}</span>
                   <i class="fa-solid fa-arrow-right text-[10px]"></i>
@@ -783,20 +742,57 @@
 
 
     <!-- =====================================================================
-         SECCIÓN 01 // PROYECTOS DESTACADOS & CATÁLOGO GITHUB (DOS NIVELES)
-         Nivel 1: Los 4 Proyectos Estrella (Soluciones Reales de Alto Valor)
-         Nivel 2: Explorador del Archivo Completo (Secundarios, Codelabs y ULEAM)
+         CORE STACK DOCK (BARRA FLOTANTE DE TECNOLOGÍAS EN PRODUCCIÓN)
+         ===================================================================== -->
+    <section class="w-full -mt-6 sm:-mt-8 mb-12 sm:mb-16 relative z-20">
+      <div class="max-w-[1380px] mx-auto px-4 sm:px-6">
+        <div class="liquid-glass-card rounded-2xl sm:rounded-full p-3 sm:px-6 sm:py-3.5 border border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 shadow-2xl">
+          <div class="flex items-center gap-2.5 shrink-0">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="font-mono text-xs uppercase font-bold tracking-wider text-neutral-300">
+              {{ currentLang === 'es' ? 'Stack Principal en Producción' : 'Core Production Stack' }}
+            </span>
+            <span class="text-neutral-500 hidden sm:inline">•</span>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+            <div
+              v-for="tool in coreDockTools"
+              :key="tool.name"
+              class="group relative flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.03] hover:bg-white/10 border border-white/5 hover:border-white/20 transition cursor-default"
+              :title="tool.name"
+            >
+              <i :class="tool.icon" class="text-xs text-neutral-400 group-hover:text-white transition"></i>
+              <span class="font-mono text-[11px] font-semibold text-neutral-300 group-hover:text-white transition">
+                {{ tool.name }}
+              </span>
+            </div>
+          </div>
+
+          <button
+            @click="mainView = 'info'"
+            class="text-[11px] font-mono text-sky-400 hover:text-sky-300 transition shrink-0 hidden lg:flex items-center gap-1.5"
+          >
+            <span>{{ currentLang === 'es' ? 'Ecosistema Completo' : 'Full Ecosystem' }}</span>
+            <i class="fa-solid fa-arrow-right text-[9px]"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =====================================================================
+         SECCIÓN 01 // PROYECTOS DESTACADOS & CATÁLOGO GITHUB (BENTO EDITORIAL)
+         Nivel 1: Los Proyectos Estrella en Maquetación Bento / Editorial
+         Nivel 2: Explorador del Archivo Completo (Formato Glass Rows)
          ===================================================================== -->
     <section id="proyectos-destacados" class="w-full py-16 md:py-24 border-b theme-border">
       <div id="proyectos-github"></div>
       <div class="max-w-[1380px] mx-auto px-4 sm:px-6">
         
-        <!-- NIVEL 1: CABECERA DE PROYECTOS DESTACADOS -->
+        <!-- CABECERA DE PROYECTOS DESTACADOS (SIN FÓRMULA DE ETIQUETAS ROBÓTICAS) -->
         <div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div class="flex items-center gap-2 font-mono text-xs text-sky-400 uppercase tracking-widest mb-2 font-bold">
-              <span>{{ t('projectsSection.featuredBadge') }}</span>
-            </div>
             <h2 class="font-display font-black text-3xl sm:text-4xl text-white tracking-tight uppercase">
               {{ t('projectsSection.featuredTitle') }}
             </h2>
@@ -806,109 +802,297 @@
           </div>
           <button
             @click="showArchive = !showArchive"
-            class="liquid-glass-btn rounded-full !py-2 !px-4 text-xs font-mono shrink-0 flex items-center gap-2 transition"
+            class="liquid-glass-btn rounded-full !py-2.5 !px-5 text-xs font-mono shrink-0 flex items-center gap-2 transition"
           >
             <i class="fa-solid fa-folder-tree text-sky-400"></i>
             <span>{{ showArchive ? (currentLang === 'es' ? 'OCULTAR ARCHIVO ↑' : 'COLLAPSE ARCHIVE ↑') : (currentLang === 'es' ? 'EXPLORAR TODO EL ARCHIVO GITHUB ↓' : 'EXPLORE ALL GITHUB REPOS ↓') }}</span>
           </button>
         </div>
 
-        <!-- MATRIZ DE LOS 4 PROYECTOS DESTACADOS (50% ALTURA / CYBER LIQUID GLASS) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+        <!-- BENTO / EDITORIAL LAYOUT DE PROYECTOS DESTACADOS -->
+        <div class="space-y-8 mb-12">
+          
+          <!-- PROYECTO #1: FLAGSHIP BENTO CARD (Design-Extractor-MCP) -->
           <article
-            v-for="(proj, idx) in featuredProjects"
-            :key="'feat-' + proj.name"
-            class="liquid-glass-card p-6 sm:p-7 flex flex-col justify-between"
+            v-if="featuredProjects[0]"
+            class="liquid-glass-card p-6 sm:p-10 relative overflow-hidden group"
           >
-            <div>
-              <!-- 1. Header Visual con Badge de Categoría y Lenguaje -->
-              <div class="flex items-center justify-between gap-2 pb-3 mb-4 border-b border-white/10 font-mono text-xs">
-                <div class="flex items-center gap-2">
-                  <span
-                    v-if="proj.category === 'mcp' || proj.name.toLowerCase().includes('mcp')"
-                    class="liquid-badge text-sky-400 bg-sky-500/10 border-sky-400/20"
+            <!-- Gradiente de fondo sutil -->
+            <div class="absolute -right-20 -top-20 w-80 h-80 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+              <!-- Columna Izquierda: Información, Problema e Impacto -->
+              <div class="lg:col-span-7 flex flex-col justify-between space-y-5">
+                <div>
+                  <div class="flex flex-wrap items-center gap-2.5 mb-3 font-mono text-xs">
+                    <span class="liquid-badge text-sky-400 bg-sky-500/10 border-sky-400/20 font-bold">
+                      <i class="fa-solid fa-robot text-[10px]"></i>
+                      <span>MCP SERVER // AI REVERSE ENGINEERING</span>
+                    </span>
+                    <span class="px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-neutral-300 text-[11px] font-mono">
+                      {{ featuredProjects[0].language }}
+                    </span>
+                  </div>
+
+                  <h3 class="font-display font-black text-2xl sm:text-3xl text-white tracking-tight mb-3">
+                    <a :href="featuredProjects[0].url" target="_blank" rel="noopener noreferrer" class="hover:text-sky-300 transition">
+                      {{ featuredProjects[0].title }}
+                    </a>
+                  </h3>
+
+                  <p class="text-neutral-300 text-sm sm:text-base leading-relaxed mb-4">
+                    {{ getProjProblemSolved(featuredProjects[0]) }}
+                  </p>
+
+                  <!-- Especificaciones de Arquitectura (Bullet points limpios) -->
+                  <div class="space-y-2 mb-4 font-mono text-xs text-neutral-400">
+                    <div v-for="(spec, sIdx) in (getProjSpecs(featuredProjects[0]) || []).slice(0, 3)" :key="sIdx" class="flex items-start gap-2.5">
+                      <span class="text-sky-400 font-bold">▸</span>
+                      <span class="text-neutral-300">{{ spec }}</span>
+                    </div>
+                  </div>
+
+                  <!-- Tags -->
+                  <div class="flex flex-wrap gap-1.5 pt-1">
+                    <span
+                      v-for="tag in (featuredProjects[0].tags || []).slice(0, 5)"
+                      :key="tag"
+                      class="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/10 font-mono text-[11px] text-neutral-300"
+                    >
+                      {{ tag }}
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Botones de Acción -->
+                <div class="pt-5 border-t border-white/10 flex flex-wrap items-center gap-3">
+                  <button
+                    @click="openMcpModal('design')"
+                    class="liquid-glass-btn rounded-full px-4 py-2 font-mono text-xs font-semibold text-sky-300 hover:text-white flex items-center gap-2"
                   >
-                    <i class="fa-solid fa-robot text-[10px]"></i>
-                    <span>MCP SERVER</span>
-                  </span>
-                  <span
-                    v-else-if="proj.category === 'automation'"
-                    class="liquid-badge text-emerald-400 bg-emerald-500/10 border-emerald-400/20"
+                    <i class="fa-solid fa-terminal text-[11px]"></i>
+                    <span>{{ currentLang === 'es' ? 'Simular MCP (JSON-RPC)' : 'Simulate MCP (JSON-RPC)' }}</span>
+                  </button>
+                  <button
+                    @click="openProjectDetailModal(featuredProjects[0])"
+                    class="liquid-glass-btn rounded-full px-4 py-2 font-mono text-xs flex items-center gap-2 text-neutral-300 hover:text-white"
                   >
-                    <i class="fa-solid fa-bolt text-[10px]"></i>
-                    <span>AUTOMATION &amp; DATA</span>
-                  </span>
-                  <span
-                    v-else
-                    class="liquid-badge text-purple-400 bg-purple-500/10 border-purple-400/20"
+                    <i class="fa-solid fa-sliders text-[11px] text-sky-400"></i>
+                    <span>{{ currentLang === 'es' ? 'Detalles & Specs' : 'Details & Specs' }}</span>
+                  </button>
+                  <a
+                    :href="featuredProjects[0].url"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="rounded-full bg-white hover:bg-neutral-200 text-black px-5 py-2 font-mono font-bold text-xs transition shadow-md flex items-center gap-1.5 ml-auto"
                   >
-                    <i class="fa-solid fa-layer-group text-[10px]"></i>
-                    <span>FULL STACK WEB</span>
+                    <span>GitHub</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Columna Derecha: Mockup Visual de Extracción de AST / Tokens Tailwind -->
+              <div class="lg:col-span-5">
+                <div class="rounded-2xl border border-white/10 bg-black/60 backdrop-blur-xl p-5 font-mono text-xs text-neutral-300 shadow-2xl relative">
+                  <div class="flex items-center justify-between pb-3 mb-3 border-b border-white/10 text-[11px] text-neutral-400">
+                    <div class="flex items-center gap-1.5">
+                      <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
+                      <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
+                      <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
+                      <span class="ml-2 font-bold text-neutral-300">DOM/CSSOM → AST Extractor</span>
+                    </div>
+                    <span class="text-sky-400 font-semibold">200 OK</span>
+                  </div>
+
+                  <!-- Muestras de colores extraídos -->
+                  <div class="mb-3">
+                    <div class="text-[10px] text-neutral-400 mb-1.5 uppercase font-bold tracking-wider">
+                      {{ currentLang === 'es' ? 'Paleta de Color Extraída (HEX):' : 'Extracted Palette (HEX):' }}
+                    </div>
+                    <div class="grid grid-cols-5 gap-2 text-center text-[10px]">
+                      <div class="p-2 rounded bg-[#0A0B0D] border border-white/15 text-neutral-300">#0A0B0D</div>
+                      <div class="p-2 rounded bg-[#7DD3FC] text-black font-bold">#7DD3FC</div>
+                      <div class="p-2 rounded bg-[#10B981] text-black font-bold">#10B981</div>
+                      <div class="p-2 rounded bg-[#A855F7] text-white font-bold">#A855F7</div>
+                      <div class="p-2 rounded bg-[#F59E0B] text-black font-bold">#F59E0B</div>
+                    </div>
+                  </div>
+
+                  <!-- Snippet JSON / Tailwind Config -->
+                  <div class="rounded bg-black/80 border border-white/5 p-3 text-[11px] leading-relaxed text-sky-300 font-mono overflow-x-auto">
+                    <span class="text-neutral-500">// tailwind.config.js generated</span><br/>
+                    <span class="text-purple-400">module</span>.<span class="text-yellow-300">exports</span> = {<br/>
+                    &nbsp;&nbsp;<span class="text-neutral-300">theme:</span> {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-neutral-300">extend:</span> {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-emerald-400">colors:</span> { <span class="text-neutral-300">brand:</span> <span class="text-sky-300">'#7DD3FC'</span> },<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-emerald-400">fontFamily:</span> { <span class="text-neutral-300">display:</span> [<span class="text-sky-300">'Cabinet Grotesk'</span>] }<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+                    &nbsp;&nbsp;}<br/>
+                    };
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROYECTOS #2 Y #3: COLUMNAS PARALELAS EDITORIALES -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- PROYECTO #2: Spotify-Stats-MCP -->
+            <article
+              v-if="featuredProjects[1]"
+              class="liquid-glass-card p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden group"
+            >
+              <div>
+                <!-- Visual Header: Mini Telemetría Spotify -->
+                <div class="rounded-xl border border-white/10 bg-black/40 backdrop-blur-md p-3 mb-5 flex items-center justify-between font-mono text-xs">
+                  <div class="flex items-center gap-2.5">
+                    <i class="fa-brands fa-spotify text-emerald-400 text-base animate-pulse"></i>
+                    <div>
+                      <div class="text-white font-bold text-xs">Spotify Web API + OAuth 2.0 PKCE</div>
+                      <div class="text-neutral-400 text-[10px]">MCP Telemetry &amp; Smart Playlists</div>
+                    </div>
+                  </div>
+                  <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-400/20 text-emerald-400 text-[10px] font-bold">
+                    CONNECTED
                   </span>
                 </div>
 
-                <span class="px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-neutral-300 text-[11px] font-mono">
-                  {{ proj.language || 'Code' }}
-                </span>
-              </div>
+                <div class="flex items-center justify-between gap-2 pb-3 mb-3 border-b border-white/10 font-mono text-xs">
+                  <span class="liquid-badge text-sky-400 bg-sky-500/10 border-sky-400/20 text-[10px]">
+                    <i class="fa-solid fa-robot text-[10px]"></i>
+                    <span>MCP SERVER</span>
+                  </span>
+                  <span class="px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-neutral-300 text-[11px] font-mono">
+                    {{ featuredProjects[1].language }}
+                  </span>
+                </div>
 
-              <!-- 2. Título + 1-2 Líneas de Impacto Directo -->
-              <div class="mb-4">
                 <h3 class="font-display font-black text-xl sm:text-2xl text-white tracking-tight mb-2">
-                  <a :href="proj.url" target="_blank" rel="noopener noreferrer" class="hover:text-sky-300 transition">
-                    {{ proj.title }}
+                  <a :href="featuredProjects[1].url" target="_blank" rel="noopener noreferrer" class="hover:text-sky-300 transition">
+                    {{ featuredProjects[1].title }}
                   </a>
                 </h3>
-                <p class="text-neutral-300 text-xs sm:text-sm leading-relaxed line-clamp-2">
-                  {{ getProjProblemSolved(proj) }}
+
+                <p class="text-neutral-300 text-xs sm:text-sm leading-relaxed mb-4 line-clamp-3">
+                  {{ getProjProblemSolved(featuredProjects[1]) }}
                 </p>
+
+                <div class="flex flex-wrap gap-1.5 mb-5">
+                  <span
+                    v-for="tag in (featuredProjects[1].tags || []).slice(0, 4)"
+                    :key="tag"
+                    class="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/10 font-mono text-[11px] text-neutral-300"
+                  >
+                    {{ tag }}
+                  </span>
+                </div>
               </div>
 
-              <!-- 3. Tags / Pills Clave (Máximo 4 por tarjeta) -->
-              <div class="flex flex-wrap gap-1.5 mb-5">
-                <span
-                  v-for="tag in (proj.tags || []).slice(0, 4)"
-                  :key="tag"
-                  class="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/10 font-mono text-[11px] text-neutral-300"
+              <div class="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-2 flex-1">
+                  <button
+                    @click="openMcpModal('spotify')"
+                    class="liquid-glass-btn rounded-full px-3 py-1.5 font-mono text-xs text-sky-300 hover:text-white flex items-center gap-1.5"
+                  >
+                    <i class="fa-solid fa-terminal text-[10px]"></i>
+                    <span>{{ currentLang === 'es' ? 'Simular MCP' : 'Simulate MCP' }}</span>
+                  </button>
+                  <button
+                    @click="openProjectDetailModal(featuredProjects[1])"
+                    class="liquid-glass-btn rounded-full px-3 py-1.5 font-mono text-xs flex items-center gap-1.5 text-neutral-300 hover:text-white"
+                  >
+                    <i class="fa-solid fa-sliders text-[10px] text-sky-400"></i>
+                    <span>{{ currentLang === 'es' ? 'Specs' : 'Specs' }}</span>
+                  </button>
+                </div>
+                <a
+                  :href="featuredProjects[1].url"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="rounded-full bg-white hover:bg-neutral-200 text-black px-4 py-1.5 font-mono font-bold text-xs transition shadow-md flex items-center gap-1.5"
                 >
-                  {{ tag }}
-                </span>
+                  <span>GitHub</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                </a>
               </div>
-            </div>
+            </article>
 
-            <!-- 4. Botones de Acción Limpios -->
-            <div class="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-2">
-              <div class="flex items-center gap-2 flex-1">
-                <button
-                  @click="openProjectDetailModal(proj)"
-                  class="liquid-glass-btn rounded-lg px-3 py-1.5 font-mono text-xs flex items-center justify-center gap-1.5 flex-1"
-                  :title="currentLang === 'es' ? 'Ver especificaciones técnicas y arquitectura' : 'View technical specs and architecture'"
-                >
-                  <i class="fa-solid fa-sliders text-[10px] text-sky-400"></i>
-                  <span>{{ currentLang === 'es' ? 'Detalles & Specs' : 'Details & Specs' }}</span>
-                </button>
+            <!-- PROYECTO #3: n8n-omni-expense-tracker -->
+            <article
+              v-if="featuredProjects[2]"
+              class="liquid-glass-card p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden group"
+            >
+              <div>
+                <!-- Visual Header: Mini Pipeline Flow -->
+                <div class="rounded-xl border border-white/10 bg-black/40 backdrop-blur-md p-3 mb-5 flex items-center justify-between font-mono text-xs">
+                  <div class="flex items-center gap-2.5">
+                    <i class="fa-solid fa-diagram-project text-amber-400 text-base"></i>
+                    <div>
+                      <div class="text-white font-bold text-xs">Webhook → LLM OCR → PostgreSQL 16</div>
+                      <div class="text-neutral-400 text-[10px]">Dockerized n8n Workflow</div>
+                    </div>
+                  </div>
+                  <span class="px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-400/20 text-amber-400 text-[10px] font-bold">
+                    PIPELINE
+                  </span>
+                </div>
 
-                <button
-                  v-if="proj.category === 'mcp' || proj.name.toLowerCase().includes('mcp')"
-                  @click="openMcpModal(proj.name.toLowerCase().includes('spotify') ? 'spotify' : 'design')"
-                  class="liquid-glass-btn rounded-lg px-3 py-1.5 font-mono text-xs text-sky-300 hover:text-white flex items-center gap-1.5"
-                >
-                  <i class="fa-solid fa-terminal text-[10px]"></i>
-                  <span>{{ currentLang === 'es' ? 'Simular MCP' : 'Simulate MCP' }}</span>
-                </button>
+                <div class="flex items-center justify-between gap-2 pb-3 mb-3 border-b border-white/10 font-mono text-xs">
+                  <span class="liquid-badge text-amber-400 bg-amber-500/10 border-amber-400/20 text-[10px]">
+                    <i class="fa-solid fa-bolt text-[10px]"></i>
+                    <span>AUTOMATION &amp; DATA</span>
+                  </span>
+                  <span class="px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-neutral-300 text-[11px] font-mono">
+                    {{ featuredProjects[2].language }}
+                  </span>
+                </div>
+
+                <h3 class="font-display font-black text-xl sm:text-2xl text-white tracking-tight mb-2">
+                  <a :href="featuredProjects[2].url" target="_blank" rel="noopener noreferrer" class="hover:text-sky-300 transition">
+                    {{ featuredProjects[2].title }}
+                  </a>
+                </h3>
+
+                <p class="text-neutral-300 text-xs sm:text-sm leading-relaxed mb-4 line-clamp-3">
+                  {{ getProjProblemSolved(featuredProjects[2]) }}
+                </p>
+
+                <div class="flex flex-wrap gap-1.5 mb-5">
+                  <span
+                    v-for="tag in (featuredProjects[2].tags || []).slice(0, 4)"
+                    :key="tag"
+                    class="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/10 font-mono text-[11px] text-neutral-300"
+                  >
+                    {{ tag }}
+                  </span>
+                </div>
               </div>
 
-              <a
-                :href="proj.url"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="rounded-lg bg-white hover:bg-neutral-200 text-black px-3.5 py-1.5 font-mono font-bold text-xs transition shadow-md flex items-center gap-1.5"
-              >
-                <span>GitHub</span>
-                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-              </a>
-            </div>
-          </article>
+              <div class="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-2 flex-1">
+                  <button
+                    @click="openProjectDetailModal(featuredProjects[2])"
+                    class="liquid-glass-btn rounded-full px-3 py-1.5 font-mono text-xs flex items-center gap-1.5 text-neutral-300 hover:text-white"
+                  >
+                    <i class="fa-solid fa-sliders text-[10px] text-sky-400"></i>
+                    <span>{{ currentLang === 'es' ? 'Detalles & Specs' : 'Details & Specs' }}</span>
+                  </button>
+                </div>
+                <a
+                  :href="featuredProjects[2].url"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="rounded-full bg-white hover:bg-neutral-200 text-black px-4 py-1.5 font-mono font-bold text-xs transition shadow-md flex items-center gap-1.5"
+                >
+                  <span>GitHub</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                </a>
+              </div>
+            </article>
+
+          </div>
         </div>
 
         <!-- BOTÓN COLLAPSE / EXPAND CENTRAL TIPO VIDRIO -->
@@ -933,12 +1117,10 @@
         <!-- NIVEL 2: ARCHIVO COMPLETO DE REPOSITORIOS GITHUB (COLAPSADO POR DEFECTO) -->
         <div v-show="showArchive" id="archivo-repositorios" class="pt-10 border-t-2 theme-border transition-all duration-300">
           
-          <div class="grid grid-cols-1 lg:grid-cols-12 border theme-border theme-bg-surface mb-8">
-            <div class="lg:col-span-8 p-6 sm:p-8 border-b lg:border-b-0 lg:border-r theme-border">
-              <div class="flex items-center gap-2 font-mono text-xs theme-text-accent uppercase tracking-widest mb-2 font-bold">
-                <span>{{ t('projectsSection.archiveBadge') }}</span>
-              </div>
-              <h2 class="font-display font-black text-2xl sm:text-3xl theme-text-main tracking-tight uppercase">
+          <!-- CABECERA DEL ARCHIVO Y ESTADO DE SINCRONIZACIÓN -->
+          <div class="liquid-glass-card p-6 sm:p-8 mb-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+            <div class="lg:col-span-8">
+              <h2 class="font-display font-black text-2xl sm:text-3xl text-white tracking-tight uppercase">
                 {{ t('projectsSection.archiveTitle') }}
               </h2>
               <p class="theme-text-muted text-sm mt-2 leading-relaxed" v-html="t('projectsSection.archiveDesc')">
@@ -946,32 +1128,32 @@
             </div>
 
             <!-- Panel Lateral de Estado de Sincronización API -->
-            <div class="lg:col-span-4 p-6 sm:p-8 flex flex-col justify-between theme-bg-canvas font-mono text-xs">
+            <div class="lg:col-span-4 p-5 rounded-2xl bg-white/[0.02] border border-white/5 font-mono text-xs">
               <div class="space-y-2">
-                <div class="flex items-center justify-between border-b theme-border pb-1.5">
-                  <span class="theme-text-muted">{{ t('projectsSection.syncStatus') }}</span>
-                  <span class="theme-text-accent font-bold">{{ githubSyncStatus }}</span>
+                <div class="flex items-center justify-between border-b border-white/10 pb-1.5">
+                  <span class="text-neutral-400">{{ t('projectsSection.syncStatus') }}</span>
+                  <span class="text-sky-300 font-bold">{{ githubSyncStatus }}</span>
                 </div>
-                <div class="flex items-center justify-between border-b theme-border pb-1.5">
-                  <span class="theme-text-muted">{{ t('projectsSection.coreProjects') }}</span>
-                  <span class="theme-text-main font-bold">{{ counts.main }} REPOS</span>
+                <div class="flex items-center justify-between border-b border-white/10 pb-1.5">
+                  <span class="text-neutral-400">{{ t('projectsSection.coreProjects') }}</span>
+                  <span class="text-white font-bold">{{ counts.main }} REPOS</span>
                 </div>
-                <div class="flex items-center justify-between border-b theme-border pb-1.5">
-                  <span class="theme-text-muted">{{ t('projectsSection.googlePractices') }}</span>
-                  <span class="theme-text-sub font-bold">{{ counts.practice }} REPOS</span>
+                <div class="flex items-center justify-between border-b border-white/10 pb-1.5">
+                  <span class="text-neutral-400">{{ t('projectsSection.googlePractices') }}</span>
+                  <span class="text-neutral-300 font-bold">{{ counts.practice }} REPOS</span>
                 </div>
-                <div class="flex items-center justify-between border-b theme-border pb-1.5">
-                  <span class="theme-text-muted">{{ t('projectsSection.academicUleam') }}</span>
-                  <span class="theme-text-main font-bold">{{ counts.academic }} REPOS</span>
+                <div class="flex items-center justify-between pb-1">
+                  <span class="text-neutral-400">{{ t('projectsSection.academicUleam') }}</span>
+                  <span class="text-white font-bold">{{ counts.academic }} REPOS</span>
                 </div>
               </div>
 
               <div class="mt-4 flex flex-wrap gap-2">
-                <button @click="syncGitHubRepos(true)" class="btn-industrial-ghost w-full">
+                <button @click="syncGitHubRepos(true)" class="liquid-glass-btn rounded-lg w-full py-2 text-xs flex items-center justify-center gap-2">
                   <i class="fa-solid fa-rotate" :class="{'fa-spin': isSyncing}"></i>
                   <span>{{ t('projectsSection.btnSync') }}</span>
                 </button>
-                <a href="https://github.com/JhonnyCCM?tab=repositories" target="_blank" rel="noopener noreferrer" class="btn-industrial-primary w-full text-center">
+                <a href="https://github.com/JhonnyCCM?tab=repositories" target="_blank" rel="noopener noreferrer" class="rounded-lg bg-white hover:bg-neutral-200 text-black py-2 w-full text-center font-bold text-xs flex items-center justify-center gap-2 transition">
                   <i class="fa-brands fa-github"></i>
                   <span>{{ t('projectsSection.btnAllGithub') }}</span>
                 </a>
@@ -980,45 +1162,51 @@
           </div>
 
           <!-- BARRA DE FILTRO INTEGRADA POR CATEGORÍAS & VISTA DE REPOSITORIOS -->
-          <div class="border theme-border theme-bg-surface p-4 sm:p-5 mb-8 space-y-4">
+          <div class="liquid-glass-card p-4 sm:p-5 mb-8 space-y-4">
             
             <!-- Fila 1: Selector de Nivel de Proyecto (Pestañas) -->
-            <div class="flex flex-wrap items-center gap-1.5 pb-3.5 border-b theme-border">
-              <span class="font-mono text-xs theme-text-muted mr-1 uppercase">{{ t('projectsSection.viewActive') }}</span>
+            <div class="flex flex-wrap items-center gap-1.5 pb-3.5 border-b border-white/10">
+              <span class="font-mono text-xs text-neutral-400 mr-1 uppercase">{{ t('projectsSection.viewActive') }}</span>
               <button
                 @click="activeRepoType = 'all_visible'"
-                :class="activeRepoType === 'all_visible' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
+                :class="activeRepoType === 'all_visible' ? 'bg-white text-black font-bold' : 'liquid-glass-btn text-neutral-300 hover:text-white'"
+                class="rounded-full !py-1 !px-3 !text-xs font-mono transition"
               >
                 {{ t('projectsSection.tabAll') }} ({{ counts.allVisible }})
               </button>
               <button
                 @click="activeRepoType = 'main'"
-                :class="activeRepoType === 'main' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
+                :class="activeRepoType === 'main' ? 'bg-white text-black font-bold' : 'liquid-glass-btn text-neutral-300 hover:text-white'"
+                class="rounded-full !py-1 !px-3 !text-xs font-mono transition"
               >
                 {{ t('projectsSection.tabMain') }} ({{ counts.main }})
               </button>
               <button
                 @click="activeRepoType = 'secondary'"
-                :class="activeRepoType === 'secondary' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
+                :class="activeRepoType === 'secondary' ? 'bg-white text-black font-bold' : 'liquid-glass-btn text-neutral-300 hover:text-white'"
+                class="rounded-full !py-1 !px-3 !text-xs font-mono transition"
               >
                 {{ t('projectsSection.tabSecondary') }} ({{ counts.secondary }})
               </button>
               <button
                 @click="activeRepoType = 'wip'"
-                :class="activeRepoType === 'wip' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
+                :class="activeRepoType === 'wip' ? 'bg-white text-black font-bold' : 'liquid-glass-btn text-neutral-300 hover:text-white'"
+                class="rounded-full !py-1 !px-3 !text-xs font-mono transition"
               >
                 <span class="w-1.5 h-1.5 rounded-full bg-amber-400 inline-block mr-1"></span>
                 {{ t('projectsSection.tabWip') }} ({{ counts.wip }})
               </button>
               <button
                 @click="activeRepoType = 'practice'"
-                :class="activeRepoType === 'practice' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
+                :class="activeRepoType === 'practice' ? 'bg-white text-black font-bold' : 'liquid-glass-btn text-neutral-300 hover:text-white'"
+                class="rounded-full !py-1 !px-3 !text-xs font-mono transition"
               >
                 {{ t('projectsSection.tabPractice') }} ({{ counts.practice }})
               </button>
               <button
                 @click="activeRepoType = 'academic'"
-                :class="activeRepoType === 'academic' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
+                :class="activeRepoType === 'academic' ? 'bg-white text-black font-bold' : 'liquid-glass-btn text-neutral-300 hover:text-white'"
+                class="rounded-full !py-1 !px-3 !text-xs font-mono transition"
               >
                 {{ t('projectsSection.tabAcademic') }} ({{ counts.academic }})
               </button>
@@ -1028,8 +1216,8 @@
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
               
               <div class="flex items-center gap-2 flex-wrap">
-                <label class="font-mono text-xs theme-text-sub font-bold uppercase shrink-0 flex items-center gap-1.5">
-                  <i class="fa-solid fa-filter theme-text-accent"></i>
+                <label class="font-mono text-xs text-neutral-300 font-bold uppercase shrink-0 flex items-center gap-1.5">
+                  <i class="fa-solid fa-filter text-sky-400"></i>
                   <span>{{ t('projectsSection.catLabel') }}</span>
                 </label>
 
@@ -1037,7 +1225,7 @@
                   <select
                     :value="activeCategory"
                     @change="setCategory($event.target.value)"
-                    class="w-full theme-bg-canvas border theme-border pl-3 pr-8 py-1.5 font-mono text-xs theme-text-main font-bold focus:outline-none focus:theme-border-accent appearance-none cursor-pointer"
+                    class="w-full bg-black/60 border border-white/10 rounded-lg pl-3 pr-8 py-1.5 font-mono text-xs text-white font-bold focus:outline-none focus:border-white/30 appearance-none cursor-pointer"
                   >
                     <option value="all">{{ t('projectsSection.catAll') }}</option>
                     <option value="mcp">{{ t('projectsSection.catMcp') }}</option>
@@ -1050,13 +1238,13 @@
                     <option value="uiux">{{ t('projectsSection.catUiux') }}</option>
                     <option value="gamedev">{{ t('projectsSection.catGamedev') }}</option>
                   </select>
-                  <i class="fa-solid fa-chevron-down absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] theme-text-muted pointer-events-none"></i>
+                  <i class="fa-solid fa-chevron-down absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] text-neutral-400 pointer-events-none"></i>
                 </div>
 
                 <button
                   v-if="activeCategory !== 'all'"
                   @click="setCategory('all')"
-                  class="btn-industrial-ghost !py-1 !px-2.5 !text-[11px] font-mono flex items-center gap-1.5"
+                  class="liquid-glass-btn rounded-lg !py-1 !px-2.5 !text-[11px] font-mono flex items-center gap-1.5"
                   title="Restablecer filtro de categoría"
                 >
                   <span>✕</span>
@@ -1070,13 +1258,13 @@
                   type="text"
                   v-model="repoSearch"
                   :placeholder="t('projectsSection.searchPlaceholder')"
-                  class="theme-bg-canvas border theme-border pl-8 pr-8 py-1.5 font-mono text-xs theme-text-main w-full sm:w-64 focus:outline-none focus:theme-border-accent"
+                  class="bg-black/60 border border-white/10 rounded-lg pl-8 pr-8 py-1.5 font-mono text-xs text-white w-full sm:w-64 focus:outline-none focus:border-white/30"
                 />
-                <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-1/2 -translate-y-1/2 text-xs theme-text-muted pointer-events-none"></i>
+                <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-1/2 -translate-y-1/2 text-xs text-neutral-400 pointer-events-none"></i>
                 <button
                   v-if="repoSearch"
                   @click="repoSearch = ''"
-                  class="absolute right-2.5 top-1/2 -translate-y-1/2 theme-text-muted hover:theme-text-main text-xs"
+                  class="absolute right-2.5 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-white text-xs"
                 >
                   ✕
                 </button>
@@ -1086,112 +1274,84 @@
 
           </div>
 
-          <!-- MATRIZ ARQUITECTÓNICA DE REPOSITORIOS DEL ARCHIVO (Sin estrellas bajas < 2) -->
-          <div v-if="displayedProjects.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- LISTA COMPACTA DE REPOSITORIOS EN FORMATO GLASS ROWS -->
+          <div v-if="displayedProjects.length > 0" class="space-y-3">
             <article
               v-for="(proj, idx) in displayedProjects"
               :key="proj.name"
-              class="blueprint-cell p-6 sm:p-7 flex flex-col justify-between"
+              class="liquid-glass-row p-4 sm:p-5 flex flex-col lg:flex-row lg:items-center justify-between gap-4 transition hover:border-white/20"
             >
-              <div>
-                <!-- Fila Superior: Índice Técnico + Etiqueta de Tipo + Lenguaje -->
-                <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-4 border-b theme-border font-mono text-xs">
-                  <div class="flex items-center gap-2">
-                    <span class="theme-text-accent font-bold">IDX-{{ String(idx + 1).padStart(2, '0') }}</span>
-                    <span class="theme-text-muted">//</span>
-                    <span class="px-2 py-0.5 theme-bg-elevated border theme-border theme-text-main text-[11px]">
-                      {{ proj.language || 'CODE' }}
-                    </span>
-                    <span v-if="proj.stars && proj.stars >= 2" class="px-2 py-0.5 theme-bg-elevated border theme-border text-amber-400 font-mono text-[11px] font-bold">
-                      ★ {{ proj.stars }}
-                    </span>
-                  </div>
+              <!-- Izquierda: Icono Lenguaje + Nombre + Categoría + Tagline -->
+              <div class="flex items-start sm:items-center gap-4 min-w-0 flex-1">
+                <div class="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center shrink-0 font-mono text-xs font-bold text-sky-400">
+                  <i v-if="proj.category === 'mcp' || proj.name.toLowerCase().includes('mcp')" class="fa-solid fa-robot text-sm"></i>
+                  <i v-else-if="proj.language === 'Python'" class="fa-brands fa-python text-sm text-yellow-300"></i>
+                  <i v-else-if="proj.language === 'TypeScript' || proj.language === 'JavaScript'" class="fa-brands fa-js text-sm text-amber-300"></i>
+                  <i v-else-if="proj.language === 'Vue'" class="fa-brands fa-vuejs text-sm text-emerald-400"></i>
+                  <i v-else-if="proj.language === 'Kotlin'" class="fa-brands fa-android text-sm text-purple-400"></i>
+                  <i v-else class="fa-solid fa-code text-sm text-neutral-300"></i>
+                </div>
 
-                  <div class="flex items-center gap-1.5">
-                    <span v-if="proj.repoType === 'wip'" class="px-2 py-0.5 bg-amber-500/10 border border-amber-500/50 text-amber-400 font-mono text-[10.5px] font-bold inline-flex items-center gap-1.5">
+                <div class="min-w-0 flex-1">
+                  <div class="flex flex-wrap items-center gap-2 mb-1">
+                    <span class="font-display font-bold text-white text-base hover:text-sky-300 transition">
+                      <a :href="proj.url" target="_blank" rel="noopener noreferrer">{{ proj.title }}</a>
+                    </span>
+                    <span v-if="proj.repoType === 'wip'" class="liquid-badge text-amber-400 bg-amber-500/10 border-amber-400/20 text-[10px]">
                       <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
                       {{ getRepoTypeLabel(proj.repoType) }}
                     </span>
-                    <span v-else-if="proj.repoType === 'secondary'" class="px-2 py-0.5 bg-sky-500/10 border border-sky-500/40 text-sky-400 font-mono text-[10.5px] font-semibold">
+                    <span v-else-if="proj.repoType === 'secondary'" class="liquid-badge text-sky-400 bg-sky-500/10 border-sky-400/20 text-[10px]">
                       {{ getRepoTypeLabel(proj.repoType) }}
                     </span>
-                    <span v-else class="hud-cyan-badge">{{ getRepoTypeLabel(proj.repoType) }}</span>
+                    <span v-else class="liquid-badge text-neutral-300 bg-white/5 border-white/10 text-[10px]">
+                      {{ getRepoTypeLabel(proj.repoType) }}
+                    </span>
+                    <span class="px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-neutral-400 font-mono text-[10px]">
+                      {{ proj.language || 'Code' }}
+                    </span>
                   </div>
-                </div>
-
-                <!-- Badge Especial para Servidores MCP -->
-                <div v-if="proj.category === 'mcp' || proj.name.toLowerCase().includes('mcp')" class="mb-3">
-                  <span class="px-2.5 py-1 theme-bg-elevated border theme-border-accent theme-text-accent font-mono text-[10.5px] font-bold inline-flex items-center gap-1.5">
-                    <i class="fa-solid fa-robot"></i>
-                    <span>MODEL CONTEXT PROTOCOL // JSON-RPC 2.0</span>
-                  </span>
-                </div>
-
-                <!-- Título y Enlace al Repositorio -->
-                <div class="flex items-start justify-between gap-3 mb-2">
-                  <h3 class="font-display font-bold text-xl sm:text-2xl theme-text-main tracking-tight">
-                    <a :href="proj.url" target="_blank" rel="noopener noreferrer" class="hover:theme-text-accent transition">
-                      {{ proj.title }}
-                    </a>
-                  </h3>
-                  <span class="font-mono text-[11px] theme-text-muted shrink-0">
-                    /{{ proj.name }}
-                  </span>
-                </div>
-
-                <!-- Descripción Técnica Concreta Bilingüe -->
-                <p class="theme-text-muted text-sm leading-relaxed mb-4">
-                  {{ getProjTagline(proj) }}
-                </p>
-
-                <!-- Especificaciones de Implementación Bilingües -->
-                <div v-if="getProjSpecs(proj) && getProjSpecs(proj).length" class="theme-bg-canvas border theme-border p-3.5 mb-4 font-mono text-xs space-y-1.5">
-                  <div v-for="(spec, sIdx) in getProjSpecs(proj)" :key="sIdx" class="flex items-start gap-2">
-                    <span class="theme-text-accent font-bold">&gt;</span>
-                    <span class="theme-text-main">{{ spec }}</span>
-                  </div>
-                </div>
-
-                <!-- Etiquetas del Stack -->
-                <div class="flex flex-wrap gap-1.5 mb-5">
-                  <span
-                    v-for="tag in proj.tags"
-                    :key="tag"
-                    class="px-2.5 py-0.5 theme-bg-elevated border theme-border font-mono text-[11px] theme-text-accent"
-                  >
-                    {{ tag }}
-                  </span>
+                  <p class="text-neutral-400 text-xs sm:text-sm line-clamp-1">
+                    {{ getProjTagline(proj) }}
+                  </p>
                 </div>
               </div>
 
-              <!-- Acciones Inferiores de la Celda -->
-              <div class="pt-4 border-t theme-border flex flex-wrap items-center justify-between gap-2">
+              <!-- Centro: Tags Clave -->
+              <div class="hidden xl:flex flex-wrap items-center gap-1.5 max-w-xs shrink-0">
+                <span
+                  v-for="tag in (proj.tags || []).slice(0, 3)"
+                  :key="tag"
+                  class="px-2 py-0.5 rounded-md bg-white/[0.03] border border-white/10 font-mono text-[10.5px] text-neutral-300"
+                >
+                  {{ tag }}
+                </span>
+              </div>
+
+              <!-- Derecha: Acciones Rápidas -->
+              <div class="flex items-center gap-2 shrink-0 pt-2 lg:pt-0 border-t lg:border-t-0 border-white/5">
                 <button
                   @click="openReadmeViewer(proj)"
-                  class="btn-industrial-ghost !py-2 !px-3 text-xs flex-1"
+                  class="liquid-glass-btn rounded-lg px-3 py-1.5 font-mono text-xs flex items-center gap-1.5 text-neutral-300 hover:text-white"
                 >
-                  <i class="fa-regular fa-file-code theme-text-accent"></i>
-                  <span>{{ t('projectsSection.inspectReadme') }}</span>
+                  <i class="fa-regular fa-file-code text-[11px] text-sky-400"></i>
+                  <span>README</span>
                 </button>
-                
-                <!-- Botón Simulador JSON-RPC si es servidor MCP -->
                 <button
                   v-if="proj.category === 'mcp' || proj.name.toLowerCase().includes('mcp')"
                   @click="openMcpModal(proj.name.toLowerCase().includes('spotify') ? 'spotify' : 'design')"
-                  class="btn-industrial-primary !py-2 !px-3 text-xs flex items-center gap-1.5"
-                  :title="currentLang === 'es' ? 'Simular llamada JSON-RPC del protocolo MCP' : 'Simulate MCP protocol JSON-RPC call'"
+                  class="liquid-glass-btn rounded-lg px-3 py-1.5 font-mono text-xs text-sky-300 hover:text-white flex items-center gap-1.5"
                 >
                   <i class="fa-solid fa-terminal text-[10px]"></i>
-                  <span>{{ t('projectsSection.simulateMcp') }}</span>
+                  <span>MCP</span>
                 </button>
-
                 <a
                   :href="proj.url"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="btn-industrial-primary !py-2 !px-3.5 text-xs"
+                  class="rounded-lg bg-white hover:bg-neutral-200 text-black px-3.5 py-1.5 font-mono font-bold text-xs transition flex items-center gap-1.5 shadow"
                 >
-                  <span>{{ t('projectsSection.githubRepo') }}</span>
+                  <span>GitHub</span>
                   <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                 </a>
               </div>
@@ -1199,18 +1359,18 @@
           </div>
 
           <!-- Estado sin resultados Bilingüe -->
-          <div v-else class="blueprint-cell p-10 text-center font-mono">
-            <div class="text-sm theme-text-main font-bold mb-2">
+          <div v-else class="liquid-glass-card p-10 text-center font-mono rounded-3xl">
+            <div class="text-sm text-white font-bold mb-2">
               {{ t('projectsSection.noResultsTitle') }}
             </div>
-            <p class="text-xs theme-text-muted mb-5">
+            <p class="text-xs text-neutral-400 mb-5">
               {{ t('projectsSection.noResultsDesc') }}
             </p>
             <div class="flex flex-wrap justify-center gap-3">
-              <button @click="activeRepoType = 'all_visible'; activeCategory = 'all'; repoSearch = ''" class="btn-industrial-primary">
+              <button @click="activeRepoType = 'all_visible'; activeCategory = 'all'; repoSearch = ''" class="rounded-full bg-white text-black font-bold px-4 py-2 text-xs transition hover:bg-neutral-200">
                 {{ t('projectsSection.tabAll') }} ({{ counts.allVisible }})
               </button>
-              <button @click="activeRepoType = 'main'; activeCategory = 'all'" class="btn-industrial-ghost">
+              <button @click="activeRepoType = 'main'; activeCategory = 'all'" class="liquid-glass-btn rounded-full px-4 py-2 text-xs font-mono">
                 {{ t('projectsSection.btnShowMain') }} ({{ counts.main }})
               </button>
             </div>
@@ -1234,13 +1394,19 @@
           
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div class="lg:col-span-8">
-              <div class="flex items-center gap-2 font-mono text-xs text-sky-400 uppercase tracking-widest mb-3 font-bold">
-                <span>00 // BIOGRAFÍA, FORMACIÓN &amp; FILOSOFÍA DE INGENIERÍA</span>
-                <span class="kanji-stamp">自己紹介 JIKOSHŌKAI</span>
+              <div class="mb-4">
+                <span class="liquid-badge text-sky-400 bg-sky-500/10 border-sky-400/20 text-xs font-mono font-bold mb-3 inline-flex items-center gap-2">
+                  <i class="fa-solid fa-user-astronaut text-xs"></i>
+                  <span>{{ currentLang === 'es' ? 'PERFIL & TRAYECTORIA' : 'PROFILE & BACKGROUND' }}</span>
+                </span>
+                <h1 class="font-display font-black text-3xl sm:text-5xl text-white tracking-tight uppercase">
+                  JHONNY CASTILLO MERO
+                </h1>
+                <p class="font-mono text-xs sm:text-sm text-sky-300 mt-1 uppercase font-semibold">
+                  {{ currentLang === 'es' ? 'Desarrollador Full Stack & Estudiante de Ingeniería de Software' : 'Full Stack Developer & Software Engineering Student' }}
+                </p>
               </div>
-              <h1 class="font-display font-black text-3xl sm:text-5xl text-white tracking-tight uppercase mb-4">
-                JHONNY CASTILLO MERO
-              </h1>
+
               <p class="font-mono text-sm sm:text-base text-neutral-300 leading-relaxed mb-4">
                 {{ currentLang === 'es'
                    ? 'Desarrollador Full Stack y estudiante de Ingeniería de Software en la Universidad Laica Eloy Alfaro de Manabí (ULEAM), radicado en Manta, Ecuador 🇪🇨. Me apasiona transformar problemas reales en arquitecturas de software limpias y escalables.'
@@ -1327,25 +1493,20 @@
 
     <!-- =====================================================================
          SECCIÓN 02 // EXPERIENCIA & TRAYECTORIA TÉCNICA (BILINGÜE)
-         (Inspirado en stevsant.vercel.app/experience: Proyectos reales, diseño web y formación)
          ===================================================================== -->
     <section id="experiencia" class="w-full py-16 md:py-24 border-b theme-border">
       <div class="max-w-[1380px] mx-auto px-4 sm:px-6">
         
         <div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div class="flex items-center gap-2 font-mono text-xs theme-text-accent uppercase tracking-widest mb-2">
-              <span>{{ t('experienceSection.badge') }}</span>
-              <span class="kanji-stamp">経歴 KEIREKI</span>
-            </div>
-            <h2 class="font-display font-black text-3xl sm:text-4xl theme-text-main uppercase">
+            <h2 class="font-display font-black text-3xl sm:text-4xl text-white tracking-tight uppercase">
               {{ t('experienceSection.title') }}
             </h2>
-            <p class="theme-text-muted text-sm mt-2 max-w-3xl">
+            <p class="theme-text-muted text-sm mt-2 max-w-3xl leading-relaxed">
               {{ t('experienceSection.desc') }}
             </p>
           </div>
-          <div class="font-mono text-xs theme-text-sub flex items-center gap-2">
+          <div class="font-mono text-xs text-sky-300 flex items-center gap-2 shrink-0">
             <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
             <span>{{ t('experienceSection.openBadge') }}</span>
           </div>
@@ -1356,35 +1517,31 @@
           <div
             v-for="(exp, idx) in experiences"
             :key="idx"
-            class="theme-bg-surface border theme-border hover:theme-border-sub transition p-6 sm:p-8"
+            class="liquid-glass-card rounded-3xl p-6 sm:p-8 hover:border-white/20 transition"
           >
-            <div class="flex flex-col lg:flex-row lg:items-start justify-between gap-4 pb-4 mb-4 border-b theme-border">
+            <div class="flex flex-col lg:flex-row lg:items-start justify-between gap-4 pb-4 mb-4 border-b border-white/10">
               <div>
                 <div class="flex flex-wrap items-center gap-2 mb-2 font-mono text-xs">
-                  <span class="px-2 py-0.5 theme-bg-elevated border theme-border-accent theme-text-accent font-bold">
+                  <span class="liquid-badge text-sky-400 bg-sky-500/10 border-sky-400/20 font-bold">
                     {{ getExp(exp, 'period') }}
                   </span>
-                  <span class="px-2 py-0.5 theme-bg-canvas border theme-border theme-text-muted">
+                  <span class="px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-neutral-300">
                     {{ getExp(exp, 'category') }}
                   </span>
-                  <span class="theme-text-sub">
-                    <i class="fa-solid fa-location-dot mr-1"></i>{{ getExp(exp, 'location') }}
+                  <span class="text-neutral-400">
+                    <i class="fa-solid fa-location-dot mr-1 text-sky-400"></i>{{ getExp(exp, 'location') }}
                   </span>
                 </div>
-                <h3 class="font-display font-bold text-2xl theme-text-main">
+                <h3 class="font-display font-bold text-2xl text-white">
                   {{ getExp(exp, 'role') }}
                 </h3>
-                <div class="font-mono text-sm theme-text-accent mt-0.5">
+                <div class="font-mono text-sm text-sky-300 mt-0.5 font-semibold">
                   {{ getExp(exp, 'company') }}
                 </div>
               </div>
-
-              <div class="lg:text-right font-mono text-xs">
-                <span class="kanji-stamp">{{ exp.kanji }}</span>
-              </div>
             </div>
 
-            <p class="theme-text-main text-sm sm:text-base leading-relaxed mb-5">
+            <p class="text-neutral-300 text-sm sm:text-base leading-relaxed mb-5">
               {{ getExp(exp, 'summary') }}
             </p>
 
@@ -1393,27 +1550,27 @@
               <div
                 v-for="(point, pIdx) in getExpHighlights(exp)"
                 :key="pIdx"
-                class="flex items-start gap-3 text-xs sm:text-sm theme-text-muted"
+                class="flex items-start gap-3 text-xs sm:text-sm text-neutral-300"
               >
-                <span class="theme-text-accent font-mono text-xs mt-0.5">▸</span>
+                <span class="text-sky-400 font-mono text-xs mt-0.5">▸</span>
                 <span v-html="point" class="leading-relaxed"></span>
               </div>
             </div>
 
             <!-- Stack de Tecnologías Aplicadas -->
-            <div class="pt-4 border-t theme-border flex flex-wrap items-center justify-between gap-4">
+            <div class="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
               <div class="flex flex-wrap items-center gap-1.5">
-                <span class="font-mono text-xs theme-text-sub mr-2 font-semibold">{{ t('experienceSection.stackLabel') }}</span>
+                <span class="font-mono text-xs text-neutral-400 mr-2 font-semibold">{{ t('experienceSection.stackLabel') }}</span>
                 <span
                   v-for="tech in exp.stack"
                   :key="tech"
-                  class="px-2.5 py-1 theme-bg-canvas border theme-border font-mono text-xs theme-text-main hover:theme-border-accent transition"
+                  class="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/10 font-mono text-xs text-neutral-300 hover:border-white/30 transition"
                 >
                   {{ tech }}
                 </span>
               </div>
               <div v-if="exp.actionLink" class="font-mono text-xs">
-                <a :href="exp.actionLink.url" :target="exp.actionLink.external ? '_blank' : '_self'" class="theme-text-accent hover:underline flex items-center gap-1.5">
+                <a :href="exp.actionLink.url" :target="exp.actionLink.external ? '_blank' : '_self'" class="text-sky-300 hover:text-white flex items-center gap-1.5">
                   <span>{{ getExpLinkText(exp) }}</span>
                   <i class="fa-solid fa-arrow-right text-[10px]"></i>
                 </a>
@@ -1427,20 +1584,17 @@
 
 
     <!-- =====================================================================
-         SECCIÓN 03 // TABLA DE ESPECIFICACIÓN DE TECH STACK (6 CAPAS)
+         SECCIÓN 03 // ECOSISTEMA TÉCNICO COMPLETO (3 COLUMNAS LIMPIAS)
          ===================================================================== -->
-    <section id="stack-table" class="w-full py-16 md:py-24 border-b theme-border theme-bg-surface">
+    <section id="stack-table" class="w-full py-16 md:py-24 border-b theme-border">
       <div class="max-w-[1380px] mx-auto px-4 sm:px-6">
         
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
           <div>
-            <div class="font-mono text-xs theme-text-accent uppercase tracking-widest mb-2">
-              {{ t('stackSection.badge') }}
-            </div>
-            <h2 class="font-display font-black text-3xl sm:text-4xl theme-text-main uppercase">
+            <h2 class="font-display font-black text-3xl sm:text-4xl text-white tracking-tight uppercase">
               {{ t('stackSection.title') }}
             </h2>
-            <p class="theme-text-muted text-sm mt-1 max-w-2xl">
+            <p class="theme-text-muted text-sm mt-1 max-w-2xl leading-relaxed">
               {{ t('stackSection.desc') }}
             </p>
           </div>
@@ -1450,76 +1604,166 @@
               type="text"
               v-model="stackFilter"
               :placeholder="t('stackSection.filterPlaceholder')"
-              class="theme-bg-canvas border theme-border px-3.5 py-2 font-mono text-xs theme-text-main w-72 focus:outline-none focus:theme-border-accent"
+              class="bg-black/60 border border-white/10 rounded-lg px-3.5 py-2 font-mono text-xs text-white w-72 focus:outline-none focus:border-white/30"
             />
-            <button v-if="stackFilter" @click="stackFilter = ''" class="btn-industrial-ghost !py-2 !px-3 font-mono text-xs">
+            <button v-if="stackFilter" @click="stackFilter = ''" class="liquid-glass-btn rounded-lg !py-2 !px-3 font-mono text-xs">
               ✕
             </button>
           </div>
         </div>
 
         <!-- Barra de Honestidad y Madurez Técnica: Core vs Ecosistema -->
-        <div class="mb-6 p-4 theme-bg-canvas border theme-border font-mono text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="mb-8 p-4 rounded-2xl liquid-glass-card font-mono text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-white"></span>
-            <span class="theme-text-accent font-bold uppercase">{{ currentLang === 'es' ? 'TRANSPARENCIA &amp; ENFOQUE TÉCNICO:' : 'TECHNICAL FOCUS &amp; TRANSPARENCY:' }}</span>
-            <span class="theme-text-muted">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <span class="text-sky-300 font-bold uppercase">{{ currentLang === 'es' ? 'ENFOQUE TÉCNICO EN PRODUCCIÓN:' : 'PRODUCTION TECHNICAL FOCUS:' }}</span>
+            <span class="text-neutral-400">
               {{ currentLang === 'es' 
-                 ? 'Diferencio mi especialidad central (uso diario en producción) de tecnologías complementarias practicadas.' 
-                 : 'I clearly differentiate my core production tools (daily use) from complementary technologies practiced.' }}
+                 ? 'Diferencio mi especialidad central (uso diario) de tecnologías complementarias.' 
+                 : 'I clearly differentiate my core daily production tools from complementary stack.' }}
             </span>
           </div>
           <div class="flex flex-wrap gap-2 text-[11px] shrink-0">
-            <span class="px-2 py-0.5 bg-white text-black font-bold">CORE (ESPECIALIDAD)</span>
-            <span class="px-2 py-0.5 theme-bg-elevated border theme-border theme-text-sub">ECOSISTEMA &amp; PRÁCTICA</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-white text-black font-bold">CORE (PRODUCCIÓN)</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-neutral-400">ECOSISTEMA &amp; PRÁCTICA</span>
           </div>
         </div>
 
-        <!-- Tabla Arquitectónica de las 6 Capas -->
-        <div class="border-t border-x theme-border theme-bg-canvas">
-          <div
-            v-for="(layer, idx) in filteredStackLayers"
-            :key="layer.id"
-            class="grid grid-cols-1 lg:grid-cols-12 border-b theme-border hover:theme-bg-surface transition"
-          >
-            <!-- Columna 1: Código y Nombre de Capa -->
-            <div class="lg:col-span-3 p-5 border-b lg:border-b-0 lg:border-r theme-border flex flex-col justify-between">
-              <div>
-                <div class="font-mono text-xs theme-text-accent font-bold">{{ layer.code }}</div>
-                <h3 class="font-display font-bold text-lg theme-text-main mt-1">{{ getLayerName(layer) }}</h3>
+        <!-- 3 COLUMNAS LIMPIAS DEL ECOSISTEMA TÉCNICO -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          
+          <!-- Columna 1: Frontend & UI Architecture -->
+          <div class="liquid-glass-card p-6 sm:p-7 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-3 pb-3 mb-4 border-b border-white/10">
+                <div class="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-400/20 text-sky-400 flex items-center justify-center text-lg">
+                  <i class="fa-solid fa-layer-group"></i>
+                </div>
+                <div>
+                  <h3 class="font-display font-bold text-lg text-white">Frontend &amp; UI Architecture</h3>
+                  <div class="font-mono text-[11px] text-neutral-400">SPA, SSR &amp; Design Systems</div>
+                </div>
               </div>
-              <div class="font-mono text-[11px] theme-text-muted mt-3">
-                {{ layer.items.length }} {{ currentLang === 'es' ? 'TECNOLOGÍAS ACTIVAS' : 'ACTIVE TECHNOLOGIES' }}
-              </div>
-            </div>
 
-            <!-- Columna 2: Iconos Oficiales Skillicons + Badges Clicables -->
-            <div class="lg:col-span-5 p-5 border-b lg:border-b-0 lg:border-r theme-border flex flex-col justify-center gap-3">
-              <div class="p-2.5 theme-bg-surface border theme-border inline-block w-fit">
-                <img :src="layer.skillicons" :alt="getLayerName(layer)" class="h-10 w-auto object-contain" loading="lazy" />
+              <!-- Skillicons -->
+              <div class="p-2.5 rounded-xl bg-black/40 border border-white/5 mb-4 inline-block">
+                <img src="https://skillicons.dev/icons?i=ts,js,vue,react,nextjs,tailwind,vite,pinia,html,css&theme=dark&perline=5" alt="Frontend Stack" class="h-10 w-auto object-contain" loading="lazy" />
               </div>
-              <div class="flex flex-wrap gap-1.5">
+
+              <!-- Tech Pills -->
+              <div class="flex flex-wrap gap-1.5 mb-5">
                 <button
-                  v-for="item in layer.items"
+                  v-for="item in ['TypeScript', 'Vue 3', 'React', 'Next.js', 'Tailwind CSS', 'Vite', 'Pinia', 'HTML5', 'CSS3']"
                   :key="item"
                   @click="stackFilter = item"
                   :class="[
-                    stackFilter && item.toLowerCase().includes(stackFilter.toLowerCase()) ? 'btn-industrial-primary !py-0.5 !px-2 !text-[11px]' :
-                    isCoreTech(item) ? 'px-2 py-0.5 border border-white/60 bg-white/10 text-white font-mono text-[11px] font-bold' :
-                    'px-2 py-0.5 theme-bg-elevated border theme-border font-mono text-[11px] theme-text-muted hover:theme-border-accent'
+                    stackFilter && item.toLowerCase().includes(stackFilter.toLowerCase()) ? 'bg-white text-black font-bold' :
+                    isCoreTech(item) ? 'border border-white/40 bg-white/10 text-white font-bold' :
+                    'bg-white/[0.03] border border-white/10 text-neutral-400 hover:text-white'
                   ]"
+                  class="px-2.5 py-1 rounded-md font-mono text-[11px] transition"
                 >
-                  <span v-if="isCoreTech(item)" class="text-white mr-1 text-[9px]">●</span>
+                  <span v-if="isCoreTech(item)" class="text-emerald-400 mr-1 text-[9px]">●</span>
                   {{ item }}
                 </button>
               </div>
             </div>
 
-            <!-- Columna 3: Aplicación en Producción -->
-            <div class="lg:col-span-4 p-5 flex items-center text-xs sm:text-sm theme-text-muted leading-relaxed">
-              {{ getLayerSpec(layer) }}
+            <div class="pt-4 border-t border-white/10 text-xs text-neutral-400 leading-relaxed font-mono">
+              {{ currentLang === 'es'
+                 ? 'Desarrollo de interfaces reactivas, SSR y sistemas de diseño con Tailwind CSS y prototipado en Figma.'
+                 : 'Reactive interfaces, SSR architectures, and Tailwind CSS design systems with prior Figma prototyping.' }}
             </div>
           </div>
+
+          <!-- Columna 2: Backend, Data & AI Tooling -->
+          <div class="liquid-glass-card p-6 sm:p-7 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-3 pb-3 mb-4 border-b border-white/10">
+                <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-400/20 text-emerald-400 flex items-center justify-center text-lg">
+                  <i class="fa-solid fa-server"></i>
+                </div>
+                <div>
+                  <h3 class="font-display font-bold text-lg text-white">Backend, Data &amp; AI Tooling</h3>
+                  <div class="font-mono text-[11px] text-neutral-400">APIs, Persistence &amp; MCP Servers</div>
+                </div>
+              </div>
+
+              <!-- Skillicons -->
+              <div class="p-2.5 rounded-xl bg-black/40 border border-white/5 mb-4 inline-block">
+                <img src="https://skillicons.dev/icons?i=py,nodejs,bun,nestjs,postgres,supabase,sqlite&theme=dark&perline=4" alt="Backend Stack" class="h-10 w-auto object-contain" loading="lazy" />
+              </div>
+
+              <!-- Tech Pills -->
+              <div class="flex flex-wrap gap-1.5 mb-5">
+                <button
+                  v-for="item in ['Python', 'Node.js', 'FastAPI', 'NestJS', 'PostgreSQL 16', 'Supabase', 'MCP JSON-RPC 2.0']"
+                  :key="item"
+                  @click="stackFilter = item"
+                  :class="[
+                    stackFilter && item.toLowerCase().includes(stackFilter.toLowerCase()) ? 'bg-white text-black font-bold' :
+                    isCoreTech(item) ? 'border border-white/40 bg-white/10 text-white font-bold' :
+                    'bg-white/[0.03] border border-white/10 text-neutral-400 hover:text-white'
+                  ]"
+                  class="px-2.5 py-1 rounded-md font-mono text-[11px] transition"
+                >
+                  <span v-if="isCoreTech(item)" class="text-emerald-400 mr-1 text-[9px]">●</span>
+                  {{ item }}
+                </button>
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-white/10 text-xs text-neutral-400 leading-relaxed font-mono">
+              {{ currentLang === 'es'
+                 ? 'Modelado relacional estricto en PostgreSQL 16 y servidores Model Context Protocol (MCP) para conectar agentes IA.'
+                 : 'Relational ACID persistence in PostgreSQL 16 and Model Context Protocol (MCP) servers for AI agents.' }}
+            </div>
+          </div>
+
+          <!-- Columna 3: Cloud, DevOps & Pipelines -->
+          <div class="liquid-glass-card p-6 sm:p-7 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-3 pb-3 mb-4 border-b border-white/10">
+                <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-400/20 text-purple-400 flex items-center justify-center text-lg">
+                  <i class="fa-solid fa-cloud"></i>
+                </div>
+                <div>
+                  <h3 class="font-display font-bold text-lg text-white">Cloud, DevOps &amp; Pipelines</h3>
+                  <div class="font-mono text-[11px] text-neutral-400">Containers, CI/CD &amp; n8n Flows</div>
+                </div>
+              </div>
+
+              <!-- Skillicons -->
+              <div class="p-2.5 rounded-xl bg-black/40 border border-white/5 mb-4 inline-block">
+                <img src="https://skillicons.dev/icons?i=docker,githubactions,linux,azure,gcp,vercel,git&theme=dark&perline=4" alt="Cloud Stack" class="h-10 w-auto object-contain" loading="lazy" />
+              </div>
+
+              <!-- Tech Pills -->
+              <div class="flex flex-wrap gap-1.5 mb-5">
+                <button
+                  v-for="item in ['Docker', 'Linux', 'GitHub Actions', 'Vercel', 'Azure', 'n8n Pipelines', 'Git']"
+                  :key="item"
+                  @click="stackFilter = item"
+                  :class="[
+                    stackFilter && item.toLowerCase().includes(stackFilter.toLowerCase()) ? 'bg-white text-black font-bold' :
+                    isCoreTech(item) ? 'border border-white/40 bg-white/10 text-white font-bold' :
+                    'bg-white/[0.03] border border-white/10 text-neutral-400 hover:text-white'
+                  ]"
+                  class="px-2.5 py-1 rounded-md font-mono text-[11px] transition"
+                >
+                  <span v-if="isCoreTech(item)" class="text-emerald-400 mr-1 text-[9px]">●</span>
+                  {{ item }}
+                </button>
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-white/10 text-xs text-neutral-400 leading-relaxed font-mono">
+              {{ currentLang === 'es'
+                 ? 'Contenedores multi-stage en Docker, pipelines CI/CD automatizados y orquestación con flujos n8n.'
+                 : 'Multi-stage Docker containers, automated CI/CD pipelines, and orchestration via n8n workflows.' }}
+            </div>
+          </div>
+
         </div>
 
       </div>
@@ -1534,10 +1778,6 @@
         
         <div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div class="flex items-center gap-2 font-mono text-xs text-sky-400 uppercase tracking-widest mb-2 font-bold">
-              <span>{{ t('certificatesSection.badge') }}</span>
-              <span class="kanji-stamp">証明 SHŌMEI</span>
-            </div>
             <h2 class="font-display font-black text-3xl sm:text-4xl text-white uppercase tracking-tight">
               {{ t('certificatesSection.title') }}
             </h2>
@@ -1617,10 +1857,6 @@
         
         <div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div class="flex items-center gap-2 font-mono text-xs text-sky-400 uppercase tracking-widest mb-2 font-bold">
-              <span>{{ t('labSection.badge') }}</span>
-              <span class="kanji-stamp">実験 JIKKEN</span>
-            </div>
             <h2 class="font-display font-black text-3xl sm:text-4xl text-white uppercase tracking-tight">
               {{ t('labSection.title') }}
             </h2>
@@ -2322,7 +2558,7 @@
           tagline: 'Ingeniería de Software @ ULEAM • Manta, Manabí, Ecuador 🇪🇨 • Full Stack Developer & AI Tooling Architect',
           btnAts: 'VER CV EJECUTIVO ATS / CONTACTO',
           btnAdmin: 'ADMIN PORTAL',
-          rights: '© 2026 JHONNY CASTILLO MERO • ALL SYSTEMS OPERATIONAL',
+          rights: '© 2026 Jhonny Castillo Mero • Manta, Ecuador',
           activePalette: 'PALETA ACTIVA:'
         }
       },
@@ -2454,7 +2690,7 @@
           tagline: 'Software Engineering @ ULEAM • Manta, Manabí, Ecuador 🇪🇨 • Full Stack Developer & AI Tooling Architect',
           btnAts: 'VIEW EXECUTIVE ATS RESUME / CONTACT',
           btnAdmin: 'ADMIN PORTAL',
-          rights: '© 2026 JHONNY CASTILLO MERO • ALL SYSTEMS OPERATIONAL',
+          rights: '© 2026 Jhonny Castillo Mero • Manta, Ecuador',
           activePalette: 'ACTIVE PALETTE:'
         }
       }
@@ -3466,6 +3702,17 @@
           return CORE_STACK_NAMES.some(c => c.toLowerCase() === name.toLowerCase());
         }
 
+        const coreDockTools = [
+          { name: 'TypeScript', icon: 'fa-brands fa-js' },
+          { name: 'Vue 3', icon: 'fa-brands fa-vuejs' },
+          { name: 'React / Next.js', icon: 'fa-brands fa-react' },
+          { name: 'Tailwind CSS', icon: 'fa-solid fa-wind' },
+          { name: 'Node.js', icon: 'fa-brands fa-node-js' },
+          { name: 'Python', icon: 'fa-brands fa-python' },
+          { name: 'PostgreSQL', icon: 'fa-solid fa-database' },
+          { name: 'Docker & MCP', icon: 'fa-solid fa-robot' }
+        ];
+
         // 5. CONSOLA CLI DEL HERO
         const cliHistory = ref([]);
         function runCliCommand(cmd) {
@@ -3599,16 +3846,6 @@
           applyTheme(activeTheme.value);
           syncGitHubRepos(false);
 
-          // Remover suavemente la pantalla de carga para evitar destellos FOUC
-          const preloader = document.getElementById('preloader');
-          if (preloader) {
-            preloader.style.opacity = '0';
-            preloader.style.pointerEvents = 'none';
-            setTimeout(() => {
-              if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
-            }, 350);
-          }
-
           window.addEventListener('keydown', (ev) => {
             const tag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
             if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
@@ -3696,7 +3933,8 @@
           openReadmeViewer,
           contactModalOpen,
           toastText,
-          copyEmail
+          copyEmail,
+          coreDockTools
         };
       }
     }).mount('#app');
