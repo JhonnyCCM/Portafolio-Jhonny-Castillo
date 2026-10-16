@@ -877,16 +877,16 @@
         name: 'campus-quest-app',
         title: 'Campus Quest App',
         repoType: 'main',
-        category: 'fullstack',
-        language: 'TypeScript',
+        category: 'mobile',
+        language: 'Kotlin',
         stars: 0,
         forks: 0,
         branch: 'main',
         url: 'https://github.com/Erickelrojo-22/campus-quest-app',
         isCollab: true,
-        tagline: 'Plataforma de gamificación académica para la ULEAM con estética retro pixel-art, misiones interactivas y seguimiento de progreso estudiantil desarrollada en equipo.',
-        specs: ['Frontend modular con Vue 3, TypeScript y Tailwind CSS', 'Persistencia y autenticación en Supabase'],
-        tags: ['Vue 3', 'TypeScript', 'Supabase', 'Tailwind CSS', 'Gamification'],
+        tagline: 'Aplicación Android nativa en Kotlin y Jetpack Compose de gamificación académica para la ULEAM con estética retro pixel-art, misiones con QR y persistencia offline en Room.',
+        specs: ['UI declarativa en Kotlin 2.2 y Jetpack Compose (Material 3)', 'Arquitectura MVVM con Room (SQLite Offline), DataStore, CameraX y ZXing'],
+        tags: ['Kotlin', 'Jetpack Compose', 'Room SQLite', 'CameraX & ZXing', 'MVVM'],
         featured: true
       },
       {
@@ -1146,17 +1146,22 @@
         });
         const featuredMigrated = localStorage.getItem('jhonnyccm_featured_v2');
         const defaultFeaturedSet = ['design-extractor-mcp', 'campus-quest-app', 'spotify-stats-mcp'];
+        let cacheUpdated = false;
         initialList.forEach(p => {
           const match = INITIAL_PROJECTS.find(ip => ip.name.toLowerCase() === p.name.toLowerCase());
           if (match) {
             if (match.isCollab && p.isCollab === undefined) p.isCollab = true;
             if (match.url && (!p.url || p.url.includes('JhonnyCCM/campus-quest-app'))) p.url = match.url;
+            if (p.name.toLowerCase() === 'campus-quest-app' && p.language !== 'Kotlin') {
+              Object.assign(p, JSON.parse(JSON.stringify(match)), { featured: p.featured !== undefined ? p.featured : true });
+              cacheUpdated = true;
+            }
           }
           if (!featuredMigrated) {
             p.featured = defaultFeaturedSet.includes(p.name.toLowerCase());
           }
         });
-        if (!featuredMigrated) {
+        if (!featuredMigrated || cacheUpdated) {
           localStorage.setItem('jhonnyccm_featured_v2', '1');
           localStorage.setItem('jhonnyccm_v4_projects', JSON.stringify(initialList));
         }
