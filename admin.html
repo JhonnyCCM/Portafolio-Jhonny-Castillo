@@ -436,6 +436,18 @@
               PRINCIPALES ({{ counts.main }})
             </button>
             <button
+              @click="filterType = 'secondary'"
+              :class="filterType === 'secondary' ? 'btn-industrial-primary !py-1 !px-2.5' : 'btn-industrial-ghost !py-1 !px-2.5'"
+            >
+              SECUNDARIOS ({{ counts.secondary }})
+            </button>
+            <button
+              @click="filterType = 'wip'"
+              :class="filterType === 'wip' ? 'btn-industrial-primary !py-1 !px-2.5' : 'btn-industrial-ghost !py-1 !px-2.5'"
+            >
+              EN DESARROLLO ({{ counts.wip }})
+            </button>
+            <button
               @click="filterType = 'practice'"
               :class="filterType === 'practice' ? 'btn-industrial-primary !py-1 !px-2.5' : 'btn-industrial-ghost !py-1 !px-2.5'"
             >
@@ -464,8 +476,13 @@
               <option value="all">CATEGORÍA: TODAS</option>
               <option value="mcp">MCP &amp; AGENTES IA</option>
               <option value="fullstack">FULL STACK &amp; WEB</option>
-              <option value="automation">AUTOMATIZACIÓN &amp; BACKEND</option>
+              <option value="automation">AUTOMATIZACIÓN &amp; DATA</option>
               <option value="mobile">ANDROID &amp; KOTLIN</option>
+              <option value="backend">BACKEND &amp; APIS</option>
+              <option value="devops">CLOUD &amp; DEVOPS</option>
+              <option value="cli">HERRAMIENTAS CLI</option>
+              <option value="uiux">UI/UX &amp; DESIGN</option>
+              <option value="gamedev">GAME DEV &amp; 3D</option>
             </select>
 
             <div class="relative">
@@ -543,14 +560,18 @@
                   class="w-full theme-bg-canvas border px-2.5 py-1.5 text-xs font-bold focus:outline-none"
                   :class="{
                     'theme-border-accent theme-text-accent': p.repoType === 'main',
+                    'border-sky-400 text-sky-400': p.repoType === 'secondary',
+                    'border-amber-400 text-amber-400': p.repoType === 'wip',
                     'theme-border-sub theme-text-sub': p.repoType === 'practice',
                     'border-blue-400 text-blue-400': p.repoType === 'academic',
                     'border-red-500 text-red-400': p.repoType === 'hidden'
                   }"
                 >
                   <option value="main">🟢 PROYECTO PRINCIPAL (VITRINA)</option>
+                  <option value="secondary">🔵 PROYECTO SECUNDARIO</option>
+                  <option value="wip">🟠 EN DESARROLLO (LABS / WIP)</option>
                   <option value="practice">🟡 PRÁCTICA GOOGLE / CODELAB</option>
-                  <option value="academic">🔵 ACADÉMICO ULEAM</option>
+                  <option value="academic">🟣 ACADÉMICO ULEAM</option>
                   <option value="hidden">🔴 OCULTAR DEL PORTAFOLIO</option>
                 </select>
               </td>
@@ -564,8 +585,13 @@
                 >
                   <option value="mcp">MCP &amp; AGENTES IA</option>
                   <option value="fullstack">FULL STACK &amp; WEB</option>
-                  <option value="automation">AUTOMATIZACIÓN</option>
+                  <option value="automation">AUTOMATIZACIÓN &amp; DATA</option>
                   <option value="mobile">ANDROID &amp; KOTLIN</option>
+                  <option value="backend">BACKEND &amp; APIS</option>
+                  <option value="devops">CLOUD &amp; DEVOPS</option>
+                  <option value="cli">HERRAMIENTAS CLI</option>
+                  <option value="uiux">UI/UX &amp; DESIGN</option>
+                  <option value="gamedev">GAME DEV &amp; 3D</option>
                 </select>
               </td>
 
@@ -676,8 +702,10 @@
               class="w-full theme-bg-canvas border theme-border px-3 py-2 theme-text-main focus:outline-none focus:theme-border-accent"
             >
               <option value="main">🟢 Proyecto Principal (Vitrina)</option>
+              <option value="secondary">🔵 Proyecto Secundario</option>
+              <option value="wip">🟠 En Desarrollo (Labs / WIP)</option>
               <option value="practice">🟡 Práctica Google / Codelab</option>
-              <option value="academic">🔵 Académico ULEAM</option>
+              <option value="academic">🟣 Académico ULEAM</option>
               <option value="hidden">🔴 Oculto del Portafolio</option>
             </select>
           </div>
@@ -690,8 +718,13 @@
             >
               <option value="mcp">MCP &amp; Agentes IA</option>
               <option value="fullstack">Full Stack &amp; Web</option>
-              <option value="automation">Automatización &amp; Backend</option>
+              <option value="automation">Automatización &amp; Data</option>
               <option value="mobile">Android / Kotlin</option>
+              <option value="backend">Backend &amp; APIs</option>
+              <option value="devops">Cloud &amp; DevOps</option>
+              <option value="cli">Herramientas CLI &amp; Consola</option>
+              <option value="uiux">UI/UX &amp; Sistemas de Diseño</option>
+              <option value="gamedev">Game Dev &amp; 3D</option>
             </select>
           </div>
 
@@ -884,7 +917,7 @@
         name: 'uleamMatricula',
         title: 'ULEAM Matrícula CLI Automation',
         repoType: 'main',
-        category: 'automation',
+        category: 'cli',
         language: 'Python',
         stars: 0,
         forks: 0,
@@ -914,7 +947,7 @@
         name: 'Repo-grupal-servidores-web',
         title: 'Arquitectura Limpia en Node.js & Docker',
         repoType: 'academic',
-        category: 'fullstack',
+        category: 'backend',
         language: 'TypeScript',
         stars: 0,
         forks: 0,
@@ -929,7 +962,7 @@
         name: 'Django-auth-crud',
         title: 'Django Secure Auth & CRUD',
         repoType: 'academic',
-        category: 'fullstack',
+        category: 'backend',
         language: 'Python',
         stars: 0,
         forks: 0,
@@ -1109,6 +1142,8 @@
         const counts = computed(() => {
           return {
             main: projects.value.filter(p => p.repoType === 'main').length,
+            secondary: projects.value.filter(p => p.repoType === 'secondary').length,
+            wip: projects.value.filter(p => p.repoType === 'wip').length,
             practice: projects.value.filter(p => p.repoType === 'practice').length,
             academic: projects.value.filter(p => p.repoType === 'academic').length,
             hidden: projects.value.filter(p => p.repoType === 'hidden').length,

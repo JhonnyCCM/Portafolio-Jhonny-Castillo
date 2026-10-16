@@ -808,6 +808,41 @@
                 <i class="fa-brands fa-android mr-1 text-xs"></i>
                 {{ t('projectsSection.catMobile') }}
               </button>
+              <button
+                @click="setCategory('backend')"
+                :class="activeCategory === 'backend' ? 'btn-industrial-primary !py-1 !px-3' : 'btn-industrial-ghost !py-1 !px-3'"
+              >
+                <i class="fa-solid fa-server mr-1 text-xs"></i>
+                {{ t('projectsSection.catBackend') }}
+              </button>
+              <button
+                @click="setCategory('devops')"
+                :class="activeCategory === 'devops' ? 'btn-industrial-primary !py-1 !px-3' : 'btn-industrial-ghost !py-1 !px-3'"
+              >
+                <i class="fa-solid fa-cloud mr-1 text-xs"></i>
+                {{ t('projectsSection.catDevops') }}
+              </button>
+              <button
+                @click="setCategory('cli')"
+                :class="activeCategory === 'cli' ? 'btn-industrial-primary !py-1 !px-3' : 'btn-industrial-ghost !py-1 !px-3'"
+              >
+                <i class="fa-solid fa-terminal mr-1 text-xs"></i>
+                {{ t('projectsSection.catCli') }}
+              </button>
+              <button
+                @click="setCategory('uiux')"
+                :class="activeCategory === 'uiux' ? 'btn-industrial-primary !py-1 !px-3' : 'btn-industrial-ghost !py-1 !px-3'"
+              >
+                <i class="fa-solid fa-compass-drafting mr-1 text-xs"></i>
+                {{ t('projectsSection.catUiux') }}
+              </button>
+              <button
+                @click="setCategory('gamedev')"
+                :class="activeCategory === 'gamedev' ? 'btn-industrial-primary !py-1 !px-3' : 'btn-industrial-ghost !py-1 !px-3'"
+              >
+                <i class="fa-solid fa-gamepad mr-1 text-xs"></i>
+                {{ t('projectsSection.catGamedev') }}
+              </button>
             </div>
 
             <!-- Botón directo al Simulador MCP JSON-RPC -->
@@ -830,6 +865,19 @@
                 :class="activeRepoType === 'main' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
               >
                 {{ t('projectsSection.tabMain') }} ({{ counts.main }})
+              </button>
+              <button
+                @click="activeRepoType = 'secondary'"
+                :class="activeRepoType === 'secondary' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
+              >
+                {{ t('projectsSection.tabSecondary') }} ({{ counts.secondary }})
+              </button>
+              <button
+                @click="activeRepoType = 'wip'"
+                :class="activeRepoType === 'wip' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
+              >
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-400 inline-block mr-1"></span>
+                {{ t('projectsSection.tabWip') }} ({{ counts.wip }})
               </button>
               <button
                 @click="activeRepoType = 'practice'"
@@ -890,7 +938,14 @@
                 </div>
 
                 <div class="flex items-center gap-1.5">
-                  <span class="hud-cyan-badge">{{ getRepoTypeLabel(proj.repoType) }}</span>
+                  <span v-if="proj.repoType === 'wip'" class="px-2 py-0.5 bg-amber-500/10 border border-amber-500/50 text-amber-400 font-mono text-[10.5px] font-bold inline-flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                    {{ getRepoTypeLabel(proj.repoType) }}
+                  </span>
+                  <span v-else-if="proj.repoType === 'secondary'" class="px-2 py-0.5 bg-sky-500/10 border border-sky-500/40 text-sky-400 font-mono text-[10.5px] font-semibold">
+                    {{ getRepoTypeLabel(proj.repoType) }}
+                  </span>
+                  <span v-else class="hud-cyan-badge">{{ getRepoTypeLabel(proj.repoType) }}</span>
                 </div>
               </div>
 
@@ -1516,6 +1571,8 @@
           btnAllGithub: 'VER TODOS EN GITHUB ↗',
           viewActive: 'VISTA ACTIVA:',
           tabMain: 'PROYECTOS PRINCIPALES',
+          tabSecondary: 'PROYECTOS SECUNDARIOS',
+          tabWip: 'EN DESARROLLO (LABS)',
           tabPractice: 'PRÁCTICAS GOOGLE / CODELABS',
           tabAcademic: 'ACADÉMICOS ULEAM',
           tabAll: 'TODOS VISIBLES',
@@ -1525,6 +1582,13 @@
           catFullstack: 'DESARROLLO WEB & UI',
           catAutomation: 'AUTOMATIZACIÓN & DATA',
           catMobile: 'MOBILE & ANDROID',
+          catBackend: 'BACKEND & APIS',
+          catDevops: 'CLOUD & DEVOPS',
+          catCli: 'HERRAMIENTAS CLI',
+          catUiux: 'UI/UX & DESIGN',
+          catGamedev: 'GAME DEV & 3D',
+          wipBadge: 'EN DESARROLLO // WORK IN PROGRESS',
+          secondaryBadge: 'PROYECTO SECUNDARIO',
           searchPlaceholder: 'Filtrar por nombre o tecnología...',
           inspectReadme: 'INSPECCIONAR README',
           githubRepo: 'GITHUB REPO',
@@ -1610,6 +1674,8 @@
           btnAllGithub: 'VIEW ALL ON GITHUB ↗',
           viewActive: 'ACTIVE VIEW:',
           tabMain: 'CORE PROJECTS',
+          tabSecondary: 'SECONDARY PROJECTS',
+          tabWip: 'IN DEVELOPMENT (LABS)',
           tabPractice: 'GOOGLE PRACTICES / CODELABS',
           tabAcademic: 'ULEAM ACADEMIC',
           tabAll: 'ALL VISIBLE',
@@ -1619,6 +1685,13 @@
           catFullstack: 'WEB DEV & UI',
           catAutomation: 'AUTOMATION & DATA',
           catMobile: 'MOBILE & ANDROID',
+          catBackend: 'BACKEND & APIS',
+          catDevops: 'CLOUD & DEVOPS',
+          catCli: 'CLI TOOLS',
+          catUiux: 'UI/UX & DESIGN',
+          catGamedev: 'GAME DEV & 3D',
+          wipBadge: 'IN DEVELOPMENT // WORK IN PROGRESS',
+          secondaryBadge: 'SECONDARY PROJECT',
           searchPlaceholder: 'Filter by name or technology...',
           inspectReadme: 'INSPECT README',
           githubRepo: 'GITHUB REPO',
@@ -1774,7 +1847,7 @@
         name: 'uleamMatricula',
         title: 'uleamMatricula CLI',
         repoType: 'main',
-        category: 'automation',
+        category: 'cli',
         language: 'Python',
         stars: 0,
         forks: 0,
@@ -1830,7 +1903,7 @@
         name: 'Repo-grupal-servidores-web',
         title: 'Arquitectura de Servidores Web',
         repoType: 'academic',
-        category: 'fullstack',
+        category: 'backend',
         language: 'TypeScript',
         stars: 0,
         forks: 0,
@@ -1858,7 +1931,7 @@
         name: 'Django-auth-crud',
         title: 'Django Secure Auth & CRUD',
         repoType: 'academic',
-        category: 'fullstack',
+        category: 'backend',
         language: 'Python',
         stars: 0,
         forks: 0,
@@ -2129,14 +2202,19 @@
 
         function setCategory(cat) {
           activeCategory.value = cat;
-          if (cat === 'mobile' || cat === 'practice' || cat === 'academic') {
-            activeRepoType.value = 'all_visible';
+          if (cat !== 'all') {
+            const hasMatchesInActive = projects.value.some(p => p.repoType === activeRepoType.value && p.category === cat);
+            if (!hasMatchesInActive) {
+              activeRepoType.value = 'all_visible';
+            }
           }
         }
 
         const counts = computed(() => {
           return {
             main: projects.value.filter(p => p.repoType === 'main').length,
+            secondary: projects.value.filter(p => p.repoType === 'secondary').length,
+            wip: projects.value.filter(p => p.repoType === 'wip').length,
             practice: projects.value.filter(p => p.repoType === 'practice').length,
             academic: projects.value.filter(p => p.repoType === 'academic').length,
             hidden: projects.value.filter(p => p.repoType === 'hidden').length,
@@ -2187,11 +2265,15 @@
           const labels = {
             es: {
               main: 'PROYECTO PRINCIPAL',
+              secondary: 'PROYECTO SECUNDARIO',
+              wip: 'EN DESARROLLO (LABS)',
               practice: 'PRÁCTICA GOOGLE / CURSO',
               academic: 'ACADÉMICO ULEAM'
             },
             en: {
               main: 'CORE PROJECT',
+              secondary: 'SECONDARY PROJECT',
+              wip: 'IN DEVELOPMENT (LABS)',
               practice: 'GOOGLE / COURSE PRACTICE',
               academic: 'ACADEMIC ULEAM'
             }
