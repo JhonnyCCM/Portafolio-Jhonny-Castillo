@@ -770,64 +770,52 @@
         <!-- BARRA DE FILTRO INTEGRADA POR CATEGORÍAS & VISTA DE REPOSITORIOS -->
         <div class="border theme-border theme-bg-surface p-4 sm:p-5 mb-8 space-y-4">
           
-          <!-- Fila 1: Selector de Nivel de Proyecto (Pestañas) + Botón Simulador MCP -->
-          <div class="flex flex-wrap items-center justify-between gap-3 pb-3.5 border-b theme-border">
-            <div class="flex flex-wrap items-center gap-1.5">
-              <span class="font-mono text-xs theme-text-muted mr-1 uppercase">{{ t('projectsSection.viewActive') }}</span>
-              <button
-                @click="activeRepoType = 'main'"
-                :class="activeRepoType === 'main' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
-              >
-                {{ t('projectsSection.tabMain') }} ({{ counts.main }})
-              </button>
-              <button
-                @click="activeRepoType = 'secondary'"
-                :class="activeRepoType === 'secondary' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
-              >
-                {{ t('projectsSection.tabSecondary') }} ({{ counts.secondary }})
-              </button>
-              <button
-                @click="activeRepoType = 'wip'"
-                :class="activeRepoType === 'wip' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
-              >
-                <span class="w-1.5 h-1.5 rounded-full bg-amber-400 inline-block mr-1"></span>
-                {{ t('projectsSection.tabWip') }} ({{ counts.wip }})
-              </button>
-              <button
-                @click="activeRepoType = 'practice'"
-                :class="activeRepoType === 'practice' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
-              >
-                {{ t('projectsSection.tabPractice') }} ({{ counts.practice }})
-              </button>
-              <button
-                @click="activeRepoType = 'academic'"
-                :class="activeRepoType === 'academic' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
-              >
-                {{ t('projectsSection.tabAcademic') }} ({{ counts.academic }})
-              </button>
-              <button
-                @click="activeRepoType = 'all_visible'"
-                :class="activeRepoType === 'all_visible' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
-              >
-                {{ t('projectsSection.tabAll') }} ({{ counts.allVisible }})
-              </button>
-            </div>
-
-            <!-- Botón directo al Simulador MCP JSON-RPC -->
+          <!-- Fila 1: Selector de Nivel de Proyecto (Pestañas) -->
+          <div class="flex flex-wrap items-center gap-1.5 pb-3.5 border-b theme-border">
+            <span class="font-mono text-xs theme-text-muted mr-1 uppercase">{{ t('projectsSection.viewActive') }}</span>
             <button
-              @click="openMcpModal('design')"
-              class="btn-industrial-primary !py-1 !px-3 !text-xs font-mono flex items-center gap-1.5 shrink-0"
-              title="Abrir Simulador Interactivo JSON-RPC 2.0"
+              @click="activeRepoType = 'main'"
+              :class="activeRepoType === 'main' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
             >
-              <i class="fa-solid fa-terminal text-xs"></i>
-              <span>{{ t('projectsSection.simulateMcp') }}</span>
+              {{ t('projectsSection.tabMain') }} ({{ counts.main }})
+            </button>
+            <button
+              @click="activeRepoType = 'secondary'"
+              :class="activeRepoType === 'secondary' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
+            >
+              {{ t('projectsSection.tabSecondary') }} ({{ counts.secondary }})
+            </button>
+            <button
+              @click="activeRepoType = 'wip'"
+              :class="activeRepoType === 'wip' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
+            >
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400 inline-block mr-1"></span>
+              {{ t('projectsSection.tabWip') }} ({{ counts.wip }})
+            </button>
+            <button
+              @click="activeRepoType = 'practice'"
+              :class="activeRepoType === 'practice' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
+            >
+              {{ t('projectsSection.tabPractice') }} ({{ counts.practice }})
+            </button>
+            <button
+              @click="activeRepoType = 'academic'"
+              :class="activeRepoType === 'academic' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
+            >
+              {{ t('projectsSection.tabAcademic') }} ({{ counts.academic }})
+            </button>
+            <button
+              @click="activeRepoType = 'all_visible'"
+              :class="activeRepoType === 'all_visible' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
+            >
+              {{ t('projectsSection.tabAll') }} ({{ counts.allVisible }})
             </button>
           </div>
 
           <!-- Fila 2: Filtro Desplegable de Categoría Técnica + Buscador de Proyectos -->
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
             
-            <!-- Selector Desplegable de Categoría Técnica (Modo Filtro) -->
+            <!-- Selector Desplegable de Categoría Técnica (Modo Filtro Sin Emojis) -->
             <div class="flex items-center gap-2 flex-wrap">
               <label class="font-mono text-xs theme-text-sub font-bold uppercase shrink-0 flex items-center gap-1.5">
                 <i class="fa-solid fa-filter theme-text-accent"></i>
@@ -840,16 +828,16 @@
                   @change="setCategory($event.target.value)"
                   class="w-full theme-bg-canvas border theme-border pl-3 pr-8 py-1.5 font-mono text-xs theme-text-main font-bold focus:outline-none focus:theme-border-accent appearance-none cursor-pointer"
                 >
-                  <option value="all">📂 {{ t('projectsSection.catAll') }}</option>
-                  <option value="mcp">🤖 {{ t('projectsSection.catMcp') }}</option>
-                  <option value="fullstack">🌐 {{ t('projectsSection.catFullstack') }}</option>
-                  <option value="automation">⚙️ {{ t('projectsSection.catAutomation') }}</option>
-                  <option value="mobile">📱 {{ t('projectsSection.catMobile') }}</option>
-                  <option value="backend">⚡ {{ t('projectsSection.catBackend') }}</option>
-                  <option value="devops">☁️ {{ t('projectsSection.catDevops') }}</option>
-                  <option value="cli">💻 {{ t('projectsSection.catCli') }}</option>
-                  <option value="uiux">🎨 {{ t('projectsSection.catUiux') }}</option>
-                  <option value="gamedev">🎮 {{ t('projectsSection.catGamedev') }}</option>
+                  <option value="all">{{ t('projectsSection.catAll') }}</option>
+                  <option value="mcp">{{ t('projectsSection.catMcp') }}</option>
+                  <option value="fullstack">{{ t('projectsSection.catFullstack') }}</option>
+                  <option value="automation">{{ t('projectsSection.catAutomation') }}</option>
+                  <option value="mobile">{{ t('projectsSection.catMobile') }}</option>
+                  <option value="backend">{{ t('projectsSection.catBackend') }}</option>
+                  <option value="devops">{{ t('projectsSection.catDevops') }}</option>
+                  <option value="cli">{{ t('projectsSection.catCli') }}</option>
+                  <option value="uiux">{{ t('projectsSection.catUiux') }}</option>
+                  <option value="gamedev">{{ t('projectsSection.catGamedev') }}</option>
                 </select>
                 <i class="fa-solid fa-chevron-down absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] theme-text-muted pointer-events-none"></i>
               </div>
