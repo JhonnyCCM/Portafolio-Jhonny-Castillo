@@ -3,7 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JHONNY CASTILLO (@JhonnyCCM) // Full Stack Developer — Web Architecture, UI/UX &amp; AI Tooling</title>
+  <title>JHONNY CASTILLO (@JhonnyCCM) // Full Stack Developer &amp; AI Tooling Architect</title>
+  <meta name="description" content="Portafolio de Jhonny Castillo (@JhonnyCCM), Desarrollador Full Stack en Manta, Ecuador (ULEAM). Especializado en Vue 3, TypeScript, Python, Tailwind CSS y Servidores MCP para IA." />
+
+  <!-- Open Graph / Redes Sociales (WhatsApp, LinkedIn, Discord, Twitter) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://jhonnyccm.vercel.app/" />
+  <meta property="og:title" content="Jhonny Castillo (@JhonnyCCM) // Full Stack Developer &amp; AI MCP Builder" />
+  <meta property="og:description" content="Desarrollador Full Stack enfocado en aplicaciones web modernas, backends escalables y servidores Model Context Protocol (MCP) para agentes de IA. Manta, Ecuador." />
+  <meta property="og:image" content="./banner-eink-mono.jpg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Jhonny Castillo (@JhonnyCCM) // Full Stack Developer" />
+  <meta name="twitter:description" content="Desarrollador Full Stack enfocado en aplicaciones web modernas, backends escalables y servidores MCP para IA. Manta, Ecuador." />
+  <meta name="twitter:image" content="./banner-eink-mono.jpg" />
 
   <!-- Favicon y Logo de Marca JhonnyCCM -->
   <link rel="icon" type="image/jpeg" href="./favicon.jpg" />
@@ -328,6 +342,15 @@
 </head>
 <body class="theme-mono antialiased">
 
+  <!-- Pantalla de Carga Inicial para evitar destello de llaves sin procesar (FOUC) -->
+  <div id="preloader" class="fixed inset-0 z-[9999] bg-[#0A0B0D] flex flex-col items-center justify-center font-mono text-xs text-[#FAFAFA] transition-opacity duration-300">
+    <div class="flex items-center gap-2.5 mb-2">
+      <div class="w-2.5 h-2.5 bg-white animate-pulse"></div>
+      <span class="font-bold tracking-wider">JHONNYCCM // FULL STACK SYSTEM</span>
+    </div>
+    <div class="text-[#A1A1AA] text-[11px]">Inicializando entorno interactivo...</div>
+  </div>
+
   <!-- CAPA CRT [R] -->
   <div id="crtOverlay" aria-hidden="true">
     <div id="crtSweep"></div>
@@ -343,7 +366,7 @@
       <div class="max-w-[1380px] mx-auto px-4 sm:px-6">
         <div class="flex flex-wrap items-center justify-between py-2.5 gap-3">
           
-          <!-- Identidad Izquierda (Nombre NUNCA en rojo) -->
+          <!-- Identidad Izquierda -->
           <div class="flex items-center gap-3">
             <a href="#" class="flex items-center gap-2.5 focus:outline-none group">
               <div class="w-8 h-8 theme-bg-surface border theme-border-sub flex items-center justify-center font-mono font-bold text-xs theme-text-sub">
@@ -354,8 +377,8 @@
                   <span class="font-display font-black text-lg tracking-wider jhonny-name-lockup">
                     JHONNY<span class="jhonny-name-highlight">CCM</span>
                   </span>
-                  <span class="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono theme-bg-elevated border theme-border theme-text-muted">
-                    00°57'S 80°43'W // MANTA, EC
+                  <span class="hidden sm:inline-block px-2 py-0.5 text-[10px] font-mono theme-bg-elevated border theme-border theme-text-muted uppercase">
+                    FULL STACK DEVELOPER
                   </span>
                 </div>
               </div>
@@ -369,10 +392,10 @@
             <span class="theme-text-main font-bold">E-INK MONO</span>
           </div>
 
-          <!-- Controles Derechos: Navegación + Selector Idioma [ES|EN] + Modo CRT [R] + CV ATS -->
+          <!-- Controles Derechos: Navegación + Selector Idioma [ES|EN] + Modo CRT [R] + CV ATS Destacado -->
           <div class="flex items-center gap-2">
             <nav class="hidden xl:flex items-center gap-4 text-xs font-mono mr-2">
-              <a href="#proyectos-github" class="theme-text-muted hover:theme-text-sub transition">{{ t('nav.projects') }}</a>
+              <a href="#proyectos-destacados" class="theme-text-muted hover:theme-text-sub transition">{{ t('nav.projects') }}</a>
               <a href="#experiencia" class="theme-text-muted hover:theme-text-sub transition">{{ t('nav.experience') }}</a>
               <a href="#stack-table" class="theme-text-muted hover:theme-text-sub transition">{{ t('nav.stack') }}</a>
               <a href="#github-telemetry" class="theme-text-muted hover:theme-text-sub transition">{{ t('nav.pulse') }}</a>
@@ -406,11 +429,12 @@
               <span>{{ crtEnabled ? t('nav.crtOn') : t('nav.crtOff') }}</span>
             </button>
 
-            <!-- Botón CV ATS -->
+            <!-- Botón CV ATS Destacado -->
             <button
               @click="contactModalOpen = true"
-              class="btn-industrial-primary !py-1.5 !px-3"
+              class="btn-industrial-primary !py-1.5 !px-3.5 font-bold shadow-md flex items-center gap-1.5"
             >
+              <i class="fa-solid fa-file-contract text-xs"></i>
               <span>{{ t('nav.cvContact') }}</span>
             </button>
           </div>
@@ -427,18 +451,18 @@
       class="relative w-full min-h-[680px] border-b theme-border overflow-hidden flex flex-col justify-between theme-bg-canvas"
     >
       
-      <!-- Riel Superior de Especificaciones (Pragmático y Humano + Kanjis) -->
+      <!-- Riel Superior de Especificaciones (Limpio, Humano y Directo) -->
       <div class="relative z-20 theme-bg-glass border-b theme-border py-1.5 overflow-hidden">
         <div class="industrial-ticker font-mono text-[11px] tracking-widest uppercase theme-text-muted">
-          <span class="mx-6"><strong class="theme-text-sub">[MANTA, ECUADOR // ULEAM]</strong> ARQUITECTURA FULL STACK • INTERFACES UI/UX • CLOUD &amp; DOCKER</span>
-          <span class="mx-6"><strong class="theme-text-accent">[未来 MIRAI]</strong> DESARROLLO DE PLATAFORMAS WEB ESCALABLES, MVPs &amp; HERRAMIENTAS DE IA</span>
-          <span class="mx-6"><strong class="theme-text-sub">[創造 SŌZŌ]</strong> TYPESCRIPT • VUE 3 • REACT • NEXT.JS • ANGULAR • TAILWIND CSS</span>
-          <span class="mx-6"><strong class="theme-text-accent">[コード KŌDO]</strong> NODE.JS • PYTHON • POSTGRESQL • SUPABASE • AZURE &amp; GOOGLE CLOUD</span>
-          <!-- Duplicado para scroll infinito -->
-          <span class="mx-6"><strong class="theme-text-sub">[MANTA, ECUADOR // ULEAM]</strong> ARQUITECTURA FULL STACK • INTERFACES UI/UX • CLOUD &amp; DOCKER</span>
-          <span class="mx-6"><strong class="theme-text-accent">[未来 MIRAI]</strong> DESARROLLO DE PLATAFORMAS WEB ESCALABLES, MVPs &amp; HERRAMIENTAS DE IA</span>
-          <span class="mx-6"><strong class="theme-text-sub">[創造 SŌZŌ]</strong> TYPESCRIPT • VUE 3 • REACT • NEXT.JS • ANGULAR • TAILWIND CSS</span>
-          <span class="mx-6"><strong class="theme-text-accent">[コード KŌDO]</strong> NODE.JS • PYTHON • POSTGRESQL • SUPABASE • AZURE &amp; GOOGLE CLOUD</span>
+          <span class="mx-6"><strong class="theme-text-sub">[JHONNYCCM]</strong> DESARROLLADOR FULL STACK • INGENIERÍA DE SOFTWARE @ ULEAM</span>
+          <span class="mx-6"><strong class="theme-text-accent">[ENFOQUE TÉCNICO]</strong> APLICACIONES WEB MODERNAS, BACKENDS ESCALABLES &amp; HERRAMIENTAS DE IA</span>
+          <span class="mx-6"><strong class="theme-text-sub">[STACK CORE]</strong> TYPESCRIPT • VUE 3 • TAILWIND CSS • NODE.JS • PYTHON • POSTGRESQL • DOCKER</span>
+          <span class="mx-6"><strong class="theme-text-accent">[DISPONIBILIDAD]</strong> ABIERTO A CONTRATACIÓN (JUNIOR / MID) • DESARROLLO DE MVPs &amp; FREELANCE</span>
+          <!-- Duplicado para scroll infinito continuo -->
+          <span class="mx-6"><strong class="theme-text-sub">[JHONNYCCM]</strong> DESARROLLADOR FULL STACK • INGENIERÍA DE SOFTWARE @ ULEAM</span>
+          <span class="mx-6"><strong class="theme-text-accent">[ENFOQUE TÉCNICO]</strong> APLICACIONES WEB MODERNAS, BACKENDS ESCALABLES &amp; HERRAMIENTAS DE IA</span>
+          <span class="mx-6"><strong class="theme-text-sub">[STACK CORE]</strong> TYPESCRIPT • VUE 3 • TAILWIND CSS • NODE.JS • PYTHON • POSTGRESQL • DOCKER</span>
+          <span class="mx-6"><strong class="theme-text-accent">[DISPONIBILIDAD]</strong> ABIERTO A CONTRATACIÓN (JUNIOR / MID) • DESARROLLO DE MVPs &amp; FREELANCE</span>
         </div>
       </div>
 
@@ -452,7 +476,7 @@
           @load="onBannerImageLoad"
           @error="onBannerImageError"
         />
-        <!-- Gradiente de integración inferior y viñeta sutil para fundir el banner con el lienzo #0E1015 / #0A0B0D -->
+        <!-- Gradiente de integración inferior y viñeta sutil para fundir el banner con el lienzo -->
         <div
           class="absolute inset-0 pointer-events-none"
           style="background: linear-gradient(180deg, rgba(10,11,14,0.20) 0%, rgba(10,11,14,0.12) 65%, var(--bg-canvas) 100%);"
@@ -466,196 +490,234 @@
       >
         <div class="grid grid-cols-1 lg:grid-cols-12 border theme-border theme-bg-glass shadow-2xl">
           
-          <!-- COLUMNA IZQUIERDA (7 COLUMNAS): IDENTIDAD TÉCNICA Y CONTROLES -->
+          <!-- COLUMNA IZQUIERDA (7 COLUMNAS): IDENTIDAD TÉCNICA, BIOGRAFÍA Y ACCIONES -->
           <div class="lg:col-span-7 p-6 sm:p-8 lg:p-10 border-b lg:border-b-0 lg:border-r theme-border flex flex-col justify-between">
             <div>
-              <!-- Metadatos Superiores: Posicionamiento auténtico ULEAM + Sellos Kanji -->
-              <div class="flex flex-wrap items-center justify-between gap-2 pb-4 mb-6 border-b theme-border font-mono text-xs">
+              <!-- Metadatos Superiores: Posicionamiento profesional auténtico -->
+              <div class="flex flex-wrap items-center justify-between gap-2 pb-4 mb-5 border-b theme-border font-mono text-xs">
                 <div class="flex items-center gap-2">
                   <span class="hud-cyan-badge">{{ t('hero.badgeUleam') }}</span>
                   <span class="theme-text-main font-semibold">{{ t('hero.location') }}</span>
                 </div>
-                <div class="flex items-center gap-1.5">
-                  <span class="kanji-stamp">未来 MIRAI</span>
-                  <span class="kanji-stamp">創造 SŌZŌ</span>
-                  <span class="kanji-stamp">コード KŌDO</span>
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 theme-bg-canvas border border-emerald-500/40 text-emerald-400 font-mono text-[11px] font-bold inline-flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    {{ currentLang === 'es' ? 'DISPONIBLE PARA TRABAJAR' : 'AVAILABLE FOR HIRE' }}
+                  </span>
                 </div>
               </div>
 
-              <!-- Subtítulo Auténtico y Nombre en Blanco + Cian Hielo (NUNCA EN ROJO) -->
-              <div class="font-mono text-xs uppercase tracking-widest theme-text-sub mb-1.5">
+              <!-- Subtítulo de Rol Claro y Nombre -->
+              <div class="font-mono text-xs uppercase tracking-widest theme-text-sub mb-1.5 font-bold">
                 {{ t('hero.role') }}
               </div>
-              <h1 class="font-display font-black text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-none mb-4">
+              <h1 class="font-display font-black text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-none mb-3">
                 <span class="jhonny-name-lockup">JHONNY </span>
                 <span class="jhonny-name-highlight">CASTILLO</span>
               </h1>
 
-              <!-- Typing SVG Oficial del README de GitHub -->
-              <div class="my-4 p-2 theme-bg-canvas border theme-border-sub">
-                <img
-                  src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=21&pause=1000&color=2CE6FF&center=false&vCenter=true&width=680&lines=Full+Stack+Developer+%F0%9F%9A%80;Estudiante+de+Ingenier%C3%ADa+de+Software+%40+ULEAM;Creando+MCPs+(Model+Context+Protocol)+por+Hobby+%F0%9F%A4%96;Arquitecturas+Escalables%2C+Cloud+%26+Game+Dev+%F0%9F%8E%AE"
-                  alt="Typing SVG"
-                  class="w-full max-w-[640px] h-9 sm:h-10 object-contain object-left"
-                />
+              <!-- Tagline Nativo de Alto Impacto (Cero dependencias externas / Tipografía nítida) -->
+              <div class="my-3.5 p-3 theme-bg-canvas border theme-border-sub font-mono text-xs sm:text-sm flex items-center justify-between gap-2">
+                <div class="flex items-center gap-2 overflow-hidden">
+                  <span class="theme-text-accent font-bold">&gt;</span>
+                  <span class="theme-text-main font-semibold tracking-wide">
+                    {{ currentLang === 'es' 
+                       ? 'Desarrollo Web Moderno • APIs Escalables • Herramientas MCP para IA' 
+                       : 'Modern Web Engineering • Scalable APIs • MCP Tooling for AI' }}
+                  </span>
+                </div>
+                <span class="w-2 h-3.5 bg-white inline-block animate-pulse shrink-0"></span>
               </div>
 
-              <!-- Biografía Pragmática y Cercana Bilingüe -->
-              <p class="theme-text-main text-sm sm:text-base leading-relaxed mb-6" v-html="t('hero.bio')">
+              <!-- Biografía Pragmática, Directa y Comercial Bilingüe -->
+              <p class="theme-text-main text-sm sm:text-base leading-relaxed mb-5" v-html="t('hero.bio')">
               </p>
 
-              <!-- Badges Oficiales del README -->
-              <div class="flex flex-wrap items-center gap-2.5 mb-6">
-                <a href="https://github.com/JhonnyCCM" target="_blank" rel="noopener noreferrer" class="hover:opacity-90 transition">
-                  <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" class="h-7" />
+              <!-- Enlaces Profesionales Nativos (Sin escuditos externos ni contadores de visitas) -->
+              <div class="flex flex-wrap items-center gap-2.5 mb-6 font-mono text-xs">
+                <a href="https://github.com/JhonnyCCM" target="_blank" rel="noopener noreferrer" class="btn-industrial-ghost !py-1.5 !px-3 inline-flex items-center gap-2">
+                  <i class="fa-brands fa-github text-sm theme-text-accent"></i>
+                  <span>github.com/JhonnyCCM</span>
                 </a>
-                <button @click="copyEmail" class="hover:opacity-90 transition" title="Copiar correo jhonnyccm11@gmail.com">
-                  <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Gmail" class="h-7" />
+                <button @click="copyEmail" class="btn-industrial-ghost !py-1.5 !px-3 inline-flex items-center gap-2" title="Copiar correo jhonnyccm11@gmail.com">
+                  <i class="fa-regular fa-envelope text-sm theme-text-accent"></i>
+                  <span>jhonnyccm11@gmail.com</span>
                 </button>
-                <img src="https://komarev.com/ghpvc/?username=JhonnyCCM&color=2ce6ff&style=for-the-badge&label=VISITAS" alt="Profile Views" class="h-7" />
+                <div class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 theme-bg-canvas border theme-border theme-text-muted text-[11px]">
+                  <i class="fa-solid fa-bolt theme-text-sub"></i>
+                  <span>High Shipping Velocity</span>
+                </div>
               </div>
             </div>
 
-            <!-- Acciones de Ingeniería -->
-            <div class="pt-4 border-t theme-border flex flex-wrap items-center gap-3">
-              <a href="#proyectos-github" class="btn-industrial-primary">
-                <i class="fa-brands fa-github"></i>
-                <span>{{ t('hero.btnProjects') }} ({{ counts.main }})</span>
+            <!-- Botones Principales de Llamado a la Acción (CTA Imposible de Ignorar) -->
+            <div class="pt-5 border-t theme-border flex flex-wrap items-center gap-3">
+              <button @click="contactModalOpen = true" class="btn-industrial-primary !py-2.5 !px-5 text-xs font-bold shadow-lg flex items-center gap-2">
+                <i class="fa-solid fa-file-contract"></i>
+                <span>{{ t('hero.btnCvContact') }}</span>
+              </button>
+              <a href="#proyectos-destacados" class="btn-industrial-ghost !py-2.5 !px-4 text-xs flex items-center gap-2">
+                <i class="fa-solid fa-star theme-text-accent"></i>
+                <span>{{ t('hero.btnFeatured') }}</span>
               </a>
-              <a href="#experiencia" class="btn-industrial-ghost">
-                <i class="fa-solid fa-briefcase theme-text-sub"></i>
-                <span>{{ t('hero.btnExperience') }}</span>
-              </a>
-              <button @click="openMcpModal('design')" class="btn-industrial-ghost">
+              <button @click="openMcpModal('design')" class="btn-industrial-ghost !py-2.5 !px-3 text-xs flex items-center gap-1.5">
                 <i class="fa-solid fa-terminal theme-text-sub"></i>
                 <span>{{ t('hero.btnMcpSim') }}</span>
               </button>
             </div>
           </div>
 
-          <!-- COLUMNA DERECHA (5 COLUMNAS): MONITOR GIF MULTICANAL + CONSOLA TÉCNICA -->
+          <!-- COLUMNA DERECHA (5 COLUMNAS): WORKSTATION & PROFILE CARD INTEGRADA -->
           <div class="lg:col-span-5 flex flex-col justify-between theme-bg-surface">
             
-            <!-- Monitor Superior con Selector de Canales GIF -->
-            <div class="p-4 sm:p-5 border-b theme-border">
-              <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono pb-2 mb-2.5 border-b theme-border">
-                <span class="theme-text-sub font-bold">MONITOR // {{ currentHeroGif.label }}</span>
-                <div class="flex items-center gap-1">
-                  <button
-                    v-for="(g, gIdx) in heroGifChannels"
-                    :key="g.id"
-                    @click="activeGifChannel = gIdx; showHeroGif = true"
-                    :class="activeGifChannel === gIdx ? 'theme-bg-elevated theme-text-sub border theme-border-sub font-bold' : 'theme-bg-canvas theme-text-muted border theme-border'"
-                    class="px-2 py-0.5 text-[10px] transition"
-                    :title="g.caption"
-                  >
-                    CH-0{{ gIdx + 1 }}
-                  </button>
-                  <button
-                    @click="showHeroGif = !showHeroGif"
-                    class="px-2 py-0.5 border theme-border theme-bg-elevated theme-text-main hover:theme-border-sub text-[10px] ml-1"
-                  >
-                    {{ showHeroGif ? 'OFF' : 'ON' }}
-                  </button>
-                </div>
+            <!-- Barra Superior de Pestañas de la Workstation -->
+            <div class="flex items-center justify-between border-b theme-border font-mono text-[11px] theme-bg-canvas px-1">
+              <div class="flex">
+                <button
+                  @click="heroConsoleTab = 'profile'"
+                  :class="heroConsoleTab === 'profile' ? 'theme-bg-elevated theme-text-sub font-bold border-b-2 theme-border-sub' : 'theme-text-muted'"
+                  class="px-3.5 py-2.5 border-r theme-border transition flex items-center gap-1.5"
+                >
+                  <i class="fa-solid fa-user-gear theme-text-sub text-xs"></i>
+                  <span>{{ currentLang === 'es' ? 'PERFIL & DISPONIBILIDAD' : 'PROFILE & STATUS' }}</span>
+                </button>
+                <button
+                  @click="heroConsoleTab = 'monitor'"
+                  :class="heroConsoleTab === 'monitor' ? 'theme-bg-elevated theme-text-sub font-bold border-b-2 theme-border-sub' : 'theme-text-muted'"
+                  class="px-3.5 py-2.5 border-r theme-border transition flex items-center gap-1.5"
+                >
+                  <i class="fa-solid fa-desktop theme-text-sub text-xs"></i>
+                  <span>MONITOR</span>
+                </button>
+                <button
+                  @click="heroConsoleTab = 'cli'"
+                  :class="heroConsoleTab === 'cli' ? 'theme-bg-elevated theme-text-sub font-bold border-b-2 theme-border-sub' : 'theme-text-muted'"
+                  class="px-3.5 py-2.5 transition flex items-center gap-1.5"
+                >
+                  <i class="fa-solid fa-terminal theme-text-sub text-xs"></i>
+                  <span>CLI</span>
+                </button>
               </div>
-
-              <div v-show="showHeroGif" class="relative theme-bg-canvas border theme-border-sub p-1.5 flex items-center justify-center bg-black">
-                <img
-                  :key="currentHeroGif.url"
-                  :src="currentHeroGif.url"
-                  :alt="currentHeroGif.label"
-                  class="w-full h-[175px] object-cover"
-                />
-                <div class="absolute bottom-2 left-2 px-2 py-0.5 bg-black/85 border theme-border-sub font-mono text-[10px] theme-text-sub">
-                  {{ currentHeroGif.tag }}
-                </div>
-                <div class="absolute bottom-2 right-2 px-2 py-0.5 bg-black/85 border theme-border-accent font-mono text-[10px] theme-text-accent">
-                  {{ currentHeroGif.caption }}
-                </div>
+              <div class="hidden sm:flex items-center gap-1.5 pr-2.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span class="text-[10px] theme-text-muted font-bold">ONLINE</span>
               </div>
             </div>
 
-            <!-- Consola Interactiva de 3 Pestañas (jhonnyCastillo.ts | MCP Live | CLI) -->
-            <div class="flex-1 flex flex-col justify-between">
-              <div class="flex items-center justify-between border-b theme-border font-mono text-[11px] theme-bg-canvas px-1">
-                <div class="flex">
-                  <button
-                    @click="heroConsoleTab = 'ts'"
-                    :class="heroConsoleTab === 'ts' ? 'theme-bg-elevated theme-text-sub font-bold border-b-2 theme-border-sub' : 'theme-text-muted'"
-                    class="px-3.5 py-2.5 border-r theme-border transition flex items-center gap-1.5"
-                  >
-                    <i class="fa-brands fa-js theme-text-sub text-xs"></i>
-                    <span>jhonnyCastillo.ts</span>
-                  </button>
-                  <button
-                    @click="heroConsoleTab = 'status'"
-                    :class="heroConsoleTab === 'status' ? 'theme-bg-elevated theme-text-sub font-bold border-b-2 theme-border-sub' : 'theme-text-muted'"
-                    class="px-3.5 py-2.5 border-r theme-border transition flex items-center gap-1.5"
-                  >
-                    <i class="fa-solid fa-code theme-text-sub text-xs"></i>
-                    <span>status.json</span>
-                  </button>
-                  <button
-                    @click="heroConsoleTab = 'cli'"
-                    :class="heroConsoleTab === 'cli' ? 'theme-bg-elevated theme-text-sub font-bold border-b-2 theme-border-sub' : 'theme-text-muted'"
-                    class="px-3.5 py-2.5 transition flex items-center gap-1.5"
-                  >
-                    <i class="fa-solid fa-terminal theme-text-sub text-xs"></i>
-                    <span>CLI_Shell</span>
-                  </button>
-                </div>
-                <div class="hidden sm:flex items-center gap-1.5 pr-2.5">
-                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                  <span class="text-[10px] theme-text-muted font-bold">ONLINE</span>
-                </div>
-              </div>
+            <!-- Contenido de la Workstation según pestaña activa -->
 
-              <!-- Tab 1: Objeto TypeScript con toque humano y personal -->
-              <div v-show="heroConsoleTab === 'ts'" class="p-4 font-mono text-[11.5px] leading-relaxed overflow-x-auto theme-bg-canvas">
-<pre class="theme-text-main"><span class="theme-text-accent font-bold">const</span> <span class="theme-text-sub font-bold">jhonnyCastillo</span> = {
-  location: <span class="theme-text-muted">"Manta, Ecuador 🇪🇨"</span>,
-  education: <span class="theme-text-muted">"Ingeniería de Software @ ULEAM"</span>,
-  role: <span class="theme-text-muted">"Full Stack Developer // Web, Cloud &amp; UI/UX"</span>,
-  coreFocus: [<span class="theme-text-sub">"Clean Architecture"</span>, <span class="theme-text-sub">"Modern UI/UX"</span>, <span class="theme-text-sub">"Cloud CI/CD"</span>, <span class="theme-text-sub">"AI Tooling"</span>],
-  <span class="theme-text-muted italic">// Fuera del IDE: apasionado por el diseño visual, descubrir buena música</span>
-  <span class="theme-text-muted italic">// en Spotify y coleccionar carritos Hot Wheels a escala 🏎️🎵</span>
-  offScreen: [<span class="theme-text-sub">"UI/UX Design"</span>, <span class="theme-text-sub">"Music &amp; Playlists"</span>, <span class="theme-text-sub">"Hot Wheels Collector"</span>]
-};</pre>
-              </div>
-
-              <!-- Tab 2: status.json Disponibilidad y Enfoque Dual -->
-              <div v-show="heroConsoleTab === 'status'" class="p-4 font-mono text-[11.5px] leading-relaxed overflow-x-auto theme-bg-canvas">
-<pre class="theme-text-main">{
-  <span class="theme-text-sub">"developer"</span>: <span class="theme-text-muted">"Jhonny Castillo (@JhonnyCCM)"</span>,
-  <span class="theme-text-sub">"availability"</span>: <span class="theme-text-accent font-bold">"OPEN_TO_WORK_AND_MVPS"</span>,
-  <span class="theme-text-sub">"targets"</span>: [
-    <span class="theme-text-muted">"Full Stack / Frontend / Backend Developer Roles"</span>,
-    <span class="theme-text-muted">"Custom Web Platforms, Cloud &amp; MVPs for New Businesses"</span>
-  ],
-  <span class="theme-text-sub">"stack"</span>: [<span class="theme-text-sub">"TS/JS"</span>, <span class="theme-text-sub">"Python"</span>, <span class="theme-text-sub">"Vue/React/Next/Angular"</span>, <span class="theme-text-sub">"Postgres/Supabase"</span>, <span class="theme-text-sub">"Docker/Cloud"</span>],
-  <span class="theme-text-sub">"location"</span>: <span class="theme-text-muted">"Manta, EC (Remote / Hybrid)"</span>
-}</pre>
-              </div>
-
-              <!-- Tab 3: Terminal CLI -->
-              <div v-show="heroConsoleTab === 'cli'" class="p-4 font-mono text-[11.5px] theme-bg-canvas space-y-2">
-                <div class="h-28 overflow-y-auto space-y-1 border theme-border p-2 theme-bg-surface">
-                  <div class="theme-text-sub">JhonnyCCM Terminal // Prueba un comando:</div>
-                  <div v-for="(line, i) in cliHistory" :key="i" v-html="line"></div>
+            <!-- Pestaña 1: Perfil Profesional Legible y Humano (NO llaves JSON aburridas) -->
+            <div v-show="heroConsoleTab === 'profile'" class="p-5 flex-1 flex flex-col justify-between space-y-3 font-mono text-xs">
+              <div class="space-y-2.5">
+                <div class="p-3 theme-bg-canvas border theme-border">
+                  <div class="text-[10px] theme-text-muted uppercase mb-1">PROPÓSITO &amp; DISPONIBILIDAD</div>
+                  <div class="theme-text-main font-semibold leading-relaxed">
+                    {{ currentLang === 'es' 
+                       ? 'Abierto a contratación en roles Full Stack (Junior/Mid) y desarrollo de plataformas web y MVPs para startups y empresas.' 
+                       : 'Open to Full Stack roles (Junior/Mid) and custom MVP web platform development for businesses and startups.' }}
+                  </div>
                 </div>
-                <div class="flex flex-wrap gap-1.5">
-                  <button @click="runCliCommand('stack')" class="px-2 py-0.5 border theme-border theme-bg-elevated theme-text-sub text-[10px]">stack</button>
-                  <button @click="runCliCommand('mcp')" class="px-2 py-0.5 border theme-border theme-bg-elevated theme-text-sub text-[10px]">mcp</button>
-                  <button @click="runCliCommand('hobbies')" class="px-2 py-0.5 border theme-border theme-bg-elevated theme-text-sub text-[10px]">hobbies</button>
-                  <button @click="runCliCommand('clear')" class="px-2 py-0.5 border theme-border theme-bg-elevated theme-text-muted text-[10px]">clear</button>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <div class="p-2.5 theme-bg-canvas border theme-border">
+                    <div class="text-[10px] theme-text-muted uppercase mb-0.5">UBICACIÓN</div>
+                    <div class="theme-text-main font-semibold">Manta, Ecuador 🇪🇨</div>
+                    <div class="text-[10px] theme-text-sub">Remoto o Presencial</div>
+                  </div>
+                  <div class="p-2.5 theme-bg-canvas border theme-border">
+                    <div class="text-[10px] theme-text-muted uppercase mb-0.5">FORMACIÓN</div>
+                    <div class="theme-text-main font-semibold">Ingeniería de Software</div>
+                    <div class="text-[10px] theme-text-sub">ULEAM (En curso)</div>
+                  </div>
+                </div>
+
+                <div class="p-3 theme-bg-canvas border theme-border">
+                  <div class="text-[10px] theme-text-muted uppercase mb-1.5">STACK PRINCIPAL DE PRODUCCIÓN</div>
+                  <div class="flex flex-wrap gap-1">
+                    <span class="px-2 py-0.5 theme-bg-elevated border theme-border theme-text-accent text-[11px] font-bold">TypeScript</span>
+                    <span class="px-2 py-0.5 theme-bg-elevated border theme-border theme-text-accent text-[11px] font-bold">Vue 3</span>
+                    <span class="px-2 py-0.5 theme-bg-elevated border theme-border theme-text-accent text-[11px] font-bold">Tailwind CSS</span>
+                    <span class="px-2 py-0.5 theme-bg-elevated border theme-border theme-text-main text-[11px]">Node.js</span>
+                    <span class="px-2 py-0.5 theme-bg-elevated border theme-border theme-text-main text-[11px]">Python</span>
+                    <span class="px-2 py-0.5 theme-bg-elevated border theme-border theme-text-main text-[11px]">PostgreSQL 16</span>
+                    <span class="px-2 py-0.5 theme-bg-elevated border theme-border theme-text-main text-[11px]">Docker</span>
+                    <span class="px-2 py-0.5 theme-bg-elevated border theme-border theme-text-sub text-[11px]">MCP Servers</span>
+                  </div>
+                </div>
+
+                <div class="p-2.5 theme-bg-canvas border theme-border text-[11px] theme-text-muted flex items-center gap-2">
+                  <span class="theme-text-accent">🏎️🎵</span>
+                  <span>{{ currentLang === 'es' ? 'Fuera del IDE: Diseño en Figma, música en Spotify y coleccionar Hot Wheels.' : 'Off-screen: UI design in Figma, music curating on Spotify, and collecting Hot Wheels.' }}</span>
                 </div>
               </div>
 
-              <div class="px-4 py-2 border-t theme-border font-mono text-[10px] theme-text-muted flex items-center justify-between">
-                <span>Pragmatic engineering • High shipping velocity • Manta, EC</span>
-                <span class="theme-text-sub">{{ activeTheme.toUpperCase() }}</span>
+              <div class="pt-2 flex items-center justify-between text-[11px] theme-text-muted">
+                <span>Pragmatic engineering • Manta, EC</span>
+                <button @click="contactModalOpen = true" class="theme-text-accent hover:underline font-bold">
+                  {{ currentLang === 'es' ? 'Contactar ahora ↗' : 'Contact now ↗' }}
+                </button>
               </div>
+            </div>
+
+            <!-- Pestaña 2: Monitor GIF Workstation -->
+            <div v-show="heroConsoleTab === 'monitor'" class="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono pb-2 mb-2.5 border-b theme-border">
+                  <span class="theme-text-sub font-bold">CANAL // {{ currentHeroGif.label }}</span>
+                  <div class="flex items-center gap-1">
+                    <button
+                      v-for="(g, gIdx) in heroGifChannels"
+                      :key="g.id"
+                      @click="activeGifChannel = gIdx"
+                      :class="activeGifChannel === gIdx ? 'theme-bg-elevated theme-text-sub border theme-border-sub font-bold' : 'theme-bg-canvas theme-text-muted border theme-border'"
+                      class="px-2 py-0.5 text-[10px] transition"
+                      :title="g.caption"
+                    >
+                      CH-0{{ gIdx + 1 }}
+                    </button>
+                  </div>
+                </div>
+
+                <div class="relative theme-bg-canvas border theme-border-sub p-1.5 flex items-center justify-center bg-black">
+                  <img
+                    :key="currentHeroGif.url"
+                    :src="currentHeroGif.url"
+                    :alt="currentHeroGif.label"
+                    class="w-full h-[180px] object-cover"
+                  />
+                  <div class="absolute bottom-2 left-2 px-2 py-0.5 bg-black/85 border theme-border-sub font-mono text-[10px] theme-text-sub">
+                    {{ currentHeroGif.tag }}
+                  </div>
+                  <div class="absolute bottom-2 right-2 px-2 py-0.5 bg-black/85 border theme-border-accent font-mono text-[10px] theme-text-accent">
+                    {{ currentHeroGif.caption }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-3 border-t theme-border font-mono text-[11px] theme-text-muted flex items-center justify-between">
+                <span>{{ currentHeroGif.caption }}</span>
+                <span class="theme-text-accent">3:00 AM CODE MODE</span>
+              </div>
+            </div>
+
+            <!-- Pestaña 3: Terminal CLI -->
+            <div v-show="heroConsoleTab === 'cli'" class="p-4 font-mono text-[11.5px] theme-bg-canvas flex-1 flex flex-col justify-between space-y-2">
+              <div class="h-44 overflow-y-auto space-y-1 border theme-border p-2.5 theme-bg-surface">
+                <div class="theme-text-sub">JhonnyCCM Terminal // Escribe o haz clic en un comando:</div>
+                <div v-for="(line, i) in cliHistory" :key="i" v-html="line"></div>
+              </div>
+              <div class="flex flex-wrap gap-1.5 pt-2">
+                <button @click="runCliCommand('stack')" class="px-2 py-0.5 border theme-border theme-bg-elevated theme-text-sub text-[10px]">stack</button>
+                <button @click="runCliCommand('mcp')" class="px-2 py-0.5 border theme-border theme-bg-elevated theme-text-sub text-[10px]">mcp</button>
+                <button @click="runCliCommand('contact')" class="px-2 py-0.5 border theme-border theme-bg-elevated theme-text-sub text-[10px]">contact</button>
+                <button @click="runCliCommand('hobbies')" class="px-2 py-0.5 border theme-border theme-bg-elevated theme-text-sub text-[10px]">hobbies</button>
+                <button @click="runCliCommand('clear')" class="px-2 py-0.5 border theme-border theme-bg-elevated theme-text-muted text-[10px]">clear</button>
+              </div>
+            </div>
+
+            <div class="px-4 py-2 border-t theme-border font-mono text-[10px] theme-text-muted flex items-center justify-between">
+              <span>Pragmatic engineering • High shipping velocity</span>
+              <span class="theme-text-sub">E-INK MONO</span>
             </div>
 
           </div>
@@ -663,15 +725,15 @@
         </div>
       </div>
 
-      <!-- Barra de Telemetría Inferior del Banner (Solo lectura + Modo Paisaje) -->
+      <!-- Barra de Estado Inferior del Hero (Limpia y Funcional + Modo Paisaje) -->
       <div class="relative z-20 theme-bg-glass border-t theme-border px-4 sm:px-6 py-2.5">
         <div class="max-w-[1380px] mx-auto flex flex-wrap items-center justify-between gap-3 font-mono text-xs">
           
           <div class="flex flex-wrap items-center gap-2">
-            <span class="w-2.5 h-2.5 inline-block" style="background-color: var(--accent-primary)"></span>
-            <span class="w-2.5 h-2.5 inline-block" style="background-color: var(--accent-secondary)"></span>
-            <span class="theme-text-muted">BANNER IMAGEN ACTIVA ({{ activeTheme.toUpperCase() }}):</span>
-            <span class="theme-text-main font-bold">{{ currentBannerFilename }}</span>
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <span class="theme-text-muted">JHONNYCCM // MANTA, ECUADOR 🇪🇨</span>
+            <span class="theme-text-muted">•</span>
+            <span class="theme-text-main font-semibold">ALL SYSTEMS OPERATIONAL</span>
           </div>
 
           <div class="flex flex-wrap items-center gap-2">
@@ -680,7 +742,7 @@
               class="btn-industrial-primary !py-1 !px-3 !text-[11px]"
             >
               <i class="fa-solid fa-panorama"></i>
-              <span>{{ landscapeMode ? 'MOSTRAR PANELES HERO' : 'MODO PAISAJE (VER BANNER COMPLETO)' }}</span>
+              <span>{{ landscapeMode ? (currentLang === 'es' ? 'MOSTRAR PANELES HERO' : 'SHOW HERO PANELS') : (currentLang === 'es' ? 'MODO PAISAJE (VER BANNER)' : 'LANDSCAPE MODE') }}</span>
             </button>
           </div>
 
@@ -691,200 +753,56 @@
 
 
     <!-- =====================================================================
-         SECCIÓN 01 // CATÁLOGO DE PROYECTOS & ECOSISTEMA MCP (UNIFICADO & BILINGÜE)
-         Integra Servidores MCP, Desarrollo Web, Automatización y Prácticas Móviles
+         SECCIÓN 01 // PROYECTOS DESTACADOS & CATÁLOGO GITHUB (DOS NIVELES)
+         Nivel 1: Los 4 Proyectos Estrella (Soluciones Reales de Alto Valor)
+         Nivel 2: Explorador del Archivo Completo (Secundarios, Codelabs y ULEAM)
          ===================================================================== -->
-    <section id="proyectos-github" class="w-full py-16 md:py-24 border-b theme-border">
+    <section id="proyectos-destacados" class="w-full py-16 md:py-24 border-b theme-border">
+      <div id="proyectos-github"></div>
       <div class="max-w-[1380px] mx-auto px-4 sm:px-6">
         
-        <!-- Cabecera de Sección Bilingüe -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 border theme-border theme-bg-surface mb-8">
-          <div class="lg:col-span-8 p-6 sm:p-8 border-b lg:border-b-0 lg:border-r theme-border">
-            <div class="flex items-center gap-2 font-mono text-xs theme-text-accent uppercase tracking-widest mb-2">
-              <span>{{ t('projectsSection.badge') }}</span>
-              <span class="kanji-stamp">コード KŌDO</span>
+        <!-- NIVEL 1: CABECERA DE PROYECTOS DESTACADOS -->
+        <div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 font-mono text-xs theme-text-accent uppercase tracking-widest mb-2 font-bold">
+              <span>{{ t('projectsSection.featuredBadge') }}</span>
             </div>
             <h2 class="font-display font-black text-3xl sm:text-4xl theme-text-main tracking-tight uppercase">
-              {{ t('projectsSection.title') }}
+              {{ t('projectsSection.featuredTitle') }}
             </h2>
-            <p class="theme-text-muted text-sm mt-2 leading-relaxed" v-html="t('projectsSection.desc')">
+            <p class="theme-text-muted text-sm mt-2 max-w-3xl leading-relaxed">
+              {{ t('projectsSection.featuredDesc') }}
             </p>
           </div>
-
-          <!-- Panel Lateral de Estado de Sincronización API -->
-          <div class="lg:col-span-4 p-6 sm:p-8 flex flex-col justify-between theme-bg-canvas font-mono text-xs">
-            <div class="space-y-2">
-              <div class="flex items-center justify-between border-b theme-border pb-1.5">
-                <span class="theme-text-muted">{{ t('projectsSection.syncStatus') }}</span>
-                <span class="theme-text-accent font-bold">{{ githubSyncStatus }}</span>
-              </div>
-              <div class="flex items-center justify-between border-b theme-border pb-1.5">
-                <span class="theme-text-muted">{{ t('projectsSection.coreProjects') }}</span>
-                <span class="theme-text-main font-bold">{{ counts.main }} REPOS</span>
-              </div>
-              <div class="flex items-center justify-between border-b theme-border pb-1.5">
-                <span class="theme-text-muted">{{ t('projectsSection.googlePractices') }}</span>
-                <span class="theme-text-sub font-bold">{{ counts.practice }} SEPARADOS</span>
-              </div>
-              <div class="flex items-center justify-between border-b theme-border pb-1.5">
-                <span class="theme-text-muted">{{ t('projectsSection.academicUleam') }}</span>
-                <span class="theme-text-main font-bold">{{ counts.academic }} REPOS</span>
-              </div>
-            </div>
-
-            <div class="mt-4 flex flex-wrap gap-2">
-              <button @click="syncGitHubRepos(true)" class="btn-industrial-ghost w-full">
-                <i class="fa-solid fa-rotate" :class="{'fa-spin': isSyncing}"></i>
-                <span>{{ t('projectsSection.btnSync') }}</span>
-              </button>
-              <a href="https://github.com/JhonnyCCM?tab=repositories" target="_blank" rel="noopener noreferrer" class="btn-industrial-primary w-full text-center">
-                <i class="fa-brands fa-github"></i>
-                <span>{{ t('projectsSection.btnAllGithub') }}</span>
-              </a>
-            </div>
-          </div>
+          <a href="#archivo-repositorios" class="btn-industrial-ghost !py-2 !px-4 text-xs font-mono shrink-0 flex items-center gap-2">
+            <i class="fa-solid fa-folder-tree theme-text-accent"></i>
+            <span>{{ currentLang === 'es' ? 'EXPLORAR TODO EL ARCHIVO GITHUB ↓' : 'EXPLORE ALL GITHUB REPOS ↓' }}</span>
+          </a>
         </div>
 
-        <!-- BARRA DE FILTRO INTEGRADA POR CATEGORÍAS & VISTA DE REPOSITORIOS -->
-        <div class="border theme-border theme-bg-surface p-4 sm:p-5 mb-8 space-y-4">
-          
-          <!-- Fila 1: Selector de Nivel de Proyecto (Pestañas) -->
-          <div class="flex flex-wrap items-center gap-1.5 pb-3.5 border-b theme-border">
-            <span class="font-mono text-xs theme-text-muted mr-1 uppercase">{{ t('projectsSection.viewActive') }}</span>
-            <button
-              @click="activeRepoType = 'main'"
-              :class="activeRepoType === 'main' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
-            >
-              {{ t('projectsSection.tabMain') }} ({{ counts.main }})
-            </button>
-            <button
-              @click="activeRepoType = 'secondary'"
-              :class="activeRepoType === 'secondary' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
-            >
-              {{ t('projectsSection.tabSecondary') }} ({{ counts.secondary }})
-            </button>
-            <button
-              @click="activeRepoType = 'wip'"
-              :class="activeRepoType === 'wip' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
-            >
-              <span class="w-1.5 h-1.5 rounded-full bg-amber-400 inline-block mr-1"></span>
-              {{ t('projectsSection.tabWip') }} ({{ counts.wip }})
-            </button>
-            <button
-              @click="activeRepoType = 'practice'"
-              :class="activeRepoType === 'practice' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
-            >
-              {{ t('projectsSection.tabPractice') }} ({{ counts.practice }})
-            </button>
-            <button
-              @click="activeRepoType = 'academic'"
-              :class="activeRepoType === 'academic' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
-            >
-              {{ t('projectsSection.tabAcademic') }} ({{ counts.academic }})
-            </button>
-            <button
-              @click="activeRepoType = 'all_visible'"
-              :class="activeRepoType === 'all_visible' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
-            >
-              {{ t('projectsSection.tabAll') }} ({{ counts.allVisible }})
-            </button>
-          </div>
-
-          <!-- Fila 2: Filtro Desplegable de Categoría Técnica + Buscador de Proyectos -->
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
-            
-            <!-- Selector Desplegable de Categoría Técnica (Modo Filtro Sin Emojis) -->
-            <div class="flex items-center gap-2 flex-wrap">
-              <label class="font-mono text-xs theme-text-sub font-bold uppercase shrink-0 flex items-center gap-1.5">
-                <i class="fa-solid fa-filter theme-text-accent"></i>
-                <span>{{ t('projectsSection.catLabel') }}</span>
-              </label>
-
-              <div class="relative min-w-[240px]">
-                <select
-                  :value="activeCategory"
-                  @change="setCategory($event.target.value)"
-                  class="w-full theme-bg-canvas border theme-border pl-3 pr-8 py-1.5 font-mono text-xs theme-text-main font-bold focus:outline-none focus:theme-border-accent appearance-none cursor-pointer"
-                >
-                  <option value="all">{{ t('projectsSection.catAll') }}</option>
-                  <option value="mcp">{{ t('projectsSection.catMcp') }}</option>
-                  <option value="fullstack">{{ t('projectsSection.catFullstack') }}</option>
-                  <option value="automation">{{ t('projectsSection.catAutomation') }}</option>
-                  <option value="mobile">{{ t('projectsSection.catMobile') }}</option>
-                  <option value="backend">{{ t('projectsSection.catBackend') }}</option>
-                  <option value="devops">{{ t('projectsSection.catDevops') }}</option>
-                  <option value="cli">{{ t('projectsSection.catCli') }}</option>
-                  <option value="uiux">{{ t('projectsSection.catUiux') }}</option>
-                  <option value="gamedev">{{ t('projectsSection.catGamedev') }}</option>
-                </select>
-                <i class="fa-solid fa-chevron-down absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] theme-text-muted pointer-events-none"></i>
-              </div>
-
-              <button
-                v-if="activeCategory !== 'all'"
-                @click="setCategory('all')"
-                class="btn-industrial-ghost !py-1 !px-2.5 !text-[11px] font-mono flex items-center gap-1.5"
-                title="Restablecer filtro de categoría"
-              >
-                <span>✕</span>
-                <span>LIMPIAR FILTRO</span>
-              </button>
-            </div>
-
-            <!-- Buscador Dinámico de Proyectos -->
-            <div class="relative">
-              <input
-                type="text"
-                v-model="repoSearch"
-                :placeholder="t('projectsSection.searchPlaceholder')"
-                class="theme-bg-canvas border theme-border pl-8 pr-8 py-1.5 font-mono text-xs theme-text-main w-full sm:w-64 focus:outline-none focus:theme-border-accent"
-              />
-              <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-1/2 -translate-y-1/2 text-xs theme-text-muted pointer-events-none"></i>
-              <button
-                v-if="repoSearch"
-                @click="repoSearch = ''"
-                class="absolute right-2.5 top-1/2 -translate-y-1/2 theme-text-muted hover:theme-text-main text-xs"
-              >
-                ✕
-              </button>
-            </div>
-
-          </div>
-
-        </div>
-
-        <!-- MATRIZ ARQUITECTÓNICA DE PROYECTOS (2 COLUMNAS CON BORDES EXPUESTOS DE 1PX) -->
-        <div v-if="displayedProjects.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- MATRIZ DE LOS 4 PROYECTOS DESTACADOS (2x2) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
           <article
-            v-for="(proj, idx) in displayedProjects"
-            :key="proj.name"
-            class="blueprint-cell p-6 sm:p-7 flex flex-col justify-between"
+            v-for="(proj, idx) in featuredProjects"
+            :key="'feat-' + proj.name"
+            class="blueprint-cell p-6 sm:p-8 flex flex-col justify-between border-2 theme-border-accent/40 hover:theme-border-accent transition shadow-xl"
           >
             <div>
-              <!-- Fila Superior: Índice Técnico + Etiqueta de Tipo + Lenguaje -->
+              <!-- Encabezado de la tarjeta -->
               <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-4 border-b theme-border font-mono text-xs">
                 <div class="flex items-center gap-2">
-                  <span class="theme-text-accent font-bold">IDX-{{ String(idx + 1).padStart(2, '0') }}</span>
-                  <span class="theme-text-muted">//</span>
+                  <span class="px-2 py-0.5 bg-white text-black font-bold text-[10.5px]">PROYECTO DESTACADO 0{{ idx + 1 }}</span>
                   <span class="px-2 py-0.5 theme-bg-elevated border theme-border theme-text-main text-[11px]">
-                    {{ proj.language || 'CODE' }}
+                    {{ proj.language || 'Code' }}
                   </span>
-                  <span class="theme-text-muted text-[11px]">★ {{ proj.stars }}</span>
+                  <span v-if="proj.stars && proj.stars >= 2" class="px-2 py-0.5 theme-bg-elevated border theme-border text-amber-400 text-[11px] font-bold">
+                    ★ {{ proj.stars }}
+                  </span>
                 </div>
-
-                <div class="flex items-center gap-1.5">
-                  <span v-if="proj.repoType === 'wip'" class="px-2 py-0.5 bg-amber-500/10 border border-amber-500/50 text-amber-400 font-mono text-[10.5px] font-bold inline-flex items-center gap-1.5">
-                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
-                    {{ getRepoTypeLabel(proj.repoType) }}
-                  </span>
-                  <span v-else-if="proj.repoType === 'secondary'" class="px-2 py-0.5 bg-sky-500/10 border border-sky-500/40 text-sky-400 font-mono text-[10.5px] font-semibold">
-                    {{ getRepoTypeLabel(proj.repoType) }}
-                  </span>
-                  <span v-else class="hud-cyan-badge">{{ getRepoTypeLabel(proj.repoType) }}</span>
-                </div>
+                <span class="hud-cyan-badge">{{ getRepoTypeLabel(proj.repoType) }}</span>
               </div>
 
-              <!-- Badge Especial para Servidores MCP -->
+              <!-- Badge Especial si es Servidor MCP -->
               <div v-if="proj.category === 'mcp' || proj.name.toLowerCase().includes('mcp')" class="mb-3">
                 <span class="px-2.5 py-1 theme-bg-elevated border theme-border-accent theme-text-accent font-mono text-[10.5px] font-bold inline-flex items-center gap-1.5">
                   <i class="fa-solid fa-robot"></i>
@@ -892,33 +810,36 @@
                 </span>
               </div>
 
-              <!-- Título y Enlace al Repositorio -->
-              <div class="flex items-start justify-between gap-3 mb-2">
-                <h3 class="font-display font-bold text-xl sm:text-2xl theme-text-main tracking-tight">
+              <!-- Título y enlace -->
+              <div class="mb-2">
+                <h3 class="font-display font-black text-2xl sm:text-3xl theme-text-main tracking-tight">
                   <a :href="proj.url" target="_blank" rel="noopener noreferrer" class="hover:theme-text-accent transition">
                     {{ proj.title }}
                   </a>
                 </h3>
-                <span class="font-mono text-[11px] theme-text-muted shrink-0">
-                  /{{ proj.name }}
-                </span>
+                <span class="font-mono text-xs theme-text-muted">github.com/JhonnyCCM/{{ proj.name }}</span>
               </div>
 
-              <!-- Descripción Técnica Concreta Bilingüe -->
-              <p class="theme-text-muted text-sm leading-relaxed mb-4">
-                {{ getProjTagline(proj) }}
-              </p>
+              <!-- Qué problema resuelve (Directo y Humano) -->
+              <div class="my-4 p-3.5 theme-bg-canvas border theme-border font-mono text-xs space-y-1">
+                <div class="theme-text-accent font-bold uppercase text-[10px] tracking-wider">
+                  {{ currentLang === 'es' ? '¿QUÉ PROBLEMA RESUELVE?' : 'PROBLEM SOLVED:' }}
+                </div>
+                <p class="theme-text-main text-xs sm:text-sm leading-relaxed">
+                  {{ getProjProblemSolved(proj) }}
+                </p>
+              </div>
 
-              <!-- Especificaciones de Implementación Bilingües -->
-              <div v-if="getProjSpecs(proj) && getProjSpecs(proj).length" class="theme-bg-canvas border theme-border p-3.5 mb-4 font-mono text-xs space-y-1.5">
+              <!-- Especificaciones técnicas -->
+              <div v-if="getProjSpecs(proj) && getProjSpecs(proj).length" class="mb-4 font-mono text-xs space-y-1">
                 <div v-for="(spec, sIdx) in getProjSpecs(proj)" :key="sIdx" class="flex items-start gap-2">
                   <span class="theme-text-accent font-bold">&gt;</span>
-                  <span class="theme-text-main">{{ spec }}</span>
+                  <span class="theme-text-muted">{{ spec }}</span>
                 </div>
               </div>
 
-              <!-- Etiquetas del Stack -->
-              <div class="flex flex-wrap gap-1.5 mb-5">
+              <!-- Tags del Stack -->
+              <div class="flex flex-wrap gap-1.5 mb-6">
                 <span
                   v-for="tag in proj.tags"
                   :key="tag"
@@ -929,22 +850,20 @@
               </div>
             </div>
 
-            <!-- Acciones Inferiores de la Celda -->
-            <div class="pt-4 border-t theme-border flex flex-wrap items-center justify-between gap-2">
+            <!-- Acciones de la Tarjeta Destacada -->
+            <div class="pt-4 border-t theme-border flex flex-wrap items-center justify-between gap-2.5">
               <button
                 @click="openReadmeViewer(proj)"
-                class="btn-industrial-ghost !py-2 !px-3 text-xs flex-1"
+                class="btn-industrial-ghost !py-2 !px-3 text-xs flex-1 flex items-center justify-center gap-1.5"
               >
                 <i class="fa-regular fa-file-code theme-text-accent"></i>
                 <span>{{ t('projectsSection.inspectReadme') }}</span>
               </button>
               
-              <!-- Botón Simulador JSON-RPC si es servidor MCP -->
               <button
                 v-if="proj.category === 'mcp' || proj.name.toLowerCase().includes('mcp')"
                 @click="openMcpModal(proj.name.toLowerCase().includes('spotify') ? 'spotify' : 'design')"
                 class="btn-industrial-primary !py-2 !px-3 text-xs flex items-center gap-1.5"
-                :title="currentLang === 'es' ? 'Simular llamada JSON-RPC del protocolo MCP' : 'Simulate MCP protocol JSON-RPC call'"
               >
                 <i class="fa-solid fa-terminal text-[10px]"></i>
                 <span>{{ t('projectsSection.simulateMcp') }}</span>
@@ -954,7 +873,7 @@
                 :href="proj.url"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="btn-industrial-primary !py-2 !px-3.5 text-xs"
+                class="btn-industrial-primary !py-2 !px-4 text-xs flex items-center gap-1.5"
               >
                 <span>{{ t('projectsSection.githubRepo') }}</span>
                 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
@@ -963,22 +882,293 @@
           </article>
         </div>
 
-        <!-- Estado sin resultados Bilingüe -->
-        <div v-else class="blueprint-cell p-10 text-center font-mono">
-          <div class="text-sm theme-text-main font-bold mb-2">
-            {{ t('projectsSection.noResultsTitle') }}
+
+        <!-- NIVEL 2: SEPARADOR Y ARCHIVO COMPLETO DE REPOSITORIOS GITHUB -->
+        <div id="archivo-repositorios" class="pt-10 border-t-2 theme-border">
+          
+          <div class="grid grid-cols-1 lg:grid-cols-12 border theme-border theme-bg-surface mb-8">
+            <div class="lg:col-span-8 p-6 sm:p-8 border-b lg:border-b-0 lg:border-r theme-border">
+              <div class="flex items-center gap-2 font-mono text-xs theme-text-accent uppercase tracking-widest mb-2 font-bold">
+                <span>{{ t('projectsSection.archiveBadge') }}</span>
+              </div>
+              <h2 class="font-display font-black text-2xl sm:text-3xl theme-text-main tracking-tight uppercase">
+                {{ t('projectsSection.archiveTitle') }}
+              </h2>
+              <p class="theme-text-muted text-sm mt-2 leading-relaxed" v-html="t('projectsSection.archiveDesc')">
+              </p>
+            </div>
+
+            <!-- Panel Lateral de Estado de Sincronización API -->
+            <div class="lg:col-span-4 p-6 sm:p-8 flex flex-col justify-between theme-bg-canvas font-mono text-xs">
+              <div class="space-y-2">
+                <div class="flex items-center justify-between border-b theme-border pb-1.5">
+                  <span class="theme-text-muted">{{ t('projectsSection.syncStatus') }}</span>
+                  <span class="theme-text-accent font-bold">{{ githubSyncStatus }}</span>
+                </div>
+                <div class="flex items-center justify-between border-b theme-border pb-1.5">
+                  <span class="theme-text-muted">{{ t('projectsSection.coreProjects') }}</span>
+                  <span class="theme-text-main font-bold">{{ counts.main }} REPOS</span>
+                </div>
+                <div class="flex items-center justify-between border-b theme-border pb-1.5">
+                  <span class="theme-text-muted">{{ t('projectsSection.googlePractices') }}</span>
+                  <span class="theme-text-sub font-bold">{{ counts.practice }} REPOS</span>
+                </div>
+                <div class="flex items-center justify-between border-b theme-border pb-1.5">
+                  <span class="theme-text-muted">{{ t('projectsSection.academicUleam') }}</span>
+                  <span class="theme-text-main font-bold">{{ counts.academic }} REPOS</span>
+                </div>
+              </div>
+
+              <div class="mt-4 flex flex-wrap gap-2">
+                <button @click="syncGitHubRepos(true)" class="btn-industrial-ghost w-full">
+                  <i class="fa-solid fa-rotate" :class="{'fa-spin': isSyncing}"></i>
+                  <span>{{ t('projectsSection.btnSync') }}</span>
+                </button>
+                <a href="https://github.com/JhonnyCCM?tab=repositories" target="_blank" rel="noopener noreferrer" class="btn-industrial-primary w-full text-center">
+                  <i class="fa-brands fa-github"></i>
+                  <span>{{ t('projectsSection.btnAllGithub') }}</span>
+                </a>
+              </div>
+            </div>
           </div>
-          <p class="text-xs theme-text-muted mb-5">
-            {{ t('projectsSection.noResultsDesc') }}
-          </p>
-          <div class="flex flex-wrap justify-center gap-3">
-            <button @click="activeRepoType = 'main'; activeCategory = 'all'; repoSearch = ''" class="btn-industrial-primary">
-              {{ t('projectsSection.btnShowMain') }} ({{ counts.main }})
-            </button>
-            <button @click="activeRepoType = 'practice'; activeCategory = 'all'" class="btn-industrial-ghost">
-              {{ t('projectsSection.btnShowPractice') }} ({{ counts.practice }})
-            </button>
+
+          <!-- BARRA DE FILTRO INTEGRADA POR CATEGORÍAS & VISTA DE REPOSITORIOS -->
+          <div class="border theme-border theme-bg-surface p-4 sm:p-5 mb-8 space-y-4">
+            
+            <!-- Fila 1: Selector de Nivel de Proyecto (Pestañas) -->
+            <div class="flex flex-wrap items-center gap-1.5 pb-3.5 border-b theme-border">
+              <span class="font-mono text-xs theme-text-muted mr-1 uppercase">{{ t('projectsSection.viewActive') }}</span>
+              <button
+                @click="activeRepoType = 'all_visible'"
+                :class="activeRepoType === 'all_visible' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
+              >
+                {{ t('projectsSection.tabAll') }} ({{ counts.allVisible }})
+              </button>
+              <button
+                @click="activeRepoType = 'main'"
+                :class="activeRepoType === 'main' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
+              >
+                {{ t('projectsSection.tabMain') }} ({{ counts.main }})
+              </button>
+              <button
+                @click="activeRepoType = 'secondary'"
+                :class="activeRepoType === 'secondary' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
+              >
+                {{ t('projectsSection.tabSecondary') }} ({{ counts.secondary }})
+              </button>
+              <button
+                @click="activeRepoType = 'wip'"
+                :class="activeRepoType === 'wip' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
+              >
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-400 inline-block mr-1"></span>
+                {{ t('projectsSection.tabWip') }} ({{ counts.wip }})
+              </button>
+              <button
+                @click="activeRepoType = 'practice'"
+                :class="activeRepoType === 'practice' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
+              >
+                {{ t('projectsSection.tabPractice') }} ({{ counts.practice }})
+              </button>
+              <button
+                @click="activeRepoType = 'academic'"
+                :class="activeRepoType === 'academic' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
+              >
+                {{ t('projectsSection.tabAcademic') }} ({{ counts.academic }})
+              </button>
+            </div>
+
+            <!-- Fila 2: Filtro Desplegable de Categoría Técnica + Buscador de Proyectos -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
+              
+              <div class="flex items-center gap-2 flex-wrap">
+                <label class="font-mono text-xs theme-text-sub font-bold uppercase shrink-0 flex items-center gap-1.5">
+                  <i class="fa-solid fa-filter theme-text-accent"></i>
+                  <span>{{ t('projectsSection.catLabel') }}</span>
+                </label>
+
+                <div class="relative min-w-[240px]">
+                  <select
+                    :value="activeCategory"
+                    @change="setCategory($event.target.value)"
+                    class="w-full theme-bg-canvas border theme-border pl-3 pr-8 py-1.5 font-mono text-xs theme-text-main font-bold focus:outline-none focus:theme-border-accent appearance-none cursor-pointer"
+                  >
+                    <option value="all">{{ t('projectsSection.catAll') }}</option>
+                    <option value="mcp">{{ t('projectsSection.catMcp') }}</option>
+                    <option value="fullstack">{{ t('projectsSection.catFullstack') }}</option>
+                    <option value="automation">{{ t('projectsSection.catAutomation') }}</option>
+                    <option value="mobile">{{ t('projectsSection.catMobile') }}</option>
+                    <option value="backend">{{ t('projectsSection.catBackend') }}</option>
+                    <option value="devops">{{ t('projectsSection.catDevops') }}</option>
+                    <option value="cli">{{ t('projectsSection.catCli') }}</option>
+                    <option value="uiux">{{ t('projectsSection.catUiux') }}</option>
+                    <option value="gamedev">{{ t('projectsSection.catGamedev') }}</option>
+                  </select>
+                  <i class="fa-solid fa-chevron-down absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] theme-text-muted pointer-events-none"></i>
+                </div>
+
+                <button
+                  v-if="activeCategory !== 'all'"
+                  @click="setCategory('all')"
+                  class="btn-industrial-ghost !py-1 !px-2.5 !text-[11px] font-mono flex items-center gap-1.5"
+                  title="Restablecer filtro de categoría"
+                >
+                  <span>✕</span>
+                  <span>LIMPIAR FILTRO</span>
+                </button>
+              </div>
+
+              <!-- Buscador Dinámico de Proyectos -->
+              <div class="relative">
+                <input
+                  type="text"
+                  v-model="repoSearch"
+                  :placeholder="t('projectsSection.searchPlaceholder')"
+                  class="theme-bg-canvas border theme-border pl-8 pr-8 py-1.5 font-mono text-xs theme-text-main w-full sm:w-64 focus:outline-none focus:theme-border-accent"
+                />
+                <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-1/2 -translate-y-1/2 text-xs theme-text-muted pointer-events-none"></i>
+                <button
+                  v-if="repoSearch"
+                  @click="repoSearch = ''"
+                  class="absolute right-2.5 top-1/2 -translate-y-1/2 theme-text-muted hover:theme-text-main text-xs"
+                >
+                  ✕
+                </button>
+              </div>
+
+            </div>
+
           </div>
+
+          <!-- MATRIZ ARQUITECTÓNICA DE REPOSITORIOS DEL ARCHIVO (Sin estrellas bajas < 2) -->
+          <div v-if="displayedProjects.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <article
+              v-for="(proj, idx) in displayedProjects"
+              :key="proj.name"
+              class="blueprint-cell p-6 sm:p-7 flex flex-col justify-between"
+            >
+              <div>
+                <!-- Fila Superior: Índice Técnico + Etiqueta de Tipo + Lenguaje -->
+                <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-4 border-b theme-border font-mono text-xs">
+                  <div class="flex items-center gap-2">
+                    <span class="theme-text-accent font-bold">IDX-{{ String(idx + 1).padStart(2, '0') }}</span>
+                    <span class="theme-text-muted">//</span>
+                    <span class="px-2 py-0.5 theme-bg-elevated border theme-border theme-text-main text-[11px]">
+                      {{ proj.language || 'CODE' }}
+                    </span>
+                    <span v-if="proj.stars && proj.stars >= 2" class="px-2 py-0.5 theme-bg-elevated border theme-border text-amber-400 font-mono text-[11px] font-bold">
+                      ★ {{ proj.stars }}
+                    </span>
+                  </div>
+
+                  <div class="flex items-center gap-1.5">
+                    <span v-if="proj.repoType === 'wip'" class="px-2 py-0.5 bg-amber-500/10 border border-amber-500/50 text-amber-400 font-mono text-[10.5px] font-bold inline-flex items-center gap-1.5">
+                      <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                      {{ getRepoTypeLabel(proj.repoType) }}
+                    </span>
+                    <span v-else-if="proj.repoType === 'secondary'" class="px-2 py-0.5 bg-sky-500/10 border border-sky-500/40 text-sky-400 font-mono text-[10.5px] font-semibold">
+                      {{ getRepoTypeLabel(proj.repoType) }}
+                    </span>
+                    <span v-else class="hud-cyan-badge">{{ getRepoTypeLabel(proj.repoType) }}</span>
+                  </div>
+                </div>
+
+                <!-- Badge Especial para Servidores MCP -->
+                <div v-if="proj.category === 'mcp' || proj.name.toLowerCase().includes('mcp')" class="mb-3">
+                  <span class="px-2.5 py-1 theme-bg-elevated border theme-border-accent theme-text-accent font-mono text-[10.5px] font-bold inline-flex items-center gap-1.5">
+                    <i class="fa-solid fa-robot"></i>
+                    <span>MODEL CONTEXT PROTOCOL // JSON-RPC 2.0</span>
+                  </span>
+                </div>
+
+                <!-- Título y Enlace al Repositorio -->
+                <div class="flex items-start justify-between gap-3 mb-2">
+                  <h3 class="font-display font-bold text-xl sm:text-2xl theme-text-main tracking-tight">
+                    <a :href="proj.url" target="_blank" rel="noopener noreferrer" class="hover:theme-text-accent transition">
+                      {{ proj.title }}
+                    </a>
+                  </h3>
+                  <span class="font-mono text-[11px] theme-text-muted shrink-0">
+                    /{{ proj.name }}
+                  </span>
+                </div>
+
+                <!-- Descripción Técnica Concreta Bilingüe -->
+                <p class="theme-text-muted text-sm leading-relaxed mb-4">
+                  {{ getProjTagline(proj) }}
+                </p>
+
+                <!-- Especificaciones de Implementación Bilingües -->
+                <div v-if="getProjSpecs(proj) && getProjSpecs(proj).length" class="theme-bg-canvas border theme-border p-3.5 mb-4 font-mono text-xs space-y-1.5">
+                  <div v-for="(spec, sIdx) in getProjSpecs(proj)" :key="sIdx" class="flex items-start gap-2">
+                    <span class="theme-text-accent font-bold">&gt;</span>
+                    <span class="theme-text-main">{{ spec }}</span>
+                  </div>
+                </div>
+
+                <!-- Etiquetas del Stack -->
+                <div class="flex flex-wrap gap-1.5 mb-5">
+                  <span
+                    v-for="tag in proj.tags"
+                    :key="tag"
+                    class="px-2.5 py-0.5 theme-bg-elevated border theme-border font-mono text-[11px] theme-text-accent"
+                  >
+                    {{ tag }}
+                  </span>
+                </div>
+              </div>
+
+              <!-- Acciones Inferiores de la Celda -->
+              <div class="pt-4 border-t theme-border flex flex-wrap items-center justify-between gap-2">
+                <button
+                  @click="openReadmeViewer(proj)"
+                  class="btn-industrial-ghost !py-2 !px-3 text-xs flex-1"
+                >
+                  <i class="fa-regular fa-file-code theme-text-accent"></i>
+                  <span>{{ t('projectsSection.inspectReadme') }}</span>
+                </button>
+                
+                <!-- Botón Simulador JSON-RPC si es servidor MCP -->
+                <button
+                  v-if="proj.category === 'mcp' || proj.name.toLowerCase().includes('mcp')"
+                  @click="openMcpModal(proj.name.toLowerCase().includes('spotify') ? 'spotify' : 'design')"
+                  class="btn-industrial-primary !py-2 !px-3 text-xs flex items-center gap-1.5"
+                  :title="currentLang === 'es' ? 'Simular llamada JSON-RPC del protocolo MCP' : 'Simulate MCP protocol JSON-RPC call'"
+                >
+                  <i class="fa-solid fa-terminal text-[10px]"></i>
+                  <span>{{ t('projectsSection.simulateMcp') }}</span>
+                </button>
+
+                <a
+                  :href="proj.url"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn-industrial-primary !py-2 !px-3.5 text-xs"
+                >
+                  <span>{{ t('projectsSection.githubRepo') }}</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                </a>
+              </div>
+            </article>
+          </div>
+
+          <!-- Estado sin resultados Bilingüe -->
+          <div v-else class="blueprint-cell p-10 text-center font-mono">
+            <div class="text-sm theme-text-main font-bold mb-2">
+              {{ t('projectsSection.noResultsTitle') }}
+            </div>
+            <p class="text-xs theme-text-muted mb-5">
+              {{ t('projectsSection.noResultsDesc') }}
+            </p>
+            <div class="flex flex-wrap justify-center gap-3">
+              <button @click="activeRepoType = 'all_visible'; activeCategory = 'all'; repoSearch = ''" class="btn-industrial-primary">
+                {{ t('projectsSection.tabAll') }} ({{ counts.allVisible }})
+              </button>
+              <button @click="activeRepoType = 'main'; activeCategory = 'all'" class="btn-industrial-ghost">
+                {{ t('projectsSection.btnShowMain') }} ({{ counts.main }})
+              </button>
+            </div>
+          </div>
+
         </div>
 
       </div>
@@ -1118,6 +1308,23 @@
           </div>
         </div>
 
+        <!-- Barra de Honestidad y Madurez Técnica: Core vs Ecosistema -->
+        <div class="mb-6 p-4 theme-bg-canvas border theme-border font-mono text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-white"></span>
+            <span class="theme-text-accent font-bold uppercase">{{ currentLang === 'es' ? 'TRANSPARENCIA &amp; ENFOQUE TÉCNICO:' : 'TECHNICAL FOCUS &amp; TRANSPARENCY:' }}</span>
+            <span class="theme-text-muted">
+              {{ currentLang === 'es' 
+                 ? 'Diferencio mi especialidad central (uso diario en producción) de tecnologías complementarias practicadas.' 
+                 : 'I clearly differentiate my core production tools (daily use) from complementary technologies practiced.' }}
+            </span>
+          </div>
+          <div class="flex flex-wrap gap-2 text-[11px] shrink-0">
+            <span class="px-2 py-0.5 bg-white text-black font-bold">CORE (ESPECIALIDAD)</span>
+            <span class="px-2 py-0.5 theme-bg-elevated border theme-border theme-text-sub">ECOSISTEMA &amp; PRÁCTICA</span>
+          </div>
+        </div>
+
         <!-- Tabla Arquitectónica de las 6 Capas -->
         <div class="border-t border-x theme-border theme-bg-canvas">
           <div
@@ -1146,8 +1353,13 @@
                   v-for="item in layer.items"
                   :key="item"
                   @click="stackFilter = item"
-                  :class="stackFilter && item.toLowerCase().includes(stackFilter.toLowerCase()) ? 'btn-industrial-primary !py-0.5 !px-2 !text-[11px]' : 'px-2 py-0.5 theme-bg-elevated border theme-border font-mono text-[11px] theme-text-main hover:theme-border-accent'"
+                  :class="[
+                    stackFilter && item.toLowerCase().includes(stackFilter.toLowerCase()) ? 'btn-industrial-primary !py-0.5 !px-2 !text-[11px]' :
+                    isCoreTech(item) ? 'px-2 py-0.5 border border-white/60 bg-white/10 text-white font-mono text-[11px] font-bold' :
+                    'px-2 py-0.5 theme-bg-elevated border theme-border font-mono text-[11px] theme-text-muted hover:theme-border-accent'
+                  ]"
                 >
+                  <span v-if="isCoreTech(item)" class="text-white mr-1 text-[9px]">●</span>
                   {{ item }}
                 </button>
               </div>
@@ -1490,6 +1702,8 @@
           btnProjects: 'VER PROYECTOS',
           btnExperience: 'EXPERIENCIA & PROYECTOS',
           btnMcpSim: 'INSPECTOR IA / MCP',
+          btnCvContact: 'VER CV / CONTACTO',
+          btnFeatured: 'PROYECTOS DESTACADOS',
           bannerActive: 'BANNER ACTIVO',
           landscapeOn: 'MOSTRAR PANELES HERO',
           landscapeOff: 'MODO PAISAJE (VER BANNER COMPLETO)'
@@ -1498,6 +1712,12 @@
           badge: '01 // INGENIERÍA DE SOFTWARE & ECOSISTEMA MCP',
           title: 'CATÁLOGO DE PROYECTOS & HERRAMIENTAS REALES',
           desc: 'Sincronizado en vivo con <code class="theme-text-accent font-mono">github.com/JhonnyCCM</code>. He agrupado mis proyectos en <strong>Servidores MCP & IA</strong>, <strong>Desarrollo Web & UI/UX</strong>, <strong>Automatización & Data</strong> y <strong>Desarrollo Mobile / Académico</strong> para que puedas explorar directamente lo que construyo.',
+          featuredBadge: '01 // PROYECTOS DESTACADOS',
+          featuredTitle: 'SOLUCIONES & HERRAMIENTAS EN PRODUCCIÓN',
+          featuredDesc: 'Una selección de mis mejores desarrollos técnicos: servidores MCP para IA, herramientas CLI y pipelines de automatización con arquitecturas reales.',
+          archiveBadge: '02 // ARCHIVO DE REPOSITORIOS GITHUB',
+          archiveTitle: 'CATÁLOGO COMPLETO & PRÁCTICAS',
+          archiveDesc: 'Explora el histórico completo sincronizado en tiempo real con <code class="theme-text-accent font-mono">github.com/JhonnyCCM</code>, clasificado entre proyectos principales, secundarios, labs y prácticas académicas.',
           syncStatus: 'ESTADO API GITHUB:',
           coreProjects: 'PROYECTOS PRINCIPALES:',
           googlePractices: 'PRÁCTICAS CODELABS:',
@@ -1593,6 +1813,8 @@
           btnProjects: 'VIEW PROJECTS',
           btnExperience: 'EXPERIENCE & WORK',
           btnMcpSim: 'AI / MCP INSPECTOR',
+          btnCvContact: 'VIEW RESUME / CONTACT',
+          btnFeatured: 'FEATURED PROJECTS',
           bannerActive: 'ACTIVE BANNER',
           landscapeOn: 'SHOW HERO PANELS',
           landscapeOff: 'LANDSCAPE MODE (VIEW FULL BANNER)'
@@ -1601,6 +1823,12 @@
           badge: '01 // SOFTWARE ENGINEERING & MCP ECOSYSTEM',
           title: 'PROJECT CATALOG & REAL-WORLD TOOLING',
           desc: 'Synced live with <code class="theme-text-accent font-mono">github.com/JhonnyCCM</code>. Categorized into <strong>MCP Servers & AI</strong>, <strong>Web Dev & UI/UX</strong>, <strong>Automation & Data</strong>, and <strong>Mobile / Academic</strong> so you can directly explore what I build.',
+          featuredBadge: '01 // FEATURED PROJECTS',
+          featuredTitle: 'PRODUCTION-READY SOLUTIONS & TOOLS',
+          featuredDesc: 'A curated selection of my highest-impact technical projects: MCP servers for AI agents, CLI tools, and automation pipelines.',
+          archiveBadge: '02 // GITHUB REPOSITORY ARCHIVE',
+          archiveTitle: 'FULL CATALOG & PRACTICES',
+          archiveDesc: 'Explore my complete repository archive synced in real-time with <code class="theme-text-accent font-mono">github.com/JhonnyCCM</code>, classified into core, secondary, labs, and academic practice codelabs.',
           syncStatus: 'GITHUB API STATUS:',
           coreProjects: 'CORE PROJECTS:',
           googlePractices: 'CODELAB PRACTICES:',
@@ -1695,6 +1923,8 @@
         forks: 0,
         branch: 'main',
         url: 'https://github.com/JhonnyCCM/Design-Extractor-MCP',
+        problem_solved_es: 'Los agentes de IA (como Claude Desktop o Cursor) no pueden inspeccionar páginas web vivas para extraer sus estilos. Este servidor automatiza la extracción headless de tokens CSS computados, paletas HEX y fuentes, exportándolos directamente a configuración Tailwind CSS.',
+        problem_solved_en: 'AI agents (like Claude Desktop or Cursor) cannot inspect live websites to extract design systems. This server automates headless extraction of computed CSS tokens, HEX palettes, and fonts, generating ready-to-use Tailwind CSS configs.',
         tagline: 'Servidor Model Context Protocol (MCP) y motor de ingeniería inversa que extrae tokens CSS, paletas y tipografías de cualquier web para agentes de IA.',
         tagline_es: 'Servidor Model Context Protocol (MCP) y motor de ingeniería inversa que extrae tokens CSS, paletas y tipografías de cualquier web para agentes de IA.',
         tagline_en: 'Model Context Protocol (MCP) server & reverse-engineering engine extracting computed CSS tokens, palettes and fonts for AI agents.',
@@ -1726,6 +1956,8 @@
         forks: 0,
         branch: 'main',
         url: 'https://github.com/JhonnyCCM/Spotify-Stats-MCP',
+        problem_solved_es: 'Permite a modelos de lenguaje consultar en vivo métricas de reproducción, artistas y géneros favoritos, además de generar playlists inteligentes mediante lenguaje natural vía OAuth 2.0 PKCE sin exponer credenciales.',
+        problem_solved_en: 'Enables LLM agents to query live playback metrics, top artists, and genres, as well as generate smart playlists using natural language via OAuth 2.0 PKCE without leaking client secrets.',
         tagline: 'Servidor MCP y Dashboard Web Dark Mode conectado a Spotify Web API mediante OAuth 2.0 PKCE para consultar métricas y controlar reproducción desde agentes IA.',
         tagline_es: 'Servidor MCP y Dashboard Web Dark Mode conectado a Spotify Web API mediante OAuth 2.0 PKCE para consultar métricas y controlar reproducción desde agentes IA.',
         tagline_en: 'MCP Server and Dark Mode Web Dashboard connected to Spotify Web API via OAuth 2.0 PKCE to query telemetry and control playback from AI agents.',
@@ -1757,6 +1989,8 @@
         forks: 0,
         branch: 'main',
         url: 'https://github.com/JhonnyCCM/n8n-omni-expense-tracker',
+        problem_solved_es: 'Automatiza la extracción y consolidación de comprobantes de gastos multicanal, procesando documentos no estructurados con modelos LLM y persistiendo transacciones relacionales en PostgreSQL 16 contenerizado en Docker.',
+        problem_solved_en: 'Automates extraction and consolidation of omnichannel payment receipts, processing unstructured documents with LLMs and persisting transactional data in Dockerized PostgreSQL 16.',
         tagline: 'Pipeline omnicanal de control financiero y gastos que procesa comprobantes con modelos LLM, flujos n8n y persistencia relacional en PostgreSQL 16.',
         tagline_es: 'Pipeline omnicanal de control financiero y gastos que procesa comprobantes con modelos LLM, flujos n8n y persistencia relacional en PostgreSQL 16.',
         tagline_en: 'Omnichannel financial & expense tracking pipeline processing receipts via LLM models, n8n workflows, and relational PostgreSQL 16 persistence.',
@@ -1788,6 +2022,8 @@
         forks: 0,
         branch: 'main',
         url: 'https://github.com/JhonnyCCM/uleamMatricula',
+        problem_solved_es: 'Permite monitorear la disponibilidad de cupos académicos y automatizar el registro universitario en milisegundos mediante sesiones HTTP directas, evitando cuellos de botella y sobrecarga de navegadores.',
+        problem_solved_en: 'Monitors academic course quota availability and automates university enrollment in sub-second latency via persistent HTTP sessions without headless browser overhead.',
         tagline: 'Cliente CLI de baja latencia en Python para monitoreo de cupos y automatización de matriculación mediante sesiones HTTP persistentes.',
         tagline_es: 'Cliente CLI de baja latencia en Python para monitoreo de cupos y automatización de matriculación mediante sesiones HTTP persistentes.',
         tagline_en: 'Low-latency Python CLI client for course quota monitoring and enrollment automation via persistent HTTP sessions.',
@@ -1816,6 +2052,8 @@
         forks: 0,
         branch: 'main',
         url: 'https://github.com/JhonnyCCM/reproductorspotify',
+        problem_solved_es: 'Resuelve la necesidad de un cliente web ultraligero y reactivo para escuchar música y gestionar colas mediante Spotify Web Playback SDK, con búsqueda en tiempo real con debounce y diseño moderno sin sobrecarga.',
+        problem_solved_en: 'Provides an ultra-lightweight and reactive web client to stream audio and manage queues using Spotify Web Playback SDK, featuring real-time debounced search and a modern sleek design.',
         tagline: 'Aplicación Single Page en Vue 3 integrada con Spotify Web Playback SDK para reproducción en vivo, gestión de colas y búsqueda reactiva.',
         tagline_es: 'Aplicación Single Page en Vue 3 integrada con Spotify Web Playback SDK para reproducción en vivo, gestión de colas y búsqueda reactiva.',
         tagline_en: 'Single Page Application in Vue 3 integrated with Spotify Web Playback SDK for live audio streaming, queue management, and reactive search.',
@@ -1966,7 +2204,7 @@
         const landscapeMode = ref(false);
         const showHeroGif = ref(true);
         const activeGifChannel = ref(0);
-        const heroConsoleTab = ref('ts');
+        const heroConsoleTab = ref('profile');
         const crtEnabled = ref(false);
 
         // Selector de 3 Canales para el Monitor del Hero
@@ -2115,7 +2353,53 @@
 
         // 2. CLASIFICADOR DE REPOSITORIOS DE GITHUB & CATEGORÍAS MCP
         const savedProjects = localStorage.getItem('jhonnyccm_v4_projects');
-        const projects = ref(savedProjects ? JSON.parse(savedProjects) : JSON.parse(JSON.stringify(INITIAL_PROJECTS)));
+        let initialList = savedProjects ? JSON.parse(savedProjects) : JSON.parse(JSON.stringify(INITIAL_PROJECTS));
+        // Sincronizar problem_solved y featured si el usuario tenía caché previa
+        initialList.forEach(p => {
+          const match = INITIAL_PROJECTS.find(ip => ip.name.toLowerCase() === p.name.toLowerCase());
+          if (match) {
+            if (!p.problem_solved_es && match.problem_solved_es) p.problem_solved_es = match.problem_solved_es;
+            if (!p.problem_solved_en && match.problem_solved_en) p.problem_solved_en = match.problem_solved_en;
+            if (match.featured) p.featured = true;
+          }
+        });
+        const projects = ref(initialList);
+
+        // Los 4 Proyectos Estrella (Flagship) mostrados en el Nivel 1
+        const featuredProjects = computed(() => {
+          const priorityNames = [
+            'design-extractor-mcp',
+            'spotify-stats-mcp',
+            'n8n-omni-expense-tracker',
+            'reproductorspotify'
+          ];
+          const list = [];
+          priorityNames.forEach(name => {
+            const found = projects.value.find(p => p.name.toLowerCase() === name);
+            if (found) list.push(found);
+          });
+          if (list.length < 4) {
+            projects.value.forEach(p => {
+              if (!list.some(item => item.name === p.name) && (p.featured || p.repoType === 'main')) {
+                if (list.length < 4) list.push(p);
+              }
+            });
+          }
+          return list;
+        });
+
+        function getProjProblemSolved(proj) {
+          if (!proj) return '';
+          const lang = currentLang.value === 'en' ? 'en' : 'es';
+          if (lang === 'en' && proj.problem_solved_en) return proj.problem_solved_en;
+          if (lang === 'es' && proj.problem_solved_es) return proj.problem_solved_es;
+          const initial = INITIAL_PROJECTS.find(ip => ip.name.toLowerCase() === proj.name.toLowerCase());
+          if (initial) {
+            if (lang === 'en' && initial.problem_solved_en) return initial.problem_solved_en;
+            if (lang === 'es' && initial.problem_solved_es) return initial.problem_solved_es;
+          }
+          return getProjTagline(proj);
+        }
 
         const activeRepoType = ref('main'); // Por defecto SOLO muestra Proyectos Principales
         const activeCategory = ref('all');
@@ -2499,11 +2783,35 @@
           );
         });
 
+        const CORE_STACK_NAMES = [
+          'TypeScript',
+          'Vue 3',
+          'Tailwind CSS',
+          'Node.js',
+          'Python',
+          'PostgreSQL 16',
+          'Docker',
+          'Figma',
+          'MCP JSON-RPC 2.0',
+          'Vite',
+          'Pinia'
+        ];
+
+        function isCoreTech(name) {
+          if (!name) return false;
+          return CORE_STACK_NAMES.some(c => c.toLowerCase() === name.toLowerCase());
+        }
+
         // 5. CONSOLA CLI DEL HERO
         const cliHistory = ref([]);
         function runCliCommand(cmd) {
           if (cmd === 'clear') {
             cliHistory.value = [];
+            return;
+          }
+          if (cmd === 'contact') {
+            contactModalOpen.value = true;
+            cliHistory.value.push(`<div class="theme-text-main"><span class="theme-text-accent">jhonny@manta:~$</span> contact<br/><span class="theme-text-sub">&gt; Abriendo panel de contacto y resumen ejecutivo ATS...</span></div>`);
             return;
           }
           const map = {
@@ -2624,6 +2932,17 @@
           loadBannersFromDb();
           applyTheme(activeTheme.value);
           syncGitHubRepos(false);
+
+          // Remover suavemente la pantalla de carga para evitar destellos FOUC
+          const preloader = document.getElementById('preloader');
+          if (preloader) {
+            preloader.style.opacity = '0';
+            preloader.style.pointerEvents = 'none';
+            setTimeout(() => {
+              if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+            }, 350);
+          }
+
           window.addEventListener('keydown', (ev) => {
             const tag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
             if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
@@ -2649,6 +2968,10 @@
           setCategory,
           getProjTagline,
           getProjSpecs,
+          getProjProblemSolved,
+          featuredProjects,
+          isCoreTech,
+          CORE_STACK_NAMES,
           getExp,
           getExpHighlights,
           getExpLinkText,
