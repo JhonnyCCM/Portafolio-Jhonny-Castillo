@@ -1638,7 +1638,7 @@
           </div>
           <div class="font-mono text-xs text-sky-300 flex items-center gap-2 shrink-0">
             <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-            <span>5 CREDENCIALES VALIDABLES</span>
+            <span>{{ certificates.length }} {{ currentLang === 'es' ? 'CREDENCIALES & EVENTOS' : 'CREDENTIALS & EVENTS' }}</span>
           </div>
         </div>
 
@@ -2212,7 +2212,7 @@
             rel="noopener noreferrer"
             class="liquid-glass-btn rounded-lg px-4 py-2 font-mono text-xs text-sky-300 hover:text-white flex items-center gap-2"
           >
-            <span>{{ currentLang === 'es' ? 'Abrir Enlace / Repositorio ↗' : 'Open Link / Repository ↗' }}</span>
+            <span>{{ selectedCertModal.verifyUrl && selectedCertModal.verifyUrl.endsWith('.pdf') ? (currentLang === 'es' ? 'Ver Certificado Oficial (PDF) ↗' : 'View Official Certificate (PDF) ↗') : (currentLang === 'es' ? 'Abrir Enlace / Repositorio ↗' : 'Open Link / Repository ↗') }}</span>
           </a>
 
           <button
@@ -2886,6 +2886,21 @@
         description_en: 'Normalized relational schema design, ACID transactions, SQL query optimization, and containerized persistence for production systems.',
         credentialId: 'PG16-REL-2024',
         verifyUrl: 'https://github.com/JhonnyCCM/n8n-omni-expense-tracker'
+      },
+      {
+        id: 'devfest-quito-2026',
+        title_es: 'DevFest Quito 2026 — Google Developer Groups (GDG)',
+        title_en: 'DevFest Quito 2026 — Google Developer Groups (GDG)',
+        issuer: 'Google Developer Groups (GDG Quito)',
+        issuerTag: 'GDG / EVENTO',
+        year: '2026',
+        icon: 'fa-solid fa-users',
+        color: '#EA4335',
+        skills: ['Ciberseguridad', 'Multi-Agent Systems', 'Patterns & Tactics', 'Protocols for Agents', 'Networking'],
+        description_es: 'Certificado de asistencia y participación técnica en DevFest Quito 2026 organizado por Google Developer Groups (GDG). Inmersión en ciberseguridad aplicada, tácticas, patrones arquitectónicos y protocolos para sistemas multi-agente de Inteligencia Artificial.',
+        description_en: 'Certificate of attendance and technical participation at DevFest Quito 2026 organized by Google Developer Groups (GDG). Immersion in applied cybersecurity, tactics, architectural patterns, and protocols for AI multi-agent systems.',
+        credentialId: 'GDG-DEVFEST-UIO-2026',
+        verifyUrl: './certificates/devfest-quito-2026.pdf'
       }
     ];
 
