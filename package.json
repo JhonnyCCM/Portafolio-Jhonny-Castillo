@@ -1,0 +1,24 @@
+{
+  "name": "portafolio-jhonnyccm",
+  "version": "1.0.0",
+  "description": "Portafolio interactivo Full Stack, AI MCPs & Neo-Tech MVP Architect de Jhonny Castillo (@JhonnyCCM) con Vue 3 y Panel Admin.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "portfolio",
+    "vue3",
+    "mcp",
+    "fullstack",
+    "jhonnyccm",
+    "synthwave",
+    "tailwind"
+  ],
+  "author": "Jhonny Castillo (@JhonnyCCM)",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^5.4.0"
+  }
+}

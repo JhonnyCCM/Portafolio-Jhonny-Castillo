@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ADMIN // Panel de Control &amp; Clasificador de Proyectos - JhonnyCCM</title>
+
+  <!-- Favicon y Logo de Marca JhonnyCCM -->
+  <link rel="icon" type="image/jpeg" href="./favicon.jpg" />
+  <link rel="shortcut icon" type="image/jpeg" href="./favicon.jpg" />
+  <link rel="apple-touch-icon" href="./favicon.jpg" />
+
+  <!-- Google Fonts: Space Grotesk, Exo 2 & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800;900&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,400&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Vue 3 Global Build CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Space Grotesk"', 'sans-serif'],
+            display: ['"Exo 2"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root,
+    body.theme-crimson {
+      --bg-canvas: #0E1015;
+      --bg-surface: #151821;
+      --bg-elevated: #1C212E;
+      --bg-glass: rgba(14, 16, 21, 0.88);
+      --text-main: #F3F6FA;
+      --text-muted: #94A3B8;
+      --border-line: #262D3D;
+      --accent-primary: #FF1E42;
+      --accent-secondary: #2CE6FF;
+      --accent-contrast: #FFFFFF;
+      --name-primary: #FFFFFF;
+      --name-accent: #2CE6FF;
+    }
+
+    body.theme-mono {
+      --bg-canvas: #0A0B0D;
+      --bg-surface: #121317;
+      --bg-elevated: #1A1C22;
+      --bg-glass: rgba(10, 11, 13, 0.90);
+      --text-main: #FAFAFA;
+      --text-muted: #A1A1AA;
+      --border-line: #2A2D34;
+      --accent-primary: #FFFFFF;
+      --accent-secondary: #7DD3FC;
+      --accent-contrast: #000000;
+      --name-primary: #FFFFFF;
+      --name-accent: #CBD5E1;
+    }
+
+    * {
+      border-radius: 0px !important;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg-canvas);
+      background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+      background-size: 48px 48px;
+      color: var(--text-main);
+      font-family: 'Space Grotesk', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .theme-bg-canvas   { background-color: var(--bg-canvas); }
+    .theme-bg-surface  { background-color: var(--bg-surface); }
+    .theme-bg-elevated { background-color: var(--bg-elevated); }
+    .theme-bg-glass    { background-color: var(--bg-glass); backdrop-filter: blur(10px); }
+
+    .theme-text-main   { color: var(--text-main); }
+    .theme-text-muted  { color: var(--text-muted); }
+    .theme-text-accent { color: var(--accent-primary); }
+    .theme-text-sub    { color: var(--accent-secondary); }
+
+    .theme-border      { border-color: var(--border-line); }
+    .theme-border-accent { border-color: var(--accent-primary); }
+    .theme-border-sub  { border-color: var(--accent-secondary); }
+
+    .btn-industrial-primary {
+      background-color: var(--accent-primary);
+      color: var(--accent-contrast);
+      border: 1px solid var(--accent-primary);
+      padding: 8px 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      transition: all 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      cursor: pointer;
+    }
+    .btn-industrial-primary:hover {
+      filter: brightness(1.12);
+      transform: translateY(-1px);
+      box-shadow: 3px 3px 0px var(--accent-secondary);
+    }
+
+    .btn-industrial-ghost {
+      background-color: var(--bg-surface);
+      color: var(--text-main);
+      border: 1px solid var(--border-line);
+      padding: 8px 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      transition: all 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      cursor: pointer;
+    }
+    .btn-industrial-ghost:hover {
+      border-color: var(--accent-secondary);
+      color: var(--accent-secondary);
+      transform: translateY(-1px);
+    }
+
+    .btn-industrial-danger {
+      background-color: transparent;
+      color: #EF4444;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      padding: 6px 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      transition: all 0.18s ease;
+      cursor: pointer;
+    }
+    .btn-industrial-danger:hover {
+      background-color: #EF4444;
+      color: #FFFFFF;
+      border-color: #EF4444;
+    }
+
+    .toast-pill {
+      animation: toastIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes toastIn {
+      from { transform: translateY(16px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+    .animate-shake {
+      animation: shake 0.35s ease-in-out;
+    }
+  </style>
+</head>
+<body class="theme-crimson">
+  <div id="app" class="min-h-screen flex flex-col justify-between">
+
+    <!-- BARRA SUPERIOR DE ADMINISTRACIÓN -->
+    <header class="sticky top-0 z-40 theme-bg-glass border-b theme-border backdrop-blur-md">
+      <div class="max-w-[1440px] mx-auto px-4 sm:px-6">
+        <div class="h-16 flex items-center justify-between gap-4">
+          
+          <div class="flex items-center gap-3">
+            <div class="w-3 h-3 theme-bg-accent animate-pulse"></div>
+            <div>
+              <div class="font-mono text-[10px] theme-text-sub uppercase tracking-widest font-bold">
+                JHONNYCCM // CONTROL SYSTEM
+              </div>
+              <h1 class="font-display font-black text-lg sm:text-xl theme-text-main leading-none">
+                PANEL ADMIN // CLASIFICADOR DE REPOSITORIOS
+              </h1>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 sm:gap-3">
+            <!-- Indicador de Sesión -->
+            <div v-if="isAuthenticated" class="hidden md:flex items-center gap-1.5 font-mono text-[11px] px-2.5 py-1 border border-emerald-500/40 bg-emerald-500/10 text-emerald-400 font-bold">
+              <i class="fa-solid fa-shield-halved"></i>
+              <span>ACCESO AUTORIZADO</span>
+            </div>
+
+            <!-- Cambiar Contraseña (Solo si autenticado) -->
+            <button
+              v-if="isAuthenticated"
+              @click="openChangePwdModal"
+              class="btn-industrial-ghost !py-1.5 !px-2.5 !text-[10px]"
+              title="Cambiar contraseña de administrador"
+            >
+              <i class="fa-solid fa-key"></i>
+              <span class="hidden sm:inline">CAMBIAR CLAVE</span>
+            </button>
+
+            <!-- Cerrar Sesión (Solo si autenticado) -->
+            <button
+              v-if="isAuthenticated"
+              @click="logout"
+              class="btn-industrial-danger !py-1.5 !px-2.5 !text-[10px]"
+              title="Cerrar sesión de administrador"
+            >
+              <i class="fa-solid fa-right-from-bracket"></i>
+              <span class="hidden sm:inline">SALIR</span>
+            </button>
+
+            <!-- Selector de Paleta -->
+            <button
+              @click="toggleTheme"
+              class="btn-industrial-ghost !py-1.5 !px-2.5 !text-[10px]"
+              title="Alternar entre paleta Tokyo-Crimson y E-Ink Mono"
+            >
+              <i class="fa-solid fa-palette theme-text-accent"></i>
+              <span class="hidden sm:inline">{{ activeTheme === 'crimson' ? '01 / TOKYO-CRIMSON' : '02 / E-INK MONO' }}</span>
+            </button>
+
+            <!-- Volver al Portafolio -->
+            <a href="index.html" class="btn-industrial-primary !py-1.5 !px-3">
+              <i class="fa-solid fa-arrow-left"></i>
+              <span>PORTAFOLIO ↗</span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </header>
+
+
+    <!-- PANTALLA DE ACCESO RESTRINGIDO (LOCK SCREEN) -->
+    <div v-if="!isAuthenticated" class="flex-1 flex items-center justify-center p-4 py-16">
+      <div class="max-w-md w-full theme-bg-surface border-2 theme-border-accent p-6 sm:p-8 shadow-2xl relative overflow-hidden" :class="{'animate-shake': authShake}">
+        <div class="absolute top-0 right-0 p-3 font-mono text-[10px] theme-text-accent font-bold">
+          SECURITY PROTOCOL // LVL-01
+        </div>
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-2.5 h-2.5 bg-red-500 animate-ping"></div>
+          <span class="font-mono text-xs theme-text-accent uppercase tracking-widest font-bold">ACCESO RESTRINGIDO</span>
+        </div>
+        <h2 class="font-display font-black text-2xl sm:text-3xl theme-text-main uppercase mb-2">
+          PANEL ADMIN // JHONNYCCM
+        </h2>
+        <p class="font-mono text-xs theme-text-muted mb-6 leading-relaxed">
+          Autenticación requerida para acceder al clasificador de repositorios, gestión de categorías MCP y sincronización de datos con GitHub API.
+        </p>
+
+        <form @submit.prevent="submitLogin" class="space-y-4">
+          <div>
+            <label class="block font-mono text-xs theme-text-sub font-bold uppercase mb-1">
+              CONTRASEÑA DE ADMINISTRADOR:
+            </label>
+            <div class="relative">
+              <input
+                :type="showPassword ? 'text' : 'password'"
+                v-model="passwordInput"
+                placeholder="Introduce tu contraseña..."
+                class="w-full theme-bg-canvas border theme-border px-3.5 py-2.5 font-mono text-sm theme-text-main focus:outline-none focus:theme-border-accent"
+                autofocus
+              />
+              <button
+                type="button"
+                @click="showPassword = !showPassword"
+                class="absolute right-3 top-1/2 -translate-y-1/2 font-mono text-xs theme-text-muted hover:theme-text-main"
+                title="Mostrar/Ocultar contraseña"
+              >
+                <i class="fa-solid" :class="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+              </button>
+            </div>
+            <div v-if="authError" class="font-mono text-xs text-red-400 mt-2 flex items-center gap-1.5">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+              <span>{{ authError }}</span>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between text-xs font-mono theme-text-muted">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" v-model="rememberMe" />
+              <span>Recordar en este navegador</span>
+            </label>
+          </div>
+
+          <div class="pt-2 flex flex-col gap-2.5">
+            <button type="submit" class="btn-industrial-primary w-full !py-2.5">
+              <i class="fa-solid fa-lock-open"></i>
+              <span>DESBLOQUEAR SISTEMA</span>
+            </button>
+            <a href="index.html" class="btn-industrial-ghost w-full !py-2 text-center text-xs">
+              <i class="fa-solid fa-arrow-left"></i>
+              <span>VOLVER AL PORTAFOLIO PÚBLICO</span>
+            </a>
+          </div>
+        </form>
+
+        <div class="mt-6 pt-4 border-t theme-border flex items-center justify-between text-[10px] font-mono theme-text-muted">
+          <span>ENCRIPTACIÓN: SHA-256</span>
+          <span class="theme-text-sub">CLAVE INICIAL: jhonny2026</span>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- CONTENIDO PRINCIPAL (SOLO SI AUTENTICADO) -->
+    <main v-if="isAuthenticated" class="max-w-[1440px] w-full mx-auto px-4 sm:px-6 py-8 flex-1 space-y-6">
+
+      <!-- TARJETAS DE MÉTRICAS Y RESUMEN RÁPIDO (KPIS) -->
+      <section class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 font-mono">
+        <div class="theme-bg-surface border theme-border p-3.5 flex flex-col justify-between">
+          <span class="text-[10px] theme-text-muted uppercase">TOTAL REPOSITORIOS</span>
+          <div class="text-2xl font-bold theme-text-main mt-1">{{ projects.length }}</div>
+          <span class="text-[9px] theme-text-muted mt-1">Catalogados en sistema</span>
+        </div>
+
+        <div class="theme-bg-surface border-l-2 theme-border-accent border-y border-r theme-border p-3.5 flex flex-col justify-between">
+          <span class="text-[10px] theme-text-accent uppercase font-bold">PRINCIPALES (VITRINA)</span>
+          <div class="text-2xl font-bold theme-text-accent mt-1">{{ counts.main }}</div>
+          <span class="text-[9px] theme-text-muted mt-1">Sección pública 01</span>
+        </div>
+
+        <div class="theme-bg-surface border-l-2 theme-border-sub border-y border-r theme-border p-3.5 flex flex-col justify-between">
+          <span class="text-[10px] theme-text-sub uppercase font-bold">PRÁCTICAS CODELABS</span>
+          <div class="text-2xl font-bold theme-text-sub mt-1">{{ counts.practice }}</div>
+          <span class="text-[9px] theme-text-muted mt-1">Android / Kotlin aislados</span>
+        </div>
+
+        <div class="theme-bg-surface border theme-border p-3.5 flex flex-col justify-between">
+          <span class="text-[10px] theme-text-muted uppercase">ACADÉMICOS ULEAM</span>
+          <div class="text-2xl font-bold theme-text-main mt-1">{{ counts.academic }}</div>
+          <span class="text-[9px] theme-text-muted mt-1">Universidad / Grupal</span>
+        </div>
+
+        <div class="theme-bg-surface border theme-border p-3.5 flex flex-col justify-between">
+          <span class="text-[10px] text-red-400 uppercase">OCULTOS</span>
+          <div class="text-2xl font-bold text-red-400 mt-1">{{ counts.hidden }}</div>
+          <span class="text-[9px] theme-text-muted mt-1">No visibles al público</span>
+        </div>
+
+        <div class="theme-bg-surface border theme-border p-3.5 flex flex-col justify-between">
+          <span class="text-[10px] text-yellow-400 uppercase">TOP DESTACADOS ⭐</span>
+          <div class="text-2xl font-bold text-yellow-400 mt-1">{{ counts.featured }}</div>
+          <span class="text-[9px] theme-text-muted mt-1">Proyectos estrella</span>
+        </div>
+      </section>
+
+
+      <!-- BARRA DE HERRAMIENTAS Y ACCIONES GLOBALES -->
+      <section class="theme-bg-surface border theme-border p-4 sm:p-5">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          
+          <div>
+            <div class="font-mono text-xs theme-text-accent font-bold uppercase mb-1">
+              GESTIÓN DE ESTADO Y PERSISTENCIA
+            </div>
+            <p class="text-xs theme-text-muted">
+              Cualquier cambio que realices aquí se guarda en <code class="theme-text-sub font-mono">localStorage['jhonnyccm_v4_projects']</code> y se refleja en tiempo real en tu portafolio público.
+            </p>
+          </div>
+
+          <!-- Botones de Acción Global -->
+          <div class="flex flex-wrap items-center gap-2 font-mono">
+            <button @click="openNewProjectModal" class="btn-industrial-primary">
+              <i class="fa-solid fa-plus"></i>
+              <span>NUEVO PROYECTO</span>
+            </button>
+            <button @click="autoSeparateGooglePractices" class="btn-industrial-ghost" title="Mueve automáticamente Android/Kotlin y Codelabs a la pestaña de Prácticas">
+              <i class="fa-solid fa-filter theme-text-sub"></i>
+              <span>AUTO-SEPARAR CODELABS</span>
+            </button>
+            <button @click="syncGitHubRepos" class="btn-industrial-ghost" :disabled="isSyncing">
+              <i class="fa-solid fa-rotate" :class="{'fa-spin': isSyncing}"></i>
+              <span>{{ isSyncing ? 'SINCRONIZANDO...' : 'SYNC GITHUB API' }}</span>
+            </button>
+            <button @click="exportCatalogJson" class="btn-industrial-ghost" title="Descarga una copia de seguridad en JSON">
+              <i class="fa-solid fa-download"></i>
+              <span>EXPORTAR JSON</span>
+            </button>
+            <label class="btn-industrial-ghost cursor-pointer" title="Restaura una copia de seguridad desde un archivo JSON">
+              <i class="fa-solid fa-upload"></i>
+              <span>IMPORTAR JSON</span>
+              <input type="file" accept=".json" @change="importCatalogJson" class="hidden" />
+            </label>
+            <button @click="resetDefaultCatalog" class="btn-industrial-danger" title="Restaura la lista original de repositorios">
+              <i class="fa-solid fa-trash-can"></i>
+              <span>RESETEAR</span>
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- FILTROS REACTIVOS Y BUSCADOR -->
+      <section class="theme-bg-surface border theme-border p-4">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 font-mono text-xs">
+          
+          <!-- Filtro por Tipo de Repositorio -->
+          <div class="flex flex-wrap items-center gap-1.5">
+            <span class="theme-text-muted mr-1">TIPO:</span>
+            <button
+              @click="filterType = 'all'"
+              :class="filterType === 'all' ? 'btn-industrial-primary !py-1 !px-2.5' : 'btn-industrial-ghost !py-1 !px-2.5'"
+            >
+              TODOS ({{ projects.length }})
+            </button>
+            <button
+              @click="filterType = 'main'"
+              :class="filterType === 'main' ? 'btn-industrial-primary !py-1 !px-2.5' : 'btn-industrial-ghost !py-1 !px-2.5'"
+            >
+              PRINCIPALES ({{ counts.main }})
+            </button>
+            <button
+              @click="filterType = 'practice'"
+              :class="filterType === 'practice' ? 'btn-industrial-primary !py-1 !px-2.5' : 'btn-industrial-ghost !py-1 !px-2.5'"
+            >
+              PRÁCTICAS GOOGLE ({{ counts.practice }})
+            </button>
+            <button
+              @click="filterType = 'academic'"
+              :class="filterType === 'academic' ? 'btn-industrial-primary !py-1 !px-2.5' : 'btn-industrial-ghost !py-1 !px-2.5'"
+            >
+              ULEAM ({{ counts.academic }})
+            </button>
+            <button
+              @click="filterType = 'hidden'"
+              :class="filterType === 'hidden' ? 'btn-industrial-primary !py-1 !px-2.5' : 'btn-industrial-ghost !py-1 !px-2.5'"
+            >
+              OCULTOS ({{ counts.hidden }})
+            </button>
+          </div>
+
+          <!-- Filtro por Categoría y Búsqueda -->
+          <div class="flex flex-wrap items-center gap-2">
+            <select
+              v-model="filterCategory"
+              class="theme-bg-canvas border theme-border px-3 py-1.5 font-mono text-xs theme-text-main focus:outline-none focus:theme-border-accent"
+            >
+              <option value="all">CATEGORÍA: TODAS</option>
+              <option value="mcp">MCP &amp; AGENTES IA</option>
+              <option value="fullstack">FULL STACK &amp; WEB</option>
+              <option value="automation">AUTOMATIZACIÓN &amp; BACKEND</option>
+              <option value="mobile">ANDROID &amp; KOTLIN</option>
+            </select>
+
+            <div class="relative">
+              <input
+                type="text"
+                v-model="searchQuery"
+                placeholder="Buscar por nombre, título, tag..."
+                class="theme-bg-canvas border theme-border pl-8 pr-3 py-1.5 font-mono text-xs theme-text-main w-64 focus:outline-none focus:theme-border-accent"
+              />
+              <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2.5 text-xs theme-text-muted"></i>
+            </div>
+
+            <button v-if="searchQuery" @click="searchQuery = ''" class="btn-industrial-ghost !py-1.5 !px-2">
+              ✕
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- TABLA DE GESTIÓN Y CLASIFICACIÓN DE REPOSITORIOS -->
+      <section class="border theme-border theme-bg-surface overflow-x-auto">
+        <table class="w-full text-left font-mono text-xs">
+          <thead>
+            <tr class="border-b theme-border theme-bg-elevated text-xs theme-text-sub uppercase">
+              <th class="py-3 px-4 w-12 text-center">TOP</th>
+              <th class="py-3 px-4 min-w-[260px]">IDENTIDAD &amp; REPO</th>
+              <th class="py-3 px-4 min-w-[200px]">TIPO DE DESTINO (VITRINA)</th>
+              <th class="py-3 px-4 min-w-[170px]">CATEGORÍA TÉCNICA</th>
+              <th class="py-3 px-4 min-w-[220px]">DESCRIPCIÓN / TAGLINE</th>
+              <th class="py-3 px-4 text-right min-w-[140px]">ACCIONES</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y theme-border">
+            <tr
+              v-for="p in filteredProjects"
+              :key="p.name"
+              class="hover:theme-bg-elevated/60 transition items-center"
+              :class="{'opacity-50 bg-red-950/10': p.repoType === 'hidden'}"
+            >
+              <!-- TOP / Destacado -->
+              <td class="py-3 px-4 text-center">
+                <button
+                  @click="toggleFeatured(p)"
+                  class="text-base transition hover:scale-125"
+                  :title="p.featured ? 'Proyecto TOP destacado' : 'Marcar como TOP'"
+                >
+                  <i :class="p.featured ? 'fa-solid fa-star text-yellow-400' : 'fa-regular fa-star theme-text-muted'"></i>
+                </button>
+              </td>
+
+              <!-- Identidad y Repo -->
+              <td class="py-3 px-4">
+                <div class="flex items-center gap-2">
+                  <span class="font-bold theme-text-main text-sm">{{ p.title }}</span>
+                  <a :href="p.url" target="_blank" class="theme-text-sub hover:underline" title="Ver en GitHub">
+                    <i class="fa-brands fa-github text-xs"></i>
+                  </a>
+                </div>
+                <div class="flex items-center gap-2 mt-0.5 text-[11px] theme-text-muted">
+                  <span>{{ p.name }}</span>
+                  <span>•</span>
+                  <span class="px-1.5 py-0.2 theme-bg-canvas border theme-border theme-text-accent text-[10px]">{{ p.language }}</span>
+                  <span v-if="p.stars > 0" class="theme-text-sub">⭐ {{ p.stars }}</span>
+                  <span v-if="p.forks > 0">🍴 {{ p.forks }}</span>
+                </div>
+              </td>
+
+              <!-- Selector de Tipo -->
+              <td class="py-3 px-4">
+                <select
+                  v-model="p.repoType"
+                  @change="save('Tipo modificado para ' + p.name)"
+                  class="w-full theme-bg-canvas border px-2.5 py-1.5 text-xs font-bold focus:outline-none"
+                  :class="{
+                    'theme-border-accent theme-text-accent': p.repoType === 'main',
+                    'theme-border-sub theme-text-sub': p.repoType === 'practice',
+                    'border-blue-400 text-blue-400': p.repoType === 'academic',
+                    'border-red-500 text-red-400': p.repoType === 'hidden'
+                  }"
+                >
+                  <option value="main">🟢 PROYECTO PRINCIPAL (VITRINA)</option>
+                  <option value="practice">🟡 PRÁCTICA GOOGLE / CODELAB</option>
+                  <option value="academic">🔵 ACADÉMICO ULEAM</option>
+                  <option value="hidden">🔴 OCULTAR DEL PORTAFOLIO</option>
+                </select>
+              </td>
+
+              <!-- Selector de Categoría -->
+              <td class="py-3 px-4">
+                <select
+                  v-model="p.category"
+                  @change="save('Categoría modificada para ' + p.name)"
+                  class="w-full theme-bg-canvas border theme-border px-2.5 py-1.5 text-xs theme-text-main focus:outline-none focus:theme-border-accent"
+                >
+                  <option value="mcp">MCP &amp; AGENTES IA</option>
+                  <option value="fullstack">FULL STACK &amp; WEB</option>
+                  <option value="automation">AUTOMATIZACIÓN</option>
+                  <option value="mobile">ANDROID &amp; KOTLIN</option>
+                </select>
+              </td>
+
+              <!-- Descripción / Tagline -->
+              <td class="py-3 px-4">
+                <p class="text-[11px] theme-text-muted line-clamp-2 max-w-sm">{{ p.tagline }}</p>
+                <div class="flex flex-wrap gap-1 mt-1">
+                  <span
+                    v-for="tag in (p.tags || []).slice(0, 3)"
+                    :key="tag"
+                    class="px-1.5 py-0.2 theme-bg-canvas border theme-border text-[9px] theme-text-muted"
+                  >
+                    {{ tag }}
+                  </span>
+                  <span v-if="(p.tags || []).length > 3" class="text-[9px] theme-text-muted">+{{ p.tags.length - 3 }}</span>
+                </div>
+              </td>
+
+              <!-- Acciones -->
+              <td class="py-3 px-4 text-right space-x-1 whitespace-nowrap">
+                <button
+                  @click="openEditModal(p)"
+                  class="btn-industrial-ghost !py-1 !px-2.5 !text-[10px]"
+                  title="Editar detalles completos (título, descripción, tags)"
+                >
+                  <i class="fa-solid fa-pen-to-square"></i>
+                  <span>EDITAR</span>
+                </button>
+                <button
+                  @click="deleteProject(p)"
+                  class="btn-industrial-danger !py-1 !px-2 !text-[10px]"
+                  title="Eliminar este repositorio del catálogo"
+                >
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </td>
+            </tr>
+
+            <!-- Estado Vacío -->
+            <tr v-if="filteredProjects.length === 0">
+              <td colspan="6" class="py-12 text-center theme-text-muted">
+                <i class="fa-solid fa-folder-open text-2xl mb-2 block theme-text-accent"></i>
+                No se encontraron proyectos con los filtros seleccionados.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+    </main>
+
+
+    <!-- PIE DE PÁGINA ADMIN -->
+    <footer class="theme-bg-surface border-t theme-border py-4 font-mono text-xs">
+      <div class="max-w-[1440px] mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-2">
+        <div class="theme-text-muted">
+          JHONNYCCM ADMIN SUITE • CONTROL DIRECTO DE <code class="theme-text-sub">localStorage['jhonnyccm_v4_projects']</code>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="index.html" class="theme-text-sub hover:underline">Ir a index.html ↗</a>
+          <span class="theme-text-muted">•</span>
+          <span class="theme-text-accent">PALETA: {{ activeTheme.toUpperCase() }}</span>
+        </div>
+      </div>
+    </footer>
+
+
+    <!-- MODAL: CREAR / EDITAR PROYECTO -->
+    <div v-if="projectModalOpen" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+      <div class="theme-bg-surface border-2 theme-border-accent max-w-2xl w-full p-6 my-8 space-y-4 font-mono text-xs">
+        
+        <div class="flex items-center justify-between pb-3 border-b theme-border">
+          <div>
+            <span class="theme-text-accent font-bold uppercase">{{ isEditing ? 'EDITAR PROYECTO EXISTENTE' : 'REGISTRAR NUEVO PROYECTO' }}</span>
+            <h2 class="font-display font-black text-xl theme-text-main mt-0.5">
+              {{ modalForm.title || 'Detalles del Proyecto' }}
+            </h2>
+          </div>
+          <button @click="projectModalOpen = false" class="btn-industrial-ghost !py-1 !px-2.5">✕</button>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block theme-text-muted mb-1">Nombre Repositorio (ID único):</label>
+            <input
+              type="text"
+              v-model="modalForm.name"
+              :disabled="isEditing"
+              placeholder="ej: mi-nuevo-proyecto"
+              class="w-full theme-bg-canvas border theme-border px-3 py-2 theme-text-main focus:outline-none focus:theme-border-accent disabled:opacity-50"
+            />
+          </div>
+
+          <div>
+            <label class="block theme-text-muted mb-1">Título Amigable (Vitrina):</label>
+            <input
+              type="text"
+              v-model="modalForm.title"
+              placeholder="ej: Mi Nuevo Proyecto SaaS"
+              class="w-full theme-bg-canvas border theme-border px-3 py-2 theme-text-main focus:outline-none focus:theme-border-accent"
+            />
+          </div>
+
+          <div>
+            <label class="block theme-text-muted mb-1">Tipo de Repositorio:</label>
+            <select
+              v-model="modalForm.repoType"
+              class="w-full theme-bg-canvas border theme-border px-3 py-2 theme-text-main focus:outline-none focus:theme-border-accent"
+            >
+              <option value="main">🟢 Proyecto Principal (Vitrina)</option>
+              <option value="practice">🟡 Práctica Google / Codelab</option>
+              <option value="academic">🔵 Académico ULEAM</option>
+              <option value="hidden">🔴 Oculto del Portafolio</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block theme-text-muted mb-1">Categoría Técnica:</label>
+            <select
+              v-model="modalForm.category"
+              class="w-full theme-bg-canvas border theme-border px-3 py-2 theme-text-main focus:outline-none focus:theme-border-accent"
+            >
+              <option value="mcp">MCP &amp; Agentes IA</option>
+              <option value="fullstack">Full Stack &amp; Web</option>
+              <option value="automation">Automatización &amp; Backend</option>
+              <option value="mobile">Android / Kotlin</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block theme-text-muted mb-1">Lenguaje Principal:</label>
+            <input
+              type="text"
+              v-model="modalForm.language"
+              placeholder="ej: TypeScript, Python, Kotlin"
+              class="w-full theme-bg-canvas border theme-border px-3 py-2 theme-text-main focus:outline-none focus:theme-border-accent"
+            />
+          </div>
+
+          <div>
+            <label class="block theme-text-muted mb-1">URL de GitHub o Demo:</label>
+            <input
+              type="text"
+              v-model="modalForm.url"
+              placeholder="https://github.com/JhonnyCCM/..."
+              class="w-full theme-bg-canvas border theme-border px-3 py-2 theme-text-main focus:outline-none focus:theme-border-accent"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label class="block theme-text-muted mb-1">Descripción Corta (Tagline):</label>
+          <textarea
+            v-model="modalForm.tagline"
+            rows="2"
+            placeholder="Breve explicación de arquitectura, problema resuelto o propósito técnico..."
+            class="w-full theme-bg-canvas border theme-border px-3 py-2 theme-text-main focus:outline-none focus:theme-border-accent"
+          ></textarea>
+        </div>
+
+        <div>
+          <label class="block theme-text-muted mb-1">Etiquetas (separadas por comas):</label>
+          <input
+            type="text"
+            v-model="modalForm.tagsString"
+            placeholder="Vue 3, TypeScript, NestJS, Docker, MCP"
+            class="w-full theme-bg-canvas border theme-border px-3 py-2 theme-text-main focus:outline-none focus:theme-border-accent"
+          />
+        </div>
+
+        <div class="flex items-center gap-2 pt-2">
+          <label class="flex items-center gap-2 cursor-pointer theme-text-main">
+            <input type="checkbox" v-model="modalForm.featured" />
+            <span>Destacar como Proyecto TOP ⭐</span>
+          </label>
+        </div>
+
+        <div class="flex items-center justify-end gap-3 pt-4 border-t theme-border">
+          <button @click="projectModalOpen = false" class="btn-industrial-ghost">
+            CANCELAR
+          </button>
+          <button @click="saveProjectModal" class="btn-industrial-primary">
+            <i class="fa-solid fa-floppy-disk"></i>
+            <span>GUARDAR CAMBIOS</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- MODAL: CAMBIAR CONTRASEÑA DE ADMINISTRADOR -->
+    <div v-if="changePwdModalOpen" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+      <div class="theme-bg-surface border-2 theme-border-accent max-w-md w-full p-6 my-8 space-y-4 font-mono text-xs">
+        <div class="flex items-center justify-between pb-3 border-b theme-border">
+          <div>
+            <span class="theme-text-accent font-bold uppercase">SEGURIDAD DEL SISTEMA</span>
+            <h2 class="font-display font-black text-xl theme-text-main mt-0.5">
+              CAMBIAR CLAVE DE ACCESO
+            </h2>
+          </div>
+          <button @click="changePwdModalOpen = false" class="btn-industrial-ghost !py-1 !px-2.5">✕</button>
+        </div>
+
+        <form @submit.prevent="saveNewPassword" class="space-y-3.5">
+          <div>
+            <label class="block theme-text-muted mb-1">Contraseña Actual:</label>
+            <input
+              type="password"
+              v-model="changePwdForm.currentPwd"
+              placeholder="Contraseña actual..."
+              class="w-full theme-bg-canvas border theme-border px-3 py-2 theme-text-main focus:outline-none focus:theme-border-accent"
+            />
+          </div>
+
+          <div>
+            <label class="block theme-text-muted mb-1">Nueva Contraseña (mínimo 6 caracteres):</label>
+            <input
+              type="password"
+              v-model="changePwdForm.newPwd"
+              placeholder="Nueva contraseña..."
+              class="w-full theme-bg-canvas border theme-border px-3 py-2 theme-text-main focus:outline-none focus:theme-border-accent"
+            />
+          </div>
+
+          <div>
+            <label class="block theme-text-muted mb-1">Confirmar Nueva Contraseña:</label>
+            <input
+              type="password"
+              v-model="changePwdForm.confirmPwd"
+              placeholder="Repite la nueva contraseña..."
+              class="w-full theme-bg-canvas border theme-border px-3 py-2 theme-text-main focus:outline-none focus:theme-border-accent"
+            />
+          </div>
+
+          <div v-if="changePwdForm.error" class="text-red-400 text-xs flex items-center gap-1.5 pt-1">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>{{ changePwdForm.error }}</span>
+          </div>
+
+          <div class="flex items-center justify-end gap-3 pt-3 border-t theme-border">
+            <button type="button" @click="changePwdModalOpen = false" class="btn-industrial-ghost">
+              CANCELAR
+            </button>
+            <button type="submit" class="btn-industrial-primary">
+              <i class="fa-solid fa-shield-halved"></i>
+              <span>ACTUALIZAR CONTRASEÑA</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+    <!-- TOAST NOTIFICATION -->
+    <div
+      v-if="toastText"
+      class="fixed bottom-6 right-6 z-50 theme-bg-elevated border-2 theme-border-accent px-4 py-2.5 font-mono text-xs theme-text-main shadow-2xl toast-pill flex items-center gap-2"
+    >
+      <i class="fa-solid fa-circle-check theme-text-accent"></i>
+      <span>{{ toastText }}</span>
+    </div>
+
+  </div>
+
+  <script>
+    const { createApp, ref, computed, onMounted } = Vue;
+
+    const INITIAL_PROJECTS = [
+      {
+        name: 'Design-Extractor-MCP',
+        title: 'Design Extractor MCP Server',
+        repoType: 'main',
+        category: 'mcp',
+        language: 'Python',
+        stars: 2,
+        forks: 0,
+        branch: 'main',
+        url: 'https://github.com/JhonnyCCM/Design-Extractor-MCP',
+        tagline: 'Servidor Model Context Protocol que inspecciona URLs, analiza sistemas de diseño y genera automáticamente tokens y temas de Tailwind CSS.',
+        specs: ['FastMCP + Playwright Headless', 'Extracción determinista de CSS Variables'],
+        tags: ['Python', 'MCP', 'JSON-RPC 2.0', 'Tailwind CSS', 'Playwright'],
+        featured: true
+      },
+      {
+        name: 'Spotify-Stats-MCP',
+        title: 'Spotify Stats & Control MCP',
+        repoType: 'main',
+        category: 'mcp',
+        language: 'Python',
+        stars: 1,
+        forks: 0,
+        branch: 'main',
+        url: 'https://github.com/JhonnyCCM/Spotify-Stats-MCP',
+        tagline: 'Servidor Model Context Protocol con OAuth 2.0 PKCE para consultar telemetría de Spotify y controlar la reproducción con IA.',
+        specs: ['Flujo PKCE sin backend intermedio', 'Dashboard web en tiempo real'],
+        tags: ['Python', 'Spotify API', 'FastMCP', 'OAuth 2.0 PKCE', 'AI Agents'],
+        featured: true
+      },
+      {
+        name: 'n8n-omni-expense-tracker',
+        title: 'Omni Expense Tracker con n8n & IA',
+        repoType: 'main',
+        category: 'automation',
+        language: 'JavaScript',
+        stars: 0,
+        forks: 0,
+        branch: 'main',
+        url: 'https://github.com/JhonnyCCM/n8n-omni-expense-tracker',
+        tagline: 'Sistema automatizado de finanzas personales con n8n, webhooks seguros, procesamiento LLM y persistencia en PostgreSQL 16.',
+        specs: ['Procesamiento determinista de recibos', 'Consultas en lenguaje natural con IA'],
+        tags: ['n8n', 'PostgreSQL 16', 'Docker', 'Webhooks', 'LLM Integration'],
+        featured: true
+      },
+      {
+        name: 'uleamMatricula',
+        title: 'ULEAM Matrícula CLI Automation',
+        repoType: 'main',
+        category: 'automation',
+        language: 'Python',
+        stars: 0,
+        forks: 0,
+        branch: 'main',
+        url: 'https://github.com/JhonnyCCM/uleamMatricula',
+        tagline: 'Script CLI automatizado para consultar cupos y verificar disponibilidad académica en la plataforma universitaria de la ULEAM.',
+        specs: ['Sesiones HTTP concurrentes resilientes', 'CLI tipada para estudiantes'],
+        tags: ['Python', 'Requests', 'BeautifulSoup4', 'Automation', 'CLI Tool'],
+        featured: false
+      },
+      {
+        name: 'reproductorspotify',
+        title: 'Spotify Web SDK Player (Dark Cyberpunk)',
+        repoType: 'main',
+        category: 'fullstack',
+        language: 'JavaScript',
+        stars: 0,
+        forks: 0,
+        branch: 'main',
+        url: 'https://github.com/JhonnyCCM/reproductorspotify',
+        tagline: 'Reproductor web interactivo conectado a la Web Playback SDK de Spotify con control de volumen, colas y ecualizador visual.',
+        specs: ['Sincronización de token OAuth2', 'Audio streaming de baja latencia'],
+        tags: ['Vue 3', 'Spotify SDK', 'Tailwind CSS', 'Web Audio API'],
+        featured: false
+      },
+      {
+        name: 'Repo-grupal-servidores-web',
+        title: 'Arquitectura Limpia en Node.js & Docker',
+        repoType: 'academic',
+        category: 'fullstack',
+        language: 'TypeScript',
+        stars: 0,
+        forks: 0,
+        branch: 'main',
+        url: 'https://github.com/JhonnyCCM/Repo-grupal-servidores-web',
+        tagline: 'Arquitectura backend modular en TypeScript con separación de capas, validación de DTOs, middlewares y despliegue en Docker.',
+        specs: ['Diseño desacoplado controlador-servicio-repositorio', 'Entorno reproducible con Docker Compose'],
+        tags: ['TypeScript', 'Node.js', 'REST API', 'Clean Architecture', 'ULEAM'],
+        featured: false
+      },
+      {
+        name: 'Django-auth-crud',
+        title: 'Django Secure Auth & CRUD',
+        repoType: 'academic',
+        category: 'fullstack',
+        language: 'Python',
+        stars: 0,
+        forks: 0,
+        branch: 'main',
+        url: 'https://github.com/JhonnyCCM/Django-auth-crud',
+        tagline: 'Aplicación web en Python Django con autenticación de sesiones, protección CSRF, hashing PBKDF2 y operaciones CRUD relacionales.',
+        specs: ['Arquitectura MVT con ORM de Django y control de acceso por rutas'],
+        tags: ['Python', 'Django', 'SQLite', 'PostgreSQL', 'Security'],
+        featured: false
+      },
+      {
+        name: 'Jetpack-Compose-Courses-App-',
+        title: 'Jetpack Compose Courses (Google Codelab)',
+        repoType: 'practice',
+        category: 'mobile',
+        language: 'Kotlin',
+        stars: 0,
+        forks: 0,
+        branch: 'main',
+        url: 'https://github.com/JhonnyCCM/Jetpack-Compose-Courses-App-',
+        tagline: 'Práctica de Google Android Basics: grilla adaptativa LazyVerticalGrid con Jetpack Compose y Material Design 3.',
+        specs: ['Práctica de UI declarativa y manejo de temas claro/oscuro en Android'],
+        tags: ['Kotlin', 'Jetpack Compose', 'Material 3', 'Google Codelab'],
+        featured: false
+      },
+      {
+        name: 'TipTime',
+        title: 'TipTime Calculator (Google Codelab)',
+        repoType: 'practice',
+        category: 'mobile',
+        language: 'Kotlin',
+        stars: 0,
+        forks: 0,
+        branch: 'main',
+        url: 'https://github.com/JhonnyCCM/TipTime',
+        tagline: 'Práctica de Google Android Basics: State Hoisting, cálculo reactivo y pruebas instrumentadas en Kotlin.',
+        specs: ['Práctica de remember y mutableStateOf en Jetpack Compose'],
+        tags: ['Kotlin', 'Jetpack Compose', 'State Hoisting', 'Google Codelab'],
+        featured: false
+      }
+    ];
+
+    const PRACTICE_KEYWORDS = ['codelab', 'course', 'practice', 'tiptime', 'lemonade', 'woof', 'superheroes', 'affirmations', 'dice', 'basics'];
+
+    createApp({
+      setup() {
+        const savedTheme = localStorage.getItem('jhonnyccm_theme_v5') || 'crimson';
+        const activeTheme = ref(savedTheme === 'mono' ? 'mono' : 'crimson');
+
+        function toggleTheme() {
+          activeTheme.value = activeTheme.value === 'crimson' ? 'mono' : 'crimson';
+          localStorage.setItem('jhonnyccm_theme_v5', activeTheme.value);
+          document.body.className = 'theme-' + activeTheme.value;
+          triggerToast('PALETA ACTIVA: ' + activeTheme.value.toUpperCase());
+        }
+
+        // =====================================================================
+        // SISTEMA DE AUTENTICACIÓN Y SEGURIDAD CON SHA-256
+        // =====================================================================
+        const DEFAULT_PWD_HASH = '0de2ce473650b3f051451681c53375a2af4468ab3dc9ae74472e3eb576715acf'; // sha256 de 'jhonny2026'
+
+        async function sha256(str) {
+          const buffer = new TextEncoder().encode(str);
+          const hash = await crypto.subtle.digest('SHA-256', buffer);
+          return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        const isAuthenticated = ref(
+          sessionStorage.getItem('jhonnyccm_admin_auth') === 'true' ||
+          localStorage.getItem('jhonnyccm_admin_auth_persist') === 'true'
+        );
+        const passwordInput = ref('');
+        const showPassword = ref(false);
+        const rememberMe = ref(true);
+        const authError = ref('');
+        const authShake = ref(false);
+
+        function triggerShake() {
+          authShake.value = true;
+          setTimeout(() => {
+            authShake.value = false;
+          }, 450);
+        }
+
+        async function submitLogin() {
+          authError.value = '';
+          if (!passwordInput.value.trim()) {
+            authError.value = 'DEBES INGRESAR LA CONTRASEÑA';
+            triggerShake();
+            return;
+          }
+
+          const currentHash = localStorage.getItem('jhonnyccm_admin_pwd_hash') || DEFAULT_PWD_HASH;
+          const enteredHash = await sha256(passwordInput.value.trim());
+
+          if (enteredHash === currentHash) {
+            isAuthenticated.value = true;
+            sessionStorage.setItem('jhonnyccm_admin_auth', 'true');
+            if (rememberMe.value) {
+              localStorage.setItem('jhonnyccm_admin_auth_persist', 'true');
+            }
+            passwordInput.value = '';
+            triggerToast('ACCESO CONCEDIDO // BIENVENIDO JHONNY');
+          } else {
+            authError.value = 'CONTRASEÑA INCORRECTA // ACCESO DENEGADO';
+            triggerShake();
+          }
+        }
+
+        function logout() {
+          if (confirm('¿Cerrar sesión en el panel de administración?')) {
+            isAuthenticated.value = false;
+            sessionStorage.removeItem('jhonnyccm_admin_auth');
+            localStorage.removeItem('jhonnyccm_admin_auth_persist');
+            passwordInput.value = '';
+            triggerToast('SESIÓN DE ADMINISTRADOR CERRADA');
+          }
+        }
+
+        // Modal Cambiar Contraseña
+        const changePwdModalOpen = ref(false);
+        const changePwdForm = ref({
+          currentPwd: '',
+          newPwd: '',
+          confirmPwd: '',
+          error: ''
+        });
+
+        function openChangePwdModal() {
+          changePwdForm.value = {
+            currentPwd: '',
+            newPwd: '',
+            confirmPwd: '',
+            error: ''
+          };
+          changePwdModalOpen.value = true;
+        }
+
+        async function saveNewPassword() {
+          changePwdForm.value.error = '';
+          if (!changePwdForm.value.currentPwd) {
+            changePwdForm.value.error = 'Ingresa tu contraseña actual.';
+            return;
+          }
+          if (changePwdForm.value.newPwd.length < 6) {
+            changePwdForm.value.error = 'La nueva contraseña debe tener mínimo 6 caracteres.';
+            return;
+          }
+          if (changePwdForm.value.newPwd !== changePwdForm.value.confirmPwd) {
+            changePwdForm.value.error = 'Las nuevas contraseñas no coinciden.';
+            return;
+          }
+
+          const storedHash = localStorage.getItem('jhonnyccm_admin_pwd_hash') || DEFAULT_PWD_HASH;
+          const enteredCurrentHash = await sha256(changePwdForm.value.currentPwd.trim());
+
+          if (enteredCurrentHash !== storedHash) {
+            changePwdForm.value.error = 'La contraseña actual es incorrecta.';
+            return;
+          }
+
+          const newHash = await sha256(changePwdForm.value.newPwd.trim());
+          localStorage.setItem('jhonnyccm_admin_pwd_hash', newHash);
+          changePwdModalOpen.value = false;
+          triggerToast('CONTRASEÑA ACTUALIZADA CON ÉXITO');
+        }
+
+        // Proyectos
+        const savedProjects = localStorage.getItem('jhonnyccm_v4_projects');
+        const projects = ref(savedProjects ? JSON.parse(savedProjects) : JSON.parse(JSON.stringify(INITIAL_PROJECTS)));
+
+        const filterType = ref('all');
+        const filterCategory = ref('all');
+        const searchQuery = ref('');
+        const isSyncing = ref(false);
+
+        const counts = computed(() => {
+          return {
+            main: projects.value.filter(p => p.repoType === 'main').length,
+            practice: projects.value.filter(p => p.repoType === 'practice').length,
+            academic: projects.value.filter(p => p.repoType === 'academic').length,
+            hidden: projects.value.filter(p => p.repoType === 'hidden').length,
+            featured: projects.value.filter(p => p.featured).length
+          };
+        });
+
+        const filteredProjects = computed(() => {
+          const q = searchQuery.value.toLowerCase().trim();
+          return projects.value.filter(p => {
+            if (filterType.value !== 'all' && p.repoType !== filterType.value) return false;
+            if (filterCategory.value !== 'all' && p.category !== filterCategory.value) return false;
+            if (!q) return true;
+            return (
+              p.title.toLowerCase().includes(q) ||
+              p.name.toLowerCase().includes(q) ||
+              p.tagline.toLowerCase().includes(q) ||
+              p.language.toLowerCase().includes(q) ||
+              (p.tags && p.tags.some(t => t.toLowerCase().includes(q)))
+            );
+          });
+        });
+
+        function save(msg = 'Cambios guardados') {
+          localStorage.setItem('jhonnyccm_v4_projects', JSON.stringify(projects.value));
+          triggerToast(msg);
+        }
+
+        function toggleFeatured(p) {
+          p.featured = !p.featured;
+          save(p.featured ? `⭐ ${p.name} marcado como TOP` : `${p.name} desmarcado de TOP`);
+        }
+
+        function deleteProject(p) {
+          if (confirm(`¿Eliminar "${p.title}" del catálogo?`)) {
+            projects.value = projects.value.filter(item => item.name !== p.name);
+            save(`"${p.title}" eliminado`);
+          }
+        }
+
+        function autoSeparateGooglePractices() {
+          let count = 0;
+          const coreMain = ['design-extractor-mcp', 'spotify-stats-mcp', 'n8n-omni-expense-tracker', 'uleammatricula', 'reproductorspotify'];
+          projects.value.forEach(p => {
+            const lower = p.name.toLowerCase();
+            const desc = (p.tagline || '').toLowerCase();
+            const isMatch = PRACTICE_KEYWORDS.some(k => lower.includes(k) || desc.includes(k)) || p.language === 'Kotlin';
+            if (!coreMain.includes(lower) && isMatch && p.repoType === 'main') {
+              p.repoType = 'practice';
+              count++;
+            }
+          });
+          save(`SEPARADOS ${count} REPOS DE PRÁCTICAS GOOGLE`);
+        }
+
+        async function syncGitHubRepos() {
+          isSyncing.value = true;
+          try {
+            const res = await fetch('https://api.github.com/users/JhonnyCCM/repos?sort=updated&per_page=100');
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const repos = await res.json();
+
+            // Actualizar métricas de los ya existentes
+            projects.value.forEach(p => {
+              const match = repos.find(r => r.name.toLowerCase() === p.name.toLowerCase());
+              if (match) {
+                p.stars = match.stargazers_count;
+                p.forks = match.forks_count;
+                p.branch = match.default_branch || 'main';
+              }
+            });
+
+            // Agregar nuevos no catalogados
+            let added = 0;
+            repos.forEach(r => {
+              const exists = projects.value.some(p => p.name.toLowerCase() === r.name.toLowerCase());
+              if (!exists) {
+                const lower = r.name.toLowerCase();
+                let type = 'practice';
+                let cat = 'fullstack';
+                if (lower.includes('mcp')) {
+                  type = 'main';
+                  cat = 'mcp';
+                } else if (r.language === 'Kotlin' || lower.includes('compose')) {
+                  type = 'practice';
+                  cat = 'mobile';
+                } else if (lower.includes('uleam') || lower.includes('grupal')) {
+                  type = 'academic';
+                }
+                projects.value.push({
+                  name: r.name,
+                  title: r.name.replace(/[-_]/g, ' '),
+                  repoType: type,
+                  category: cat,
+                  language: r.language || 'Code',
+                  stars: r.stargazers_count || 0,
+                  forks: r.forks_count || 0,
+                  branch: r.default_branch || 'main',
+                  url: r.html_url,
+                  tagline: r.description || `Repositorio en GitHub (${r.language || 'Código'}).`,
+                  specs: ['Sincronizado vía GitHub API oficial'],
+                  tags: [r.language || 'GitHub'].filter(Boolean),
+                  featured: false
+                });
+                added++;
+              }
+            });
+
+            save(`SYNC COMPLETADO (${repos.length} REPOS, ${added} NUEVOS)`);
+          } catch (e) {
+            triggerToast('ERROR AL CONECTAR CON GITHUB API');
+          } finally {
+            isSyncing.value = false;
+          }
+        }
+
+        function exportCatalogJson() {
+          const blob = new Blob([JSON.stringify(projects.value, null, 2)], { type: 'application/json' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `jhonnyccm_projects_${new Date().toISOString().slice(0, 10)}.json`;
+          a.click();
+          URL.revokeObjectURL(url);
+          triggerToast('COPIA DE SEGURIDAD EXPORTADA EN JSON');
+        }
+
+        function importCatalogJson(e) {
+          const file = e.target.files && e.target.files[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = (ev) => {
+            try {
+              const parsed = JSON.parse(ev.target.result);
+              if (Array.isArray(parsed)) {
+                projects.value = parsed;
+                save('CATÁLOGO IMPORTADO CORRECTAMENTE');
+              } else {
+                throw new Error('Formato inválido');
+              }
+            } catch (err) {
+              triggerToast('ERROR: ARCHIVO JSON INVÁLIDO');
+            }
+          };
+          reader.readAsText(file);
+        }
+
+        function resetDefaultCatalog() {
+          if (confirm('¿Restaurar el catálogo original de repositorios? Se perderán las modificaciones no respaldadas.')) {
+            localStorage.removeItem('jhonnyccm_v4_projects');
+            projects.value = JSON.parse(JSON.stringify(INITIAL_PROJECTS));
+            save('CATÁLOGO RESTAURADO POR DEFECTO');
+          }
+        }
+
+        // Modal Crear / Editar
+        const projectModalOpen = ref(false);
+        const isEditing = ref(false);
+        const modalForm = ref({
+          name: '',
+          title: '',
+          repoType: 'main',
+          category: 'fullstack',
+          language: 'TypeScript',
+          url: '',
+          tagline: '',
+          tagsString: '',
+          featured: false
+        });
+
+        function openNewProjectModal() {
+          isEditing.value = false;
+          modalForm.value = {
+            name: '',
+            title: '',
+            repoType: 'main',
+            category: 'fullstack',
+            language: 'TypeScript',
+            url: '',
+            tagline: '',
+            tagsString: '',
+            featured: false
+          };
+          projectModalOpen.value = true;
+        }
+
+        function openEditModal(p) {
+          isEditing.value = true;
+          modalForm.value = {
+            name: p.name,
+            title: p.title,
+            repoType: p.repoType,
+            category: p.category,
+            language: p.language,
+            url: p.url,
+            tagline: p.tagline,
+            tagsString: (p.tags || []).join(', '),
+            featured: !!p.featured
+          };
+          projectModalOpen.value = true;
+        }
+
+        function saveProjectModal() {
+          if (!modalForm.value.name.trim()) {
+            triggerToast('EL NOMBRE DEL REPOSITORIO ES REQUERIDO');
+            return;
+          }
+          const tags = modalForm.value.tagsString
+            ? modalForm.value.tagsString.split(',').map(t => t.trim()).filter(Boolean)
+            : [];
+
+          if (isEditing.value) {
+            const idx = projects.value.findIndex(p => p.name === modalForm.value.name);
+            if (idx !== -1) {
+              projects.value[idx].title = modalForm.value.title || modalForm.value.name;
+              projects.value[idx].repoType = modalForm.value.repoType;
+              projects.value[idx].category = modalForm.value.category;
+              projects.value[idx].language = modalForm.value.language;
+              projects.value[idx].url = modalForm.value.url;
+              projects.value[idx].tagline = modalForm.value.tagline;
+              projects.value[idx].tags = tags;
+              projects.value[idx].featured = modalForm.value.featured;
+            }
+            save(`"${modalForm.value.title}" actualizado`);
+          } else {
+            const exists = projects.value.some(p => p.name.toLowerCase() === modalForm.value.name.toLowerCase());
+            if (exists) {
+              triggerToast('YA EXISTE UN REPO CON ESE NOMBRE');
+              return;
+            }
+            projects.value.unshift({
+              name: modalForm.value.name.trim(),
+              title: modalForm.value.title || modalForm.value.name,
+              repoType: modalForm.value.repoType,
+              category: modalForm.value.category,
+              language: modalForm.value.language || 'Code',
+              stars: 0,
+              forks: 0,
+              branch: 'main',
+              url: modalForm.value.url || `https://github.com/JhonnyCCM/${modalForm.value.name}`,
+              tagline: modalForm.value.tagline || 'Nuevo proyecto agregado.',
+              specs: ['Registrado desde el Panel Admin'],
+              tags: tags,
+              featured: modalForm.value.featured
+            });
+            save(`Proyecto "${modalForm.value.title}" agregado`);
+          }
+
+          projectModalOpen.value = false;
+        }
+
+        // Toast
+        const toastText = ref('');
+        let toastTimeout = null;
+        function triggerToast(msg) {
+          if (!msg) return;
+          toastText.value = msg;
+          if (toastTimeout) clearTimeout(toastTimeout);
+          toastTimeout = setTimeout(() => {
+            toastText.value = '';
+          }, 3200);
+        }
+
+        onMounted(() => {
+          document.body.className = 'theme-' + activeTheme.value;
+        });
+
+        return {
+          isAuthenticated,
+          passwordInput,
+          showPassword,
+          rememberMe,
+          authError,
+          authShake,
+          submitLogin,
+          logout,
+          changePwdModalOpen,
+          changePwdForm,
+          openChangePwdModal,
+          saveNewPassword,
+          activeTheme,
+          toggleTheme,
+          projects,
+          counts,
+          filterType,
+          filterCategory,
+          searchQuery,
+          filteredProjects,
+          isSyncing,
+          save,
+          toggleFeatured,
+          deleteProject,
+          autoSeparateGooglePractices,
+          syncGitHubRepos,
+          exportCatalogJson,
+          importCatalogJson,
+          resetDefaultCatalog,
+          projectModalOpen,
+          isEditing,
+          modalForm,
+          openNewProjectModal,
+          openEditModal,
+          saveProjectModal,
+          toastText
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

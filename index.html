@@ -1,0 +1,2700 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JHONNY CASTILLO (@JhonnyCCM) // Full Stack Developer — Web Architecture, UI/UX &amp; AI Tooling</title>
+
+  <!-- Favicon y Logo de Marca JhonnyCCM -->
+  <link rel="icon" type="image/jpeg" href="./favicon.jpg" />
+  <link rel="shortcut icon" type="image/jpeg" href="./favicon.jpg" />
+  <link rel="apple-touch-icon" href="./favicon.jpg" />
+
+  <!-- Google Fonts: Space Grotesk, Exo 2 & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800;900&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,400&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Vue 3 Global Build CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+
+  <!-- Marked.js CDN (Live GitHub README.md Parser) -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Space Grotesk"', 'sans-serif'],
+            display: ['"Exo 2"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* =========================================================================
+       1. ENGINE DE 2 PALETAS DE COLORES REACTIVAS CALIBRADAS CON LOS BANNERS
+       - 01 / TOKYO-CRIMSON: Calibrado con el banner rojo/cian (Noche #0E1015,
+         Superficie acantilado #151821, Cian Océano/HUD #2CE6FF y Rojo Torii #FF1E42).
+       - 02 / E-INK MONO: Calibrado con el banner monocromo (#0A0B0D, Blanco #FFFFFF
+         y toque 5% azul radar HUD #7DD3FC).
+       ========================================================================= */
+    :root,
+    body.theme-crimson {
+      --bg-canvas: #0E1015;          /* Pizarra nocturna exacta del cielo del banner Crimson */
+      --bg-surface: #151821;         /* Gris azulado oscuro de los acantilados del banner */
+      --bg-elevated: #1C212E;        /* Superficie elevada con matiz frío */
+      --bg-glass: rgba(14, 16, 21, 0.84);
+      --text-main: #F3F6FA;          /* Blanco espuma de mar */
+      --text-muted: #94A3B8;         /* Gris acero frío */
+      --border-line: #262D3D;        /* Borde estructural frío que conecta con la rejilla */
+      --accent-primary: #FF1E42;     /* Rojo neón exacto del Torii, Sol y letrero MANTA */
+      --accent-secondary: #2CE6FF;   /* Cian eléctrico exacto del mar reticulado y radar HUD */
+      --accent-contrast: #FFFFFF;
+      --name-primary: #FFFFFF;       /* REGLA ESTRICTA: Nombre NUNCA en rojo */
+      --name-accent: #2CE6FF;        /* Cian hielo del océano del banner para CASTILLO / CCM */
+    }
+
+    body.theme-mono {
+      --bg-canvas: #0A0B0D;          /* Negro carbón del banner E-Ink Mono */
+      --bg-surface: #121317;         /* Superficie grafito */
+      --bg-elevated: #1A1C22;        /* Gris acero elevado */
+      --bg-glass: rgba(10, 11, 13, 0.86);
+      --text-main: #FAFAFA;          /* Blanco puro E-Ink */
+      --text-muted: #A1A1AA;         /* Plata mate */
+      --border-line: #2A2D34;        /* Línea técnica plata oscura */
+      --accent-primary: #FFFFFF;     /* Blanco alto contraste */
+      --accent-secondary: #7DD3FC;   /* 5% Azul hielo sutil del radar HUD superior derecho */
+      --accent-contrast: #000000;
+      --name-primary: #FFFFFF;
+      --name-accent: #CBD5E1;
+    }
+
+    /* =========================================================================
+       2. REGLAS GLOBALES DE ARQUITECTURA INDUSTRIAL JAPONESA
+       ========================================================================= */
+    * {
+      border-radius: 0px !important;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg-canvas);
+      background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+      background-size: 48px 48px;
+      color: var(--text-main);
+      font-family: 'Space Grotesk', sans-serif;
+      overflow-x: hidden;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    /* Clases utilitarias vinculadas a las variables del tema activo */
+    .theme-bg-canvas   { background-color: var(--bg-canvas); }
+    .theme-bg-surface  { background-color: var(--bg-surface); }
+    .theme-bg-elevated { background-color: var(--bg-elevated); }
+    .theme-bg-glass    { background-color: var(--bg-glass); backdrop-filter: blur(10px); }
+
+    .theme-text-main   { color: var(--text-main); }
+    .theme-text-muted  { color: var(--text-muted); }
+    .theme-text-accent { color: var(--accent-primary); }
+    .theme-text-sub    { color: var(--accent-secondary); }
+
+    .theme-border      { border-color: var(--border-line); }
+    .theme-border-accent { border-color: var(--accent-primary); }
+    .theme-border-sub  { border-color: var(--accent-secondary); }
+
+    /* Nombre de Jhonny blindado contra el color rojo */
+    .jhonny-name-lockup {
+      color: var(--name-primary);
+    }
+    .jhonny-name-highlight {
+      color: var(--name-accent);
+      text-shadow: 0 0 18px rgba(44, 230, 255, 0.28);
+    }
+
+    /* Botones Industriales Rectangulares (Calibrados con sombra secundaria cian) */
+    .btn-industrial-primary {
+      background-color: var(--accent-primary);
+      color: var(--accent-contrast);
+      border: 1px solid var(--accent-primary);
+      padding: 10px 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      transition: all 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 0 18px rgba(255, 30, 66, 0.18);
+    }
+    .btn-industrial-primary:hover {
+      filter: brightness(1.12);
+      transform: translateY(-1px);
+      box-shadow: 4px 4px 0px var(--accent-secondary);
+    }
+
+    .btn-industrial-ghost {
+      background-color: var(--bg-surface);
+      color: var(--text-main);
+      border: 1px solid var(--border-line);
+      padding: 10px 18px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: all 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .btn-industrial-ghost:hover {
+      border-color: var(--accent-secondary);
+      color: var(--accent-secondary);
+      background-color: var(--bg-elevated);
+    }
+
+    /* Esquinas técnicas en celdas destacadas: combinan el Rojo Torii y el Cian Mar */
+    .blueprint-cell {
+      position: relative;
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-line);
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+    .blueprint-cell:hover {
+      border-color: var(--accent-secondary);
+    }
+    .blueprint-cell::before {
+      content: "";
+      position: absolute;
+      top: -1px;
+      left: -1px;
+      width: 12px;
+      height: 12px;
+      border-top: 2px solid var(--accent-primary);
+      border-left: 2px solid var(--accent-primary);
+      pointer-events: none;
+    }
+    .blueprint-cell::after {
+      content: "";
+      position: absolute;
+      bottom: -1px;
+      right: -1px;
+      width: 12px;
+      height: 12px;
+      border-bottom: 2px solid var(--accent-secondary);
+      border-right: 2px solid var(--accent-secondary);
+      pointer-events: none;
+    }
+
+    /* Sello Kanji Japonés tipo Hanko Industrial */
+    .kanji-stamp {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--accent-primary);
+      color: var(--accent-primary);
+      padding: 2px 7px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      background-color: rgba(255, 30, 66, 0.08);
+    }
+
+    /* Etiqueta técnica secundaria en Cian Océano / HUD */
+    .hud-cyan-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--accent-secondary);
+      color: var(--accent-secondary);
+      padding: 2px 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      background-color: rgba(44, 230, 255, 0.07);
+    }
+
+    /* Ticker continuo de ingeniería */
+    @keyframes tickerMove {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+    .industrial-ticker {
+      display: flex;
+      width: max-content;
+      animation: tickerMove 38s linear infinite;
+    }
+    .industrial-ticker:hover {
+      animation-play-state: paused;
+    }
+
+    /* =========================================================================
+       3. MODO RETRO CRT [R] (SCANLINES + BARRA DE FÓSFORO + VIÑETA)
+       ========================================================================= */
+    #crtOverlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9990;
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.45) 50%),
+        radial-gradient(circle at center, transparent 58%, rgba(0, 0, 0, 0.72) 100%);
+      background-size: 100% 4px, 100% 100%;
+    }
+    @keyframes crtSweepBar {
+      0% { top: -12%; }
+      100% { top: 112%; }
+    }
+    #crtSweep {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background: linear-gradient(180deg, transparent, rgba(0, 247, 255, 0.09), transparent);
+      animation: crtSweepBar 7s linear infinite;
+    }
+    body.crt-active #crtOverlay {
+      display: block;
+    }
+    body.crt-active {
+      text-shadow: 0 0 6px rgba(0, 247, 255, 0.22);
+    }
+
+    /* Visor Markdown para README.md en vivo */
+    .markdown-body {
+      color: var(--text-main);
+      font-size: 13.5px;
+      line-height: 1.65;
+    }
+    .markdown-body h1,
+    .markdown-body h2,
+    .markdown-body h3 {
+      font-family: 'Exo 2', sans-serif;
+      color: var(--name-primary);
+      border-bottom: 1px solid var(--border-line);
+      padding-bottom: 6px;
+      margin-top: 18px;
+      margin-bottom: 10px;
+      font-weight: 800;
+    }
+    .markdown-body pre {
+      background-color: var(--bg-canvas) !important;
+      border: 1px solid var(--border-line);
+      padding: 12px;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      margin: 10px 0;
+      color: var(--accent-primary);
+    }
+    .markdown-body code:not(pre code) {
+      background-color: var(--bg-elevated);
+      color: var(--accent-primary);
+      padding: 2px 5px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+    }
+    .markdown-body a {
+      color: var(--accent-primary);
+      text-decoration: underline;
+    }
+    .markdown-body ul {
+      list-style-type: square;
+      margin-left: 20px;
+      margin-bottom: 10px;
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-canvas);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent-secondary);
+    }
+
+    [v-cloak] {
+      display: none !important;
+    }
+  </style>
+</head>
+<body class="theme-crimson antialiased">
+
+  <!-- CAPA CRT [R] -->
+  <div id="crtOverlay" aria-hidden="true">
+    <div id="crtSweep"></div>
+  </div>
+
+  <!-- APLICACIÓN REACTIVA VUE 3 -->
+  <div id="app" v-cloak>
+
+    <!-- =====================================================================
+         BARRA DE ESTADO TÉCNICO Y NAVEGACIÓN (STICKY HEADER)
+         ===================================================================== -->
+    <header class="sticky top-0 z-40 theme-bg-glass border-b theme-border">
+      <div class="max-w-[1380px] mx-auto px-4 sm:px-6">
+        <div class="flex flex-wrap items-center justify-between py-2.5 gap-3">
+          
+          <!-- Identidad Izquierda (Nombre NUNCA en rojo) -->
+          <div class="flex items-center gap-3">
+            <a href="#" class="flex items-center gap-2.5 focus:outline-none group">
+              <div class="w-8 h-8 theme-bg-surface border theme-border-sub flex items-center justify-center font-mono font-bold text-xs theme-text-sub">
+                JC
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="font-display font-black text-lg tracking-wider jhonny-name-lockup">
+                    JHONNY<span class="jhonny-name-highlight">CCM</span>
+                  </span>
+                  <span class="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono theme-bg-elevated border theme-border theme-text-muted">
+                    00°57'S 80°43'W // MANTA, EC
+                  </span>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <!-- Selector en Vivo de las 2 Paletas Oficiales (TOKYO-CRIMSON & E-INK MONO) -->
+          <div class="flex items-center gap-1 theme-bg-surface p-1 border theme-border">
+            <span class="text-[10px] font-mono theme-text-muted px-2 hidden md:inline">PALETA &amp; BANNER:</span>
+            <button
+              v-for="t in themes"
+              :key="t.id"
+              @click="applyTheme(t.id)"
+              :class="activeTheme === t.id ? 'btn-industrial-primary !py-1 !px-3' : 'text-[11px] font-mono theme-text-muted hover:theme-text-main px-3 py-1'"
+              :title="t.description"
+            >
+              {{ t.label }}
+            </button>
+          </div>
+
+          <!-- Controles Derechos: Navegación + Selector Idioma [ES|EN] + Modo CRT [R] + CV ATS -->
+          <div class="flex items-center gap-2">
+            <nav class="hidden xl:flex items-center gap-4 text-xs font-mono mr-2">
+              <a href="#proyectos-github" class="theme-text-muted hover:theme-text-sub transition">{{ t('nav.projects') }}</a>
+              <a href="#experiencia" class="theme-text-muted hover:theme-text-sub transition">{{ t('nav.experience') }}</a>
+              <a href="#stack-table" class="theme-text-muted hover:theme-text-sub transition">{{ t('nav.stack') }}</a>
+              <a href="#github-telemetry" class="theme-text-muted hover:theme-text-sub transition">{{ t('nav.pulse') }}</a>
+            </nav>
+
+            <!-- Selector de Idioma [ ES | EN ] -->
+            <div class="flex items-center border theme-border font-mono text-[11px] theme-bg-surface">
+              <button
+                @click="setLang('es')"
+                :class="currentLang === 'es' ? 'btn-industrial-primary !py-1 !px-2.5 font-bold' : 'theme-text-muted hover:theme-text-main px-2.5 py-1'"
+                title="Cambiar idioma a Español"
+              >
+                ES
+              </button>
+              <button
+                @click="setLang('en')"
+                :class="currentLang === 'en' ? 'btn-industrial-primary !py-1 !px-2.5 font-bold' : 'theme-text-muted hover:theme-text-main px-2.5 py-1'"
+                title="Switch language to English"
+              >
+                EN
+              </button>
+            </div>
+
+            <!-- Botón Modo Retro CRT [R] -->
+            <button
+              @click="toggleCrt"
+              :class="crtEnabled ? 'btn-industrial-primary !py-1.5 !px-3' : 'btn-industrial-ghost !py-1.5 !px-3'"
+              :title="currentLang === 'es' ? 'Activar/Desactivar Monitor Retro CRT (Atajo: tecla R)' : 'Toggle Retro CRT Monitor (Shortcut: key R)'"
+            >
+              <i class="fa-solid fa-tv"></i>
+              <span>{{ crtEnabled ? t('nav.crtOn') : t('nav.crtOff') }}</span>
+            </button>
+
+            <!-- Botón CV ATS -->
+            <button
+              @click="contactModalOpen = true"
+              class="btn-industrial-primary !py-1.5 !px-3"
+            >
+              <span>{{ t('nav.cvContact') }}</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </header>
+
+
+    <!-- =====================================================================
+         SECCIÓN 00 // HERO ARQUITECTÓNICO CON IMAGEN REAL DEL BANNER (CERO SVG EN CÓDIGO)
+         ===================================================================== -->
+    <section
+      class="relative w-full min-h-[680px] border-b theme-border overflow-hidden flex flex-col justify-between theme-bg-canvas"
+    >
+      
+      <!-- Riel Superior de Especificaciones (Pragmático y Humano + Kanjis) -->
+      <div class="relative z-20 theme-bg-glass border-b theme-border py-1.5 overflow-hidden">
+        <div class="industrial-ticker font-mono text-[11px] tracking-widest uppercase theme-text-muted">
+          <span class="mx-6"><strong class="theme-text-sub">[MANTA, ECUADOR // ULEAM]</strong> ARQUITECTURA FULL STACK • INTERFACES UI/UX • CLOUD &amp; DOCKER</span>
+          <span class="mx-6"><strong class="theme-text-accent">[未来 MIRAI]</strong> DESARROLLO DE PLATAFORMAS WEB ESCALABLES, MVPs &amp; HERRAMIENTAS DE IA</span>
+          <span class="mx-6"><strong class="theme-text-sub">[創造 SŌZŌ]</strong> TYPESCRIPT • VUE 3 • REACT • NEXT.JS • ANGULAR • TAILWIND CSS</span>
+          <span class="mx-6"><strong class="theme-text-accent">[コード KŌDO]</strong> NODE.JS • PYTHON • POSTGRESQL • SUPABASE • AZURE &amp; GOOGLE CLOUD</span>
+          <!-- Duplicado para scroll infinito -->
+          <span class="mx-6"><strong class="theme-text-sub">[MANTA, ECUADOR // ULEAM]</strong> ARQUITECTURA FULL STACK • INTERFACES UI/UX • CLOUD &amp; DOCKER</span>
+          <span class="mx-6"><strong class="theme-text-accent">[未来 MIRAI]</strong> DESARROLLO DE PLATAFORMAS WEB ESCALABLES, MVPs &amp; HERRAMIENTAS DE IA</span>
+          <span class="mx-6"><strong class="theme-text-sub">[創造 SŌZŌ]</strong> TYPESCRIPT • VUE 3 • REACT • NEXT.JS • ANGULAR • TAILWIND CSS</span>
+          <span class="mx-6"><strong class="theme-text-accent">[コード KŌDO]</strong> NODE.JS • PYTHON • POSTGRESQL • SUPABASE • AZURE &amp; GOOGLE CLOUD</span>
+        </div>
+      </div>
+
+      <!-- CAPA ÚNICA DE FONDO: IMAGEN REAL DEL BANNER (.JPG) SIN SVG HECHO CON CÓDIGO -->
+      <div class="absolute inset-0 z-0 bg-[#0A0B0E]">
+        <img
+          :key="currentBannerUrl"
+          :src="currentBannerUrl"
+          alt="Banner Manta Ecuador Retro Neon Japonés"
+          class="w-full h-full object-cover object-center transition-opacity duration-500 select-none"
+          @load="onBannerImageLoad"
+          @error="onBannerImageError"
+        />
+        <!-- Gradiente de integración inferior y viñeta sutil para fundir el banner con el lienzo #0E1015 / #0A0B0D -->
+        <div
+          class="absolute inset-0 pointer-events-none"
+          style="background: linear-gradient(180deg, rgba(10,11,14,0.20) 0%, rgba(10,11,14,0.12) 65%, var(--bg-canvas) 100%);"
+        ></div>
+      </div>
+
+      <!-- MATRIZ ASIMÉTRICA DE 12 COLUMNAS SOBRE EL HERO (Ocultable con Modo Paisaje) -->
+      <div
+        :class="landscapeMode ? 'opacity-0 pointer-events-none scale-95' : 'opacity-100 scale-100'"
+        class="relative z-20 max-w-[1380px] w-full mx-auto px-4 sm:px-6 py-8 md:py-12 my-auto transition-all duration-300"
+      >
+        <div class="grid grid-cols-1 lg:grid-cols-12 border theme-border theme-bg-glass shadow-2xl">
+          
+          <!-- COLUMNA IZQUIERDA (7 COLUMNAS): IDENTIDAD TÉCNICA Y CONTROLES -->
+          <div class="lg:col-span-7 p-6 sm:p-8 lg:p-10 border-b lg:border-b-0 lg:border-r theme-border flex flex-col justify-between">
+            <div>
+              <!-- Metadatos Superiores: Posicionamiento auténtico ULEAM + Sellos Kanji -->
+              <div class="flex flex-wrap items-center justify-between gap-2 pb-4 mb-6 border-b theme-border font-mono text-xs">
+                <div class="flex items-center gap-2">
+                  <span class="hud-cyan-badge">{{ t('hero.badgeUleam') }}</span>
+                  <span class="theme-text-main font-semibold">{{ t('hero.location') }}</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="kanji-stamp">未来 MIRAI</span>
+                  <span class="kanji-stamp">創造 SŌZŌ</span>
+                  <span class="kanji-stamp">コード KŌDO</span>
+                </div>
+              </div>
+
+              <!-- Subtítulo Auténtico y Nombre en Blanco + Cian Hielo (NUNCA EN ROJO) -->
+              <div class="font-mono text-xs uppercase tracking-widest theme-text-sub mb-1.5">
+                {{ t('hero.role') }}
+              </div>
+              <h1 class="font-display font-black text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-none mb-4">
+                <span class="jhonny-name-lockup">JHONNY </span>
+                <span class="jhonny-name-highlight">CASTILLO</span>
+              </h1>
+
+              <!-- Typing SVG Oficial del README de GitHub -->
+              <div class="my-4 p-2 theme-bg-canvas border theme-border-sub">
+                <img
+                  src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=21&pause=1000&color=2CE6FF&center=false&vCenter=true&width=680&lines=Full+Stack+Developer+%F0%9F%9A%80;Estudiante+de+Ingenier%C3%ADa+de+Software+%40+ULEAM;Creando+MCPs+(Model+Context+Protocol)+por+Hobby+%F0%9F%A4%96;Arquitecturas+Escalables%2C+Cloud+%26+Game+Dev+%F0%9F%8E%AE"
+                  alt="Typing SVG"
+                  class="w-full max-w-[640px] h-9 sm:h-10 object-contain object-left"
+                />
+              </div>
+
+              <!-- Biografía Pragmática y Cercana Bilingüe -->
+              <p class="theme-text-main text-sm sm:text-base leading-relaxed mb-6" v-html="t('hero.bio')">
+              </p>
+
+              <!-- Badges Oficiales del README -->
+              <div class="flex flex-wrap items-center gap-2.5 mb-6">
+                <a href="https://github.com/JhonnyCCM" target="_blank" rel="noopener noreferrer" class="hover:opacity-90 transition">
+                  <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" class="h-7" />
+                </a>
+                <button @click="copyEmail" class="hover:opacity-90 transition" title="Copiar correo jhonnyccm11@gmail.com">
+                  <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Gmail" class="h-7" />
+                </button>
+                <img src="https://komarev.com/ghpvc/?username=JhonnyCCM&color=2ce6ff&style=for-the-badge&label=VISITAS" alt="Profile Views" class="h-7" />
+              </div>
+            </div>
+
+            <!-- Acciones de Ingeniería -->
+            <div class="pt-4 border-t theme-border flex flex-wrap items-center gap-3">
+              <a href="#proyectos-github" class="btn-industrial-primary">
+                <i class="fa-brands fa-github"></i>
+                <span>{{ t('hero.btnProjects') }} ({{ counts.main }})</span>
+              </a>
+              <a href="#experiencia" class="btn-industrial-ghost">
+                <i class="fa-solid fa-briefcase theme-text-sub"></i>
+                <span>{{ t('hero.btnExperience') }}</span>
+              </a>
+              <button @click="openMcpModal('design')" class="btn-industrial-ghost">
+                <i class="fa-solid fa-terminal theme-text-sub"></i>
+                <span>{{ t('hero.btnMcpSim') }}</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- COLUMNA DERECHA (5 COLUMNAS): MONITOR GIF MULTICANAL + CONSOLA TÉCNICA -->
+          <div class="lg:col-span-5 flex flex-col justify-between theme-bg-surface">
+            
+            <!-- Monitor Superior con Selector de Canales GIF -->
+            <div class="p-4 sm:p-5 border-b theme-border">
+              <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono pb-2 mb-2.5 border-b theme-border">
+                <span class="theme-text-sub font-bold">MONITOR // {{ currentHeroGif.label }}</span>
+                <div class="flex items-center gap-1">
+                  <button
+                    v-for="(g, gIdx) in heroGifChannels"
+                    :key="g.id"
+                    @click="activeGifChannel = gIdx; showHeroGif = true"
+                    :class="activeGifChannel === gIdx ? 'theme-bg-elevated theme-text-sub border theme-border-sub font-bold' : 'theme-bg-canvas theme-text-muted border theme-border'"
+                    class="px-2 py-0.5 text-[10px] transition"
+                    :title="g.caption"
+                  >
+                    CH-0{{ gIdx + 1 }}
+                  </button>
+                  <button
+                    @click="showHeroGif = !showHeroGif"
+                    class="px-2 py-0.5 border theme-border theme-bg-elevated theme-text-main hover:theme-border-sub text-[10px] ml-1"
+                  >
+                    {{ showHeroGif ? 'OFF' : 'ON' }}
+                  </button>
+                </div>
+              </div>
+
+              <div v-show="showHeroGif" class="relative theme-bg-canvas border theme-border-sub p-1.5 flex items-center justify-center bg-black">
+                <img
+                  :key="currentHeroGif.url"
+                  :src="currentHeroGif.url"
+                  :alt="currentHeroGif.label"
+                  class="w-full h-[175px] object-cover"
+                />
+                <div class="absolute bottom-2 left-2 px-2 py-0.5 bg-black/85 border theme-border-sub font-mono text-[10px] theme-text-sub">
+                  {{ currentHeroGif.tag }}
+                </div>
+                <div class="absolute bottom-2 right-2 px-2 py-0.5 bg-black/85 border theme-border-accent font-mono text-[10px] theme-text-accent">
+                  {{ currentHeroGif.caption }}
+                </div>
+              </div>
+            </div>
+
+            <!-- Consola Interactiva de 3 Pestañas (jhonnyCastillo.ts | MCP Live | CLI) -->
+            <div class="flex-1 flex flex-col justify-between">
+              <div class="flex items-center justify-between border-b theme-border font-mono text-[11px] theme-bg-canvas px-1">
+                <div class="flex">
+                  <button
+                    @click="heroConsoleTab = 'ts'"
+                    :class="heroConsoleTab === 'ts' ? 'theme-bg-elevated theme-text-sub font-bold border-b-2 theme-border-sub' : 'theme-text-muted'"
+                    class="px-3.5 py-2.5 border-r theme-border transition flex items-center gap-1.5"
+                  >
+                    <i class="fa-brands fa-js theme-text-sub text-xs"></i>
+                    <span>jhonnyCastillo.ts</span>
+                  </button>
+                  <button
+                    @click="heroConsoleTab = 'status'"
+                    :class="heroConsoleTab === 'status' ? 'theme-bg-elevated theme-text-sub font-bold border-b-2 theme-border-sub' : 'theme-text-muted'"
+                    class="px-3.5 py-2.5 border-r theme-border transition flex items-center gap-1.5"
+                  >
+                    <i class="fa-solid fa-code theme-text-sub text-xs"></i>
+                    <span>status.json</span>
+                  </button>
+                  <button
+                    @click="heroConsoleTab = 'cli'"
+                    :class="heroConsoleTab === 'cli' ? 'theme-bg-elevated theme-text-sub font-bold border-b-2 theme-border-sub' : 'theme-text-muted'"
+                    class="px-3.5 py-2.5 transition flex items-center gap-1.5"
+                  >
+                    <i class="fa-solid fa-terminal theme-text-sub text-xs"></i>
+                    <span>CLI_Shell</span>
+                  </button>
+                </div>
+                <div class="hidden sm:flex items-center gap-1.5 pr-2.5">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span class="text-[10px] theme-text-muted font-bold">ONLINE</span>
+                </div>
+              </div>
+
+              <!-- Tab 1: Objeto TypeScript con toque humano y personal -->
+              <div v-show="heroConsoleTab === 'ts'" class="p-4 font-mono text-[11.5px] leading-relaxed overflow-x-auto theme-bg-canvas">
+<pre class="theme-text-main"><span class="theme-text-accent font-bold">const</span> <span class="theme-text-sub font-bold">jhonnyCastillo</span> = {
+  location: <span class="theme-text-muted">"Manta, Ecuador 🇪🇨"</span>,
+  education: <span class="theme-text-muted">"Ingeniería de Software @ ULEAM"</span>,
+  role: <span class="theme-text-muted">"Full Stack Developer // Web, Cloud &amp; UI/UX"</span>,
+  coreFocus: [<span class="theme-text-sub">"Clean Architecture"</span>, <span class="theme-text-sub">"Modern UI/UX"</span>, <span class="theme-text-sub">"Cloud CI/CD"</span>, <span class="theme-text-sub">"AI Tooling"</span>],
+  <span class="theme-text-muted italic">// Fuera del IDE: apasionado por el diseño visual, descubrir buena música</span>
+  <span class="theme-text-muted italic">// en Spotify y coleccionar carritos Hot Wheels a escala 🏎️🎵</span>
+  offScreen: [<span class="theme-text-sub">"UI/UX Design"</span>, <span class="theme-text-sub">"Music &amp; Playlists"</span>, <span class="theme-text-sub">"Hot Wheels Collector"</span>]
+};</pre>
+              </div>
+
+              <!-- Tab 2: status.json Disponibilidad y Enfoque Dual -->
+              <div v-show="heroConsoleTab === 'status'" class="p-4 font-mono text-[11.5px] leading-relaxed overflow-x-auto theme-bg-canvas">
+<pre class="theme-text-main">{
+  <span class="theme-text-sub">"developer"</span>: <span class="theme-text-muted">"Jhonny Castillo (@JhonnyCCM)"</span>,
+  <span class="theme-text-sub">"availability"</span>: <span class="theme-text-accent font-bold">"OPEN_TO_WORK_AND_MVPS"</span>,
+  <span class="theme-text-sub">"targets"</span>: [
+    <span class="theme-text-muted">"Full Stack / Frontend / Backend Developer Roles"</span>,
+    <span class="theme-text-muted">"Custom Web Platforms, Cloud &amp; MVPs for New Businesses"</span>
+  ],
+  <span class="theme-text-sub">"stack"</span>: [<span class="theme-text-sub">"TS/JS"</span>, <span class="theme-text-sub">"Python"</span>, <span class="theme-text-sub">"Vue/React/Next/Angular"</span>, <span class="theme-text-sub">"Postgres/Supabase"</span>, <span class="theme-text-sub">"Docker/Cloud"</span>],
+  <span class="theme-text-sub">"location"</span>: <span class="theme-text-muted">"Manta, EC (Remote / Hybrid)"</span>
+}</pre>
+              </div>
+
+              <!-- Tab 3: Terminal CLI -->
+              <div v-show="heroConsoleTab === 'cli'" class="p-4 font-mono text-[11.5px] theme-bg-canvas space-y-2">
+                <div class="h-28 overflow-y-auto space-y-1 border theme-border p-2 theme-bg-surface">
+                  <div class="theme-text-sub">JhonnyCCM Terminal // Prueba un comando:</div>
+                  <div v-for="(line, i) in cliHistory" :key="i" v-html="line"></div>
+                </div>
+                <div class="flex flex-wrap gap-1.5">
+                  <button @click="runCliCommand('stack')" class="px-2 py-0.5 border theme-border theme-bg-elevated theme-text-sub text-[10px]">stack</button>
+                  <button @click="runCliCommand('mcp')" class="px-2 py-0.5 border theme-border theme-bg-elevated theme-text-sub text-[10px]">mcp</button>
+                  <button @click="runCliCommand('hobbies')" class="px-2 py-0.5 border theme-border theme-bg-elevated theme-text-sub text-[10px]">hobbies</button>
+                  <button @click="runCliCommand('clear')" class="px-2 py-0.5 border theme-border theme-bg-elevated theme-text-muted text-[10px]">clear</button>
+                </div>
+              </div>
+
+              <div class="px-4 py-2 border-t theme-border font-mono text-[10px] theme-text-muted flex items-center justify-between">
+                <span>Pragmatic engineering • High shipping velocity • Manta, EC</span>
+                <span class="theme-text-sub">{{ activeTheme.toUpperCase() }}</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Barra de Telemetría Inferior del Banner (Solo lectura + Modo Paisaje) -->
+      <div class="relative z-20 theme-bg-glass border-t theme-border px-4 sm:px-6 py-2.5">
+        <div class="max-w-[1380px] mx-auto flex flex-wrap items-center justify-between gap-3 font-mono text-xs">
+          
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="w-2.5 h-2.5 inline-block" style="background-color: var(--accent-primary)"></span>
+            <span class="w-2.5 h-2.5 inline-block" style="background-color: var(--accent-secondary)"></span>
+            <span class="theme-text-muted">BANNER IMAGEN ACTIVA ({{ activeTheme.toUpperCase() }}):</span>
+            <span class="theme-text-main font-bold">{{ currentBannerFilename }}</span>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <button
+              @click="landscapeMode = !landscapeMode"
+              class="btn-industrial-primary !py-1 !px-3 !text-[11px]"
+            >
+              <i class="fa-solid fa-panorama"></i>
+              <span>{{ landscapeMode ? 'MOSTRAR PANELES HERO' : 'MODO PAISAJE (VER BANNER COMPLETO)' }}</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================================
+         SECCIÓN 01 // CATÁLOGO DE PROYECTOS & ECOSISTEMA MCP (UNIFICADO & BILINGÜE)
+         Integra Servidores MCP, Desarrollo Web, Automatización y Prácticas Móviles
+         ===================================================================== -->
+    <section id="proyectos-github" class="w-full py-16 md:py-24 border-b theme-border">
+      <div class="max-w-[1380px] mx-auto px-4 sm:px-6">
+        
+        <!-- Cabecera de Sección Bilingüe -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 border theme-border theme-bg-surface mb-8">
+          <div class="lg:col-span-8 p-6 sm:p-8 border-b lg:border-b-0 lg:border-r theme-border">
+            <div class="flex items-center gap-2 font-mono text-xs theme-text-accent uppercase tracking-widest mb-2">
+              <span>{{ t('projectsSection.badge') }}</span>
+              <span class="kanji-stamp">コード KŌDO</span>
+            </div>
+            <h2 class="font-display font-black text-3xl sm:text-4xl theme-text-main tracking-tight uppercase">
+              {{ t('projectsSection.title') }}
+            </h2>
+            <p class="theme-text-muted text-sm mt-2 leading-relaxed" v-html="t('projectsSection.desc')">
+            </p>
+          </div>
+
+          <!-- Panel Lateral de Estado de Sincronización API -->
+          <div class="lg:col-span-4 p-6 sm:p-8 flex flex-col justify-between theme-bg-canvas font-mono text-xs">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between border-b theme-border pb-1.5">
+                <span class="theme-text-muted">{{ t('projectsSection.syncStatus') }}</span>
+                <span class="theme-text-accent font-bold">{{ githubSyncStatus }}</span>
+              </div>
+              <div class="flex items-center justify-between border-b theme-border pb-1.5">
+                <span class="theme-text-muted">{{ t('projectsSection.coreProjects') }}</span>
+                <span class="theme-text-main font-bold">{{ counts.main }} REPOS</span>
+              </div>
+              <div class="flex items-center justify-between border-b theme-border pb-1.5">
+                <span class="theme-text-muted">{{ t('projectsSection.googlePractices') }}</span>
+                <span class="theme-text-sub font-bold">{{ counts.practice }} SEPARADOS</span>
+              </div>
+              <div class="flex items-center justify-between border-b theme-border pb-1.5">
+                <span class="theme-text-muted">{{ t('projectsSection.academicUleam') }}</span>
+                <span class="theme-text-main font-bold">{{ counts.academic }} REPOS</span>
+              </div>
+            </div>
+
+            <div class="mt-4 flex flex-wrap gap-2">
+              <button @click="syncGitHubRepos(true)" class="btn-industrial-ghost w-full">
+                <i class="fa-solid fa-rotate" :class="{'fa-spin': isSyncing}"></i>
+                <span>{{ t('projectsSection.btnSync') }}</span>
+              </button>
+              <a href="https://github.com/JhonnyCCM?tab=repositories" target="_blank" rel="noopener noreferrer" class="btn-industrial-primary w-full text-center">
+                <i class="fa-brands fa-github"></i>
+                <span>{{ t('projectsSection.btnAllGithub') }}</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- BARRA DE FILTRO INTEGRADA POR CATEGORÍAS & VISTA DE REPOSITORIOS -->
+        <div class="border theme-border theme-bg-surface p-4 sm:p-5 mb-8 space-y-4">
+          
+          <!-- Fila 1: Botones de Categorías Técnicas (MCP & IA, Web, Automatización, etc.) -->
+          <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b theme-border">
+            <div class="flex flex-wrap items-center gap-1.5">
+              <span class="font-mono text-xs theme-text-sub mr-1.5 font-bold uppercase">{{ t('projectsSection.catLabel') }}</span>
+              <button
+                @click="setCategory('all')"
+                :class="activeCategory === 'all' ? 'btn-industrial-primary !py-1 !px-3' : 'btn-industrial-ghost !py-1 !px-3'"
+              >
+                {{ t('projectsSection.catAll') }}
+              </button>
+              <button
+                @click="setCategory('mcp')"
+                :class="activeCategory === 'mcp' ? 'btn-industrial-primary !py-1 !px-3' : 'btn-industrial-ghost !py-1 !px-3'"
+              >
+                <i class="fa-solid fa-robot mr-1 text-xs"></i>
+                {{ t('projectsSection.catMcp') }}
+              </button>
+              <button
+                @click="setCategory('fullstack')"
+                :class="activeCategory === 'fullstack' ? 'btn-industrial-primary !py-1 !px-3' : 'btn-industrial-ghost !py-1 !px-3'"
+              >
+                <i class="fa-solid fa-layer-group mr-1 text-xs"></i>
+                {{ t('projectsSection.catFullstack') }}
+              </button>
+              <button
+                @click="setCategory('automation')"
+                :class="activeCategory === 'automation' ? 'btn-industrial-primary !py-1 !px-3' : 'btn-industrial-ghost !py-1 !px-3'"
+              >
+                <i class="fa-solid fa-gears mr-1 text-xs"></i>
+                {{ t('projectsSection.catAutomation') }}
+              </button>
+              <button
+                @click="setCategory('mobile')"
+                :class="activeCategory === 'mobile' ? 'btn-industrial-primary !py-1 !px-3' : 'btn-industrial-ghost !py-1 !px-3'"
+              >
+                <i class="fa-brands fa-android mr-1 text-xs"></i>
+                {{ t('projectsSection.catMobile') }}
+              </button>
+            </div>
+
+            <!-- Botón directo al Simulador MCP JSON-RPC -->
+            <button
+              @click="openMcpModal('design')"
+              class="btn-industrial-primary !py-1 !px-3 !text-xs font-mono flex items-center gap-1.5"
+              title="Abrir Simulador Interactivo JSON-RPC 2.0"
+            >
+              <i class="fa-solid fa-terminal text-xs"></i>
+              <span>{{ t('projectsSection.simulateMcp') }}</span>
+            </button>
+          </div>
+
+          <!-- Fila 2: Selector de Tipo de Repositorio (Principales vs Prácticas Google) + Buscador -->
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="font-mono text-xs theme-text-muted mr-1">{{ t('projectsSection.viewActive') }}</span>
+              <button
+                @click="activeRepoType = 'main'"
+                :class="activeRepoType === 'main' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
+              >
+                {{ t('projectsSection.tabMain') }} ({{ counts.main }})
+              </button>
+              <button
+                @click="activeRepoType = 'practice'"
+                :class="activeRepoType === 'practice' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
+              >
+                {{ t('projectsSection.tabPractice') }} ({{ counts.practice }})
+              </button>
+              <button
+                @click="activeRepoType = 'academic'"
+                :class="activeRepoType === 'academic' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
+              >
+                {{ t('projectsSection.tabAcademic') }} ({{ counts.academic }})
+              </button>
+              <button
+                @click="activeRepoType = 'all_visible'"
+                :class="activeRepoType === 'all_visible' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
+              >
+                {{ t('projectsSection.tabAll') }} ({{ counts.allVisible }})
+              </button>
+            </div>
+
+            <div class="relative">
+              <input
+                type="text"
+                v-model="repoSearch"
+                :placeholder="t('projectsSection.searchPlaceholder')"
+                class="theme-bg-canvas border theme-border pl-3 pr-8 py-1.5 font-mono text-xs theme-text-main w-64 focus:outline-none focus:theme-border-accent"
+              />
+              <button
+                v-if="repoSearch"
+                @click="repoSearch = ''"
+                class="absolute right-2.5 top-1/2 -translate-y-1/2 theme-text-muted hover:theme-text-main text-xs"
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- MATRIZ ARQUITECTÓNICA DE PROYECTOS (2 COLUMNAS CON BORDES EXPUESTOS DE 1PX) -->
+        <div v-if="displayedProjects.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <article
+            v-for="(proj, idx) in displayedProjects"
+            :key="proj.name"
+            class="blueprint-cell p-6 sm:p-7 flex flex-col justify-between"
+          >
+            <div>
+              <!-- Fila Superior: Índice Técnico + Etiqueta de Tipo + Lenguaje -->
+              <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-4 border-b theme-border font-mono text-xs">
+                <div class="flex items-center gap-2">
+                  <span class="theme-text-accent font-bold">IDX-{{ String(idx + 1).padStart(2, '0') }}</span>
+                  <span class="theme-text-muted">//</span>
+                  <span class="px-2 py-0.5 theme-bg-elevated border theme-border theme-text-main text-[11px]">
+                    {{ proj.language || 'CODE' }}
+                  </span>
+                  <span class="theme-text-muted text-[11px]">★ {{ proj.stars }}</span>
+                </div>
+
+                <div class="flex items-center gap-1.5">
+                  <span class="hud-cyan-badge">{{ getRepoTypeLabel(proj.repoType) }}</span>
+                </div>
+              </div>
+
+              <!-- Badge Especial para Servidores MCP -->
+              <div v-if="proj.category === 'mcp' || proj.name.toLowerCase().includes('mcp')" class="mb-3">
+                <span class="px-2.5 py-1 theme-bg-elevated border theme-border-accent theme-text-accent font-mono text-[10.5px] font-bold inline-flex items-center gap-1.5">
+                  <i class="fa-solid fa-robot"></i>
+                  <span>MODEL CONTEXT PROTOCOL // JSON-RPC 2.0</span>
+                </span>
+              </div>
+
+              <!-- Título y Enlace al Repositorio -->
+              <div class="flex items-start justify-between gap-3 mb-2">
+                <h3 class="font-display font-bold text-xl sm:text-2xl theme-text-main tracking-tight">
+                  <a :href="proj.url" target="_blank" rel="noopener noreferrer" class="hover:theme-text-accent transition">
+                    {{ proj.title }}
+                  </a>
+                </h3>
+                <span class="font-mono text-[11px] theme-text-muted shrink-0">
+                  /{{ proj.name }}
+                </span>
+              </div>
+
+              <!-- Descripción Técnica Concreta Bilingüe -->
+              <p class="theme-text-muted text-sm leading-relaxed mb-4">
+                {{ getProjTagline(proj) }}
+              </p>
+
+              <!-- Especificaciones de Implementación Bilingües -->
+              <div v-if="getProjSpecs(proj) && getProjSpecs(proj).length" class="theme-bg-canvas border theme-border p-3.5 mb-4 font-mono text-xs space-y-1.5">
+                <div v-for="(spec, sIdx) in getProjSpecs(proj)" :key="sIdx" class="flex items-start gap-2">
+                  <span class="theme-text-accent font-bold">&gt;</span>
+                  <span class="theme-text-main">{{ spec }}</span>
+                </div>
+              </div>
+
+              <!-- Etiquetas del Stack -->
+              <div class="flex flex-wrap gap-1.5 mb-5">
+                <span
+                  v-for="tag in proj.tags"
+                  :key="tag"
+                  class="px-2.5 py-0.5 theme-bg-elevated border theme-border font-mono text-[11px] theme-text-accent"
+                >
+                  {{ tag }}
+                </span>
+              </div>
+            </div>
+
+            <!-- Acciones Inferiores de la Celda -->
+            <div class="pt-4 border-t theme-border flex flex-wrap items-center justify-between gap-2">
+              <button
+                @click="openReadmeViewer(proj)"
+                class="btn-industrial-ghost !py-2 !px-3 text-xs flex-1"
+              >
+                <i class="fa-regular fa-file-code theme-text-accent"></i>
+                <span>{{ t('projectsSection.inspectReadme') }}</span>
+              </button>
+              
+              <!-- Botón Simulador JSON-RPC si es servidor MCP -->
+              <button
+                v-if="proj.category === 'mcp' || proj.name.toLowerCase().includes('mcp')"
+                @click="openMcpModal(proj.name.toLowerCase().includes('spotify') ? 'spotify' : 'design')"
+                class="btn-industrial-primary !py-2 !px-3 text-xs flex items-center gap-1.5"
+                :title="currentLang === 'es' ? 'Simular llamada JSON-RPC del protocolo MCP' : 'Simulate MCP protocol JSON-RPC call'"
+              >
+                <i class="fa-solid fa-terminal text-[10px]"></i>
+                <span>{{ t('projectsSection.simulateMcp') }}</span>
+              </button>
+
+              <a
+                :href="proj.url"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-industrial-primary !py-2 !px-3.5 text-xs"
+              >
+                <span>{{ t('projectsSection.githubRepo') }}</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+            </div>
+          </article>
+        </div>
+
+        <!-- Estado sin resultados Bilingüe -->
+        <div v-else class="blueprint-cell p-10 text-center font-mono">
+          <div class="text-sm theme-text-main font-bold mb-2">
+            {{ t('projectsSection.noResultsTitle') }}
+          </div>
+          <p class="text-xs theme-text-muted mb-5">
+            {{ t('projectsSection.noResultsDesc') }}
+          </p>
+          <div class="flex flex-wrap justify-center gap-3">
+            <button @click="activeRepoType = 'main'; activeCategory = 'all'; repoSearch = ''" class="btn-industrial-primary">
+              {{ t('projectsSection.btnShowMain') }} ({{ counts.main }})
+            </button>
+            <button @click="activeRepoType = 'practice'; activeCategory = 'all'" class="btn-industrial-ghost">
+              {{ t('projectsSection.btnShowPractice') }} ({{ counts.practice }})
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================================================
+         SECCIÓN 02 // EXPERIENCIA & TRAYECTORIA TÉCNICA (BILINGÜE)
+         (Inspirado en stevsant.vercel.app/experience: Proyectos reales, diseño web y formación)
+         ===================================================================== -->
+    <section id="experiencia" class="w-full py-16 md:py-24 border-b theme-border">
+      <div class="max-w-[1380px] mx-auto px-4 sm:px-6">
+        
+        <div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 font-mono text-xs theme-text-accent uppercase tracking-widest mb-2">
+              <span>{{ t('experienceSection.badge') }}</span>
+              <span class="kanji-stamp">経歴 KEIREKI</span>
+            </div>
+            <h2 class="font-display font-black text-3xl sm:text-4xl theme-text-main uppercase">
+              {{ t('experienceSection.title') }}
+            </h2>
+            <p class="theme-text-muted text-sm mt-2 max-w-3xl">
+              {{ t('experienceSection.desc') }}
+            </p>
+          </div>
+          <div class="font-mono text-xs theme-text-sub flex items-center gap-2">
+            <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>{{ t('experienceSection.openBadge') }}</span>
+          </div>
+        </div>
+
+        <!-- Timeline / Grid de Experiencias -->
+        <div class="space-y-6">
+          <div
+            v-for="(exp, idx) in experiences"
+            :key="idx"
+            class="theme-bg-surface border theme-border hover:theme-border-sub transition p-6 sm:p-8"
+          >
+            <div class="flex flex-col lg:flex-row lg:items-start justify-between gap-4 pb-4 mb-4 border-b theme-border">
+              <div>
+                <div class="flex flex-wrap items-center gap-2 mb-2 font-mono text-xs">
+                  <span class="px-2 py-0.5 theme-bg-elevated border theme-border-accent theme-text-accent font-bold">
+                    {{ getExp(exp, 'period') }}
+                  </span>
+                  <span class="px-2 py-0.5 theme-bg-canvas border theme-border theme-text-muted">
+                    {{ getExp(exp, 'category') }}
+                  </span>
+                  <span class="theme-text-sub">
+                    <i class="fa-solid fa-location-dot mr-1"></i>{{ getExp(exp, 'location') }}
+                  </span>
+                </div>
+                <h3 class="font-display font-bold text-2xl theme-text-main">
+                  {{ getExp(exp, 'role') }}
+                </h3>
+                <div class="font-mono text-sm theme-text-accent mt-0.5">
+                  {{ getExp(exp, 'company') }}
+                </div>
+              </div>
+
+              <div class="lg:text-right font-mono text-xs">
+                <span class="kanji-stamp">{{ exp.kanji }}</span>
+              </div>
+            </div>
+
+            <p class="theme-text-main text-sm sm:text-base leading-relaxed mb-5">
+              {{ getExp(exp, 'summary') }}
+            </p>
+
+            <!-- Lista de Responsabilidades e Impacto -->
+            <div class="space-y-2.5 mb-6">
+              <div
+                v-for="(point, pIdx) in getExpHighlights(exp)"
+                :key="pIdx"
+                class="flex items-start gap-3 text-xs sm:text-sm theme-text-muted"
+              >
+                <span class="theme-text-accent font-mono text-xs mt-0.5">▸</span>
+                <span v-html="point" class="leading-relaxed"></span>
+              </div>
+            </div>
+
+            <!-- Stack de Tecnologías Aplicadas -->
+            <div class="pt-4 border-t theme-border flex flex-wrap items-center justify-between gap-4">
+              <div class="flex flex-wrap items-center gap-1.5">
+                <span class="font-mono text-xs theme-text-sub mr-2 font-semibold">{{ t('experienceSection.stackLabel') }}</span>
+                <span
+                  v-for="tech in exp.stack"
+                  :key="tech"
+                  class="px-2.5 py-1 theme-bg-canvas border theme-border font-mono text-xs theme-text-main hover:theme-border-accent transition"
+                >
+                  {{ tech }}
+                </span>
+              </div>
+              <div v-if="exp.actionLink" class="font-mono text-xs">
+                <a :href="exp.actionLink.url" :target="exp.actionLink.external ? '_blank' : '_self'" class="theme-text-accent hover:underline flex items-center gap-1.5">
+                  <span>{{ getExpLinkText(exp) }}</span>
+                  <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================================================
+         SECCIÓN 03 // TABLA DE ESPECIFICACIÓN DE TECH STACK (6 CAPAS)
+         ===================================================================== -->
+    <section id="stack-table" class="w-full py-16 md:py-24 border-b theme-border theme-bg-surface">
+      <div class="max-w-[1380px] mx-auto px-4 sm:px-6">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+          <div>
+            <div class="font-mono text-xs theme-text-accent uppercase tracking-widest mb-2">
+              {{ t('stackSection.badge') }}
+            </div>
+            <h2 class="font-display font-black text-3xl sm:text-4xl theme-text-main uppercase">
+              {{ t('stackSection.title') }}
+            </h2>
+            <p class="theme-text-muted text-sm mt-1 max-w-2xl">
+              {{ t('stackSection.desc') }}
+            </p>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <input
+              type="text"
+              v-model="stackFilter"
+              :placeholder="t('stackSection.filterPlaceholder')"
+              class="theme-bg-canvas border theme-border px-3.5 py-2 font-mono text-xs theme-text-main w-72 focus:outline-none focus:theme-border-accent"
+            />
+            <button v-if="stackFilter" @click="stackFilter = ''" class="btn-industrial-ghost !py-2 !px-3 font-mono text-xs">
+              ✕
+            </button>
+          </div>
+        </div>
+
+        <!-- Tabla Arquitectónica de las 6 Capas -->
+        <div class="border-t border-x theme-border theme-bg-canvas">
+          <div
+            v-for="(layer, idx) in filteredStackLayers"
+            :key="layer.id"
+            class="grid grid-cols-1 lg:grid-cols-12 border-b theme-border hover:theme-bg-surface transition"
+          >
+            <!-- Columna 1: Código y Nombre de Capa -->
+            <div class="lg:col-span-3 p-5 border-b lg:border-b-0 lg:border-r theme-border flex flex-col justify-between">
+              <div>
+                <div class="font-mono text-xs theme-text-accent font-bold">{{ layer.code }}</div>
+                <h3 class="font-display font-bold text-lg theme-text-main mt-1">{{ getLayerName(layer) }}</h3>
+              </div>
+              <div class="font-mono text-[11px] theme-text-muted mt-3">
+                {{ layer.items.length }} {{ currentLang === 'es' ? 'TECNOLOGÍAS ACTIVAS' : 'ACTIVE TECHNOLOGIES' }}
+              </div>
+            </div>
+
+            <!-- Columna 2: Iconos Oficiales Skillicons + Badges Clicables -->
+            <div class="lg:col-span-5 p-5 border-b lg:border-b-0 lg:border-r theme-border flex flex-col justify-center gap-3">
+              <div class="p-2.5 theme-bg-surface border theme-border inline-block w-fit">
+                <img :src="layer.skillicons" :alt="getLayerName(layer)" class="h-10 w-auto object-contain" loading="lazy" />
+              </div>
+              <div class="flex flex-wrap gap-1.5">
+                <button
+                  v-for="item in layer.items"
+                  :key="item"
+                  @click="stackFilter = item"
+                  :class="stackFilter && item.toLowerCase().includes(stackFilter.toLowerCase()) ? 'btn-industrial-primary !py-0.5 !px-2 !text-[11px]' : 'px-2 py-0.5 theme-bg-elevated border theme-border font-mono text-[11px] theme-text-main hover:theme-border-accent'"
+                >
+                  {{ item }}
+                </button>
+              </div>
+            </div>
+
+            <!-- Columna 3: Aplicación en Producción -->
+            <div class="lg:col-span-4 p-5 flex items-center text-xs sm:text-sm theme-text-muted leading-relaxed">
+              {{ getLayerSpec(layer) }}
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================================================
+         SECCIÓN 04 // PULSO DE GITHUB & LABORATORIO EN VIVO (BILINGÜE)
+         ===================================================================== -->
+    <section id="github-telemetry" class="w-full py-16 md:py-24 border-b theme-border">
+      <div class="max-w-[1380px] mx-auto px-4 sm:px-6">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+          <div>
+            <div class="flex items-center gap-2 font-mono text-xs theme-text-accent uppercase tracking-widest mb-2">
+              <span>{{ t('pulseSection.badge') }}</span>
+              <span class="kanji-stamp">創造 SŌZŌ</span>
+            </div>
+            <h2 class="font-display font-black text-3xl sm:text-4xl theme-text-main uppercase">
+              {{ t('pulseSection.title') }}
+            </h2>
+            <p class="theme-text-muted text-sm mt-1">
+              {{ t('pulseSection.desc') }}
+            </p>
+          </div>
+          <a href="https://github.com/JhonnyCCM" target="_blank" rel="noopener noreferrer" class="btn-industrial-ghost">
+            <i class="fa-brands fa-github theme-text-sub"></i>
+            <span>{{ currentLang === 'es' ? 'ABRIR GITHUB OFICIAL ↗' : 'OPEN OFFICIAL GITHUB ↗' }}</span>
+          </a>
+        </div>
+
+        <!-- Fila Principal: Monitor GIF GitHub + Resumen Limpio de Estadísticas -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6">
+          
+          <!-- Monitor con el GIF Oficial del README de GitHub (@JhonnyCCM) -->
+          <div class="lg:col-span-5 blueprint-cell p-5 flex flex-col justify-between">
+            <div class="flex items-center justify-between font-mono text-xs border-b theme-border pb-2 mb-3">
+              <span class="theme-text-sub font-bold">{{ t('pulseSection.readmeBadge') }}</span>
+              <span class="kanji-stamp">コード KŌDO</span>
+            </div>
+            <div class="border theme-border-sub bg-black p-1 mb-3">
+              <img
+                src="https://media.giphy.com/media/HBY1eWGzDALwnyeHPw/giphy.gif"
+                alt="GitHub Official Readme GIF 3:00 AM Code Mode"
+                class="w-full h-44 object-cover"
+                loading="lazy"
+              />
+            </div>
+            <p class="font-mono text-xs theme-text-muted leading-relaxed">
+              {{ t('pulseSection.readmeCaption') }}
+            </p>
+          </div>
+
+          <!-- Tarjetas Esenciales de GitHub (Solo Stats y Top Languages) -->
+          <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="blueprint-cell p-5 flex flex-col justify-between">
+              <div class="font-mono text-xs theme-text-muted border-b theme-border pb-2 mb-3">
+                {{ t('pulseSection.statsTitle') }}
+              </div>
+              <div class="flex items-center justify-center my-auto py-2">
+                <img class="max-h-[165px] w-auto" src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=JhonnyCCM&theme=tokyonight" alt="GitHub Stats" loading="lazy" />
+              </div>
+              <div class="font-mono text-[11px] theme-text-sub pt-2 border-t theme-border">
+                {{ counts.main }} {{ currentLang === 'es' ? 'Proyectos Principales' : 'Core Projects' }} • {{ counts.practice }} {{ currentLang === 'es' ? 'Codelabs' : 'Codelabs' }}
+              </div>
+            </div>
+
+            <div class="blueprint-cell p-5 flex flex-col justify-between">
+              <div class="font-mono text-xs theme-text-muted border-b theme-border pb-2 mb-3">
+                {{ t('pulseSection.langsTitle') }}
+              </div>
+              <div class="flex items-center justify-center my-auto py-2">
+                <img class="max-h-[165px] w-auto" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=JhonnyCCM&theme=tokyonight" alt="Top Languages by Repo" loading="lazy" />
+              </div>
+              <div class="font-mono text-[11px] theme-text-sub pt-2 border-t theme-border">
+                TypeScript • Python • Vue • Kotlin
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Gráfico de Actividad Continua -->
+        <div class="blueprint-cell p-4">
+          <div class="flex items-center justify-between font-mono text-xs theme-text-muted pb-2 mb-2 border-b theme-border">
+            <span>{{ t('pulseSection.activityGraphTitle') }}</span>
+            <span class="theme-text-sub">MANTA, ECUADOR 🇪🇨</span>
+          </div>
+          <img class="w-full h-auto" src="https://github-readme-activity-graph.vercel.app/graph?username=JhonnyCCM&theme=tokyo-night&hide_border=true&area=true" alt="Activity Graph" loading="lazy" />
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================================================
+         PIE DE PÁGINA ARQUITECTÓNICO + OLA OFICIAL DEL README (BILINGÜE)
+         ===================================================================== -->
+    <footer class="w-full theme-bg-surface">
+      <div class="max-w-[1380px] mx-auto px-4 sm:px-6 py-10">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center pb-8 border-b theme-border">
+          <div class="md:col-span-7">
+            <div class="font-mono text-xs theme-text-accent mb-1">{{ t('footer.transmission') }}</div>
+            <div class="font-display font-black text-2xl sm:text-3xl">
+              <span class="jhonny-name-lockup">JHONNY CASTILLO </span>
+              <span class="jhonny-name-highlight">// @JHONNYCCM</span>
+            </div>
+            <p class="theme-text-muted text-xs sm:text-sm mt-1">
+              {{ t('footer.tagline') }}
+            </p>
+          </div>
+          <div class="md:col-span-5 flex flex-wrap md:justify-end gap-3">
+            <button @click="contactModalOpen = true" class="btn-industrial-primary">
+              <span>{{ t('footer.btnAts') }}</span>
+            </button>
+            <a href="admin.html" class="btn-industrial-ghost" title="Panel Privado de Administración de Repositorios">
+              <i class="fa-solid fa-lock text-xs theme-text-sub"></i>
+              <span>{{ t('footer.btnAdmin') }}</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="pt-4 flex flex-col sm:flex-row items-center justify-between text-xs font-mono theme-text-muted gap-2">
+          <span>{{ t('footer.rights') }}</span>
+          <span>{{ t('footer.activePalette') }} <strong class="theme-text-accent">{{ activeTheme.toUpperCase() }}</strong></span>
+        </div>
+      </div>
+
+      <img
+        class="w-full h-24 object-cover block"
+        src="https://capsule-render.vercel.app/api?type=waving&color=0:1a1b27,50:3178C6,100:00F7FF&height=110&section=footer"
+        alt="Footer Wave"
+      />
+    </footer>
+
+
+    <!-- =====================================================================
+         MODAL 2: INSPECTOR MCP JSON-RPC 2.0 (BILINGÜE)
+         ===================================================================== -->
+    <div v-if="mcpModalOpen" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+      <div class="theme-bg-surface border-2 theme-border-accent max-w-3xl w-full p-6 sm:p-8 my-8">
+        <div class="flex items-center justify-between pb-4 mb-5 border-b theme-border">
+          <div>
+            <div class="font-mono text-xs theme-text-accent">{{ t('modals.mcpTitle') }}</div>
+            <h3 class="font-display font-black text-xl theme-text-main mt-1">{{ t('modals.mcpSubtitle') }}</h3>
+          </div>
+          <button @click="mcpModalOpen = false" class="btn-industrial-ghost !py-1 !px-3">✕</button>
+        </div>
+
+        <div class="flex flex-wrap gap-2 mb-5">
+          <button
+            @click="activeMcpModalTab = 'design'"
+            :class="activeMcpModalTab === 'design' ? 'btn-industrial-primary' : 'btn-industrial-ghost'"
+          >
+            DESIGN-EXTRACTOR-MCP
+          </button>
+          <button
+            @click="activeMcpModalTab = 'spotify'"
+            :class="activeMcpModalTab === 'spotify' ? 'btn-industrial-primary' : 'btn-industrial-ghost'"
+          >
+            SPOTIFY-STATS-MCP
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-xs">
+          <div class="theme-bg-canvas border theme-border p-4">
+            <div class="theme-text-accent font-bold border-b theme-border pb-2 mb-2">REQUEST (tools/call)</div>
+            <pre class="theme-text-main overflow-x-auto text-[11px]">{{ JSON.stringify(mcpExamples[activeMcpModalTab].request, null, 2) }}</pre>
+          </div>
+          <div class="theme-bg-canvas border theme-border p-4">
+            <div class="theme-text-sub font-bold border-b theme-border pb-2 mb-2">RESPONSE (200 OK)</div>
+            <pre class="theme-text-accent overflow-x-auto text-[11px]">{{ JSON.stringify(mcpExamples[activeMcpModalTab].response, null, 2) }}</pre>
+          </div>
+        </div>
+
+        <div class="mt-6 flex flex-wrap justify-between gap-3">
+          <a :href="mcpExamples[activeMcpModalTab].url" target="_blank" class="btn-industrial-ghost">
+            <span>{{ t('modals.mcpViewGithub') }}</span>
+          </a>
+          <button @click="mcpModalOpen = false" class="btn-industrial-primary">{{ t('modals.mcpClose') }}</button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- =====================================================================
+         MODAL 3: VISOR DE README.MD EN VIVO (MARKED.JS)
+         ===================================================================== -->
+    <div v-if="readmeModalOpen" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+      <div class="theme-bg-surface border-2 theme-border-accent max-w-4xl w-full p-5 sm:p-7 my-6 flex flex-col max-h-[90vh]">
+        <div class="flex items-start justify-between pb-4 mb-4 border-b theme-border shrink-0">
+          <div>
+            <div class="font-mono text-xs theme-text-accent">{{ t('modals.readmeTitle') }} // {{ activeReadmeProj.name }}</div>
+            <h3 class="font-display font-black text-xl sm:text-2xl theme-text-main mt-1">{{ activeReadmeProj.title }}</h3>
+          </div>
+          <button @click="readmeModalOpen = false" class="btn-industrial-ghost !py-1 !px-3">✕</button>
+        </div>
+
+        <div class="flex-1 overflow-y-auto theme-bg-canvas border theme-border p-4 sm:p-6 mb-4">
+          <div v-if="readmeLoading" class="py-12 text-center font-mono text-xs theme-text-accent">
+            {{ t('modals.readmeLoading') }}
+          </div>
+          <div v-else class="markdown-body" v-html="readmeRenderedHtml"></div>
+        </div>
+
+        <div class="flex flex-wrap justify-between items-center gap-3 shrink-0">
+          <a :href="activeReadmeProj.url" target="_blank" class="btn-industrial-ghost">
+            <span>{{ currentLang === 'es' ? 'ABRIR EN GITHUB ↗' : 'OPEN IN GITHUB ↗' }}</span>
+          </a>
+          <button @click="readmeModalOpen = false" class="btn-industrial-primary">{{ t('modals.readmeClose') }}</button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- =====================================================================
+         MODAL 4: CV EJECUTIVO ATS & CONTACTO DIRECTO (BILINGÜE)
+         ===================================================================== -->
+    <div v-if="contactModalOpen" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+      <div class="theme-bg-surface border-2 theme-border-accent max-w-2xl w-full p-6 sm:p-8 my-8">
+        <div class="flex items-center justify-between pb-4 mb-5 border-b theme-border">
+          <div>
+            <div class="font-mono text-xs theme-text-accent">{{ t('modals.contactTitle') }}</div>
+            <h3 class="font-display font-black text-xl jhonny-name-lockup mt-1">
+              JHONNY CASTILLO MERO <span class="jhonny-name-highlight">(@JHONNYCCM)</span>
+            </h3>
+          </div>
+          <button @click="contactModalOpen = false" class="btn-industrial-ghost !py-1 !px-3">✕</button>
+        </div>
+
+        <div class="bg-white text-black p-5 border-2 theme-border-accent space-y-3 text-xs sm:text-sm">
+          <div class="flex flex-wrap justify-between items-center border-b border-gray-300 pb-2">
+            <div>
+              <div class="font-black text-base">JHONNY CASTILLO MERO</div>
+              <div class="font-mono text-xs text-gray-700">
+                {{ currentLang === 'es' ? 'Full Stack Developer • Diseñador Web • AI MCP Builder • Estudiante de Ingeniería de Software @ ULEAM' : 'Full Stack Developer • Web Designer • AI MCP Builder • Software Engineering Student @ ULEAM' }}
+              </div>
+            </div>
+            <span class="font-mono text-xs font-bold bg-black text-white px-2.5 py-1">Manta, Ecuador 🇪🇨</span>
+          </div>
+          <p class="text-xs leading-relaxed text-gray-800">
+            <span v-if="currentLang === 'es'">
+              Desarrollador Full Stack especializado en diseño de interfaces web modernas y construcción de herramientas como servidores <strong>MCP (Model Context Protocol)</strong> para agentes de Inteligencia Artificial. Dominio de TypeScript, Python, Vue 3, Tailwind CSS, Django, PostgreSQL 16 y Docker.
+            </span>
+            <span v-else>
+              Full Stack Developer specialized in modern web interface design and building tooling such as <strong>MCP (Model Context Protocol)</strong> servers for Artificial Intelligence agents. Proficient in TypeScript, Python, Vue 3, Tailwind CSS, Django, PostgreSQL 16, and Docker.
+            </span>
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 font-mono text-xs bg-gray-100 p-3 border border-gray-300">
+            <div><strong>EMAIL:</strong> jhonnyccm11@gmail.com</div>
+            <div><strong>WHATSAPP:</strong> +593 97 889 6206</div>
+            <div><strong>GITHUB:</strong> github.com/JhonnyCCM</div>
+            <div><strong>{{ currentLang === 'es' ? 'EDUCACIÓN:' : 'EDUCATION:' }}</strong> ULEAM (Manta, EC)</div>
+          </div>
+        </div>
+
+        <div class="mt-6 flex flex-wrap justify-between gap-2">
+          <div class="flex flex-wrap gap-2">
+            <button @click="copyEmail" class="btn-industrial-ghost">{{ currentLang === 'es' ? 'COPIAR EMAIL' : 'COPY EMAIL' }}</button>
+            <a href="https://wa.me/593978896206" target="_blank" class="btn-industrial-ghost">WHATSAPP ↗</a>
+            <button onclick="window.print()" class="btn-industrial-ghost">{{ currentLang === 'es' ? 'IMPRIMIR CV ATS' : 'PRINT ATS RESUME' }}</button>
+          </div>
+          <button @click="contactModalOpen = false" class="btn-industrial-primary">{{ currentLang === 'es' ? 'CERRAR' : 'CLOSE' }}</button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- NOTIFICACIÓN TOAST INDUSTRIAL -->
+    <div
+      v-if="toastText"
+      class="fixed bottom-5 right-5 z-50 theme-bg-canvas border-2 theme-border-accent px-4 py-3 font-mono text-xs theme-text-main shadow-2xl flex items-center gap-3"
+    >
+      <span class="theme-text-accent font-bold">[OK]</span>
+      <span>{{ toastText }}</span>
+    </div>
+
+  </div><!-- FIN #app -->
+
+
+  <!-- =====================================================================
+       SCRIPT PRINCIPAL VUE 3
+       ===================================================================== -->
+  <script>
+    const { createApp, ref, computed, onMounted } = Vue;
+
+    // Palabras clave para detectar automáticamente prácticas de cursos de Google Android / Codelabs
+    const PRACTICE_KEYWORDS = [
+      'tiptime',
+      'compose-courses',
+      'jetpack-compose-courses',
+      'affirmations',
+      'woof',
+      'dessert',
+      'mars-photos',
+      'amphibians',
+      'cupcake',
+      'unscramble',
+      'lemonade',
+      'art-space',
+      'dice-roller',
+      'business-card',
+      'happy-birthday',
+      'quadrant',
+      'task-manager',
+      'codelab',
+      'practica',
+      'practice',
+      'ejercicio',
+      'curso'
+    ];
+
+    // Diccionario Bilingüe Reactivo (Español / English)
+    const I18N = {
+      es: {
+        nav: {
+          projects: '01 // PROYECTOS',
+          experience: '02 // EXPERIENCIA',
+          stack: '03 // STACK',
+          pulse: '04 // PULSO',
+          crtOn: 'CRT: ON [R]',
+          crtOff: 'CRT [R]',
+          cvContact: 'CV / CONTACTO'
+        },
+        hero: {
+          role: 'FULL STACK DEVELOPER // WEB ARCHITECTURE, UI/UX & AI TOOLING',
+          badgeUleam: 'INGENIERÍA DE SOFTWARE @ ULEAM',
+          location: 'MANTA, ECUADOR 🇪🇨',
+          bio: 'Desarrollador Full Stack enfocado en transformar ideas desde el diseño de interfaz en <strong>Figma</strong> hasta aplicaciones web escalables con <strong>TypeScript, Vue 3, React, Next.js, Angular y Tailwind CSS</strong>. Diseño arquitecturas backend y automatizaciones con <strong>Node.js y Python</strong>, bases de datos en <strong>PostgreSQL y Supabase</strong>, despliegues CI/CD con <strong>Docker, Microsoft Azure y Google Cloud</strong>, e integraciones para agentes de IA.',
+          btnProjects: 'VER PROYECTOS',
+          btnExperience: 'EXPERIENCIA & PROYECTOS',
+          btnMcpSim: 'INSPECTOR IA / MCP',
+          bannerActive: 'BANNER ACTIVO',
+          landscapeOn: 'MOSTRAR PANELES HERO',
+          landscapeOff: 'MODO PAISAJE (VER BANNER COMPLETO)'
+        },
+        projectsSection: {
+          badge: '01 // INGENIERÍA DE SOFTWARE & ECOSISTEMA MCP',
+          title: 'CATÁLOGO DE PROYECTOS & HERRAMIENTAS REALES',
+          desc: 'Sincronizado en vivo con <code class="theme-text-accent font-mono">github.com/JhonnyCCM</code>. He agrupado mis proyectos en <strong>Servidores MCP & IA</strong>, <strong>Desarrollo Web & UI/UX</strong>, <strong>Automatización & Data</strong> y <strong>Desarrollo Mobile / Académico</strong> para que puedas explorar directamente lo que construyo.',
+          syncStatus: 'ESTADO API GITHUB:',
+          coreProjects: 'PROYECTOS PRINCIPALES:',
+          googlePractices: 'PRÁCTICAS CODELABS:',
+          academicUleam: 'ACADÉMICOS ULEAM:',
+          btnSync: 'ACTUALIZAR DATOS GITHUB',
+          btnAllGithub: 'VER TODOS EN GITHUB ↗',
+          viewActive: 'VISTA ACTIVA:',
+          tabMain: 'PROYECTOS PRINCIPALES',
+          tabPractice: 'PRÁCTICAS GOOGLE / CODELABS',
+          tabAcademic: 'ACADÉMICOS ULEAM',
+          tabAll: 'TODOS VISIBLES',
+          catLabel: 'CATEGORÍA:',
+          catAll: 'TODAS',
+          catMcp: 'MCP & AGENTES IA',
+          catFullstack: 'DESARROLLO WEB & UI',
+          catAutomation: 'AUTOMATIZACIÓN & DATA',
+          catMobile: 'MOBILE & ANDROID',
+          searchPlaceholder: 'Filtrar por nombre o tecnología...',
+          inspectReadme: 'INSPECCIONAR README',
+          githubRepo: 'GITHUB REPO',
+          simulateMcp: 'SIMULAR MCP',
+          noResultsTitle: 'NO HAY REPOSITORIOS EN ESTA VISTA CON EL FILTRO ACTUAL',
+          noResultsDesc: 'Puedes cambiar entre categorías o limpiar el buscador para explorar otros proyectos.',
+          btnShowMain: 'VER PROYECTOS PRINCIPALES',
+          btnShowPractice: 'VER PRÁCTICAS GOOGLE'
+        },
+        experienceSection: {
+          badge: '02 // TRAYECTORIA, EXPERIENCIA & HITOS REALES',
+          title: 'EXPERIENCIA & HITOS DE INGENIERÍA',
+          desc: 'Mi trayectoria centrada en el desarrollo de proyectos personales de alta complejidad técnica, diseño de interfaces web modernas y una base sólida en Ingeniería de Software.',
+          openBadge: 'ABIERTO A OPORTUNIDADES LABORALES & FREELANCE',
+          stackLabel: 'STACK:'
+        },
+        stackSection: {
+          badge: '03 // FULL STACK & CLOUD SPECIFICATION MATRIX',
+          title: 'ESPECIFICACIÓN DE STACK TECNOLÓGICO (6 CAPAS)',
+          desc: 'Desglose exhaustivo de competencias en desarrollo frontend, arquitecturas backend, integración de protocolos MCP, persistencia relacional y flujos CI/CD.',
+          filterPlaceholder: 'Filtrar tecnologías (ej: Vue, NestJS, Docker)...'
+        },
+        pulseSection: {
+          badge: '04 // PULSO DE ACTIVIDAD & CULTURA MAKER',
+          title: 'ACTIVIDAD EN GITHUB (@JHONNYCCM)',
+          desc: 'Construyendo servidores MCP, practicando arquitecturas limpias y subiendo código desde Manta, Ecuador.',
+          readmeBadge: 'README.MD OFICIAL // 3:00 AM MODE',
+          readmeCaption: '> 3:00 AM Clean Code Mode: Refactorizando arquitecturas en la madrugada, conectando agentes de IA con herramientas reales y explorando Game Dev en Unity, Godot y Unreal Engine.',
+          statsTitle: 'RESUMEN DE REPOSITORIOS & COMMITS',
+          langsTitle: 'LENGUAJES MÁS UTILIZADOS EN GITHUB',
+          activityGraphTitle: 'HISTORIAL DE CONTRIBUCIONES // GITHUB ACTIVITY GRAPH'
+        },
+        modals: {
+          mcpTitle: 'MODEL CONTEXT PROTOCOL // JSON-RPC 2.0 INSPECTOR',
+          mcpSubtitle: 'SIMULADOR DE SERVIDORES MCP',
+          mcpClose: 'CERRAR',
+          mcpViewGithub: 'VER REPOSITORIO EN GITHUB ↗',
+          readmeTitle: 'LIVE GITHUB README.MD',
+          readmeLoading: 'DESCARGANDO README.MD DESDE RAW.GITHUBUSERCONTENT.COM...',
+          readmeClose: 'CERRAR',
+          contactTitle: 'EXECUTIVE ATS SUMMARY & DIRECT CONTACT'
+        },
+        footer: {
+          transmission: '05 // TRANSMISIÓN DIRECTA',
+          tagline: 'Ingeniería de Software @ ULEAM • Manta, Manabí, Ecuador 🇪🇨 • Full Stack & AI MCP Developer',
+          btnAts: 'VER CV EJECUTIVO ATS / CONTACTO',
+          btnAdmin: 'ADMIN PORTAL',
+          rights: '© 2026 JHONNY CASTILLO MERO • ALL SYSTEMS OPERATIONAL',
+          activePalette: 'PALETA ACTIVA:'
+        }
+      },
+      en: {
+        nav: {
+          projects: '01 // PROJECTS',
+          experience: '02 // EXPERIENCE',
+          stack: '03 // STACK',
+          pulse: '04 // PULSE',
+          crtOn: 'CRT: ON [R]',
+          crtOff: 'CRT [R]',
+          cvContact: 'RESUME / CONTACT'
+        },
+        hero: {
+          role: 'FULL STACK DEVELOPER // WEB ARCHITECTURE, UI/UX & AI TOOLING',
+          badgeUleam: 'SOFTWARE ENGINEERING @ ULEAM',
+          location: 'MANTA, ECUADOR 🇪🇨',
+          bio: 'Full Stack Developer focused on turning ideas from interface design in <strong>Figma</strong> into scalable web applications built with <strong>TypeScript, Vue 3, React, Next.js, Angular, and Tailwind CSS</strong>. I architect backend services and automations using <strong>Node.js and Python</strong>, databases in <strong>PostgreSQL and Supabase</strong>, CI/CD deployments with <strong>Docker, Microsoft Azure, and Google Cloud</strong>, and tooling for AI agents.',
+          btnProjects: 'VIEW PROJECTS',
+          btnExperience: 'EXPERIENCE & WORK',
+          btnMcpSim: 'AI / MCP INSPECTOR',
+          bannerActive: 'ACTIVE BANNER',
+          landscapeOn: 'SHOW HERO PANELS',
+          landscapeOff: 'LANDSCAPE MODE (VIEW FULL BANNER)'
+        },
+        projectsSection: {
+          badge: '01 // SOFTWARE ENGINEERING & MCP ECOSYSTEM',
+          title: 'PROJECT CATALOG & REAL-WORLD TOOLING',
+          desc: 'Synced live with <code class="theme-text-accent font-mono">github.com/JhonnyCCM</code>. Categorized into <strong>MCP Servers & AI</strong>, <strong>Web Dev & UI/UX</strong>, <strong>Automation & Data</strong>, and <strong>Mobile / Academic</strong> so you can directly explore what I build.',
+          syncStatus: 'GITHUB API STATUS:',
+          coreProjects: 'CORE PROJECTS:',
+          googlePractices: 'CODELAB PRACTICES:',
+          academicUleam: 'ULEAM ACADEMIC:',
+          btnSync: 'REFRESH GITHUB DATA',
+          btnAllGithub: 'VIEW ALL ON GITHUB ↗',
+          viewActive: 'ACTIVE VIEW:',
+          tabMain: 'CORE PROJECTS',
+          tabPractice: 'GOOGLE PRACTICES / CODELABS',
+          tabAcademic: 'ULEAM ACADEMIC',
+          tabAll: 'ALL VISIBLE',
+          catLabel: 'CATEGORY:',
+          catAll: 'ALL',
+          catMcp: 'MCP & AI AGENTS',
+          catFullstack: 'WEB DEV & UI',
+          catAutomation: 'AUTOMATION & DATA',
+          catMobile: 'MOBILE & ANDROID',
+          searchPlaceholder: 'Filter by name or technology...',
+          inspectReadme: 'INSPECT README',
+          githubRepo: 'GITHUB REPO',
+          simulateMcp: 'SIMULATE MCP',
+          noResultsTitle: 'NO REPOSITORIES FOUND IN THIS VIEW WITH CURRENT FILTER',
+          noResultsDesc: 'You can switch categories or clear search to explore other projects.',
+          btnShowMain: 'VIEW CORE PROJECTS',
+          btnShowPractice: 'VIEW GOOGLE PRACTICES'
+        },
+        experienceSection: {
+          badge: '02 // CAREER, EXPERIENCE & REAL MILESTONES',
+          title: 'EXPERIENCE & ENGINEERING MILESTONES',
+          desc: 'My trajectory focused on building technically complex personal projects, modern web interface design, and a solid foundation in Software Engineering.',
+          openBadge: 'OPEN TO WORK & FREELANCE OPPORTUNITIES',
+          stackLabel: 'STACK:'
+        },
+        stackSection: {
+          badge: '03 // FULL STACK & CLOUD SPECIFICATION MATRIX',
+          title: 'TECHNICAL SKILLS MATRIX (6 LAYERS)',
+          desc: 'In-depth breakdown of capabilities across frontend engineering, backend architectures, MCP protocol integration, relational databases, and CI/CD pipelines.',
+          filterPlaceholder: 'Filter technologies (e.g. Vue, NestJS, Docker)...'
+        },
+        pulseSection: {
+          badge: '04 // LIVE TELEMETRY & GITHUB ACTIVITY',
+          title: 'GITHUB ACTIVITY (@JHONNYCCM)',
+          desc: 'Building MCP servers, practicing clean architectures, and shipping code from Manta, Ecuador.',
+          readmeBadge: 'OFFICIAL README.MD // 3:00 AM MODE',
+          readmeCaption: '> 3:00 AM Clean Code Mode: Refactoring architectures at late night, empowering AI agents with real tools, and exploring Game Dev with Unity, Godot, and Unreal Engine.',
+          statsTitle: 'REPOSITORIES & COMMITS OVERVIEW',
+          langsTitle: 'MOST USED LANGUAGES ON GITHUB',
+          activityGraphTitle: 'CONTRIBUTION TIMELINE // GITHUB ACTIVITY GRAPH'
+        },
+        modals: {
+          mcpTitle: 'MODEL CONTEXT PROTOCOL // JSON-RPC 2.0 INSPECTOR',
+          mcpSubtitle: 'MCP SERVERS SIMULATOR',
+          mcpClose: 'CLOSE',
+          mcpViewGithub: 'VIEW REPO ON GITHUB ↗',
+          readmeTitle: 'LIVE GITHUB README.MD',
+          readmeLoading: 'FETCHING README.MD FROM RAW.GITHUBUSERCONTENT.COM...',
+          readmeClose: 'CLOSE',
+          contactTitle: 'EXECUTIVE ATS SUMMARY & DIRECT CONTACT'
+        },
+        footer: {
+          transmission: '05 // DIRECT TRANSMISSION',
+          tagline: 'Software Engineering @ ULEAM • Manta, Manabí, Ecuador 🇪🇨 • Full Stack & AI MCP Developer',
+          btnAts: 'VIEW EXECUTIVE ATS RESUME / CONTACT',
+          btnAdmin: 'ADMIN PORTAL',
+          rights: '© 2026 JHONNY CASTILLO MERO • ALL SYSTEMS OPERATIONAL',
+          activePalette: 'ACTIVE PALETTE:'
+        }
+      }
+    };
+
+    // Catálogo Base Curado Bilingüe:
+    // - repoType: 'main'     -> Proyectos Reales Principales (Mostrados por defecto)
+    // - repoType: 'practice' -> Prácticas de Google / Codelabs (Separados por defecto)
+    // - repoType: 'academic' -> Proyectos Universitarios ULEAM
+    const INITIAL_PROJECTS = [
+      {
+        name: 'Design-Extractor-MCP',
+        title: 'Design-Extractor-MCP',
+        repoType: 'main',
+        category: 'mcp',
+        language: 'Python',
+        stars: 2,
+        forks: 0,
+        branch: 'main',
+        url: 'https://github.com/JhonnyCCM/Design-Extractor-MCP',
+        tagline: 'Servidor Model Context Protocol (MCP) y motor de ingeniería inversa que extrae tokens CSS, paletas y tipografías de cualquier web para agentes de IA.',
+        tagline_es: 'Servidor Model Context Protocol (MCP) y motor de ingeniería inversa que extrae tokens CSS, paletas y tipografías de cualquier web para agentes de IA.',
+        tagline_en: 'Model Context Protocol (MCP) server & reverse-engineering engine extracting computed CSS tokens, palettes and fonts for AI agents.',
+        specs: [
+          'Inspección headless del DOM/CSSOM con Playwright y BeautifulSoup4',
+          'Exportación automatizada de configuración Tailwind CSS y variables raíz',
+          'Integración JSON-RPC 2.0 compatible con Claude Desktop y Cursor IDE'
+        ],
+        specs_es: [
+          'Inspección headless del DOM/CSSOM con Playwright y BeautifulSoup4',
+          'Exportación automatizada de configuración Tailwind CSS y variables raíz',
+          'Integración JSON-RPC 2.0 compatible con Claude Desktop y Cursor IDE'
+        ],
+        specs_en: [
+          'Headless DOM/CSSOM inspection using Playwright and BeautifulSoup4',
+          'Automated Tailwind CSS config and root CSS variables generator',
+          'JSON-RPC 2.0 integration compatible with Claude Desktop and Cursor IDE'
+        ],
+        tags: ['Python', 'MCP Protocol', 'Playwright', 'Tailwind CSS', 'AST Tokens'],
+        featured: true
+      },
+      {
+        name: 'Spotify-Stats-MCP',
+        title: 'Spotify-Stats-MCP',
+        repoType: 'main',
+        category: 'mcp',
+        language: 'Python',
+        stars: 1,
+        forks: 0,
+        branch: 'main',
+        url: 'https://github.com/JhonnyCCM/Spotify-Stats-MCP',
+        tagline: 'Servidor MCP y Dashboard Web Dark Mode conectado a Spotify Web API mediante OAuth 2.0 PKCE para consultar métricas y controlar reproducción desde agentes IA.',
+        tagline_es: 'Servidor MCP y Dashboard Web Dark Mode conectado a Spotify Web API mediante OAuth 2.0 PKCE para consultar métricas y controlar reproducción desde agentes IA.',
+        tagline_en: 'MCP Server and Dark Mode Web Dashboard connected to Spotify Web API via OAuth 2.0 PKCE to query telemetry and control playback from AI agents.',
+        specs: [
+          'Herramientas MCP tipadas para consultar pistas activas, top géneros y artistas',
+          'Generación de listas de reproducción inteligentes mediante prompts en lenguaje natural',
+          'Flujo OAuth 2.0 con refresco automático de sesión'
+        ],
+        specs_es: [
+          'Herramientas MCP tipadas para consultar pistas activas, top géneros y artistas',
+          'Generación de listas de reproducción inteligentes mediante prompts en lenguaje natural',
+          'Flujo OAuth 2.0 con refresco automático de sesión'
+        ],
+        specs_en: [
+          'Typed MCP tools to query active playback, top genres, and artists',
+          'Smart playlist generation through natural language prompts',
+          'OAuth 2.0 PKCE flow with automated token refresh'
+        ],
+        tags: ['Python', 'MCP Server', 'Spotify Web API', 'OAuth 2.0', 'Dashboard'],
+        featured: true
+      },
+      {
+        name: 'n8n-omni-expense-tracker',
+        title: 'n8n-omni-expense-tracker',
+        repoType: 'main',
+        category: 'automation',
+        language: 'JavaScript',
+        stars: 0,
+        forks: 0,
+        branch: 'main',
+        url: 'https://github.com/JhonnyCCM/n8n-omni-expense-tracker',
+        tagline: 'Pipeline omnicanal de control financiero y gastos que procesa comprobantes con modelos LLM, flujos n8n y persistencia relacional en PostgreSQL 16.',
+        tagline_es: 'Pipeline omnicanal de control financiero y gastos que procesa comprobantes con modelos LLM, flujos n8n y persistencia relacional en PostgreSQL 16.',
+        tagline_en: 'Omnichannel financial & expense tracking pipeline processing receipts via LLM models, n8n workflows, and relational PostgreSQL 16 persistence.',
+        specs: [
+          'Ingesta automatizada mediante webhooks y triggers de correo/notificaciones',
+          'Extracción estructurada de comercios, impuestos y divisas con IA',
+          'Almacenamiento transaccional en PostgreSQL 16 contenerizado en Docker'
+        ],
+        specs_es: [
+          'Ingesta automatizada mediante webhooks y triggers de correo/notificaciones',
+          'Extracción estructurada de comercios, impuestos y divisas con IA',
+          'Almacenamiento transaccional en PostgreSQL 16 contenerizado en Docker'
+        ],
+        specs_en: [
+          'Automated ingestion via webhooks and email/push triggers',
+          'Structured extraction of merchants, tax, and currency via AI',
+          'Transactional PostgreSQL 16 persistence containerized in Docker'
+        ],
+        tags: ['n8n', 'PostgreSQL 16', 'LLM Extraction', 'Webhooks', 'Docker'],
+        featured: true
+      },
+      {
+        name: 'uleamMatricula',
+        title: 'uleamMatricula CLI',
+        repoType: 'main',
+        category: 'automation',
+        language: 'Python',
+        stars: 0,
+        forks: 0,
+        branch: 'main',
+        url: 'https://github.com/JhonnyCCM/uleamMatricula',
+        tagline: 'Cliente CLI de baja latencia en Python para monitoreo de cupos y automatización de matriculación mediante sesiones HTTP persistentes.',
+        tagline_es: 'Cliente CLI de baja latencia en Python para monitoreo de cupos y automatización de matriculación mediante sesiones HTTP persistentes.',
+        tagline_en: 'Low-latency Python CLI client for course quota monitoring and enrollment automation via persistent HTTP sessions.',
+        specs: [
+          'Peticiones HTTP directas con Requests y parsing HTML con BeautifulSoup4',
+          'Ejecución en milisegundos sin sobrecarga de navegador headless'
+        ],
+        specs_es: [
+          'Peticiones HTTP directas con Requests y parsing HTML con BeautifulSoup4',
+          'Ejecución en milisegundos sin sobrecarga de navegador headless'
+        ],
+        specs_en: [
+          'Direct HTTP requests using Requests and HTML parsing with BeautifulSoup4',
+          'Sub-second execution without headless browser overhead'
+        ],
+        tags: ['Python 3', 'Requests', 'BeautifulSoup4', 'HTTP Sessions', 'CLI'],
+        featured: true
+      },
+      {
+        name: 'reproductorspotify',
+        title: 'Spotify Web Player SPA',
+        repoType: 'main',
+        category: 'fullstack',
+        language: 'Vue',
+        stars: 0,
+        forks: 0,
+        branch: 'main',
+        url: 'https://github.com/JhonnyCCM/reproductorspotify',
+        tagline: 'Aplicación Single Page en Vue 3 integrada con Spotify Web Playback SDK para reproducción en vivo, gestión de colas y búsqueda reactiva.',
+        tagline_es: 'Aplicación Single Page en Vue 3 integrada con Spotify Web Playback SDK para reproducción en vivo, gestión de colas y búsqueda reactiva.',
+        tagline_en: 'Single Page Application in Vue 3 integrated with Spotify Web Playback SDK for live audio streaming, queue management, and reactive search.',
+        specs: [
+          'Estado reactivo modular en Vue 3 + Vite + Tailwind CSS',
+          'Sincronización de reproducción y control de dispositivos vía SDK oficial'
+        ],
+        specs_es: [
+          'Estado reactivo modular en Vue 3 + Vite + Tailwind CSS',
+          'Sincronización de reproducción y control de dispositivos vía SDK oficial'
+        ],
+        specs_en: [
+          'Modular reactive state with Vue 3 + Vite + Tailwind CSS',
+          'Playback synchronization and device control via official SDK'
+        ],
+        tags: ['Vue 3', 'Spotify SDK', 'Tailwind CSS', 'Vite', 'SPA'],
+        featured: true
+      },
+      {
+        name: 'Repo-grupal-servidores-web',
+        title: 'Arquitectura de Servidores Web',
+        repoType: 'academic',
+        category: 'fullstack',
+        language: 'TypeScript',
+        stars: 0,
+        forks: 0,
+        branch: 'main',
+        url: 'https://github.com/JhonnyCCM/Repo-grupal-servidores-web',
+        tagline: 'Arquitectura backend modular en TypeScript con separación de capas, validación de DTOs, middlewares y despliegue en Docker.',
+        tagline_es: 'Arquitectura backend modular en TypeScript con separación de capas, validación de DTOs, middlewares y despliegue en Docker.',
+        tagline_en: 'Modular backend architecture in TypeScript featuring layered design, DTO validations, middlewares, and Docker deployment.',
+        specs: [
+          'Diseño desacoplado controlador-servicio-repositorio en TypeScript',
+          'Entorno reproducible con Docker Compose'
+        ],
+        specs_es: [
+          'Diseño desacoplado controlador-servicio-repositorio en TypeScript',
+          'Entorno reproducible con Docker Compose'
+        ],
+        specs_en: [
+          'Decoupled controller-service-repository design in TypeScript',
+          'Reproducible environment with Docker Compose'
+        ],
+        tags: ['TypeScript', 'Node.js', 'REST API', 'Clean Architecture', 'ULEAM'],
+        featured: false
+      },
+      {
+        name: 'Django-auth-crud',
+        title: 'Django Secure Auth & CRUD',
+        repoType: 'academic',
+        category: 'fullstack',
+        language: 'Python',
+        stars: 0,
+        forks: 0,
+        branch: 'main',
+        url: 'https://github.com/JhonnyCCM/Django-auth-crud',
+        tagline: 'Aplicación web en Python Django con autenticación de sesiones, protección CSRF, hashing PBKDF2 y operaciones CRUD relacionales.',
+        tagline_es: 'Aplicación web en Python Django con autenticación de sesiones, protección CSRF, hashing PBKDF2 y operaciones CRUD relacionales.',
+        tagline_en: 'Python Django web application with session authentication, CSRF protection, PBKDF2 hashing, and relational CRUD operations.',
+        specs: [
+          'Arquitectura MVT con ORM de Django y control de acceso por rutas'
+        ],
+        specs_es: [
+          'Arquitectura MVT con ORM de Django y control de acceso por rutas'
+        ],
+        specs_en: [
+          'MVT architecture with Django ORM and route-level access control'
+        ],
+        tags: ['Python', 'Django', 'SQLite', 'PostgreSQL', 'Security'],
+        featured: false
+      },
+      {
+        name: 'Jetpack-Compose-Courses-App-',
+        title: 'Jetpack Compose Courses (Google Codelab)',
+        repoType: 'practice',
+        category: 'mobile',
+        language: 'Kotlin',
+        stars: 0,
+        forks: 0,
+        branch: 'main',
+        url: 'https://github.com/JhonnyCCM/Jetpack-Compose-Courses-App-',
+        tagline: 'Práctica de Google Android Basics: grilla adaptativa LazyVerticalGrid con Jetpack Compose y Material Design 3.',
+        tagline_es: 'Práctica de Google Android Basics: grilla adaptativa LazyVerticalGrid con Jetpack Compose y Material Design 3.',
+        tagline_en: 'Google Android Basics codelab: LazyVerticalGrid adaptive layout with Jetpack Compose and Material Design 3.',
+        specs: [
+          'Práctica de UI declarativa y manejo de temas claro/oscuro en Android'
+        ],
+        specs_es: [
+          'Práctica de UI declarativa y manejo de temas claro/oscuro en Android'
+        ],
+        specs_en: [
+          'Declarative UI practice and light/dark theme handling in Android'
+        ],
+        tags: ['Kotlin', 'Jetpack Compose', 'Material 3', 'Google Codelab'],
+        featured: false
+      },
+      {
+        name: 'TipTime',
+        title: 'TipTime Calculator (Google Codelab)',
+        repoType: 'practice',
+        category: 'mobile',
+        language: 'Kotlin',
+        stars: 0,
+        forks: 0,
+        branch: 'main',
+        url: 'https://github.com/JhonnyCCM/TipTime',
+        tagline: 'Práctica de Google Android Basics: State Hoisting, cálculo reactivo y pruebas instrumentadas en Kotlin.',
+        tagline_es: 'Práctica de Google Android Basics: State Hoisting, cálculo reactivo y pruebas instrumentadas en Kotlin.',
+        tagline_en: 'Google Android Basics codelab: State Hoisting, reactive calculations, and instrumented tests in Kotlin.',
+        specs: [
+          'Práctica de remember y mutableStateOf en Jetpack Compose'
+        ],
+        specs_es: [
+          'Práctica de remember y mutableStateOf en Jetpack Compose'
+        ],
+        specs_en: [
+          'State management with remember and mutableStateOf in Jetpack Compose'
+        ],
+        tags: ['Kotlin', 'Jetpack Compose', 'State Hoisting', 'Google Codelab'],
+        featured: false
+      }
+    ];
+
+    createApp({
+      setup() {
+        // 1. GESTIÓN EXCLUSIVA DE LAS 2 PALETAS ELEGIDAS (TOKYO-CRIMSON & E-INK MONO)
+        // Usa únicamente las imágenes reales del usuario (sin ningún SVG de paisaje en código)
+        const themes = [
+          {
+            id: 'crimson',
+            label: '01 / TOKYO-CRIMSON',
+            description: 'Paleta #3 Calibrada con el Banner Rojo/Cian (Pizarra #0E1015 + Rojo Torii #FF1E42 + Cian Océano #2CE6FF)',
+            candidates: [
+              './banner-tokyo-crimson.jpg',
+              'banner-tokyo-crimson.jpg',
+              './images/banner-tokyo-crimson.jpg'
+            ]
+          },
+          {
+            id: 'mono',
+            label: '02 / E-INK MONO',
+            description: 'Paleta #4 Calibrada con el Banner Monocromo (#0A0B0D + Blanco #FFFFFF + Radar #7DD3FC)',
+            candidates: [
+              './banner-eink-mono.jpg',
+              'banner-eink-mono.jpg',
+              './images/banner-eink-mono.jpg'
+            ]
+          }
+        ];
+
+        const savedTheme = localStorage.getItem('jhonnyccm_theme_v5');
+        const activeTheme = ref(savedTheme === 'mono' ? 'mono' : 'crimson');
+        const candidateIdx = ref(0);
+        const customBannersByTheme = ref({
+          crimson: '',
+          mono: ''
+        });
+        const bannerLoaded = ref(false);
+        const landscapeMode = ref(false);
+        const showHeroGif = ref(true);
+        const activeGifChannel = ref(0);
+        const heroConsoleTab = ref('ts');
+        const crtEnabled = ref(false);
+
+        // Selector de 3 Canales para el Monitor del Hero
+        const heroGifChannels = [
+          {
+            id: 'ch1',
+            label: 'CH-01 // 3:00 AM CODE',
+            tag: 'WORKSTATION',
+            caption: '3:00 AM CLEAN CODE MODE',
+            url: 'https://media.giphy.com/media/HBY1eWGzDALwnyeHPw/giphy.gif'
+          },
+          {
+            id: 'ch2',
+            label: 'CH-02 // NEON MATRIX',
+            tag: 'NEO-TECH',
+            caption: 'AST SYSTEM FLOW',
+            url: 'https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExZTFteWFhMzMzZ2gzem45em9waW1uMHp5dW01aWhiazlqNjFkZnBjeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/5ZYA31R5OP6JdmVP3f/giphy.webp'
+          },
+          {
+            id: 'ch3',
+            label: 'CH-03 // SYNTH FLOW',
+            tag: 'AUDIO STREAM',
+            caption: 'TELEMETRY ENGINE',
+            url: 'https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3NXR5MWUwaHQwbHJnYnFrazFvbmpvbjh4ZHl5czliMWxnZng5NGRhOSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/r4YpXPAljX0iMspcL3/giphy.gif'
+          }
+        ];
+
+        const currentHeroGif = computed(() => {
+          return heroGifChannels[activeGifChannel.value] || heroGifChannels[0];
+        });
+
+        // Persistencia en IndexedDB si se configuraron imágenes desde el entorno local
+        function openBannerDb() {
+          return new Promise((resolve, reject) => {
+            if (!window.indexedDB) return reject('No IndexedDB');
+            const req = indexedDB.open('JhonnyCCMBannerDB', 1);
+            req.onupgradeneeded = (e) => {
+              const db = e.target.result;
+              if (!db.objectStoreNames.contains('banners')) {
+                db.createObjectStore('banners');
+              }
+            };
+            req.onsuccess = (e) => resolve(e.target.result);
+            req.onerror = (e) => reject(e.target.error);
+          });
+        }
+
+        async function loadBannersFromDb() {
+          try {
+            const db = await openBannerDb();
+            ['crimson', 'mono'].forEach((k) => {
+              const tx = db.transaction('banners', 'readonly');
+              const req = tx.objectStore('banners').get(k);
+              req.onsuccess = () => {
+                if (req.result) {
+                  customBannersByTheme.value[k] = req.result;
+                }
+              };
+            });
+          } catch (e) {}
+        }
+
+        const currentBannerUrl = computed(() => {
+          const custom = customBannersByTheme.value[activeTheme.value];
+          if (custom) return custom;
+          const found = themes.find(t => t.id === activeTheme.value) || themes[0];
+          const idx = Math.min(candidateIdx.value, found.candidates.length - 1);
+          return found.candidates[idx];
+        });
+
+        const currentBannerFilename = computed(() => {
+          if (customBannersByTheme.value[activeTheme.value]) {
+            return activeTheme.value === 'crimson'
+              ? 'banner-tokyo-crimson.jpg'
+              : 'banner-eink-mono.jpg';
+          }
+          const found = themes.find(t => t.id === activeTheme.value) || themes[0];
+          const idx = Math.min(candidateIdx.value, found.candidates.length - 1);
+          return found.candidates[idx].replace('./', '').replace('/', '');
+        });
+
+        function onBannerImageLoad() {
+          bannerLoaded.value = true;
+        }
+
+        function onBannerImageError() {
+          const found = themes.find(t => t.id === activeTheme.value) || themes[0];
+          if (candidateIdx.value < found.candidates.length - 1) {
+            candidateIdx.value++;
+          }
+        }
+
+        function applyTheme(themeId) {
+          const validId = themeId === 'mono' ? 'mono' : 'crimson';
+          activeTheme.value = validId;
+          candidateIdx.value = 0;
+          localStorage.setItem('jhonnyccm_theme_v5', validId);
+          document.body.classList.remove('theme-crimson', 'theme-mono', 'theme-fusion', 'theme-cyan');
+          document.body.classList.add('theme-' + validId);
+          triggerToast('PALETA Y BANNER ACTIVOS: ' + validId.toUpperCase());
+        }
+
+        // Sonido Sintetizado Web Audio API para el interruptor CRT
+        function playCrtSwitchSound(turningOn) {
+          try {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (!AudioCtx) return;
+            const ctx = new AudioCtx();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = turningOn ? 'sawtooth' : 'sine';
+            osc.frequency.setValueAtTime(turningOn ? 140 : 420, ctx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(turningOn ? 880 : 110, ctx.currentTime + 0.12);
+            gain.gain.setValueAtTime(0.06, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.14);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.14);
+          } catch (e) {}
+        }
+
+        function toggleCrt() {
+          crtEnabled.value = !crtEnabled.value;
+          document.body.classList.toggle('crt-active', crtEnabled.value);
+          playCrtSwitchSound(crtEnabled.value);
+          triggerToast(crtEnabled.value ? 'MODO MONITOR RETRO CRT ACTIVADO [R]' : 'MODO NEO-TECH LIMPIO ACTIVADO');
+        }
+
+        // Soporte Bilingüe Reactivo (ES / EN) y Persistencia
+        const currentLang = ref(localStorage.getItem('jhonnyccm_lang') || 'es');
+        function setLang(lang) {
+          currentLang.value = lang === 'en' ? 'en' : 'es';
+          localStorage.setItem('jhonnyccm_lang', currentLang.value);
+          triggerToast(currentLang.value === 'es' ? 'IDIOMA SELECCIONADO: ESPAÑOL' : 'LANGUAGE SELECTED: ENGLISH');
+        }
+
+        function t(path) {
+          const keys = path.split('.');
+          let val = I18N[currentLang.value] || I18N['es'];
+          for (const k of keys) {
+            if (!val || val[k] === undefined) return path;
+            val = val[k];
+          }
+          return val;
+        }
+
+        // 2. CLASIFICADOR DE REPOSITORIOS DE GITHUB & CATEGORÍAS MCP
+        const savedProjects = localStorage.getItem('jhonnyccm_v4_projects');
+        const projects = ref(savedProjects ? JSON.parse(savedProjects) : JSON.parse(JSON.stringify(INITIAL_PROJECTS)));
+
+        const activeRepoType = ref('main'); // Por defecto SOLO muestra Proyectos Principales
+        const activeCategory = ref('all');
+        const repoSearch = ref('');
+        const isSyncing = ref(false);
+        const githubSyncStatus = ref('CONECTANDO...');
+
+        function setCategory(cat) {
+          activeCategory.value = cat;
+          if (cat === 'mobile' || cat === 'practice' || cat === 'academic') {
+            activeRepoType.value = 'all_visible';
+          }
+        }
+
+        const counts = computed(() => {
+          return {
+            main: projects.value.filter(p => p.repoType === 'main').length,
+            practice: projects.value.filter(p => p.repoType === 'practice').length,
+            academic: projects.value.filter(p => p.repoType === 'academic').length,
+            hidden: projects.value.filter(p => p.repoType === 'hidden').length,
+            allVisible: projects.value.filter(p => p.repoType !== 'hidden').length
+          };
+        });
+
+        const displayedProjects = computed(() => {
+          const q = repoSearch.value.toLowerCase().trim();
+          return projects.value.filter(p => {
+            if (p.repoType === 'hidden') return false;
+            if (activeRepoType.value !== 'all_visible' && p.repoType !== activeRepoType.value) return false;
+            if (activeCategory.value !== 'all' && p.category !== activeCategory.value) return false;
+            if (!q) return true;
+            return (
+              (p.title && p.title.toLowerCase().includes(q)) ||
+              (p.name && p.name.toLowerCase().includes(q)) ||
+              (p.tagline && p.tagline.toLowerCase().includes(q)) ||
+              (p.tagline_es && p.tagline_es.toLowerCase().includes(q)) ||
+              (p.tagline_en && p.tagline_en.toLowerCase().includes(q)) ||
+              (p.tags && p.tags.some(t => t.toLowerCase().includes(q)))
+            );
+          });
+        });
+
+        function getProjTagline(proj) {
+          if (!proj) return '';
+          return currentLang.value === 'en'
+            ? (proj.tagline_en || proj.tagline || '')
+            : (proj.tagline_es || proj.tagline || '');
+        }
+
+        function getProjSpecs(proj) {
+          if (!proj) return [];
+          if (currentLang.value === 'en') {
+            return proj.specs_en || proj.specs || [];
+          }
+          return proj.specs_es || proj.specs || [];
+        }
+
+        function isPracticeRepo(name, desc = '') {
+          const n = (name || '').toLowerCase();
+          const d = (desc || '').toLowerCase();
+          return PRACTICE_KEYWORDS.some(k => n.includes(k) || d.includes(k));
+        }
+
+        function getRepoTypeLabel(type) {
+          const labels = {
+            es: {
+              main: 'PROYECTO PRINCIPAL',
+              practice: 'PRÁCTICA GOOGLE / CURSO',
+              academic: 'ACADÉMICO ULEAM'
+            },
+            en: {
+              main: 'CORE PROJECT',
+              practice: 'GOOGLE / COURSE PRACTICE',
+              academic: 'ACADEMIC ULEAM'
+            }
+          };
+          const lang = currentLang.value === 'en' ? 'en' : 'es';
+          return (labels[lang] && labels[lang][type]) || (lang === 'en' ? 'PROJECT' : 'PROYECTO');
+        }
+
+        function saveCatalog(msg) {
+          localStorage.setItem('jhonnyccm_v4_projects', JSON.stringify(projects.value));
+          if (msg) triggerToast(msg);
+        }
+
+        function autoSeparateGooglePractices() {
+          let moved = 0;
+          const coreMainNames = ['design-extractor-mcp', 'spotify-stats-mcp', 'n8n-omni-expense-tracker', 'uleammatricula', 'reproductorspotify'];
+          projects.value.forEach(p => {
+            const lower = p.name.toLowerCase();
+            if (!coreMainNames.includes(lower) && (isPracticeRepo(p.name, p.tagline) || p.language === 'Kotlin')) {
+              if (p.repoType === 'main') {
+                p.repoType = 'practice';
+                moved++;
+              }
+            }
+          });
+          saveCatalog(`SEPARADOS ${moved} REPOSITORIOS DE PRÁCTICAS DE GOOGLE`);
+        }
+
+        async function syncGitHubRepos(manual = false) {
+          isSyncing.value = true;
+          githubSyncStatus.value = 'SINCRONIZANDO...';
+          try {
+            const res = await fetch('https://api.github.com/users/JhonnyCCM/repos?sort=updated&per_page=100');
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const repos = await res.json();
+
+            projects.value.forEach(p => {
+              const match = repos.find(r => r.name.toLowerCase() === p.name.toLowerCase());
+              if (match) {
+                p.stars = match.stargazers_count;
+                p.forks = match.forks_count;
+                p.branch = match.default_branch || 'main';
+              }
+            });
+
+            // Cualquier repositorio adicional de GitHub que no esté en el catálogo se clasifica como 'practice' por defecto
+            // (a menos que sea un servidor MCP) para que las prácticas de Google nunca ensucien Proyectos Principales sin permiso
+            repos.forEach(r => {
+              const exists = projects.value.some(p => p.name.toLowerCase() === r.name.toLowerCase());
+              if (!exists) {
+                const lower = r.name.toLowerCase();
+                let type = 'practice';
+                let cat = 'fullstack';
+                if (lower.includes('mcp')) {
+                  type = 'main';
+                  cat = 'mcp';
+                } else if (r.language === 'Kotlin' || lower.includes('compose')) {
+                  type = 'practice';
+                  cat = 'mobile';
+                } else if (lower.includes('uleam') || lower.includes('grupal')) {
+                  type = 'academic';
+                }
+                projects.value.push({
+                  name: r.name,
+                  title: r.name.replace(/[-_]/g, ' '),
+                  repoType: type,
+                  category: cat,
+                  language: r.language || 'Code',
+                  stars: r.stargazers_count || 0,
+                  forks: r.forks_count || 0,
+                  branch: r.default_branch || 'main',
+                  url: r.html_url,
+                  tagline: r.description || `Repositorio en GitHub (${r.language || 'Código'}). Clasificado automáticamente para revisión.`,
+                  specs: ['Sincronizado desde la API oficial de GitHub (@JhonnyCCM)'],
+                  tags: [r.language || 'GitHub'].filter(Boolean),
+                  featured: false
+                });
+              }
+            });
+
+            githubSyncStatus.value = `ONLINE (${repos.length} REPOS)`;
+            saveCatalog(manual ? 'SINCRONIZACIÓN COMPLETADA CON GITHUB' : '');
+          } catch (e) {
+            githubSyncStatus.value = 'MODO CACHÉ ACTIVO';
+          } finally {
+            isSyncing.value = false;
+          }
+        }
+
+        // 3. TRAYECTORIA & EXPERIENCIA TÉCNICA (BILINGÜE ES/EN)
+        const experiences = [
+          {
+            period_es: '2025 — PRESENTE',
+            period_en: '2025 — PRESENT',
+            category_es: 'ARQUITECTURA FULL STACK, CLOUD & AI TOOLING',
+            category_en: 'FULL STACK ARCHITECTURE, CLOUD & AI TOOLING',
+            location_es: 'Manta, Ecuador • Remoto',
+            location_en: 'Manta, Ecuador • Remote',
+            role_es: 'Desarrollador Full Stack & Arquitecto de Proyectos Web / Cloud',
+            role_en: 'Full Stack Developer & Web / Cloud Project Architect',
+            company_es: 'Proyectos de Ingeniería Full Stack, Despliegues Cloud & Herramientas IA',
+            company_en: 'Full Stack Engineering Projects, Cloud Deployments & AI Tooling',
+            kanji: '創造 SŌZŌ // CLOUD',
+            summary_es: 'Diseño y desarrollo de aplicaciones web Full Stack de extremo a extremo, modelado de bases de datos relacionales y NoSQL, automatización de despliegues CI/CD en la nube y creación de herramientas de integración para agentes de Inteligencia Artificial.',
+            summary_en: 'End-to-end design and development of Full Stack web applications, relational and NoSQL database modeling, automated cloud CI/CD deployments, and custom integration tooling for Artificial Intelligence agents.',
+            highlights_es: [
+              '<strong>BookShare (MERN Stack + Azure CI/CD):</strong> Desarrollo de aplicación web Full Stack y configuración de pipelines de integración y despliegue continuo automatizado mediante GitHub Actions y Microsoft Azure.',
+              '<strong>Sistema Web de Confirmación de Invitados:</strong> Diseño de interfaz interactiva y arquitectura de base de datos en tiempo real (Supabase / PostgreSQL) para la gestión y registro de confirmaciones de eventos.',
+              '<strong>n8n-omni-expense-tracker:</strong> Construcción de pipeline de automatización financiera con n8n, extracción estructurada mediante modelos LLM y persistencia transaccional en PostgreSQL 16 contenerizado con Docker.',
+              '<strong>Design-Extractor-MCP & Spotify-Stats-MCP:</strong> Desarrollo de servidores en Python con Playwright y OAuth 2.0 PKCE como diferenciador técnico para conectar agentes de IA con extracción de tokens CSS y métricas en tiempo real.'
+            ],
+            highlights_en: [
+              '<strong>BookShare (MERN Stack + Azure CI/CD):</strong> Full Stack web application development and automated CI/CD pipeline configuration with GitHub Actions and Microsoft Azure.',
+              '<strong>Guest RSVP Web System:</strong> Interactive UI design and real-time database architecture (Supabase / PostgreSQL) for event guest confirmations and analytics.',
+              '<strong>n8n-omni-expense-tracker:</strong> Financial automation pipeline built with n8n, structured LLM extraction, and transactional persistence in PostgreSQL 16 containerized with Docker.',
+              '<strong>Design-Extractor-MCP & Spotify-Stats-MCP:</strong> Python servers built with Playwright and OAuth 2.0 PKCE as a technical differentiator to empower AI agents with CSS token extraction and real-time metrics.'
+            ],
+            stack: ['TypeScript', 'React / MERN', 'Vue 3', 'Node.js', 'Python', 'PostgreSQL 16', 'Supabase', 'Docker', 'GitHub Actions', 'Microsoft Azure'],
+            actionLink: {
+              text_es: 'VER PROYECTOS PRINCIPALES',
+              text_en: 'VIEW CORE PROJECTS',
+              url: '#proyectos-github',
+              external: false
+            }
+          },
+          {
+            period_es: '2024 — PRESENTE',
+            period_en: '2024 — PRESENT',
+            category_es: 'INGENIERÍA FRONTEND, UI/UX & APLICACIONES WEB',
+            category_en: 'FRONTEND ENGINEERING, UI/UX & WEB APPS',
+            location_es: 'Remoto',
+            location_en: 'Remote',
+            role_es: 'Desarrollador Frontend, Diseñador UI/UX & Creador de Aplicaciones Web',
+            role_en: 'Frontend Developer, UI/UX Designer & Web Application Builder',
+            company_es: 'Diseño de Interfaces en Figma, SPAs Reactivas & Gestión de Estado',
+            company_en: 'Figma Interface Design, Reactive SPAs & State Management',
+            kanji: '設計 SEKKEI // UI',
+            summary_es: 'Traducción de conceptos visuales y prototipos de Figma en interfaces web modernas, responsivas y de alta velocidad de respuesta utilizando ecosistemas reactivos modernos.',
+            summary_en: 'Translating visual concepts and Figma prototypes into modern, responsive, and high-speed web interfaces using modern reactive ecosystems.',
+            highlights_es: [
+              '<strong>Gym App (UI/UX + Vue 3):</strong> Liderazgo en el diseño de interfaz y experiencia de usuario (UI/UX), construyendo el frontend de la aplicación con Vue 3, Vite, Tailwind CSS y gestión de estado modular con Pinia.',
+              '<strong>Spotify Web Player SPA (reproductorspotify):</strong> Desarrollo de Single Page Application conectada al Spotify Web Playback SDK con reproducción en vivo, búsqueda reactiva con debounce y control de colas.',
+              '<strong>Desarrollo Multi-Framework:</strong> Construcción de interfaces responsivas y sistemas de componentes reutilizables aplicando React, Next.js, Angular y Tailwind CSS.',
+              '<strong>Sistemas de Diseño en Figma:</strong> Prototipado de pantallas, definición de paletas cromáticas, tipografías y componentes atómicos antes de pasar a código.'
+            ],
+            highlights_en: [
+              '<strong>Gym App (UI/UX + Vue 3):</strong> UI/UX design leadership, engineering the frontend application with Vue 3, Vite, Tailwind CSS, and modular state management with Pinia.',
+              '<strong>Spotify Web Player SPA (reproductorspotify):</strong> Single Page Application integrated with the Spotify Web Playback SDK with live streaming, debounced search, and queue management.',
+              '<strong>Multi-Framework Development:</strong> Responsive interface engineering and reusable component systems built with React, Next.js, Angular, and Tailwind CSS.',
+              '<strong>Figma Design Systems:</strong> Screen prototyping, color palettes, typography tokens, and atomic component systems before code implementation.'
+            ],
+            stack: ['Vue 3', 'Pinia', 'React', 'Next.js', 'Angular', 'Tailwind CSS', 'Vite', 'TypeScript', 'Figma', 'UI/UX Design'],
+            actionLink: {
+              text_es: 'INSPECCIONAR STACK FRONTEND',
+              text_en: 'INSPECT FRONTEND STACK',
+              url: '#stack-table',
+              external: false
+            }
+          },
+          {
+            period_es: '2023 — PRESENTE',
+            period_en: '2023 — PRESENT',
+            category_es: 'INGENIERÍA DE SOFTWARE, BACKEND & AUTOMATIZACIÓN',
+            category_en: 'SOFTWARE ENGINEERING, BACKEND & AUTOMATION',
+            location_es: 'Manta, Ecuador',
+            location_en: 'Manta, Ecuador',
+            role_es: 'Estudiante de Ingeniería de Software & Desarrollador de Automatización',
+            role_en: 'Software Engineering Student & Automation Developer',
+            company_es: 'Universidad Laica Eloy Alfaro de Manabí (ULEAM)',
+            company_en: 'Laica Eloy Alfaro University of Manabí (ULEAM)',
+            kanji: '学習 GAKUSHŪ // EDU',
+            summary_es: 'Formación universitaria en Ingeniería de Software aplicada a la resolución de problemas reales mediante arquitecturas cliente-servidor, bases de datos, contenedores y herramientas CLI de automatización.',
+            summary_en: 'University education in Software Engineering applied to solving real-world problems through client-server architectures, databases, containers, and CLI automation tools.',
+            highlights_es: [
+              '<strong>uleamMatricula CLI:</strong> Creación de herramienta de consola en Python con Requests y BeautifulSoup4, gestionando sesiones HTTP persistentes para monitorear cupos académicos en milisegundos sin sobrecarga de navegador.',
+              '<strong>Arquitectura de Servidores Web & Backends:</strong> Implementación de servicios RESTful por capas (controlador, servicio, repositorio) con TypeScript / Node.js y aplicaciones seguras con Python / Django.',
+              '<strong>Infraestructura & Bases de Datos:</strong> Administración de esquemas relacionales y NoSQL (PostgreSQL, MySQL, MongoDB, SQLite) y entornos contenerizados en Docker y Google Cloud.',
+              '<strong>Desarrollo Móvil Nativo:</strong> Construcción de interfaces declarativas en Android con Kotlin y Jetpack Compose bajo Material Design 3.'
+            ],
+            highlights_en: [
+              '<strong>uleamMatricula CLI:</strong> Automated terminal tool in Python with Requests and BeautifulSoup4, managing persistent HTTP sessions to track academic quotas in milliseconds without browser overhead.',
+              '<strong>Web Server Architecture & Backends:</strong> Layered RESTful backend services (controller, service, repository) with TypeScript / Node.js and secure backends with Python / Django.',
+              '<strong>Infrastructure & Databases:</strong> Administration of relational and NoSQL schemas (PostgreSQL, MySQL, MongoDB, SQLite) and containerized workflows in Docker and Google Cloud.',
+              '<strong>Native Mobile Engineering:</strong> Declarative Android mobile UI development using Kotlin and Jetpack Compose under Material Design 3.'
+            ],
+            stack: ['Python 3', 'TypeScript', 'Node.js', 'Django', 'PostgreSQL', 'MySQL', 'MongoDB', 'Docker', 'Google Cloud', 'Kotlin'],
+            actionLink: {
+              text_es: 'VER REPOSITORIO ULEAMMATRICULA',
+              text_en: 'VIEW ULEAMMATRICULA REPO',
+              url: 'https://github.com/JhonnyCCM/uleamMatricula',
+              external: true
+            }
+          }
+        ];
+
+        function getExp(exp, field) {
+          if (!exp) return '';
+          const lang = currentLang.value === 'en' ? 'en' : 'es';
+          const localized = exp[`${field}_${lang}`];
+          if (localized !== undefined) return localized;
+          return exp[field] || '';
+        }
+
+        function getExpHighlights(exp) {
+          if (!exp) return [];
+          const lang = currentLang.value === 'en' ? 'en' : 'es';
+          return exp[`highlights_${lang}`] || exp.highlights || [];
+        }
+
+        function getExpLinkText(exp) {
+          if (!exp || !exp.actionLink) return '';
+          const lang = currentLang.value === 'en' ? 'en' : 'es';
+          return exp.actionLink[`text_${lang}`] || exp.actionLink.text || '';
+        }
+
+        // 4. TABLA DE ESPECIFICACIÓN DE TECH STACK (6 CAPAS BILINGÜE)
+        const stackFilter = ref('');
+        const stackLayers = [
+          {
+            id: 'langs',
+            code: 'CAPA 01 // LANGUAGES',
+            name_es: 'Lenguajes de Programación',
+            name_en: 'Programming Languages',
+            skillicons: 'https://skillicons.dev/icons?i=js,ts,py,cpp,go,kotlin,swift&theme=dark&perline=7',
+            items: ['JavaScript', 'TypeScript', 'Python', 'C++', 'Go', 'Kotlin', 'Swift'],
+            spec_es: 'Tipado estático con TypeScript para arquitecturas Full Stack, Python para servidores MCP y automatización, y Kotlin/C++ para desarrollo nativo y motores gráficos.',
+            spec_en: 'Static typing with TypeScript for Full Stack architectures, Python for MCP servers and automation pipelines, and Kotlin/C++ for native mobile and graphic engines.'
+          },
+          {
+            id: 'frontend',
+            code: 'CAPA 02 // FRONTEND & UI',
+            name_es: 'Frontend & Arquitectura de Interfaz',
+            name_en: 'Frontend & UI Architecture',
+            skillicons: 'https://skillicons.dev/icons?i=vue,react,nextjs,angular,nuxtjs,tailwind,vite,pinia,html,css&theme=dark&perline=10',
+            items: ['Vue 3', 'React', 'Next.js', 'Angular', 'Nuxt.js', 'Tailwind CSS', 'Pinia', 'Vite', 'HTML5', 'CSS3'],
+            spec_es: 'Desarrollo de aplicaciones web reactivas y SSR con Vue 3, React, Next.js y Angular, gestión de estado con Pinia, estilizado moderno con Tailwind CSS y diseño previo en Figma.',
+            spec_en: 'Building reactive and SSR web applications with Vue 3, React, Next.js, and Angular, state management with Pinia, modern styling with Tailwind CSS, and prior UI/UX design in Figma.'
+          },
+          {
+            id: 'backend',
+            code: 'CAPA 03 // BACKEND & RUNTIMES',
+            name_es: 'Backend, APIs & Servidores MCP',
+            name_en: 'Backend, APIs & MCP Servers',
+            skillicons: 'https://skillicons.dev/icons?i=nodejs,bun,nestjs,django,dotnet&theme=dark&perline=5',
+            items: ['Node.js', 'Bun', 'NestJS', 'Django', '.NET', 'MCP JSON-RPC 2.0'],
+            spec_es: 'Diseño de APIs RESTful, microservicios en NestJS/Bun, sistemas seguros en Django/.NET y servidores Model Context Protocol para agentes de IA.',
+            spec_en: 'Designing robust RESTful APIs, high-throughput microservices in NestJS/Bun, secure backends in Django/.NET, and Model Context Protocol servers for AI agents.'
+          },
+          {
+            id: 'data',
+            code: 'CAPA 04 // DATA & PERSISTENCE',
+            name_es: 'Bases de Datos Relacionales, NoSQL & BaaS',
+            name_en: 'Relational Databases, NoSQL & BaaS',
+            skillicons: 'https://skillicons.dev/icons?i=postgres,mysql,supabase,mongodb,sqlite&theme=dark&perline=5',
+            items: ['PostgreSQL 16', 'MySQL', 'Supabase', 'MongoDB', 'SQLite'],
+            spec_es: 'Modelado relacional normalizado, políticas Row-Level Security (RLS) en Supabase, índices de alto rendimiento e integridad transaccional.',
+            spec_en: 'Normalized relational database schemas, Row-Level Security (RLS) policies in Supabase, high-performance query indexes, and strict ACID transaction integrity.'
+          },
+          {
+            id: 'devops',
+            code: 'CAPA 05 // CLOUD & DEVOPS',
+            name_es: 'Contenedores, CI/CD & Infraestructura Cloud',
+            name_en: 'Containers, CI/CD & Cloud Infrastructure',
+            skillicons: 'https://skillicons.dev/icons?i=docker,githubactions,aws,gcp,azure,vercel,git,github&theme=dark&perline=8',
+            items: ['Docker', 'GitHub Actions', 'AWS', 'Google Cloud', 'Azure', 'Vercel', 'Git', 'GitHub'],
+            spec_es: 'Empaquetado multi-stage en Docker, pipelines automatizados de pruebas y despliegue continuo en entornos AWS, GCP, Azure y Vercel.',
+            spec_en: 'Multi-stage Docker packaging, automated testing & continuous deployment pipelines on AWS, GCP, Azure, and Vercel environments.'
+          },
+          {
+            id: 'gamedev',
+            code: 'CAPA 06 // GAME DEV & UI DESIGN',
+            name_es: 'Motores Gráficos 2D/3D & Prototipado UI/UX',
+            name_en: '2D/3D Game Engines & UI/UX Prototyping',
+            skillicons: 'https://skillicons.dev/icons?i=unity,godot,unreal,figma&theme=dark&perline=4',
+            items: ['Unity', 'Godot', 'Unreal Engine', 'Figma'],
+            spec_es: 'Diseño de sistemas de interfaz en Figma antes de codificar y desarrollo de mecánicas interactivas en Unity, Godot y Unreal Engine.',
+            spec_en: 'Designing scalable interface systems in Figma prior to code execution, and building interactive mechanics in Unity, Godot, and Unreal Engine.'
+          }
+        ];
+
+        function getLayerName(layer) {
+          if (!layer) return '';
+          return currentLang.value === 'en' ? (layer.name_en || layer.name) : (layer.name_es || layer.name);
+        }
+
+        function getLayerSpec(layer) {
+          if (!layer) return '';
+          return currentLang.value === 'en' ? (layer.spec_en || layer.spec) : (layer.spec_es || layer.spec);
+        }
+
+        const filteredStackLayers = computed(() => {
+          const q = stackFilter.value.toLowerCase().trim();
+          if (!q) return stackLayers;
+          return stackLayers.filter(l =>
+            (l.name_es && l.name_es.toLowerCase().includes(q)) ||
+            (l.name_en && l.name_en.toLowerCase().includes(q)) ||
+            (l.spec_es && l.spec_es.toLowerCase().includes(q)) ||
+            (l.spec_en && l.spec_en.toLowerCase().includes(q)) ||
+            (l.items && l.items.some(i => i.toLowerCase().includes(q)))
+          );
+        });
+
+        // 5. CONSOLA CLI DEL HERO
+        const cliHistory = ref([]);
+        function runCliCommand(cmd) {
+          if (cmd === 'clear') {
+            cliHistory.value = [];
+            return;
+          }
+          const map = {
+            stack: '&gt; STACK: TypeScript, Python, Vue 3, Next.js, NestJS, PostgreSQL 16, Docker.',
+            mcp: '&gt; MCP SERVERS: Design-Extractor-MCP &amp; Spotify-Stats-MCP activos.',
+            hobbies: '&gt; OFF-SCREEN: Diseño de interfaces, música continua en Spotify, coleccionar Hot Wheels a escala y sesiones de Clean Code a las 3 AM.'
+          };
+          cliHistory.value.push(`<div class="theme-text-main"><span class="theme-text-accent">jhonny@manta:~$</span> ${cmd}<br/><span class="theme-text-muted">${map[cmd] || 'OK'}</span></div>`);
+        }
+
+        // 6. MODALES PÚBLICOS (MCP, README, CONTACTO)
+        const mcpModalOpen = ref(false);
+        const activeMcpModalTab = ref('design');
+        const mcpExamples = {
+          design: {
+            url: 'https://github.com/JhonnyCCM/Design-Extractor-MCP',
+            request: {
+              jsonrpc: '2.0',
+              id: 1,
+              method: 'tools/call',
+              params: {
+                name: 'extract_design_tokens',
+                arguments: { url: 'https://aulavirtualmoodle.uleam.edu.ec', format: 'tailwind' }
+              }
+            },
+            response: {
+              jsonrpc: '2.0',
+              id: 1,
+              result: {
+                status: 'success',
+                tokensExtracted: { canvas: '#0A0B0E', accentPrimary: '#00F7FF', font: 'Space Grotesk' },
+                tailwindConfigGenerated: true
+              }
+            }
+          },
+          spotify: {
+            url: 'https://github.com/JhonnyCCM/Spotify-Stats-MCP',
+            request: {
+              jsonrpc: '2.0',
+              id: 2,
+              method: 'tools/call',
+              params: {
+                name: 'get_spotify_listening_metrics',
+                arguments: { time_range: 'short_term', limit: 3 }
+              }
+            },
+            response: {
+              jsonrpc: '2.0',
+              id: 2,
+              result: {
+                status: 'authenticated_oauth2_pkce',
+                activeTrack: 'Synthwave Coding Session - Manta 3:00 AM',
+                bpm: 124
+              }
+            }
+          }
+        };
+
+        function openMcpModal(tab) {
+          activeMcpModalTab.value = tab || 'design';
+          mcpModalOpen.value = true;
+        }
+
+        const readmeModalOpen = ref(false);
+        const readmeLoading = ref(false);
+        const readmeRenderedHtml = ref('');
+        const activeReadmeProj = ref({});
+
+        async function openReadmeViewer(proj) {
+          activeReadmeProj.value = proj;
+          readmeModalOpen.value = true;
+          readmeLoading.value = true;
+          readmeRenderedHtml.value = '';
+          try {
+            let markdown = '';
+            const branches = [proj.branch || 'main', 'main', 'master'];
+            for (const b of branches) {
+              const res = await fetch(`https://raw.githubusercontent.com/JhonnyCCM/${proj.name}/${b}/README.md`);
+              if (res.ok) {
+                markdown = await res.text();
+                break;
+              }
+            }
+            if (!markdown) {
+              markdown = `# ${proj.title}\n\n${proj.tagline}\n\n## Stack\n` + (proj.tags || []).map(t => `- ${t}`).join('\n');
+            }
+            readmeRenderedHtml.value = typeof marked !== 'undefined' ? marked.parse(markdown) : `<pre>${markdown}</pre>`;
+          } catch (e) {
+            readmeRenderedHtml.value = `<p>No se pudo obtener el README remoto.</p>`;
+          } finally {
+            readmeLoading.value = false;
+          }
+        }
+
+        const contactModalOpen = ref(false);
+        const toastText = ref('');
+        let toastTimer = null;
+
+        function triggerToast(msg) {
+          toastText.value = msg;
+          if (toastTimer) clearTimeout(toastTimer);
+          toastTimer = setTimeout(() => {
+            toastText.value = '';
+          }, 3400);
+        }
+
+        function copyEmail() {
+          const el = document.createElement('textarea');
+          el.value = 'jhonnyccm11@gmail.com';
+          document.body.appendChild(el);
+          el.select();
+          document.execCommand('copy');
+          document.body.removeChild(el);
+          triggerToast('EMAIL COPIADO: jhonnyccm11@gmail.com');
+        }
+
+        onMounted(() => {
+          loadBannersFromDb();
+          applyTheme(activeTheme.value);
+          syncGitHubRepos(false);
+          window.addEventListener('keydown', (ev) => {
+            const tag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
+            if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
+            if (ev.key === 'r' || ev.key === 'R') {
+              toggleCrt();
+            }
+          });
+          // Sincronización en tiempo real si el usuario clasifica o añade repositorios desde admin.html
+          window.addEventListener('storage', (ev) => {
+            if (ev.key === 'jhonnyccm_v4_projects' && ev.newValue) {
+              try {
+                projects.value = JSON.parse(ev.newValue);
+                triggerToast('CATÁLOGO ACTUALIZADO DESDE EL PANEL ADMIN');
+              } catch (e) {}
+            }
+          });
+        });
+
+        return {
+          currentLang,
+          setLang,
+          t,
+          setCategory,
+          getProjTagline,
+          getProjSpecs,
+          getExp,
+          getExpHighlights,
+          getExpLinkText,
+          getLayerName,
+          getLayerSpec,
+          themes,
+          activeTheme,
+          applyTheme,
+          currentBannerUrl,
+          currentBannerFilename,
+          bannerLoaded,
+          onBannerImageLoad,
+          onBannerImageError,
+          landscapeMode,
+          heroConsoleTab,
+          cliHistory,
+          runCliCommand,
+          crtEnabled,
+          toggleCrt,
+          projects,
+          counts,
+          activeRepoType,
+          activeCategory,
+          repoSearch,
+          displayedProjects,
+          getRepoTypeLabel,
+          isSyncing,
+          githubSyncStatus,
+          syncGitHubRepos,
+          experiences,
+          showHeroGif,
+          activeGifChannel,
+          heroGifChannels,
+          currentHeroGif,
+          stackFilter,
+          filteredStackLayers,
+          mcpModalOpen,
+          activeMcpModalTab,
+          mcpExamples,
+          openMcpModal,
+          readmeModalOpen,
+          readmeLoading,
+          readmeRenderedHtml,
+          activeReadmeProj,
+          openReadmeViewer,
+          contactModalOpen,
+          toastText,
+          copyEmail
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
