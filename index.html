@@ -770,96 +770,10 @@
         <!-- BARRA DE FILTRO INTEGRADA POR CATEGORÍAS & VISTA DE REPOSITORIOS -->
         <div class="border theme-border theme-bg-surface p-4 sm:p-5 mb-8 space-y-4">
           
-          <!-- Fila 1: Botones de Categorías Técnicas (MCP & IA, Web, Automatización, etc.) -->
-          <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b theme-border">
+          <!-- Fila 1: Selector de Nivel de Proyecto (Pestañas) + Botón Simulador MCP -->
+          <div class="flex flex-wrap items-center justify-between gap-3 pb-3.5 border-b theme-border">
             <div class="flex flex-wrap items-center gap-1.5">
-              <span class="font-mono text-xs theme-text-sub mr-1.5 font-bold uppercase">{{ t('projectsSection.catLabel') }}</span>
-              <button
-                @click="setCategory('all')"
-                :class="activeCategory === 'all' ? 'btn-industrial-primary !py-1 !px-3' : 'btn-industrial-ghost !py-1 !px-3'"
-              >
-                {{ t('projectsSection.catAll') }}
-              </button>
-              <button
-                @click="setCategory('mcp')"
-                :class="activeCategory === 'mcp' ? 'btn-industrial-primary !py-1 !px-3' : 'btn-industrial-ghost !py-1 !px-3'"
-              >
-                <i class="fa-solid fa-robot mr-1 text-xs"></i>
-                {{ t('projectsSection.catMcp') }}
-              </button>
-              <button
-                @click="setCategory('fullstack')"
-                :class="activeCategory === 'fullstack' ? 'btn-industrial-primary !py-1 !px-3' : 'btn-industrial-ghost !py-1 !px-3'"
-              >
-                <i class="fa-solid fa-layer-group mr-1 text-xs"></i>
-                {{ t('projectsSection.catFullstack') }}
-              </button>
-              <button
-                @click="setCategory('automation')"
-                :class="activeCategory === 'automation' ? 'btn-industrial-primary !py-1 !px-3' : 'btn-industrial-ghost !py-1 !px-3'"
-              >
-                <i class="fa-solid fa-gears mr-1 text-xs"></i>
-                {{ t('projectsSection.catAutomation') }}
-              </button>
-              <button
-                @click="setCategory('mobile')"
-                :class="activeCategory === 'mobile' ? 'btn-industrial-primary !py-1 !px-3' : 'btn-industrial-ghost !py-1 !px-3'"
-              >
-                <i class="fa-brands fa-android mr-1 text-xs"></i>
-                {{ t('projectsSection.catMobile') }}
-              </button>
-              <button
-                @click="setCategory('backend')"
-                :class="activeCategory === 'backend' ? 'btn-industrial-primary !py-1 !px-3' : 'btn-industrial-ghost !py-1 !px-3'"
-              >
-                <i class="fa-solid fa-server mr-1 text-xs"></i>
-                {{ t('projectsSection.catBackend') }}
-              </button>
-              <button
-                @click="setCategory('devops')"
-                :class="activeCategory === 'devops' ? 'btn-industrial-primary !py-1 !px-3' : 'btn-industrial-ghost !py-1 !px-3'"
-              >
-                <i class="fa-solid fa-cloud mr-1 text-xs"></i>
-                {{ t('projectsSection.catDevops') }}
-              </button>
-              <button
-                @click="setCategory('cli')"
-                :class="activeCategory === 'cli' ? 'btn-industrial-primary !py-1 !px-3' : 'btn-industrial-ghost !py-1 !px-3'"
-              >
-                <i class="fa-solid fa-terminal mr-1 text-xs"></i>
-                {{ t('projectsSection.catCli') }}
-              </button>
-              <button
-                @click="setCategory('uiux')"
-                :class="activeCategory === 'uiux' ? 'btn-industrial-primary !py-1 !px-3' : 'btn-industrial-ghost !py-1 !px-3'"
-              >
-                <i class="fa-solid fa-compass-drafting mr-1 text-xs"></i>
-                {{ t('projectsSection.catUiux') }}
-              </button>
-              <button
-                @click="setCategory('gamedev')"
-                :class="activeCategory === 'gamedev' ? 'btn-industrial-primary !py-1 !px-3' : 'btn-industrial-ghost !py-1 !px-3'"
-              >
-                <i class="fa-solid fa-gamepad mr-1 text-xs"></i>
-                {{ t('projectsSection.catGamedev') }}
-              </button>
-            </div>
-
-            <!-- Botón directo al Simulador MCP JSON-RPC -->
-            <button
-              @click="openMcpModal('design')"
-              class="btn-industrial-primary !py-1 !px-3 !text-xs font-mono flex items-center gap-1.5"
-              title="Abrir Simulador Interactivo JSON-RPC 2.0"
-            >
-              <i class="fa-solid fa-terminal text-xs"></i>
-              <span>{{ t('projectsSection.simulateMcp') }}</span>
-            </button>
-          </div>
-
-          <!-- Fila 2: Selector de Tipo de Repositorio (Principales vs Prácticas Google) + Buscador -->
-          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
-            <div class="flex flex-wrap items-center gap-2">
-              <span class="font-mono text-xs theme-text-muted mr-1">{{ t('projectsSection.viewActive') }}</span>
+              <span class="font-mono text-xs theme-text-muted mr-1 uppercase">{{ t('projectsSection.viewActive') }}</span>
               <button
                 @click="activeRepoType = 'main'"
                 :class="activeRepoType === 'main' ? 'btn-industrial-primary !py-1 !px-2.5 !text-xs' : 'btn-industrial-ghost !py-1 !px-2.5 !text-xs'"
@@ -899,13 +813,67 @@
               </button>
             </div>
 
+            <!-- Botón directo al Simulador MCP JSON-RPC -->
+            <button
+              @click="openMcpModal('design')"
+              class="btn-industrial-primary !py-1 !px-3 !text-xs font-mono flex items-center gap-1.5 shrink-0"
+              title="Abrir Simulador Interactivo JSON-RPC 2.0"
+            >
+              <i class="fa-solid fa-terminal text-xs"></i>
+              <span>{{ t('projectsSection.simulateMcp') }}</span>
+            </button>
+          </div>
+
+          <!-- Fila 2: Filtro Desplegable de Categoría Técnica + Buscador de Proyectos -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
+            
+            <!-- Selector Desplegable de Categoría Técnica (Modo Filtro) -->
+            <div class="flex items-center gap-2 flex-wrap">
+              <label class="font-mono text-xs theme-text-sub font-bold uppercase shrink-0 flex items-center gap-1.5">
+                <i class="fa-solid fa-filter theme-text-accent"></i>
+                <span>{{ t('projectsSection.catLabel') }}</span>
+              </label>
+
+              <div class="relative min-w-[240px]">
+                <select
+                  :value="activeCategory"
+                  @change="setCategory($event.target.value)"
+                  class="w-full theme-bg-canvas border theme-border pl-3 pr-8 py-1.5 font-mono text-xs theme-text-main font-bold focus:outline-none focus:theme-border-accent appearance-none cursor-pointer"
+                >
+                  <option value="all">📂 {{ t('projectsSection.catAll') }}</option>
+                  <option value="mcp">🤖 {{ t('projectsSection.catMcp') }}</option>
+                  <option value="fullstack">🌐 {{ t('projectsSection.catFullstack') }}</option>
+                  <option value="automation">⚙️ {{ t('projectsSection.catAutomation') }}</option>
+                  <option value="mobile">📱 {{ t('projectsSection.catMobile') }}</option>
+                  <option value="backend">⚡ {{ t('projectsSection.catBackend') }}</option>
+                  <option value="devops">☁️ {{ t('projectsSection.catDevops') }}</option>
+                  <option value="cli">💻 {{ t('projectsSection.catCli') }}</option>
+                  <option value="uiux">🎨 {{ t('projectsSection.catUiux') }}</option>
+                  <option value="gamedev">🎮 {{ t('projectsSection.catGamedev') }}</option>
+                </select>
+                <i class="fa-solid fa-chevron-down absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] theme-text-muted pointer-events-none"></i>
+              </div>
+
+              <button
+                v-if="activeCategory !== 'all'"
+                @click="setCategory('all')"
+                class="btn-industrial-ghost !py-1 !px-2.5 !text-[11px] font-mono flex items-center gap-1.5"
+                title="Restablecer filtro de categoría"
+              >
+                <span>✕</span>
+                <span>LIMPIAR FILTRO</span>
+              </button>
+            </div>
+
+            <!-- Buscador Dinámico de Proyectos -->
             <div class="relative">
               <input
                 type="text"
                 v-model="repoSearch"
                 :placeholder="t('projectsSection.searchPlaceholder')"
-                class="theme-bg-canvas border theme-border pl-3 pr-8 py-1.5 font-mono text-xs theme-text-main w-64 focus:outline-none focus:theme-border-accent"
+                class="theme-bg-canvas border theme-border pl-8 pr-8 py-1.5 font-mono text-xs theme-text-main w-full sm:w-64 focus:outline-none focus:theme-border-accent"
               />
+              <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-1/2 -translate-y-1/2 text-xs theme-text-muted pointer-events-none"></i>
               <button
                 v-if="repoSearch"
                 @click="repoSearch = ''"
@@ -914,6 +882,7 @@
                 ✕
               </button>
             </div>
+
           </div>
 
         </div>
@@ -1473,8 +1442,8 @@
           </p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 font-mono text-xs bg-gray-100 p-3 border border-gray-300">
             <div><strong>EMAIL:</strong> jhonnyccm11@gmail.com</div>
-            <div><strong>WHATSAPP:</strong> +593 97 889 6206</div>
             <div><strong>GITHUB:</strong> github.com/JhonnyCCM</div>
+            <div><strong>{{ currentLang === 'es' ? 'UBICACIÓN:' : 'LOCATION:' }}</strong> Manta, Ecuador 🇪🇨</div>
             <div><strong>{{ currentLang === 'es' ? 'EDUCACIÓN:' : 'EDUCATION:' }}</strong> ULEAM (Manta, EC)</div>
           </div>
         </div>
@@ -1482,7 +1451,7 @@
         <div class="mt-6 flex flex-wrap justify-between gap-2">
           <div class="flex flex-wrap gap-2">
             <button @click="copyEmail" class="btn-industrial-ghost">{{ currentLang === 'es' ? 'COPIAR EMAIL' : 'COPY EMAIL' }}</button>
-            <a href="https://wa.me/593978896206" target="_blank" class="btn-industrial-ghost">WHATSAPP ↗</a>
+            <a href="https://github.com/JhonnyCCM" target="_blank" rel="noopener noreferrer" class="btn-industrial-ghost">GITHUB ↗</a>
             <button onclick="window.print()" class="btn-industrial-ghost">{{ currentLang === 'es' ? 'IMPRIMIR CV ATS' : 'PRINT ATS RESUME' }}</button>
           </div>
           <button @click="contactModalOpen = false" class="btn-industrial-primary">{{ currentLang === 'es' ? 'CERRAR' : 'CLOSE' }}</button>
