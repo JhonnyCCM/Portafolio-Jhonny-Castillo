@@ -145,47 +145,47 @@
     }
 
     .liquid-glass-card {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(18, 20, 26, 0.70) 100%);
+      background: rgba(18, 20, 26, 0.55);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 28px;
-      box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.6), inset 0 1px 1px 0 rgba(255, 255, 255, 0.14);
-      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 24px;
+      box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.5);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .liquid-glass-card:hover {
-      border-color: rgba(255, 255, 255, 0.22);
+      border-color: rgba(255, 255, 255, 0.12);
       transform: translateY(-2px);
-      box-shadow: 0 28px 60px -12px rgba(0, 0, 0, 0.75), inset 0 1px 2px rgba(255, 255, 255, 0.22);
+      box-shadow: 0 24px 50px -12px rgba(0, 0, 0, 0.65);
     }
 
     .liquid-glass-row {
-      background: rgba(255, 255, 255, 0.02);
+      background: rgba(255, 255, 255, 0.015);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: 20px;
-      transition: all 0.22s ease;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 16px;
+      transition: all 0.2s ease;
     }
     .liquid-glass-row:hover {
-      background: rgba(255, 255, 255, 0.05);
-      border-color: rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.12);
       transform: translateX(3px);
     }
 
     .liquid-glass-btn {
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 9999px;
       color: var(--text-main);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
       transition: all 0.2s ease;
     }
     .liquid-glass-btn:hover {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: rgba(255, 255, 255, 0.32);
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.22);
       color: #FFFFFF;
       transform: translateY(-1px);
     }
@@ -194,8 +194,8 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
       border-radius: 9999px;
       padding: 3px 11px;
       font-family: 'JetBrains Mono', monospace;
@@ -579,51 +579,43 @@
         ></div>
       </div>
 
-      <!-- MATRIZ ASIMÉTRICA DE 12 COLUMNAS SOBRE EL HERO (Ocultable con Modo Paisaje) -->
+      <!-- HERO CONTENT DIRECTAMENTE SOBRE EL BANNER (Ocultable con Modo Paisaje) -->
       <div
         :class="landscapeMode ? 'opacity-0 pointer-events-none scale-95' : 'opacity-100 scale-100'"
-        class="relative z-20 max-w-[1380px] w-full mx-auto px-4 sm:px-6 py-8 md:py-12 my-auto transition-all duration-300"
+        class="relative z-20 max-w-[1380px] w-full mx-auto px-4 sm:px-6 py-10 md:py-16 my-auto transition-all duration-300"
       >
-        <div class="grid grid-cols-1 lg:grid-cols-12 rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur-2xl shadow-2xl overflow-hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          <!-- COLUMNA IZQUIERDA (7 COLUMNAS): IDENTIDAD TÉCNICA, BIOGRAFÍA Y ACCIONES -->
-          <div class="lg:col-span-7 p-6 sm:p-8 lg:p-10 border-b lg:border-b-0 lg:border-r border-white/10 flex flex-col justify-between">
+          <!-- COLUMNA IZQUIERDA (7 COLUMNAS): SOBRE EL BANNER DIRECTAMENTE SIN CAJA NI BORDE -->
+          <div class="lg:col-span-7 flex flex-col justify-center space-y-6">
             <div>
-              <!-- Metadatos Superiores: Posicionamiento profesional auténtico -->
-              <div class="flex flex-wrap items-center gap-2 pb-4 mb-5 border-b border-white/10 font-mono text-xs">
-                <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sky-300 font-semibold text-[11px]">{{ t('hero.badgeUleam') }}</span>
+              <!-- Badge ULEAM & Ubicación -->
+              <div class="flex flex-wrap items-center gap-2 mb-3 font-mono text-xs">
+                <span class="px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-sky-300 font-semibold text-[11px]">{{ t('hero.badgeUleam') }}</span>
                 <span class="text-neutral-500">•</span>
-                <span class="text-neutral-300 font-medium">{{ t('hero.location') }}</span>
+                <span class="text-neutral-300 font-medium drop-shadow-md">{{ t('hero.location') }}</span>
               </div>
 
-              <!-- Subtítulo de Rol Claro y Nombre -->
-              <div class="font-mono text-xs uppercase tracking-widest text-sky-400 mb-1.5 font-bold">
+              <!-- Rol Principal -->
+              <div class="font-mono text-xs uppercase tracking-widest text-sky-400 mb-1 font-bold drop-shadow">
                 {{ t('hero.role') }}
               </div>
-              <h1 class="font-display font-black text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-none mb-4">
+
+              <!-- Nombre Gigante Directo sobre el Banner -->
+              <h1 class="font-display font-black text-4xl sm:text-6xl lg:text-7xl tracking-tight leading-none mb-3 drop-shadow-xl">
                 <span class="jhonny-name-lockup">JHONNY </span>
                 <span class="jhonny-name-highlight">CASTILLO</span>
               </h1>
 
-              <!-- Tagline Nativo de Alto Impacto -->
-              <div class="my-4 p-3.5 rounded-2xl bg-white/[0.03] border border-white/10 font-mono text-xs sm:text-sm flex items-center justify-between gap-2">
-                <div class="flex items-center gap-2 overflow-hidden">
-                  <span class="text-sky-400 font-bold">&gt;</span>
-                  <span class="text-neutral-200 font-semibold tracking-wide">
-                    {{ currentLang === 'es' 
-                       ? 'Desarrollo Web Moderno • APIs Escalables • Herramientas MCP para IA' 
-                       : 'Modern Web Engineering • Scalable APIs • MCP Tooling for AI' }}
-                  </span>
-                </div>
-                <span class="w-2 h-3.5 bg-white inline-block animate-pulse shrink-0"></span>
-              </div>
-
-              <!-- Biografía Pragmática, Directa y Comercial Bilingüe -->
-              <p class="text-neutral-300 text-sm sm:text-base leading-relaxed mb-6" v-html="t('hero.bio')">
+              <!-- Subtítulo Limpio de 1 Línea (Sin Caja Pesada) -->
+              <p class="font-mono text-sm sm:text-base text-neutral-200 font-medium tracking-wide drop-shadow-md max-w-xl">
+                {{ currentLang === 'es' 
+                   ? 'Desarrollo Web Moderno • APIs Escalables • Herramientas MCP para IA' 
+                   : 'Modern Web Engineering • Scalable APIs • MCP Tooling for AI' }}
               </p>
 
               <!-- Enlaces Profesionales Nativos -->
-              <div class="flex flex-wrap items-center gap-2.5 mb-6 font-mono text-xs">
+              <div class="flex flex-wrap items-center gap-3 pt-3 font-mono text-xs">
                 <a href="https://github.com/JhonnyCCM" target="_blank" rel="noopener noreferrer" class="liquid-glass-btn rounded-full !py-1.5 !px-3.5 inline-flex items-center gap-2">
                   <i class="fa-brands fa-github text-sm text-sky-400"></i>
                   <span>github.com/JhonnyCCM</span>
@@ -636,8 +628,8 @@
             </div>
 
             <!-- Botones Principales de Llamado a la Acción -->
-            <div class="pt-5 border-t border-white/10 flex flex-wrap items-center gap-3 font-mono text-xs">
-              <button @click="contactModalOpen = true" class="rounded-full bg-white hover:bg-neutral-200 text-black px-5 py-2.5 font-bold shadow-lg flex items-center gap-2 transition">
+            <div class="flex flex-wrap items-center gap-3 font-mono text-xs pt-1">
+              <button @click="contactModalOpen = true" class="rounded-full bg-white hover:bg-neutral-200 text-black px-6 py-2.5 font-bold shadow-xl flex items-center gap-2 transition">
                 <i class="fa-solid fa-file-contract"></i>
                 <span>{{ t('hero.btnCvContact') }}</span>
               </button>
@@ -656,59 +648,38 @@
             </div>
           </div>
 
-          <!-- COLUMNA DERECHA (5 COLUMNAS): PRESENTACIÓN HUMANA & DISPONIBILIDAD (LIQUID GLASS) -->
-          <div class="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between bg-white/[0.01]">
-            
-            <div class="liquid-glass-card rounded-3xl p-6 sm:p-8 flex-1 flex flex-col justify-between space-y-5 border border-white/10">
-              <div>
-                <!-- Estado único en pantalla -->
-                <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
-                  <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span class="font-mono text-xs text-emerald-400 font-bold uppercase tracking-wider">
-                      {{ currentLang === 'es' ? 'DISPONIBLE PARA TRABAJAR' : 'AVAILABLE FOR HIRE' }}
-                    </span>
-                  </div>
-                  <span class="px-2.5 py-0.5 rounded-full text-[10.5px] font-mono bg-white/5 border border-white/10 text-neutral-400">
-                    REMOTO / PRESENCIAL
+          <!-- COLUMNA DERECHA (5 COLUMNAS): TARJETA COMPACTA 40% MÁS PEQUEÑA (SIN BOTÓN CONTACTO REPETIDO) -->
+          <div class="lg:col-span-5">
+            <div class="rounded-2xl p-5 sm:p-6 bg-zinc-950/60 backdrop-blur-xl border border-white/[0.06] shadow-xl space-y-4">
+              <!-- Estado único -->
+              <div class="flex items-center justify-between border-b border-white/5 pb-3">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span class="font-mono text-xs text-emerald-400 font-bold uppercase tracking-wider">
+                    {{ currentLang === 'es' ? 'DISPONIBLE' : 'AVAILABLE' }}
                   </span>
                 </div>
-
-                <!-- Redacción natural y humana en primera persona -->
-                <p class="text-sm sm:text-base text-neutral-200 leading-relaxed font-normal mb-5">
-                  {{ currentLang === 'es' 
-                     ? 'Construyo aplicaciones web completas, arquitecturas backend escalables y servidores MCP para IA desde Manta, Ecuador (UTC-5). Actualmente curso Ingeniería de Software en la ULEAM y estoy disponible para sumarme a equipos como Full Stack (Junior/Mid) o desarrollar MVPs a medida.' 
-                     : 'I build end-to-end web applications, scalable backend architectures, and MCP servers for AI from Manta, Ecuador (UTC-5). Currently studying Software Engineering at ULEAM and available to join teams as a Full Stack (Junior/Mid) or develop custom MVPs.' }}
-                </p>
-
-                <!-- Separación orgánica con espacio sutil (sin cajas dentro de cajas) -->
-                <div class="py-4 border-y border-white/10 space-y-2.5 font-mono text-xs">
-                  <div class="flex items-center gap-2 text-neutral-300">
-                    <i class="fa-solid fa-location-dot text-sky-400 text-xs w-4"></i>
-                    <span>Manta, Ecuador 🇪🇨 (UTC-5)</span>
-                    <span class="text-neutral-500">•</span>
-                    <span class="text-neutral-400">Ing. Software @ ULEAM</span>
-                  </div>
-                  <div class="flex items-center gap-2 text-neutral-400 text-[11.5px]">
-                    <i class="fa-solid fa-compass text-neutral-500 text-xs w-4"></i>
-                    <span>{{ currentLang === 'es' ? 'Fuera del IDE: Diseño en Figma, música en Spotify y coleccionar Hot Wheels.' : 'Off-screen: UI design in Figma, music curating on Spotify, and collecting Hot Wheels.' }}</span>
-                  </div>
-                </div>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-mono bg-white/5 text-neutral-400">
+                  REMOTO / PRESENCIAL
+                </span>
               </div>
 
-              <!-- CTA Directo con botón redondeado -->
-              <div class="pt-4 flex items-center justify-between">
-                <span class="font-mono text-neutral-400 text-xs">Manta, Ecuador</span>
-                <button
-                  @click="contactModalOpen = true"
-                  class="px-5 py-2 rounded-full bg-white hover:bg-neutral-200 text-black font-mono font-bold text-xs transition shadow-md flex items-center gap-2"
-                >
-                  <span>{{ currentLang === 'es' ? 'Contactar ahora' : 'Contact now' }}</span>
-                  <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                </button>
+              <!-- Redacción concisa y humana -->
+              <p class="text-xs sm:text-sm text-neutral-300 leading-relaxed font-normal">
+                {{ currentLang === 'es' 
+                   ? 'Construyo aplicaciones web completas, arquitecturas backend escalables y servidores MCP para IA desde Manta, Ecuador (UTC-5). Actualmente curso Ingeniería de Software en la ULEAM y estoy disponible para sumarme a equipos como Full Stack (Junior/Mid) o desarrollar MVPs a medida.' 
+                   : 'I build end-to-end web applications, scalable backend architectures, and MCP servers for AI from Manta, Ecuador (UTC-5). Currently studying Software Engineering at ULEAM and available to join teams as a Full Stack (Junior/Mid) or develop custom MVPs.' }}
+              </p>
+
+              <!-- Ubicación y Actividad sutil -->
+              <div class="pt-3 border-t border-white/5 flex flex-wrap items-center justify-between gap-2 font-mono text-[11px] text-neutral-400">
+                <span class="flex items-center gap-1.5 text-neutral-300">
+                  <i class="fa-solid fa-location-dot text-sky-400 text-xs"></i>
+                  <span>Manta, Ecuador 🇪🇨 (UTC-5)</span>
+                </span>
+                <span>Ing. Software @ ULEAM</span>
               </div>
             </div>
-
           </div>
 
         </div>
@@ -742,40 +713,22 @@
 
 
     <!-- =====================================================================
-         CORE STACK DOCK (BARRA FLOTANTE DE TECNOLOGÍAS EN PRODUCCIÓN)
+         CORE STACK (LÍNEA HORIZONTAL LIMPIA SIN CONTENEDOR PESADO NI BORDES)
          ===================================================================== -->
-    <section class="w-full -mt-6 sm:-mt-8 mb-12 sm:mb-16 relative z-20">
+    <section class="w-full -mt-2 mb-10 sm:mb-14 relative z-20">
       <div class="max-w-[1380px] mx-auto px-4 sm:px-6">
-        <div class="liquid-glass-card rounded-2xl sm:rounded-full p-3 sm:px-6 sm:py-3.5 border border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 shadow-2xl">
-          <div class="flex items-center gap-2.5 shrink-0">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span class="font-mono text-xs uppercase font-bold tracking-wider text-neutral-300">
-              {{ currentLang === 'es' ? 'Stack Principal en Producción' : 'Core Production Stack' }}
-            </span>
-            <span class="text-neutral-500 hidden sm:inline">•</span>
-          </div>
-
-          <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
-            <div
-              v-for="tool in coreDockTools"
-              :key="tool.name"
-              class="group relative flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.03] hover:bg-white/10 border border-white/5 hover:border-white/20 transition cursor-default"
-              :title="tool.name"
-            >
-              <i :class="tool.icon" class="text-xs text-neutral-400 group-hover:text-white transition"></i>
-              <span class="font-mono text-[11px] font-semibold text-neutral-300 group-hover:text-white transition">
-                {{ tool.name }}
-              </span>
-            </div>
-          </div>
-
-          <button
-            @click="mainView = 'info'"
-            class="text-[11px] font-mono text-sky-400 hover:text-sky-300 transition shrink-0 hidden lg:flex items-center gap-1.5"
+        <div class="flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-8 gap-y-2.5 font-mono text-xs text-neutral-400">
+          <span class="text-[11px] uppercase tracking-wider text-neutral-500 font-bold shrink-0">
+            {{ currentLang === 'es' ? 'STACK PRODUCCIÓN:' : 'CORE STACK:' }}
+          </span>
+          <div
+            v-for="tool in coreDockTools"
+            :key="tool.name"
+            class="flex items-center gap-2 opacity-70 hover:opacity-100 hover:text-white transition cursor-default"
           >
-            <span>{{ currentLang === 'es' ? 'Ecosistema Completo' : 'Full Ecosystem' }}</span>
-            <i class="fa-solid fa-arrow-right text-[9px]"></i>
-          </button>
+            <i :class="tool.icon" class="text-sm"></i>
+            <span class="text-xs font-semibold">{{ tool.name }}</span>
+          </div>
         </div>
       </div>
     </section>
@@ -815,16 +768,16 @@
           <!-- PROYECTO #1: FLAGSHIP BENTO CARD (Design-Extractor-MCP) -->
           <article
             v-if="featuredProjects[0]"
-            class="liquid-glass-card p-6 sm:p-10 relative overflow-hidden group"
+            class="liquid-glass-card p-6 sm:p-8 relative overflow-hidden group"
           >
             <!-- Gradiente de fondo sutil -->
             <div class="absolute -right-20 -top-20 w-80 h-80 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
               <!-- Columna Izquierda: Información, Problema e Impacto -->
-              <div class="lg:col-span-7 flex flex-col justify-between space-y-5">
+              <div class="lg:col-span-7 flex flex-col justify-between space-y-4">
                 <div>
-                  <div class="flex flex-wrap items-center gap-2.5 mb-3 font-mono text-xs">
+                  <div class="flex flex-wrap items-center gap-2 mb-2 font-mono text-xs">
                     <span class="liquid-badge text-sky-400 bg-sky-500/10 border-sky-400/20 font-bold">
                       <i class="fa-solid fa-robot text-[10px]"></i>
                       <span>MCP SERVER // AI REVERSE ENGINEERING</span>
@@ -834,30 +787,22 @@
                     </span>
                   </div>
 
-                  <h3 class="font-display font-black text-2xl sm:text-3xl text-white tracking-tight mb-3">
+                  <h3 class="font-display font-black text-2xl sm:text-3xl text-white tracking-tight mb-2">
                     <a :href="featuredProjects[0].url" target="_blank" rel="noopener noreferrer" class="hover:text-sky-300 transition">
                       {{ featuredProjects[0].title }}
                     </a>
                   </h3>
 
-                  <p class="text-neutral-300 text-sm sm:text-base leading-relaxed mb-4">
+                  <p class="text-neutral-300 text-sm leading-relaxed mb-4 line-clamp-2">
                     {{ getProjProblemSolved(featuredProjects[0]) }}
                   </p>
 
-                  <!-- Especificaciones de Arquitectura (Bullet points limpios) -->
-                  <div class="space-y-2 mb-4 font-mono text-xs text-neutral-400">
-                    <div v-for="(spec, sIdx) in (getProjSpecs(featuredProjects[0]) || []).slice(0, 3)" :key="sIdx" class="flex items-start gap-2.5">
-                      <span class="text-sky-400 font-bold">▸</span>
-                      <span class="text-neutral-300">{{ spec }}</span>
-                    </div>
-                  </div>
-
-                  <!-- Tags -->
+                  <!-- Tags sin bordes pesados -->
                   <div class="flex flex-wrap gap-1.5 pt-1">
                     <span
                       v-for="tag in (featuredProjects[0].tags || []).slice(0, 5)"
                       :key="tag"
-                      class="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/10 font-mono text-[11px] text-neutral-300"
+                      class="px-2 py-0.5 rounded bg-white/[0.03] font-mono text-[11px] text-neutral-400"
                     >
                       {{ tag }}
                     </span>
@@ -865,7 +810,7 @@
                 </div>
 
                 <!-- Botones de Acción -->
-                <div class="pt-5 border-t border-white/10 flex flex-wrap items-center gap-3">
+                <div class="pt-4 border-t border-white/10 flex flex-wrap items-center gap-3">
                   <button
                     @click="openMcpModal('design')"
                     class="liquid-glass-btn rounded-full px-4 py-2 font-mono text-xs font-semibold text-sky-300 hover:text-white flex items-center gap-2"
@@ -894,7 +839,7 @@
 
               <!-- Columna Derecha: Mockup Visual de Extracción de AST / Tokens Tailwind -->
               <div class="lg:col-span-5">
-                <div class="rounded-2xl border border-white/10 bg-black/60 backdrop-blur-xl p-5 font-mono text-xs text-neutral-300 shadow-2xl relative">
+                <div class="rounded-2xl border border-white/5 bg-black/60 backdrop-blur-xl p-5 font-mono text-xs text-neutral-300 shadow-2xl relative">
                   <div class="flex items-center justify-between pb-3 mb-3 border-b border-white/10 text-[11px] text-neutral-400">
                     <div class="flex items-center gap-1.5">
                       <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
@@ -936,29 +881,15 @@
             </div>
           </article>
 
-          <!-- PROYECTOS #2 Y #3: COLUMNAS PARALELAS EDITORIALES -->
+          <!-- PROYECTOS #2 Y #3: COLUMNAS PARALELAS EDITORIALES LIMPIAS Y COMPACTAS -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             
             <!-- PROYECTO #2: Spotify-Stats-MCP -->
             <article
               v-if="featuredProjects[1]"
-              class="liquid-glass-card p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden group"
+              class="liquid-glass-card p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden group"
             >
               <div>
-                <!-- Visual Header: Mini Telemetría Spotify -->
-                <div class="rounded-xl border border-white/10 bg-black/40 backdrop-blur-md p-3 mb-5 flex items-center justify-between font-mono text-xs">
-                  <div class="flex items-center gap-2.5">
-                    <i class="fa-brands fa-spotify text-emerald-400 text-base animate-pulse"></i>
-                    <div>
-                      <div class="text-white font-bold text-xs">Spotify Web API + OAuth 2.0 PKCE</div>
-                      <div class="text-neutral-400 text-[10px]">MCP Telemetry &amp; Smart Playlists</div>
-                    </div>
-                  </div>
-                  <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-400/20 text-emerald-400 text-[10px] font-bold">
-                    CONNECTED
-                  </span>
-                </div>
-
                 <div class="flex items-center justify-between gap-2 pb-3 mb-3 border-b border-white/10 font-mono text-xs">
                   <span class="liquid-badge text-sky-400 bg-sky-500/10 border-sky-400/20 text-[10px]">
                     <i class="fa-solid fa-robot text-[10px]"></i>
@@ -975,7 +906,7 @@
                   </a>
                 </h3>
 
-                <p class="text-neutral-300 text-xs sm:text-sm leading-relaxed mb-4 line-clamp-3">
+                <p class="text-neutral-300 text-xs sm:text-sm leading-relaxed mb-4 line-clamp-2">
                   {{ getProjProblemSolved(featuredProjects[1]) }}
                 </p>
 
@@ -983,7 +914,7 @@
                   <span
                     v-for="tag in (featuredProjects[1].tags || []).slice(0, 4)"
                     :key="tag"
-                    class="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/10 font-mono text-[11px] text-neutral-300"
+                    class="px-2 py-0.5 rounded bg-white/[0.03] font-mono text-[11px] text-neutral-400"
                   >
                     {{ tag }}
                   </span>
@@ -1022,23 +953,9 @@
             <!-- PROYECTO #3: n8n-omni-expense-tracker -->
             <article
               v-if="featuredProjects[2]"
-              class="liquid-glass-card p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden group"
+              class="liquid-glass-card p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden group"
             >
               <div>
-                <!-- Visual Header: Mini Pipeline Flow -->
-                <div class="rounded-xl border border-white/10 bg-black/40 backdrop-blur-md p-3 mb-5 flex items-center justify-between font-mono text-xs">
-                  <div class="flex items-center gap-2.5">
-                    <i class="fa-solid fa-diagram-project text-amber-400 text-base"></i>
-                    <div>
-                      <div class="text-white font-bold text-xs">Webhook → LLM OCR → PostgreSQL 16</div>
-                      <div class="text-neutral-400 text-[10px]">Dockerized n8n Workflow</div>
-                    </div>
-                  </div>
-                  <span class="px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-400/20 text-amber-400 text-[10px] font-bold">
-                    PIPELINE
-                  </span>
-                </div>
-
                 <div class="flex items-center justify-between gap-2 pb-3 mb-3 border-b border-white/10 font-mono text-xs">
                   <span class="liquid-badge text-amber-400 bg-amber-500/10 border-amber-400/20 text-[10px]">
                     <i class="fa-solid fa-bolt text-[10px]"></i>
@@ -1055,7 +972,7 @@
                   </a>
                 </h3>
 
-                <p class="text-neutral-300 text-xs sm:text-sm leading-relaxed mb-4 line-clamp-3">
+                <p class="text-neutral-300 text-xs sm:text-sm leading-relaxed mb-4 line-clamp-2">
                   {{ getProjProblemSolved(featuredProjects[2]) }}
                 </p>
 
@@ -1063,7 +980,7 @@
                   <span
                     v-for="tag in (featuredProjects[2].tags || []).slice(0, 4)"
                     :key="tag"
-                    class="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/10 font-mono text-[11px] text-neutral-300"
+                    class="px-2 py-0.5 rounded bg-white/[0.03] font-mono text-[11px] text-neutral-400"
                   >
                     {{ tag }}
                   </span>
@@ -1093,6 +1010,7 @@
             </article>
 
           </div>
+        </div>
         </div>
 
         <!-- BOTÓN COLLAPSE / EXPAND CENTRAL TIPO VIDRIO -->
@@ -1512,69 +1430,45 @@
           </div>
         </div>
 
-        <!-- Timeline / Grid de Experiencias -->
-        <div class="space-y-6">
+        <!-- Timeline Vertical Limpio de Trayectoria -->
+        <div class="relative border-l border-white/10 pl-6 sm:pl-8 ml-3 space-y-8 my-6">
           <div
             v-for="(exp, idx) in experiences"
             :key="idx"
-            class="liquid-glass-card rounded-3xl p-6 sm:p-8 hover:border-white/20 transition"
+            class="relative group"
           >
-            <div class="flex flex-col lg:flex-row lg:items-start justify-between gap-4 pb-4 mb-4 border-b border-white/10">
-              <div>
-                <div class="flex flex-wrap items-center gap-2 mb-2 font-mono text-xs">
-                  <span class="liquid-badge text-sky-400 bg-sky-500/10 border-sky-400/20 font-bold">
-                    {{ getExp(exp, 'period') }}
-                  </span>
-                  <span class="px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-neutral-300">
-                    {{ getExp(exp, 'category') }}
-                  </span>
-                  <span class="text-neutral-400">
-                    <i class="fa-solid fa-location-dot mr-1 text-sky-400"></i>{{ getExp(exp, 'location') }}
-                  </span>
-                </div>
-                <h3 class="font-display font-bold text-2xl text-white">
-                  {{ getExp(exp, 'role') }}
-                </h3>
-                <div class="font-mono text-sm text-sky-300 mt-0.5 font-semibold">
-                  {{ getExp(exp, 'company') }}
-                </div>
-              </div>
+            <!-- Timeline dot -->
+            <div class="absolute -left-[31px] sm:-left-[39px] top-1.5 w-2.5 h-2.5 rounded-full bg-sky-400 border border-black transition-transform group-hover:scale-125"></div>
+
+            <div class="flex flex-wrap items-center gap-2 mb-1.5 font-mono text-xs">
+              <span class="text-sky-300 font-bold tracking-wider">{{ getExp(exp, 'period') }}</span>
+              <span class="text-white/20">•</span>
+              <span class="text-neutral-400">{{ getExp(exp, 'category') }}</span>
+              <span class="text-white/20">•</span>
+              <span class="text-neutral-500">{{ getExp(exp, 'location') }}</span>
             </div>
 
-            <p class="text-neutral-300 text-sm sm:text-base leading-relaxed mb-5">
-              {{ getExp(exp, 'summary') }}
-            </p>
+            <h3 class="font-display font-bold text-xl sm:text-2xl text-white mb-0.5">
+              {{ getExp(exp, 'role') }}
+            </h3>
+            <div class="font-mono text-xs text-sky-400/90 mb-2">
+              {{ getExp(exp, 'company') }}
+            </div>
 
-            <!-- Lista de Responsabilidades e Impacto -->
-            <div class="space-y-2.5 mb-6">
-              <div
-                v-for="(point, pIdx) in getExpHighlights(exp)"
-                :key="pIdx"
-                class="flex items-start gap-3 text-xs sm:text-sm text-neutral-300"
+            <p class="text-neutral-300 text-sm leading-relaxed mb-3 max-w-3xl" v-html="getExp(exp, 'summary')"></p>
+
+            <div class="flex flex-wrap items-center gap-1.5 pt-1">
+              <span
+                v-for="tech in exp.stack"
+                :key="tech"
+                class="px-2 py-0.5 rounded text-[11px] font-mono text-neutral-400 bg-white/[0.03] border border-white/5"
               >
-                <span class="text-sky-400 font-mono text-xs mt-0.5">▸</span>
-                <span v-html="point" class="leading-relaxed"></span>
-              </div>
-            </div>
-
-            <!-- Stack de Tecnologías Aplicadas -->
-            <div class="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
-              <div class="flex flex-wrap items-center gap-1.5">
-                <span class="font-mono text-xs text-neutral-400 mr-2 font-semibold">{{ t('experienceSection.stackLabel') }}</span>
-                <span
-                  v-for="tech in exp.stack"
-                  :key="tech"
-                  class="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/10 font-mono text-xs text-neutral-300 hover:border-white/30 transition"
-                >
-                  {{ tech }}
-                </span>
-              </div>
-              <div v-if="exp.actionLink" class="font-mono text-xs">
-                <a :href="exp.actionLink.url" :target="exp.actionLink.external ? '_blank' : '_self'" class="text-sky-300 hover:text-white flex items-center gap-1.5">
-                  <span>{{ getExpLinkText(exp) }}</span>
-                  <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                </a>
-              </div>
+                {{ tech }}
+              </span>
+              <a v-if="exp.actionLink" :href="exp.actionLink.url" :target="exp.actionLink.external ? '_blank' : '_self'" class="ml-2 font-mono text-xs text-sky-300 hover:text-white inline-flex items-center gap-1 transition-colors">
+                <span>{{ getExpLinkText(exp) }}</span>
+                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+              </a>
             </div>
           </div>
         </div>
@@ -1645,26 +1539,21 @@
                 </div>
               </div>
 
-              <!-- Skillicons -->
-              <div class="p-2.5 rounded-xl bg-black/40 border border-white/5 mb-4 inline-block">
-                <img src="https://skillicons.dev/icons?i=ts,js,vue,react,nextjs,tailwind,vite,pinia,html,css&theme=dark&perline=5" alt="Frontend Stack" class="h-10 w-auto object-contain" loading="lazy" />
-              </div>
-
-              <!-- Tech Pills -->
-              <div class="flex flex-wrap gap-1.5 mb-5">
+              <!-- Lista Unificada Icono + Nombre (Sin duplicación) -->
+              <div class="space-y-1.5 mb-5">
                 <button
-                  v-for="item in ['TypeScript', 'Vue 3', 'React', 'Next.js', 'Tailwind CSS', 'Vite', 'Pinia', 'HTML5', 'CSS3']"
-                  :key="item"
-                  @click="stackFilter = item"
-                  :class="[
-                    stackFilter && item.toLowerCase().includes(stackFilter.toLowerCase()) ? 'bg-white text-black font-bold' :
-                    isCoreTech(item) ? 'border border-white/40 bg-white/10 text-white font-bold' :
-                    'bg-white/[0.03] border border-white/10 text-neutral-400 hover:text-white'
-                  ]"
-                  class="px-2.5 py-1 rounded-md font-mono text-[11px] transition"
+                  v-for="item in frontendStack"
+                  :key="item.name"
+                  v-show="!stackFilter || item.name.toLowerCase().includes(stackFilter.toLowerCase())"
+                  @click="stackFilter = stackFilter === item.name ? '' : item.name"
+                  class="w-full flex items-center justify-between py-1.5 px-2.5 rounded-lg transition-colors hover:bg-white/[0.04] text-left group"
+                  :class="{'bg-white/10 text-white': stackFilter === item.name}"
                 >
-                  <span v-if="isCoreTech(item)" class="text-emerald-400 mr-1 text-[9px]">●</span>
-                  {{ item }}
+                  <div class="flex items-center gap-2.5 text-xs font-mono">
+                    <i :class="item.icon" class="text-neutral-400 group-hover:text-sky-300 w-4 text-center transition-colors"></i>
+                    <span :class="{'text-white font-semibold': item.core, 'text-neutral-400 group-hover:text-neutral-200': !item.core}">{{ item.name }}</span>
+                  </div>
+                  <span v-if="item.core" class="text-[9.5px] font-mono px-1.5 py-0.5 rounded bg-white/[0.05] text-neutral-300">CORE</span>
                 </button>
               </div>
             </div>
@@ -1689,26 +1578,21 @@
                 </div>
               </div>
 
-              <!-- Skillicons -->
-              <div class="p-2.5 rounded-xl bg-black/40 border border-white/5 mb-4 inline-block">
-                <img src="https://skillicons.dev/icons?i=py,nodejs,bun,nestjs,postgres,supabase,sqlite&theme=dark&perline=4" alt="Backend Stack" class="h-10 w-auto object-contain" loading="lazy" />
-              </div>
-
-              <!-- Tech Pills -->
-              <div class="flex flex-wrap gap-1.5 mb-5">
+              <!-- Lista Unificada Icono + Nombre (Sin duplicación) -->
+              <div class="space-y-1.5 mb-5">
                 <button
-                  v-for="item in ['Python', 'Node.js', 'FastAPI', 'NestJS', 'PostgreSQL 16', 'Supabase', 'MCP JSON-RPC 2.0']"
-                  :key="item"
-                  @click="stackFilter = item"
-                  :class="[
-                    stackFilter && item.toLowerCase().includes(stackFilter.toLowerCase()) ? 'bg-white text-black font-bold' :
-                    isCoreTech(item) ? 'border border-white/40 bg-white/10 text-white font-bold' :
-                    'bg-white/[0.03] border border-white/10 text-neutral-400 hover:text-white'
-                  ]"
-                  class="px-2.5 py-1 rounded-md font-mono text-[11px] transition"
+                  v-for="item in backendStack"
+                  :key="item.name"
+                  v-show="!stackFilter || item.name.toLowerCase().includes(stackFilter.toLowerCase())"
+                  @click="stackFilter = stackFilter === item.name ? '' : item.name"
+                  class="w-full flex items-center justify-between py-1.5 px-2.5 rounded-lg transition-colors hover:bg-white/[0.04] text-left group"
+                  :class="{'bg-white/10 text-white': stackFilter === item.name}"
                 >
-                  <span v-if="isCoreTech(item)" class="text-emerald-400 mr-1 text-[9px]">●</span>
-                  {{ item }}
+                  <div class="flex items-center gap-2.5 text-xs font-mono">
+                    <i :class="item.icon" class="text-neutral-400 group-hover:text-sky-300 w-4 text-center transition-colors"></i>
+                    <span :class="{'text-white font-semibold': item.core, 'text-neutral-400 group-hover:text-neutral-200': !item.core}">{{ item.name }}</span>
+                  </div>
+                  <span v-if="item.core" class="text-[9.5px] font-mono px-1.5 py-0.5 rounded bg-white/[0.05] text-neutral-300">CORE</span>
                 </button>
               </div>
             </div>
@@ -1733,26 +1617,21 @@
                 </div>
               </div>
 
-              <!-- Skillicons -->
-              <div class="p-2.5 rounded-xl bg-black/40 border border-white/5 mb-4 inline-block">
-                <img src="https://skillicons.dev/icons?i=docker,githubactions,linux,azure,gcp,vercel,git&theme=dark&perline=4" alt="Cloud Stack" class="h-10 w-auto object-contain" loading="lazy" />
-              </div>
-
-              <!-- Tech Pills -->
-              <div class="flex flex-wrap gap-1.5 mb-5">
+              <!-- Lista Unificada Icono + Nombre (Sin duplicación) -->
+              <div class="space-y-1.5 mb-5">
                 <button
-                  v-for="item in ['Docker', 'Linux', 'GitHub Actions', 'Vercel', 'Azure', 'n8n Pipelines', 'Git']"
-                  :key="item"
-                  @click="stackFilter = item"
-                  :class="[
-                    stackFilter && item.toLowerCase().includes(stackFilter.toLowerCase()) ? 'bg-white text-black font-bold' :
-                    isCoreTech(item) ? 'border border-white/40 bg-white/10 text-white font-bold' :
-                    'bg-white/[0.03] border border-white/10 text-neutral-400 hover:text-white'
-                  ]"
-                  class="px-2.5 py-1 rounded-md font-mono text-[11px] transition"
+                  v-for="item in cloudStack"
+                  :key="item.name"
+                  v-show="!stackFilter || item.name.toLowerCase().includes(stackFilter.toLowerCase())"
+                  @click="stackFilter = stackFilter === item.name ? '' : item.name"
+                  class="w-full flex items-center justify-between py-1.5 px-2.5 rounded-lg transition-colors hover:bg-white/[0.04] text-left group"
+                  :class="{'bg-white/10 text-white': stackFilter === item.name}"
                 >
-                  <span v-if="isCoreTech(item)" class="text-emerald-400 mr-1 text-[9px]">●</span>
-                  {{ item }}
+                  <div class="flex items-center gap-2.5 text-xs font-mono">
+                    <i :class="item.icon" class="text-neutral-400 group-hover:text-sky-300 w-4 text-center transition-colors"></i>
+                    <span :class="{'text-white font-semibold': item.core, 'text-neutral-400 group-hover:text-neutral-200': !item.core}">{{ item.name }}</span>
+                  </div>
+                  <span v-if="item.core" class="text-[9.5px] font-mono px-1.5 py-0.5 rounded bg-white/[0.05] text-neutral-300">CORE</span>
                 </button>
               </div>
             </div>
@@ -1791,52 +1670,41 @@
           </div>
         </div>
 
-        <!-- Lista Compacta en Formato Glass Rows -->
-        <div class="space-y-3">
+        <!-- Tabla Minimalista de Credenciales y Certificaciones -->
+        <div class="divide-y divide-white/[0.06] border-y border-white/[0.06]">
           <div
             v-for="cert in certificates"
             :key="cert.id"
-            class="liquid-glass-row p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4"
+            class="py-3.5 sm:py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-white/[0.02] transition-colors px-2 sm:px-3 rounded-lg"
           >
             <!-- Entidad + Título + Emisor -->
-            <div class="flex items-center gap-4 min-w-0">
+            <div class="flex items-center gap-3.5 min-w-0">
               <div
-                class="w-11 h-11 rounded-xl flex items-center justify-center text-lg shrink-0 border border-white/10"
-                :style="{ backgroundColor: cert.color + '22', color: cert.color }"
+                class="w-9 h-9 rounded-lg flex items-center justify-center text-sm shrink-0 border border-white/10"
+                :style="{ backgroundColor: cert.color + '18', color: cert.color }"
               >
                 <i :class="cert.icon"></i>
               </div>
               <div class="min-w-0">
-                <div class="flex flex-wrap items-center gap-2 mb-1">
-                  <span class="liquid-badge text-emerald-400 bg-emerald-500/10 border-emerald-400/20 text-[10.5px]">
-                    {{ cert.issuerTag }}
+                <div class="flex items-center gap-2">
+                  <h3 class="font-display font-bold text-sm sm:text-base text-white truncate">
+                    {{ getCertTitle(cert) }}
+                  </h3>
+                  <span class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-white/[0.05] text-neutral-400 shrink-0">
+                    {{ cert.year }}
                   </span>
-                  <span class="font-mono text-xs text-neutral-400">{{ cert.year }}</span>
                 </div>
-                <h3 class="font-display font-bold text-base sm:text-lg text-white truncate">
-                  {{ getCertTitle(cert) }}
-                </h3>
                 <p class="font-mono text-xs text-neutral-400 truncate">
-                  {{ cert.issuer }}
+                  {{ cert.issuer }} • <span class="text-neutral-500">{{ (cert.skills || []).slice(0, 3).join(', ') }}</span>
                 </p>
               </div>
             </div>
 
-            <!-- Tags / Skills + Botón de Verificación -->
-            <div class="flex flex-wrap items-center justify-between md:justify-end gap-3 shrink-0">
-              <div class="hidden lg:flex flex-wrap gap-1.5 max-w-md justify-end">
-                <span
-                  v-for="s in (cert.skills || []).slice(0, 3)"
-                  :key="s"
-                  class="px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/10 font-mono text-[11px] text-neutral-300"
-                >
-                  {{ s }}
-                </span>
-              </div>
-
+            <!-- Botón de Verificación -->
+            <div class="flex items-center justify-end gap-2 shrink-0 self-end sm:self-center">
               <button
                 @click="openCertModal(cert)"
-                class="liquid-glass-btn rounded-lg px-3.5 py-1.5 font-mono text-xs font-semibold flex items-center gap-1.5 text-sky-300 hover:text-white"
+                class="px-3 py-1 rounded-md bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 font-mono text-xs font-medium flex items-center gap-1.5 text-sky-300 hover:text-white transition"
               >
                 <span>{{ t('certificatesSection.btnVerify') }}</span>
                 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
@@ -2971,8 +2839,8 @@
     const CERTIFICATES = [
       {
         id: 'google-android',
-        title_es: 'Desarrollo Móvil Android con Jetpack Compose',
-        title_en: 'Android Basics with Jetpack Compose',
+        title_es: 'Desarrollo Móvil Android con Jetpack Compose (Google Developers)',
+        title_en: 'Android Basics with Jetpack Compose (Google Developers)',
         issuer: 'Google Developers',
         issuerTag: 'GOOGLE',
         year: '2024',
@@ -2986,8 +2854,8 @@
       },
       {
         id: 'uleam-software',
-        title_es: 'Ingeniería de Software & Arquitectura Web',
-        title_en: 'Software Engineering & Web Architecture',
+        title_es: 'Ingeniería de Software & Sistemas Distribuidos (ULEAM FACCI)',
+        title_en: 'Software Engineering & Distributed Systems (ULEAM FACCI)',
         issuer: 'Universidad Laica Eloy Alfaro de Manabí (ULEAM)',
         issuerTag: 'ULEAM',
         year: '2023 - Presente',
@@ -3001,8 +2869,8 @@
       },
       {
         id: 'cloud-cicd',
-        title_es: 'Cloud Computing, Docker & Despliegues CI/CD',
-        title_en: 'Cloud Computing, Docker & CI/CD Pipelines',
+        title_es: 'Contenerización Docker & Pipelines CI/CD (GitHub Actions / Azure)',
+        title_en: 'Docker Containerization & CI/CD Pipelines (GitHub Actions / Azure)',
         issuer: 'Microsoft Azure & GitHub Actions',
         issuerTag: 'AZURE / GITHUB',
         year: '2024',
@@ -3016,8 +2884,8 @@
       },
       {
         id: 'mcp-ai',
-        title_es: 'Model Context Protocol (MCP) & Arquitectura de Herramientas IA',
-        title_en: 'Model Context Protocol (MCP) & AI Tooling Architecture',
+        title_es: 'Arquitectura de Servidores Model Context Protocol (Anthropic MCP)',
+        title_en: 'Model Context Protocol (MCP) Server Architecture (Anthropic Spec)',
         issuer: 'Anthropic MCP Spec / Open Source Community',
         issuerTag: 'AI TOOLING',
         year: '2025',
@@ -3031,8 +2899,8 @@
       },
       {
         id: 'db-postgresql',
-        title_es: 'Modelado Relacional y Persistencia con PostgreSQL 16',
-        title_en: 'Relational Database Modeling & PostgreSQL 16',
+        title_es: 'Diseño Relacional & Persistencia Transaccional (PostgreSQL 16)',
+        title_en: 'Relational Schema Design & ACID Persistence (PostgreSQL 16)',
         issuer: 'PostgreSQL & Supabase Ecosystem',
         issuerTag: 'POSTGRES',
         year: '2024',
@@ -3470,7 +3338,6 @@
           }
         }
 
-        // 3. TRAYECTORIA & EXPERIENCIA TÉCNICA (BILINGÜE ES/EN)
         const experiences = [
           {
             period_es: '2025 — PRESENTE',
@@ -3479,26 +3346,13 @@
             category_en: 'FULL STACK ARCHITECTURE, CLOUD & AI TOOLING',
             location_es: 'Manta, Ecuador • Remoto',
             location_en: 'Manta, Ecuador • Remote',
-            role_es: 'Desarrollador Full Stack & Arquitecto de Proyectos Web / Cloud',
-            role_en: 'Full Stack Developer & Web / Cloud Project Architect',
-            company_es: 'Proyectos de Ingeniería Full Stack, Despliegues Cloud & Herramientas IA',
-            company_en: 'Full Stack Engineering Projects, Cloud Deployments & AI Tooling',
-            kanji: '創造 SŌZŌ // CLOUD',
-            summary_es: 'Diseño y desarrollo de aplicaciones web Full Stack de extremo a extremo, modelado de bases de datos relacionales y NoSQL, automatización de despliegues CI/CD en la nube y creación de herramientas de integración para agentes de Inteligencia Artificial.',
-            summary_en: 'End-to-end design and development of Full Stack web applications, relational and NoSQL database modeling, automated cloud CI/CD deployments, and custom integration tooling for Artificial Intelligence agents.',
-            highlights_es: [
-              '<strong>BookShare (MERN Stack + Azure CI/CD):</strong> Desarrollo de aplicación web Full Stack y configuración de pipelines de integración y despliegue continuo automatizado mediante GitHub Actions y Microsoft Azure.',
-              '<strong>Sistema Web de Confirmación de Invitados:</strong> Diseño de interfaz interactiva y arquitectura de base de datos en tiempo real (Supabase / PostgreSQL) para la gestión y registro de confirmaciones de eventos.',
-              '<strong>n8n-omni-expense-tracker:</strong> Construcción de pipeline de automatización financiera con n8n, extracción estructurada mediante modelos LLM y persistencia transaccional en PostgreSQL 16 contenerizado con Docker.',
-              '<strong>Design-Extractor-MCP & Spotify-Stats-MCP:</strong> Desarrollo de servidores en Python con Playwright y OAuth 2.0 PKCE como diferenciador técnico para conectar agentes de IA con extracción de tokens CSS y métricas en tiempo real.'
-            ],
-            highlights_en: [
-              '<strong>BookShare (MERN Stack + Azure CI/CD):</strong> Full Stack web application development and automated CI/CD pipeline configuration with GitHub Actions and Microsoft Azure.',
-              '<strong>Guest RSVP Web System:</strong> Interactive UI design and real-time database architecture (Supabase / PostgreSQL) for event guest confirmations and analytics.',
-              '<strong>n8n-omni-expense-tracker:</strong> Financial automation pipeline built with n8n, structured LLM extraction, and transactional persistence in PostgreSQL 16 containerized with Docker.',
-              '<strong>Design-Extractor-MCP & Spotify-Stats-MCP:</strong> Python servers built with Playwright and OAuth 2.0 PKCE as a technical differentiator to empower AI agents with CSS token extraction and real-time metrics.'
-            ],
-            stack: ['TypeScript', 'React / MERN', 'Vue 3', 'Node.js', 'Python', 'PostgreSQL 16', 'Supabase', 'Docker', 'GitHub Actions', 'Microsoft Azure'],
+            role_es: 'Desarrollador Full Stack & Arquitecto Web / Cloud',
+            role_en: 'Full Stack Developer & Web / Cloud Architect',
+            company_es: 'Proyectos Full Stack, Despliegues Cloud & Herramientas MCP',
+            company_en: 'Full Stack Engineering, Cloud Deployments & MCP Tooling',
+            summary_es: 'Arquitectura Full Stack con React, Node.js y Azure CI/CD en <strong>BookShare</strong>, flujos financieros automáticos con n8n y PostgreSQL 16 en <strong>n8n-omni-expense-tracker</strong>, y servidores MCP en Python (<strong>Design-Extractor-MCP</strong>, <strong>Spotify-Stats-MCP</strong>) para agentes de IA.',
+            summary_en: 'Full Stack architecture with React, Node.js and Azure CI/CD in <strong>BookShare</strong>, automated financial workflows with n8n and PostgreSQL 16 in <strong>n8n-omni-expense-tracker</strong>, and Python MCP servers (<strong>Design-Extractor-MCP</strong>, <strong>Spotify-Stats-MCP</strong>) for AI agents.',
+            stack: ['TypeScript', 'React / MERN', 'Vue 3', 'Node.js', 'Python', 'PostgreSQL 16', 'Docker', 'GitHub Actions', 'Azure', 'MCP'],
             actionLink: {
               text_es: 'VER PROYECTOS PRINCIPALES',
               text_en: 'VIEW CORE PROJECTS',
@@ -3513,26 +3367,13 @@
             category_en: 'FRONTEND ENGINEERING, UI/UX & WEB APPS',
             location_es: 'Remoto',
             location_en: 'Remote',
-            role_es: 'Desarrollador Frontend, Diseñador UI/UX & Creador de Aplicaciones Web',
-            role_en: 'Frontend Developer, UI/UX Designer & Web Application Builder',
+            role_es: 'Desarrollador Frontend & Diseñador UI/UX',
+            role_en: 'Frontend Developer & UI/UX Designer',
             company_es: 'Diseño de Interfaces en Figma, SPAs Reactivas & Gestión de Estado',
             company_en: 'Figma Interface Design, Reactive SPAs & State Management',
-            kanji: '設計 SEKKEI // UI',
-            summary_es: 'Traducción de conceptos visuales y prototipos de Figma en interfaces web modernas, responsivas y de alta velocidad de respuesta utilizando ecosistemas reactivos modernos.',
-            summary_en: 'Translating visual concepts and Figma prototypes into modern, responsive, and high-speed web interfaces using modern reactive ecosystems.',
-            highlights_es: [
-              '<strong>Gym App (UI/UX + Vue 3):</strong> Liderazgo en el diseño de interfaz y experiencia de usuario (UI/UX), construyendo el frontend de la aplicación con Vue 3, Vite, Tailwind CSS y gestión de estado modular con Pinia.',
-              '<strong>Spotify Web Player SPA (reproductorspotify):</strong> Desarrollo de Single Page Application conectada al Spotify Web Playback SDK con reproducción en vivo, búsqueda reactiva con debounce y control de colas.',
-              '<strong>Desarrollo Multi-Framework:</strong> Construcción de interfaces responsivas y sistemas de componentes reutilizables aplicando React, Next.js, Angular y Tailwind CSS.',
-              '<strong>Sistemas de Diseño en Figma:</strong> Prototipado de pantallas, definición de paletas cromáticas, tipografías y componentes atómicos antes de pasar a código.'
-            ],
-            highlights_en: [
-              '<strong>Gym App (UI/UX + Vue 3):</strong> UI/UX design leadership, engineering the frontend application with Vue 3, Vite, Tailwind CSS, and modular state management with Pinia.',
-              '<strong>Spotify Web Player SPA (reproductorspotify):</strong> Single Page Application integrated with the Spotify Web Playback SDK with live streaming, debounced search, and queue management.',
-              '<strong>Multi-Framework Development:</strong> Responsive interface engineering and reusable component systems built with React, Next.js, Angular, and Tailwind CSS.',
-              '<strong>Figma Design Systems:</strong> Screen prototyping, color palettes, typography tokens, and atomic component systems before code implementation.'
-            ],
-            stack: ['Vue 3', 'Pinia', 'React', 'Next.js', 'Angular', 'Tailwind CSS', 'Vite', 'TypeScript', 'Figma', 'UI/UX Design'],
+            summary_es: 'Diseño UI/UX en Figma y desarrollo frontend reactivo con Vue 3, Pinia y Tailwind CSS en <strong>Gym App</strong>, junto con Single Page Application con streaming en vivo conectada al SDK de Spotify en <strong>reproductorspotify</strong>.',
+            summary_en: 'UI/UX design in Figma and reactive frontend engineering with Vue 3, Pinia, and Tailwind CSS in <strong>Gym App</strong>, alongside a live-streaming Single Page Application connected to Spotify SDK in <strong>reproductorspotify</strong>.',
+            stack: ['Vue 3', 'Pinia', 'React', 'Next.js', 'Tailwind CSS', 'Vite', 'TypeScript', 'Figma', 'Spotify SDK'],
             actionLink: {
               text_es: 'INSPECCIONAR STACK FRONTEND',
               text_en: 'INSPECT FRONTEND STACK',
@@ -3543,30 +3384,17 @@
           {
             period_es: '2023 — PRESENTE',
             period_en: '2023 — PRESENT',
-            category_es: 'INGENIERÍA DE SOFTWARE, BACKEND & AUTOMATIZACIÓN',
-            category_en: 'SOFTWARE ENGINEERING, BACKEND & AUTOMATION',
+            category_es: 'INGENIERÍA DE SOFTWARE & AUTOMATIZACIÓN',
+            category_en: 'SOFTWARE ENGINEERING & AUTOMATION',
             location_es: 'Manta, Ecuador',
             location_en: 'Manta, Ecuador',
-            role_es: 'Estudiante de Ingeniería de Software & Desarrollador de Automatización',
-            role_en: 'Software Engineering Student & Automation Developer',
+            role_es: 'Estudiante de Ingeniería de Software & Desarrollador CLI',
+            role_en: 'Software Engineering Student & CLI Developer',
             company_es: 'Universidad Laica Eloy Alfaro de Manabí (ULEAM)',
             company_en: 'Laica Eloy Alfaro University of Manabí (ULEAM)',
-            kanji: '学習 GAKUSHŪ // EDU',
-            summary_es: 'Formación universitaria en Ingeniería de Software aplicada a la resolución de problemas reales mediante arquitecturas cliente-servidor, bases de datos, contenedores y herramientas CLI de automatización.',
-            summary_en: 'University education in Software Engineering applied to solving real-world problems through client-server architectures, databases, containers, and CLI automation tools.',
-            highlights_es: [
-              '<strong>uleamMatricula CLI:</strong> Creación de herramienta de consola en Python con Requests y BeautifulSoup4, gestionando sesiones HTTP persistentes para monitorear cupos académicos en milisegundos sin sobrecarga de navegador.',
-              '<strong>Arquitectura de Servidores Web & Backends:</strong> Implementación de servicios RESTful por capas (controlador, servicio, repositorio) con TypeScript / Node.js y aplicaciones seguras con Python / Django.',
-              '<strong>Infraestructura & Bases de Datos:</strong> Administración de esquemas relacionales y NoSQL (PostgreSQL, MySQL, MongoDB, SQLite) y entornos contenerizados en Docker y Google Cloud.',
-              '<strong>Desarrollo Móvil Nativo:</strong> Construcción de interfaces declarativas en Android con Kotlin y Jetpack Compose bajo Material Design 3.'
-            ],
-            highlights_en: [
-              '<strong>uleamMatricula CLI:</strong> Automated terminal tool in Python with Requests and BeautifulSoup4, managing persistent HTTP sessions to track academic quotas in milliseconds without browser overhead.',
-              '<strong>Web Server Architecture & Backends:</strong> Layered RESTful backend services (controller, service, repository) with TypeScript / Node.js and secure backends with Python / Django.',
-              '<strong>Infrastructure & Databases:</strong> Administration of relational and NoSQL schemas (PostgreSQL, MySQL, MongoDB, SQLite) and containerized workflows in Docker and Google Cloud.',
-              '<strong>Native Mobile Engineering:</strong> Declarative Android mobile UI development using Kotlin and Jetpack Compose under Material Design 3.'
-            ],
-            stack: ['Python 3', 'TypeScript', 'Node.js', 'Django', 'PostgreSQL', 'MySQL', 'MongoDB', 'Docker', 'Google Cloud', 'Kotlin'],
+            summary_es: 'Formación universitaria en Ingeniería de Software (algoritmos, bases de datos relacionales, cliente-servidor) y autor de <strong>uleamMatricula CLI</strong> en Python con Requests para monitoreo y matriculación de alta velocidad sin sobrecarga.',
+            summary_en: 'University education in Software Engineering (algorithms, relational databases, client-server) and author of <strong>uleamMatricula CLI</strong> in Python with Requests for high-speed quota monitoring and enrollment without browser overhead.',
+            stack: ['Python 3', 'TypeScript', 'Node.js', 'PostgreSQL', 'Docker', 'Kotlin / Compose', 'CLI Tools'],
             actionLink: {
               text_es: 'VER REPOSITORIO ULEAMMATRICULA',
               text_en: 'VIEW ULEAMMATRICULA REPO',
@@ -3711,6 +3539,37 @@
           { name: 'Python', icon: 'fa-brands fa-python' },
           { name: 'PostgreSQL', icon: 'fa-solid fa-database' },
           { name: 'Docker & MCP', icon: 'fa-solid fa-robot' }
+        ];
+
+        const frontendStack = [
+          { name: 'TypeScript', icon: 'fa-brands fa-js', core: true },
+          { name: 'Vue 3', icon: 'fa-brands fa-vuejs', core: true },
+          { name: 'React / Next.js', icon: 'fa-brands fa-react', core: true },
+          { name: 'Tailwind CSS', icon: 'fa-solid fa-wind', core: true },
+          { name: 'Vite', icon: 'fa-solid fa-bolt', core: true },
+          { name: 'Pinia', icon: 'fa-solid fa-seedling', core: true },
+          { name: 'HTML5 & CSS3', icon: 'fa-brands fa-html5', core: false },
+          { name: 'Figma (UI/UX)', icon: 'fa-brands fa-figma', core: true }
+        ];
+
+        const backendStack = [
+          { name: 'Python 3', icon: 'fa-brands fa-python', core: true },
+          { name: 'Node.js', icon: 'fa-brands fa-node-js', core: true },
+          { name: 'PostgreSQL 16', icon: 'fa-solid fa-database', core: true },
+          { name: 'MCP JSON-RPC 2.0', icon: 'fa-solid fa-robot', core: true },
+          { name: 'NestJS / REST APIs', icon: 'fa-solid fa-server', core: false },
+          { name: 'Supabase', icon: 'fa-solid fa-bolt', core: false },
+          { name: 'Django / SQLite', icon: 'fa-brands fa-python', core: false }
+        ];
+
+        const cloudStack = [
+          { name: 'Docker', icon: 'fa-brands fa-docker', core: true },
+          { name: 'GitHub Actions CI/CD', icon: 'fa-brands fa-github', core: true },
+          { name: 'Linux / Bash CLI', icon: 'fa-brands fa-linux', core: true },
+          { name: 'n8n Automation', icon: 'fa-solid fa-diagram-project', core: true },
+          { name: 'Microsoft Azure', icon: 'fa-brands fa-microsoft', core: false },
+          { name: 'Vercel', icon: 'fa-solid fa-arrow-up-right-from-square', core: false },
+          { name: 'Git Workflow', icon: 'fa-brands fa-git-alt', core: true }
         ];
 
         // 5. CONSOLA CLI DEL HERO
@@ -3934,7 +3793,10 @@
           contactModalOpen,
           toastText,
           copyEmail,
-          coreDockTools
+          coreDockTools,
+          frontendStack,
+          backendStack,
+          cloudStack
         };
       }
     }).mount('#app');
