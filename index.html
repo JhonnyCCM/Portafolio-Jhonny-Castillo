@@ -4044,7 +4044,20 @@
             if (!markdown) {
               markdown = `# ${proj.title}\n\n${getProjProblemSolved(proj)}\n\n## Stack\n` + (proj.tags || []).map(t => `- ${t}`).join('\n');
             }
-            readmeRenderedHtml.value = typeof marked !== 'undefined' ? marked.parse(markdown) : `<pre>${markdown}</pre>`;
+            const rawHtml = typeof marked !== 'undefined' ? marked.parse(markdown) : `<pre>${markdown.replace(/</g, '&lt;')}</pre>`;
+            // Sanitización DOM contra XSS (elimina scripts, iframes, objetos y atributos on* / javascript:)
+            const doc = new DOMParser().parseFromString(rawHtml, 'text/html');
+            doc.querySelectorAll('script, iframe, object, embed, form, meta, link, style').forEach(el => el.remove());
+            doc.querySelectorAll('*').forEach(el => {
+              Array.from(el.attributes).forEach(attr => {
+                const name = attr.name.toLowerCase();
+                const val = (attr.value || '').trim().toLowerCase();
+                if (name.startsWith('on') || val.startsWith('javascript:') || val.startsWith('data:text/html')) {
+                  el.removeAttribute(attr.name);
+                }
+              });
+            });
+            readmeRenderedHtml.value = doc.body.innerHTML;
           } catch (e) {
             readmeRenderedHtml.value = `<p>No se pudo obtener el README remoto.</p>`;
           } finally {

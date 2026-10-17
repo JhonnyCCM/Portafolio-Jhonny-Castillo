@@ -1063,12 +1063,21 @@
         const DEFAULT_PWD_HASH = ENV_INJECTED_HASH.startsWith('__VITE_')
           ? (localStorage.getItem('jhonnyccm_admin_pwd_hash') || '')
           : ENV_INJECTED_HASH;
-        const REVOKED_OLD_HASH = '0de2ce473650b3f051451681c53375a2af4468ab3dc9ae74472e3eb576715acf';
-        // Revocar inmediatamente cualquier sesión booleana antigua ('true') o hash antiguo expuesto
+        const REVOKED_HASHES = [
+          '0de2ce473650b3f051451681c53375a2af4468ab3dc9ae74472e3eb576715acf',
+          '7860b504ed753eceece28eed934a7bc07367695a922f30c00f92de87f1795811'
+        ];
+        // Revocar inmediatamente cualquier sesión booleana antigua ('true') o hashes anteriores
         localStorage.removeItem('jhonnyccm_admin_auth_persist');
         sessionStorage.removeItem('jhonnyccm_admin_auth');
-        if (localStorage.getItem('jhonnyccm_admin_pwd_hash') === REVOKED_OLD_HASH) {
+        if (REVOKED_HASHES.includes(localStorage.getItem('jhonnyccm_admin_pwd_hash'))) {
           localStorage.removeItem('jhonnyccm_admin_pwd_hash');
+        }
+        if (REVOKED_HASHES.includes(localStorage.getItem('jhonnyccm_admin_remember_token'))) {
+          localStorage.removeItem('jhonnyccm_admin_remember_token');
+        }
+        if (REVOKED_HASHES.includes(sessionStorage.getItem('jhonnyccm_admin_session_token'))) {
+          sessionStorage.removeItem('jhonnyccm_admin_session_token');
         }
 
         async function sha256(str) {
@@ -1078,12 +1087,11 @@
         }
 
         const initialActiveHash = localStorage.getItem('jhonnyccm_admin_pwd_hash') || DEFAULT_PWD_HASH;
+        const savedToken = sessionStorage.getItem('jhonnyccm_admin_session_token') || localStorage.getItem('jhonnyccm_admin_remember_token') || '';
         const isAuthenticated = ref(
-          Boolean(initialActiveHash) &&
-          initialActiveHash !== REVOKED_OLD_HASH && (
-            sessionStorage.getItem('jhonnyccm_admin_session_token') === initialActiveHash ||
-            localStorage.getItem('jhonnyccm_admin_remember_token') === initialActiveHash
-          )
+          Boolean(savedToken) &&
+          !REVOKED_HASHES.includes(savedToken) &&
+          (!initialActiveHash || savedToken === initialActiveHash)
         );
         const passwordInput = ref('');
         const showPassword = ref(false);
@@ -1098,6 +1106,28 @@
           }, 450);
         }
 
+        async function verifyHashWithServer(candidateHash) {
+          if (!candidateHash || REVOKED_HASHES.includes(candidateHash)) return false;
+          if (supabaseClient) {
+            try {
+              const { data: rpcOk, error: rpcErr } = await supabaseClient.rpc('verify_admin_password', { p_hash: candidateHash });
+              if (!rpcErr && typeof rpcOk === 'boolean') {
+                return rpcOk;
+              }
+              const { data: row } = await supabaseClient
+                .from('portfolio_store')
+                .select('value')
+                .eq('key', 'admin_pwd_hash')
+                .maybeSingle();
+              if (row && row.value && row.value.hash) {
+                return row.value.hash === candidateHash;
+              }
+            } catch (e) {}
+          }
+          const fallbackHash = localStorage.getItem('jhonnyccm_admin_pwd_hash') || DEFAULT_PWD_HASH;
+          return Boolean(fallbackHash) && candidateHash === fallbackHash;
+        }
+
         async function submitLogin() {
           authError.value = '';
           if (!passwordInput.value.trim()) {
@@ -1106,14 +1136,15 @@
             return;
           }
 
-          const currentHash = localStorage.getItem('jhonnyccm_admin_pwd_hash') || DEFAULT_PWD_HASH;
           const enteredHash = await sha256(passwordInput.value.trim());
+          const valid = await verifyHashWithServer(enteredHash);
 
-          if (enteredHash === currentHash) {
+          if (valid) {
             isAuthenticated.value = true;
-            sessionStorage.setItem('jhonnyccm_admin_session_token', currentHash);
+            localStorage.setItem('jhonnyccm_admin_pwd_hash', enteredHash);
+            sessionStorage.setItem('jhonnyccm_admin_session_token', enteredHash);
             if (rememberMe.value) {
-              localStorage.setItem('jhonnyccm_admin_remember_token', currentHash);
+              localStorage.setItem('jhonnyccm_admin_remember_token', enteredHash);
             } else {
               localStorage.removeItem('jhonnyccm_admin_remember_token');
             }
@@ -1169,10 +1200,10 @@
             return;
           }
 
-          const storedHash = localStorage.getItem('jhonnyccm_admin_pwd_hash') || DEFAULT_PWD_HASH;
           const enteredCurrentHash = await sha256(changePwdForm.value.currentPwd.trim());
+          const validCurrent = await verifyHashWithServer(enteredCurrentHash);
 
-          if (enteredCurrentHash !== storedHash) {
+          if (!validCurrent) {
             changePwdForm.value.error = 'La contraseña actual es incorrecta.';
             return;
           }
@@ -1184,11 +1215,17 @@
             localStorage.setItem('jhonnyccm_admin_remember_token', newHash);
           }
           if (supabaseClient) {
-            await supabaseClient.from('portfolio_store').upsert({
-              key: 'admin_pwd_hash',
-              value: { hash: newHash },
-              updated_at: new Date().toISOString()
-            }, { onConflict: 'key' });
+            const { error: rpcErr } = await supabaseClient.rpc('update_admin_password', {
+              p_current_hash: enteredCurrentHash,
+              p_new_hash: newHash
+            });
+            if (rpcErr) {
+              await supabaseClient.from('portfolio_store').upsert({
+                key: 'admin_pwd_hash',
+                value: { hash: newHash },
+                updated_at: new Date().toISOString()
+              }, { onConflict: 'key' });
+            }
           }
           changePwdModalOpen.value = false;
           triggerToast('CONTRASEÑA ACTUALIZADA EN LOCAL Y SUPABASE');
@@ -1263,17 +1300,29 @@
           localStorage.setItem('jhonnyccm_v4_projects', JSON.stringify(projects.value));
           if (supabaseClient) {
             try {
-              const { error } = await supabaseClient.from('portfolio_store').upsert({
-                key: 'projects_catalog',
-                value: projects.value,
-                updated_at: new Date().toISOString()
-              }, { onConflict: 'key' });
-              if (!error) {
+              const activeToken = sessionStorage.getItem('jhonnyccm_admin_session_token') ||
+                localStorage.getItem('jhonnyccm_admin_remember_token') ||
+                localStorage.getItem('jhonnyccm_admin_pwd_hash') || '';
+              const { error: rpcErr } = await supabaseClient.rpc('save_portfolio_catalog', {
+                p_hash: activeToken,
+                p_catalog: projects.value
+              });
+              if (!rpcErr) {
                 supabaseStatus.value = 'SUPABASE: SYNC OK';
                 supabaseNeedsTable.value = false;
-              } else if (error.code === 'PGRST205') {
-                supabaseStatus.value = 'SUPABASE: FALTA TABLA SQL';
-                supabaseNeedsTable.value = true;
+              } else {
+                const { error } = await supabaseClient.from('portfolio_store').upsert({
+                  key: 'projects_catalog',
+                  value: projects.value,
+                  updated_at: new Date().toISOString()
+                }, { onConflict: 'key' });
+                if (!error) {
+                  supabaseStatus.value = 'SUPABASE: SYNC OK';
+                  supabaseNeedsTable.value = false;
+                } else if (error.code === 'PGRST205') {
+                  supabaseStatus.value = 'SUPABASE: FALTA TABLA SQL';
+                  supabaseNeedsTable.value = true;
+                }
               }
             } catch (e) {}
           }
@@ -1522,18 +1571,19 @@
         }
 
         function copySupabaseSql() {
-          const sql = `CREATE TABLE IF NOT EXISTS public.portfolio_store (
-  key TEXT PRIMARY KEY,
-  value JSONB NOT NULL,
-  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
-);
-ALTER TABLE public.portfolio_store ENABLE ROW LEVEL SECURITY;
+          const sql = `ALTER TABLE public.portfolio_store ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "Lectura publica del portafolio" ON public.portfolio_store;
-CREATE POLICY "Lectura publica del portafolio" ON public.portfolio_store FOR SELECT TO anon, authenticated USING (true);
 DROP POLICY IF EXISTS "Sincronizacion desde panel admin" ON public.portfolio_store;
-CREATE POLICY "Sincronizacion desde panel admin" ON public.portfolio_store FOR ALL TO anon, authenticated USING (true) WITH CHECK (true);`;
+DROP POLICY IF EXISTS "Lectura publica solo del catalogo" ON public.portfolio_store;
+CREATE POLICY "Lectura publica solo del catalogo" ON public.portfolio_store FOR SELECT TO anon, authenticated USING (key = 'projects_catalog');
+CREATE OR REPLACE FUNCTION public.verify_admin_password(p_hash TEXT) RETURNS BOOLEAN LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$ DECLARE v_stored_hash TEXT; BEGIN SELECT value->>'hash' INTO v_stored_hash FROM public.portfolio_store WHERE key = 'admin_pwd_hash'; IF v_stored_hash IS NULL THEN RETURN FALSE; END IF; RETURN v_stored_hash = p_hash; END; $$;
+CREATE OR REPLACE FUNCTION public.save_portfolio_catalog(p_hash TEXT, p_catalog JSONB) RETURNS BOOLEAN LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$ BEGIN IF NOT public.verify_admin_password(p_hash) THEN RAISE EXCEPTION 'No autorizado'; END IF; INSERT INTO public.portfolio_store (key, value, updated_at) VALUES ('projects_catalog', p_catalog, now()) ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, updated_at = now(); RETURN TRUE; END; $$;
+CREATE OR REPLACE FUNCTION public.update_admin_password(p_current_hash TEXT, p_new_hash TEXT) RETURNS BOOLEAN LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$ BEGIN IF NOT public.verify_admin_password(p_current_hash) THEN RAISE EXCEPTION 'No autorizado'; END IF; INSERT INTO public.portfolio_store (key, value, updated_at) VALUES ('admin_pwd_hash', jsonb_build_object('hash', p_new_hash), now()) ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, updated_at = now(); RETURN TRUE; END; $$;
+GRANT EXECUTE ON FUNCTION public.verify_admin_password(TEXT) TO anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.save_portfolio_catalog(TEXT, JSONB) TO anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.update_admin_password(TEXT, TEXT) TO anon, authenticated;`;
           navigator.clipboard.writeText(sql);
-          triggerToast('SQL COPIADO // PÉGALO EN SUPABASE SQL EDITOR');
+          triggerToast('SQL BLINDADO COPIADO // EJECÚTALO EN SUPABASE SQL EDITOR');
         }
 
         async function loadFromSupabase() {
@@ -1542,9 +1592,22 @@ CREATE POLICY "Sincronizacion desde panel admin" ON public.portfolio_store FOR A
             return;
           }
           try {
+            const activeToken = sessionStorage.getItem('jhonnyccm_admin_session_token') ||
+              localStorage.getItem('jhonnyccm_admin_remember_token') || '';
+            if (activeToken) {
+              const validSession = await verifyHashWithServer(activeToken);
+              if (!validSession) {
+                isAuthenticated.value = false;
+                sessionStorage.removeItem('jhonnyccm_admin_session_token');
+                localStorage.removeItem('jhonnyccm_admin_remember_token');
+              }
+            }
+
             const { data, error } = await supabaseClient
               .from('portfolio_store')
-              .select('key, value');
+              .select('key, value')
+              .eq('key', 'projects_catalog')
+              .maybeSingle();
             if (error) {
               if (error.code === 'PGRST205') {
                 supabaseStatus.value = 'SUPABASE: FALTA TABLA SQL';
@@ -1556,29 +1619,9 @@ CREATE POLICY "Sincronizacion desde panel admin" ON public.portfolio_store FOR A
             }
             supabaseStatus.value = 'SUPABASE: ONLINE';
             supabaseNeedsTable.value = false;
-            if (Array.isArray(data)) {
-              const pwdRow = data.find(r => r.key === 'admin_pwd_hash');
-              if (pwdRow && pwdRow.value && pwdRow.value.hash) {
-                const cloudHash = pwdRow.value.hash;
-                localStorage.setItem('jhonnyccm_admin_pwd_hash', cloudHash);
-                const sessToken = sessionStorage.getItem('jhonnyccm_admin_session_token');
-                const remToken = localStorage.getItem('jhonnyccm_admin_remember_token');
-                if (sessToken !== cloudHash && remToken !== cloudHash) {
-                  isAuthenticated.value = false;
-                }
-              }
-              const catRow = data.find(r => r.key === 'projects_catalog');
-              if (catRow && Array.isArray(catRow.value) && catRow.value.length > 0) {
-                projects.value = catRow.value;
-                localStorage.setItem('jhonnyccm_v4_projects', JSON.stringify(catRow.value));
-              } else {
-                // Subir el catálogo inicial a Supabase si la tabla está recién creada y vacía
-                await supabaseClient.from('portfolio_store').upsert({
-                  key: 'projects_catalog',
-                  value: projects.value,
-                  updated_at: new Date().toISOString()
-                }, { onConflict: 'key' });
-              }
+            if (data && Array.isArray(data.value) && data.value.length > 0) {
+              projects.value = data.value;
+              localStorage.setItem('jhonnyccm_v4_projects', JSON.stringify(data.value));
             }
           } catch (e) {
             supabaseStatus.value = 'SUPABASE: MODO LOCAL';

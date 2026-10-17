@@ -3,7 +3,8 @@ import { defineConfig, loadEnv } from 'vite';
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
-  const adminHash = env.VITE_ADMIN_PWD_HASH || '7860b504ed753eceece28eed934a7bc07367695a922f30c00f92de87f1795811';
+  // El hash de administrador NUNCA se hardcodea en el repositorio; se valida contra Supabase / .env local
+  const adminHash = env.VITE_ADMIN_PWD_HASH || '';
   const supabaseUrl = env.VITE_SUPABASE_URL || 'https://rrvpepoikvhojtiqqjdg.supabase.co';
   const supabaseKey = env.VITE_SUPABASE_PUBLISHABLE_KEY || 'sb_publishable_6lekXaPI2RzqcyLVVxPoNw_34D07O0K';
 
