@@ -67,3 +67,8 @@ Ecosistema de automatización financiera contenerizado con **Docker Compose** qu
 - **GitHub:** [@JhonnyCCM](https://github.com/JhonnyCCM)
 - **LinkedIn:** [Jhonny Cristhian Castillo Mero](https://www.linkedin.com/in/jhonny-castillo-mero/)
 - **Correo:** [jhonnycastillo1910@gmail.com](mailto:jhonnycastillo1910@gmail.com)
+
+---
+
+> **Aviso Legal & Uso Nominativo (COESC+i / Decisión Andina 486 Art. 157):** Todas las marcas registradas, logotipos e íconos de tecnologías citados (*Spotify, Google, Microsoft Azure, Anthropic, ULEAM*, etc.) pertenecen a sus respectivos propietarios y se mencionan únicamente con fines descriptivos, académicos y demostrativos sin afiliación ni patrocinio oficial. Este portafolio no utiliza cookies de rastreo ni recolecta datos personales de los visitantes (*LOPDP Ecuador*).
+
