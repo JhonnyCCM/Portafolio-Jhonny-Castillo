@@ -1032,10 +1032,11 @@
           ? (localStorage.getItem('jhonnyccm_admin_pwd_hash') || '')
           : ENV_INJECTED_HASH;
         const REVOKED_OLD_HASH = '0de2ce473650b3f051451681c53375a2af4468ab3dc9ae74472e3eb576715acf';
+        // Revocar inmediatamente cualquier sesión booleana antigua ('true') o hash antiguo expuesto
+        localStorage.removeItem('jhonnyccm_admin_auth_persist');
+        sessionStorage.removeItem('jhonnyccm_admin_auth');
         if (localStorage.getItem('jhonnyccm_admin_pwd_hash') === REVOKED_OLD_HASH) {
           localStorage.removeItem('jhonnyccm_admin_pwd_hash');
-          localStorage.removeItem('jhonnyccm_admin_auth_persist');
-          sessionStorage.removeItem('jhonnyccm_admin_auth');
         }
 
         async function sha256(str) {
@@ -1044,9 +1045,13 @@
           return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
         }
 
+        const initialActiveHash = localStorage.getItem('jhonnyccm_admin_pwd_hash') || DEFAULT_PWD_HASH;
         const isAuthenticated = ref(
-          sessionStorage.getItem('jhonnyccm_admin_auth') === 'true' ||
-          localStorage.getItem('jhonnyccm_admin_auth_persist') === 'true'
+          Boolean(initialActiveHash) &&
+          initialActiveHash !== REVOKED_OLD_HASH && (
+            sessionStorage.getItem('jhonnyccm_admin_session_token') === initialActiveHash ||
+            localStorage.getItem('jhonnyccm_admin_remember_token') === initialActiveHash
+          )
         );
         const passwordInput = ref('');
         const showPassword = ref(false);
@@ -1074,9 +1079,11 @@
 
           if (enteredHash === currentHash) {
             isAuthenticated.value = true;
-            sessionStorage.setItem('jhonnyccm_admin_auth', 'true');
+            sessionStorage.setItem('jhonnyccm_admin_session_token', currentHash);
             if (rememberMe.value) {
-              localStorage.setItem('jhonnyccm_admin_auth_persist', 'true');
+              localStorage.setItem('jhonnyccm_admin_remember_token', currentHash);
+            } else {
+              localStorage.removeItem('jhonnyccm_admin_remember_token');
             }
             passwordInput.value = '';
             triggerToast('ACCESO CONCEDIDO // BIENVENIDO JHONNY');
@@ -1089,8 +1096,8 @@
         function logout() {
           if (confirm('¿Cerrar sesión en el panel de administración?')) {
             isAuthenticated.value = false;
-            sessionStorage.removeItem('jhonnyccm_admin_auth');
-            localStorage.removeItem('jhonnyccm_admin_auth_persist');
+            sessionStorage.removeItem('jhonnyccm_admin_session_token');
+            localStorage.removeItem('jhonnyccm_admin_remember_token');
             passwordInput.value = '';
             triggerToast('SESIÓN DE ADMINISTRADOR CERRADA');
           }
@@ -1140,6 +1147,10 @@
 
           const newHash = await sha256(changePwdForm.value.newPwd.trim());
           localStorage.setItem('jhonnyccm_admin_pwd_hash', newHash);
+          sessionStorage.setItem('jhonnyccm_admin_session_token', newHash);
+          if (localStorage.getItem('jhonnyccm_admin_remember_token')) {
+            localStorage.setItem('jhonnyccm_admin_remember_token', newHash);
+          }
           changePwdModalOpen.value = false;
           triggerToast('CONTRASEÑA ACTUALIZADA CON ÉXITO');
         }
