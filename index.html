@@ -56,6 +56,14 @@
     }
   </script>
 
+  <!-- Supabase JS Client (Local con fallback automático a CDN) -->
+  <script src="./js/supabase.js"></script>
+  <script>
+    if (!window.supabase) {
+      document.write('<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"><\/script>');
+    }
+  </script>
+
   <script>
     tailwind.config = {
       theme: {
@@ -4066,9 +4074,49 @@
           triggerToast('EMAIL COPIADO: jhonnyccm11@gmail.com');
         }
 
-        onMounted(() => {
+        const SUPABASE_URL_ENV = '__VITE_SUPABASE_URL__';
+        const SUPABASE_KEY_ENV = '__VITE_SUPABASE_PUBLISHABLE_KEY__';
+        const supabaseUrl = SUPABASE_URL_ENV.startsWith('__VITE_')
+          ? 'https://rrvpepoikvhojtiqqjdg.supabase.co'
+          : SUPABASE_URL_ENV;
+        const supabaseKey = SUPABASE_KEY_ENV.startsWith('__VITE_')
+          ? 'sb_publishable_6lekXaPI2RzqcyLVVxPoNw_34D07O0K'
+          : SUPABASE_KEY_ENV;
+        const supabaseClient = (window.supabase && window.supabase.createClient)
+          ? window.supabase.createClient(supabaseUrl, supabaseKey)
+          : null;
+
+        async function syncCatalogFromSupabase() {
+          if (!supabaseClient) return;
+          try {
+            const { data, error } = await supabaseClient
+              .from('portfolio_store')
+              .select('value')
+              .eq('key', 'projects_catalog')
+              .maybeSingle();
+            if (!error && data && Array.isArray(data.value) && data.value.length > 0) {
+              const cloudList = data.value;
+              cloudList.forEach(p => {
+                const match = INITIAL_PROJECTS.find(ip => ip.name.toLowerCase() === (p.name || '').toLowerCase());
+                if (match) {
+                  if (!p.problem_solved_es && match.problem_solved_es) p.problem_solved_es = match.problem_solved_es;
+                  if (!p.problem_solved_en && match.problem_solved_en) p.problem_solved_en = match.problem_solved_en;
+                  if (!p.tagline_es && match.tagline_es) p.tagline_es = match.tagline_es;
+                  if (!p.tagline_en && match.tagline_en) p.tagline_en = match.tagline_en;
+                  if (!p.specs_es && match.specs_es) p.specs_es = match.specs_es;
+                  if (!p.specs_en && match.specs_en) p.specs_en = match.specs_en;
+                }
+              });
+              projects.value = cloudList;
+              localStorage.setItem('jhonnyccm_v4_projects', JSON.stringify(cloudList));
+            }
+          } catch (e) {}
+        }
+
+        onMounted(async () => {
           loadBannersFromDb();
           applyTheme(activeTheme.value);
+          await syncCatalogFromSupabase();
           syncGitHubRepos(false);
 
           window.addEventListener('keydown', (ev) => {

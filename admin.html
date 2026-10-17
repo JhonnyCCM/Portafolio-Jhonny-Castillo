@@ -24,6 +24,14 @@
   <!-- Vue 3 Global Build CDN -->
   <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
 
+  <!-- Supabase JS Client (Local con fallback a CDN) -->
+  <script src="./js/supabase.js"></script>
+  <script>
+    if (!window.supabase) {
+      document.write('<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"><\/script>');
+    }
+  </script>
+
   <script>
     tailwind.config = {
       theme: {
@@ -192,11 +200,21 @@
           </div>
 
           <div class="flex items-center gap-2 sm:gap-3">
-            <!-- Indicador de Sesión -->
+            <!-- Indicador de Sesión & Supabase Cloud -->
             <div v-if="isAuthenticated" class="hidden md:flex items-center gap-1.5 font-mono text-[11px] px-2.5 py-1 border border-emerald-500/40 bg-emerald-500/10 text-emerald-400 font-bold">
-              <i class="fa-solid fa-shield-halved"></i>
-              <span>ACCESO AUTORIZADO</span>
+              <i class="fa-solid fa-bolt"></i>
+              <span>{{ supabaseStatus }}</span>
             </div>
+
+            <button
+              v-if="isAuthenticated && supabaseNeedsTable"
+              @click="copySupabaseSql"
+              class="btn-industrial-ghost !py-1.5 !px-2.5 !text-[10px] !border-amber-400 !text-amber-300"
+              title="Copiar SQL para crear la tabla portfolio_store en tu proyecto de Supabase"
+            >
+              <i class="fa-solid fa-database"></i>
+              <span>COPIAR SQL SUPABASE</span>
+            </button>
 
             <!-- Cambiar Contraseña (Solo si autenticado) -->
             <button
@@ -1025,8 +1043,22 @@
         }
 
         // =====================================================================
-        // SISTEMA DE AUTENTICACIÓN Y SEGURIDAD CON SHA-256 (VÍA VARIABLE DE ENTORNO .ENV)
+        // CONEXIÓN EN VIVO CON SUPABASE CLOUD + AUTENTICACIÓN SHA-256
         // =====================================================================
+        const SUPABASE_URL_ENV = '__VITE_SUPABASE_URL__';
+        const SUPABASE_KEY_ENV = '__VITE_SUPABASE_PUBLISHABLE_KEY__';
+        const supabaseUrl = SUPABASE_URL_ENV.startsWith('__VITE_')
+          ? 'https://rrvpepoikvhojtiqqjdg.supabase.co'
+          : SUPABASE_URL_ENV;
+        const supabaseKey = SUPABASE_KEY_ENV.startsWith('__VITE_')
+          ? 'sb_publishable_6lekXaPI2RzqcyLVVxPoNw_34D07O0K'
+          : SUPABASE_KEY_ENV;
+        const supabaseClient = (window.supabase && window.supabase.createClient)
+          ? window.supabase.createClient(supabaseUrl, supabaseKey)
+          : null;
+        const supabaseStatus = ref('SUPABASE: CONECTANDO...');
+        const supabaseNeedsTable = ref(false);
+
         const ENV_INJECTED_HASH = '__VITE_ADMIN_PWD_HASH__';
         const DEFAULT_PWD_HASH = ENV_INJECTED_HASH.startsWith('__VITE_')
           ? (localStorage.getItem('jhonnyccm_admin_pwd_hash') || '')
@@ -1151,11 +1183,18 @@
           if (localStorage.getItem('jhonnyccm_admin_remember_token')) {
             localStorage.setItem('jhonnyccm_admin_remember_token', newHash);
           }
+          if (supabaseClient) {
+            await supabaseClient.from('portfolio_store').upsert({
+              key: 'admin_pwd_hash',
+              value: { hash: newHash },
+              updated_at: new Date().toISOString()
+            }, { onConflict: 'key' });
+          }
           changePwdModalOpen.value = false;
-          triggerToast('CONTRASEÑA ACTUALIZADA CON ÉXITO');
+          triggerToast('CONTRASEÑA ACTUALIZADA EN LOCAL Y SUPABASE');
         }
 
-        // Proyectos (Sincronizados con INITIAL_PROJECTS y localStorage)
+        // Proyectos (Sincronizados con INITIAL_PROJECTS, localStorage y Supabase)
         const savedProjects = localStorage.getItem('jhonnyccm_v4_projects');
         let initialList = savedProjects ? JSON.parse(savedProjects) : JSON.parse(JSON.stringify(INITIAL_PROJECTS));
         INITIAL_PROJECTS.forEach((ip, idx) => {
@@ -1220,8 +1259,24 @@
           });
         });
 
-        function save(msg = 'Cambios guardados') {
+        async function save(msg = 'Cambios guardados') {
           localStorage.setItem('jhonnyccm_v4_projects', JSON.stringify(projects.value));
+          if (supabaseClient) {
+            try {
+              const { error } = await supabaseClient.from('portfolio_store').upsert({
+                key: 'projects_catalog',
+                value: projects.value,
+                updated_at: new Date().toISOString()
+              }, { onConflict: 'key' });
+              if (!error) {
+                supabaseStatus.value = 'SUPABASE: SYNC OK';
+                supabaseNeedsTable.value = false;
+              } else if (error.code === 'PGRST205') {
+                supabaseStatus.value = 'SUPABASE: FALTA TABLA SQL';
+                supabaseNeedsTable.value = true;
+              }
+            } catch (e) {}
+          }
           triggerToast(msg);
         }
 
@@ -1466,12 +1521,80 @@
           }, 3200);
         }
 
+        function copySupabaseSql() {
+          const sql = `CREATE TABLE IF NOT EXISTS public.portfolio_store (
+  key TEXT PRIMARY KEY,
+  value JSONB NOT NULL,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+ALTER TABLE public.portfolio_store ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Lectura publica del portafolio" ON public.portfolio_store;
+CREATE POLICY "Lectura publica del portafolio" ON public.portfolio_store FOR SELECT TO anon, authenticated USING (true);
+DROP POLICY IF EXISTS "Sincronizacion desde panel admin" ON public.portfolio_store;
+CREATE POLICY "Sincronizacion desde panel admin" ON public.portfolio_store FOR ALL TO anon, authenticated USING (true) WITH CHECK (true);`;
+          navigator.clipboard.writeText(sql);
+          triggerToast('SQL COPIADO // PÉGALO EN SUPABASE SQL EDITOR');
+        }
+
+        async function loadFromSupabase() {
+          if (!supabaseClient) {
+            supabaseStatus.value = 'SUPABASE: MODO LOCAL';
+            return;
+          }
+          try {
+            const { data, error } = await supabaseClient
+              .from('portfolio_store')
+              .select('key, value');
+            if (error) {
+              if (error.code === 'PGRST205') {
+                supabaseStatus.value = 'SUPABASE: FALTA TABLA SQL';
+                supabaseNeedsTable.value = true;
+              } else {
+                supabaseStatus.value = 'SUPABASE: CONECTADO';
+              }
+              return;
+            }
+            supabaseStatus.value = 'SUPABASE: ONLINE';
+            supabaseNeedsTable.value = false;
+            if (Array.isArray(data)) {
+              const pwdRow = data.find(r => r.key === 'admin_pwd_hash');
+              if (pwdRow && pwdRow.value && pwdRow.value.hash) {
+                const cloudHash = pwdRow.value.hash;
+                localStorage.setItem('jhonnyccm_admin_pwd_hash', cloudHash);
+                const sessToken = sessionStorage.getItem('jhonnyccm_admin_session_token');
+                const remToken = localStorage.getItem('jhonnyccm_admin_remember_token');
+                if (sessToken !== cloudHash && remToken !== cloudHash) {
+                  isAuthenticated.value = false;
+                }
+              }
+              const catRow = data.find(r => r.key === 'projects_catalog');
+              if (catRow && Array.isArray(catRow.value) && catRow.value.length > 0) {
+                projects.value = catRow.value;
+                localStorage.setItem('jhonnyccm_v4_projects', JSON.stringify(catRow.value));
+              } else {
+                // Subir el catálogo inicial a Supabase si la tabla está recién creada y vacía
+                await supabaseClient.from('portfolio_store').upsert({
+                  key: 'projects_catalog',
+                  value: projects.value,
+                  updated_at: new Date().toISOString()
+                }, { onConflict: 'key' });
+              }
+            }
+          } catch (e) {
+            supabaseStatus.value = 'SUPABASE: MODO LOCAL';
+          }
+        }
+
         onMounted(() => {
           document.body.className = 'theme-' + activeTheme.value;
+          loadFromSupabase();
         });
 
         return {
           isAuthenticated,
+          supabaseStatus,
+          supabaseNeedsTable,
+          copySupabaseSql,
           passwordInput,
           showPassword,
           rememberMe,
