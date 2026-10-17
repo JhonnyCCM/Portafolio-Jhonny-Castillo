@@ -8,7 +8,26 @@ dist/
 dist-ssr/
 *.local
 
-# Logs
+# Variables de entorno y secretos (NUNCA subir al repositorio)
+.env
+.env.*
+!.env.example
+
+# Documentos privados de credenciales y registros locales (Untracked documents)
+CREDENTIALS.md
+credentials.md
+SECRETS.md
+*credentials*
+*secret*
+jhonnyccm_projects_*.json
+
+# Plataformas de despliegue
+.vercel
+.netlify
+
+# Logs y registros
+logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
