@@ -304,7 +304,7 @@
 
         <div class="mt-6 pt-4 border-t theme-border flex items-center justify-between text-[10px] font-mono theme-text-muted">
           <span>ENCRIPTACIÓN: SHA-256</span>
-          <span class="theme-text-sub">CLAVE INICIAL: jhonny2026</span>
+          <span class="theme-text-sub">ACCESO PRIVADO // PROPIETARIO</span>
         </div>
       </div>
     </div>
@@ -1027,7 +1027,13 @@
         // =====================================================================
         // SISTEMA DE AUTENTICACIÓN Y SEGURIDAD CON SHA-256
         // =====================================================================
-        const DEFAULT_PWD_HASH = '0de2ce473650b3f051451681c53375a2af4468ab3dc9ae74472e3eb576715acf'; // sha256 de 'jhonny2026'
+        const DEFAULT_PWD_HASH = '7860b504ed753eceece28eed934a7bc07367695a922f30c00f92de87f1795811';
+        const REVOKED_OLD_HASH = '0de2ce473650b3f051451681c53375a2af4468ab3dc9ae74472e3eb576715acf';
+        if (localStorage.getItem('jhonnyccm_admin_pwd_hash') === REVOKED_OLD_HASH) {
+          localStorage.removeItem('jhonnyccm_admin_pwd_hash');
+          localStorage.removeItem('jhonnyccm_admin_auth_persist');
+          sessionStorage.removeItem('jhonnyccm_admin_auth');
+        }
 
         async function sha256(str) {
           const buffer = new TextEncoder().encode(str);

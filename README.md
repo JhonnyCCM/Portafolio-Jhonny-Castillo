@@ -1,77 +1,69 @@
-# ⚡ Portafolio Interactivo Full Stack & AI MCP — Jhonny Castillo (@JhonnyCCM)
+# Jhonny Cristhian Castillo Mero (`@JhonnyCCM`)
 
-Portafolio web arquitectónico bilingüe (**Español / English**) con estética industrial **Neo-Tech Tokyo-Manta**, desarrollado con **Vue 3**, integración en vivo con la **API de GitHub**, simulador interactivo de **Servidores MCP (Model Context Protocol)** y un **Panel de Administración protegido por contraseña** con persistencia local en tiempo real.
+**Full Stack Developer • AI Tooling & MCP Architect • Native Android Developer**  
+📍 Manta, Manabí, Ecuador 🇪🇨 (UTC-5) | 🎓 Ingeniería de Software — **ULEAM**
 
----
-
-## 🚀 Cómo Ejecutar en Desarrollo o Subirlo a Producción
-
-El proyecto está configurado con **Vite y Vue 3** para que puedas correrlo localmente o subirlo en segundos a **Vercel, Netlify o GitHub Pages**.
-
-### 1. Ejecutar localmente con Vite
-```bash
-# Instalar dependencias (Vite)
-npm install
-
-# Iniciar servidor de desarrollo local con recarga rápida
-npm run dev
-```
-> Abrirá automáticamente `http://localhost:5173` con `index.html` y podrás acceder a `admin.html`.
-
-### 2. Construir para producción (Build)
-```bash
-npm run build
-```
-Genera la carpeta `dist/` optimizada, minificada y lista para cualquier hosting estático o CDN.
-
-### 3. Subir a Vercel o Netlify (Recomendado)
-- **Vercel:**
-  1. Sube tu repositorio a GitHub (`git push`).
-  2. Entra en [vercel.com](https://vercel.com) e importa tu repositorio `Portafolio-JhonnyCCM`.
-  3. Vercel detectará automáticamente Vite. Haz clic en **Deploy**. ¡Listo!
-- **Netlify:**
-  1. Conecta tu repositorio o arrastra la carpeta del proyecto a [app.netlify.com/drop](https://app.netlify.com/drop).
-  2. Build command: `npm run build` | Publish directory: `dist`.
+🌐 **Portafolio Interactivo en Vivo:** [portafolio-jhonny-castillo.vercel.app](https://portafolio-jhonny-castillo.vercel.app)
 
 ---
 
-## 🔐 Panel de Administración (`admin.html`) Protegido
+## 👨‍💻 Sobre Mí
 
-El panel de administración permite clasificar tus repositorios de GitHub, añadir nuevos proyectos y definir qué se muestra en la vitrina pública.
+Desarrollador de software enfocado en construir aplicaciones web reactivas de extremo a extremo, arquitecturas backend escalables, aplicaciones móviles nativas en **Android (Kotlin & Jetpack Compose)** y servidores **Model Context Protocol (MCP)** para conectar agentes de Inteligencia Artificial con herramientas reales.
 
-* **URL:** `/admin.html` (o el botón *ADMIN PORTAL* en el footer).
-* **Contraseña por defecto:** `jhonny2026`
-* **Seguridad:**
-  * Encriptación **SHA-256** mediante Web Crypto API (nunca se almacena la clave en texto plano).
-  * Sesión protegida (`sessionStorage` y opción de recordar en tu navegador).
-  * **Cambio de clave:** Puedes cambiar tu contraseña en cualquier momento desde el botón `CAMBIAR CLAVE` en la barra superior del panel admin.
+Combino el diseño de interfaces modernas (**Vue 3, Angular, Tailwind CSS, Figma**) con ingeniería de automatización, scraping determinista (**Python, Playwright, n8n**) y persistencia transaccional (**PostgreSQL, Supabase, Room SQLite, MongoDB**).
 
 ---
 
-## 🛠️ Secciones del Portafolio
+## 🚀 Proyectos Destacados & Colaborativos
 
-1. **Sección 00 // Hero Arquitectónico:**
-   - Visualización de banner real (`Gemini_Generated_Image_*.jpg`).
-   - Monitor CRT interactivo con 3 canales (`CH-01 3:00 AM CODE`, `CH-02 NEON MATRIX`, `CH-03 SYNTH FLOW`) y switch ON/OFF.
-   - Switcher de idioma bilingüe `[ ES | EN ]` en el navbar.
-2. **Sección 01 // Proyectos & Ecosistema MCP:**
-   - Filtros por categoría: *MCP & IA*, *Desarrollo Web & UI*, *Automatización & Data*, *Mobile & Android*.
-   - Simulador interactivo JSON-RPC 2.0 para servidores MCP (`Design-Extractor-MCP` y `Spotify-Stats-MCP`).
-   - Visor de `README.md` oficial descargado desde GitHub.
-3. **Sección 02 // Trayectoria & Experiencia:**
-   - Investigación en servidores MCP iniciada en **Octubre 2026**.
-   - Desarrollo Web Freelance con **WordPress**, **Vue 3**, **Stripe API** y prototipado en Figma.
-   - Formación académica en Ingeniería de Software en la **ULEAM**.
-4. **Sección 03 // Matriz de Stack (6 Capas):**
-   - Lenguajes, Frontend, Backend, Persistencia, DevOps e Interfaces interactivas.
-5. **Sección 04 // Pulso GitHub:**
-   - Gráficos y telemetría de commits en tiempo real.
-6. **Modal CV Ejecutivo ATS:**
-   - Resumen profesional optimizado para postulaciones laborales con opción de imprimir en formato ATS.
+### 1. [Design-Extractor-MCP](https://github.com/JhonnyCCM/Design-Extractor-MCP) — *AI Reverse Engineering & Design Tokens*
+Servidor **Model Context Protocol (JSON-RPC 2.0)** en Python que inspecciona sitios web mediante un navegador headless (**Playwright**), extrae variables CSS, paletas cromáticas, tipografías y árboles DOM/CSSOM, y genera automáticamente configuraciones listas para **Tailwind CSS** compatibles con Claude Desktop y Cursor IDE.
+
+### 2. [Campus Quest App](https://github.com/Erickelrojo-22/campus-quest-app) — *Colaborador Android Nativo & Arquitectura MVVM (ULEAM)*
+Aplicación **Android nativa** desarrollada en equipo con **Kotlin 2.2** y **Jetpack Compose (Material 3)** bajo estética retro *pixel-art* de 8 bits para gamificar el reconocimiento del campus universitario de la ULEAM.
+- **Arquitectura:** MVVM limpia con `StateFlow`, `Coroutines` y navegación declarativa.
+- **Persistencia 100% Offline-First:** Base de datos local en **Room (SQLite)** y **DataStore Preferences**.
+- **Sensores & Cámara:** Escáner y generador de códigos QR local mediante **CameraX** y **ZXing** sin dependencia de conexión a internet.
+
+### 3. [Spotify-Stats-MCP](https://github.com/JhonnyCCM/Spotify-Stats-MCP) — *AI Media Telemetry & Control*
+Servidor **MCP** que integra asistentes de IA con la API oficial de **Spotify** mediante **OAuth 2.0 PKCE**, permitiendo consultar métricas de escucha en tiempo real, analizar hábitos musicales, controlar la reproducción activa y construir playlists algorítmicas desde lenguaje natural.
+
+### 4. [n8n-omni-expense-tracker](https://github.com/JhonnyCCM/n8n-omni-expense-tracker) — *FinOps Automation & ACID Persistence*
+Ecosistema de automatización financiera contenerizado con **Docker Compose** que orquesta flujos de **n8n**, webhooks omnicanal y una base de datos transaccional **PostgreSQL 16** para registrar, categorizar y auditar gastos automáticamente.
+
+### Otros Proyectos Relevantes
+- **[uleamMatricula CLI](https://github.com/JhonnyCCM/uleamMatricula):** Herramienta de terminal en Python (`Requests`) para monitoreo de cupos y matriculación académica de baja latencia.
+- **[BookShare](https://github.com/JhonnyCCM/BookShare):** Plataforma Full Stack (React / Node.js) con integración continua y despliegue automatizado (**GitHub Actions & Microsoft Azure**).
+- **[Gym App](https://github.com/JhonnyCCM/gym-app):** Aplicación web reactiva con **Vue 3, Vite, Pinia y Tailwind CSS** enfocada en experiencia de usuario y gestión de rutinas.
+- **[reproductorspotify](https://github.com/JhonnyCCM/reproductorspotify):** Single Page Application conectada al SDK de Spotify para visualización y reproducción en vivo.
 
 ---
 
-**Jhonny Castillo Mero**  
-*Full Stack Developer • AI MCP Tooling Builder • UI/UX Designer*  
-Manta, Manabí, Ecuador 🇪🇨  
-GitHub: [@JhonnyCCM](https://github.com/JhonnyCCM)
+## 🛠️ Stack Tecnológico
+
+| Área | Tecnologías Principales | Experiencia Adicional |
+| :--- | :--- | :--- |
+| **Frontend & UI Design** | `Vue 3 (Vite / Pinia)`, `Angular`, `TypeScript`, `Tailwind CSS`, `Figma` | `React`, `Next.js`, `JavaScript (ES6+)`, `HTML5 / CSS3` |
+| **Backend, Datos & IA** | `Python`, `Supabase (PostgreSQL & Auth)`, `MongoDB`, `n8n`, `MCP Servers (JSON-RPC 2.0)` | `Node.js`, `PostgreSQL 16`, `MySQL`, `Playwright` |
+| **Mobile Nativo** | `Kotlin 2.2`, `Jetpack Compose (Material 3)`, `Room SQLite`, `CameraX & ZXing`, `MVVM` | `DataStore Preferences`, `Coroutines & Flow` |
+| **Cloud & DevOps** | `Docker & Docker Compose`, `Git & GitHub Actions (CI/CD)`, `Vercel`, `Linux` | `Microsoft Azure`, `Google Cloud`, `Render` |
+
+---
+
+## 🏅 Certificaciones, Formación & Comunidad
+
+- **Ingeniería de Software** — *Universidad Laica Eloy Alfaro de Manabí (ULEAM)* (2023 — Presente).
+- **Arquitectura de Servidores Model Context Protocol (MCP)** — *Anthropic MCP Spec & Open Source Ecosystem* (2026).
+- **DevFest Quito 2026 (Participación & Conferencias Técnicas)** — *Google Developer Groups (GDG Quito)*: Ciberseguridad y Patrones, Tácticas y Protocolos para Sistemas Multi-Agente (2026).
+- **Desarrollo de Interfaces Nativas Android con Kotlin & Jetpack Compose** — *Google Android Developers Training* (2024).
+- **Contenerización Docker & Pipelines CI/CD** — *Microsoft Azure & GitHub Actions* (2024).
+
+---
+
+## 📫 Contacto
+
+- **Portafolio Web:** [portafolio-jhonny-castillo.vercel.app](https://portafolio-jhonny-castillo.vercel.app)
+- **GitHub:** [@JhonnyCCM](https://github.com/JhonnyCCM)
+- **LinkedIn:** [Jhonny Cristhian Castillo Mero](https://www.linkedin.com/in/jhonny-castillo-mero/)
+- **Correo:** [jhonnycastillo1910@gmail.com](mailto:jhonnycastillo1910@gmail.com)
