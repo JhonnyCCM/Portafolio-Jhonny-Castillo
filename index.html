@@ -35,6 +35,52 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="JhonnyCCM" />
 
+  <!-- Schema.org Datos Estructurados (JSON-LD) para SEO y Rich Snippets -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://portafolio-jhonny-castillo.vercel.app/#person",
+        "name": "Jhonny Castillo",
+        "alternateName": "JhonnyCCM",
+        "jobTitle": "Full Stack Developer & AI Tooling Architect",
+        "description": "Desarrollador Full Stack en Manta, Ecuador. Especializado en Vue 3, TypeScript, Python, Tailwind CSS y Model Context Protocol (MCP) para agentes de IA.",
+        "url": "https://portafolio-jhonny-castillo.vercel.app/",
+        "image": "https://portafolio-jhonny-castillo.vercel.app/banner-eink-mono.jpg",
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "Universidad Laica Eloy Alfaro de Manabí (ULEAM)"
+        },
+        "sameAs": [
+          "https://github.com/JhonnyCCM",
+          "https://www.linkedin.com/in/jhonnyccm"
+        ],
+        "knowsAbout": [
+          "Vue.js",
+          "TypeScript",
+          "Python",
+          "FastAPI",
+          "Model Context Protocol (MCP)",
+          "Supabase",
+          "PostgreSQL",
+          "Tailwind CSS",
+          "Docker"
+        ]
+      },
+      {
+        "@type": "ProfilePage",
+        "@id": "https://portafolio-jhonny-castillo.vercel.app/#webpage",
+        "url": "https://portafolio-jhonny-castillo.vercel.app/",
+        "name": "Jhonny Castillo (@JhonnyCCM) — Portafolio Interactivo",
+        "about": { "@id": "https://portafolio-jhonny-castillo.vercel.app/#person" },
+        "inLanguage": "es"
+      }
+    ]
+  }
+  </script>
+
   <!-- Protección inmediata contra FOUC (Flash of Uncompiled Content) -->
   <style>
     [v-cloak], [v-cloak] * { display: none !important; }
