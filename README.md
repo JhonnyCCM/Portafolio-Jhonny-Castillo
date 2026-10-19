@@ -1,5 +1,12 @@
 # Jhonny Cristhian Castillo Mero (`@JhonnyCCM`)
 
+[![CI & Build Verification](https://github.com/JhonnyCCM/Portafolio-Jhonny-Castillo/actions/workflows/ci.yml/badge.svg)](https://github.com/JhonnyCCM/Portafolio-Jhonny-Castillo/actions/workflows/ci.yml)
+[![Vite](https://img.shields.io/badge/Vite-5.4-646CFF?style=flat&logo=vite&logoColor=white)](https://vite.dev/)
+[![Vue 3](https://img.shields.io/badge/Vue-3.x-4FC08D?style=flat&logo=vue.js&logoColor=white)](https://vuejs.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-06B6D4?style=flat&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![Supabase](https://img.shields.io/badge/Supabase-Backend-3ECF8E?style=flat&logo=supabase&logoColor=white)](https://supabase.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 **Full Stack Developer • AI Tooling & MCP Architect • Native Android Developer**  
 📍 Manta, Manabí, Ecuador 🇪🇨 (UTC-5) | 🎓 Ingeniería de Software — **ULEAM**
 
