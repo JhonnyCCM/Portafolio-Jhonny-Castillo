@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+
+Sitemap: https://portafolio-jhonny-castillo.vercel.app/sitemap.xml
